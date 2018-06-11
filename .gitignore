@@ -79,3 +79,13 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#Visual Stduio 
+.vs
+
+#Visual Stduio Code
+.vscode
+
+#Other
+Demo_Data
+Demo
