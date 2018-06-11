@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Photon.PunBehaviour{
+public class Player : Photon.PunBehaviour {
 
     
     public float initialSize = 1.0f;
@@ -21,7 +21,6 @@ public class Player : Photon.PunBehaviour{
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
         
     }
 
@@ -30,40 +29,32 @@ public class Player : Photon.PunBehaviour{
         if (other.gameObject.CompareTag("food"))
         {
 			Debug.Log ("玩家：碰到了食物");
-            playerEnergy += 2f; 
+            playerEnergy+=0.8f; 
             float sq=Mathf.Sqrt(playerEnergy);
             gameObject.GetComponent<PlayerController>().speed = 0.7f / sq;
             playerSize = new Vector3(sq, sq, sq);
             transform.localScale = playerSize;
         }
-       
-    }
-
-     
-     void OnControllerColliderHit(ControllerColliderHit other){
-        Debug.Log("碰撞已检测");
-        if (other.gameObject.tag == "player")
-        {
-            Debug.Log("玩家：碰撞到了玩家");
+        if(other.gameObject.tag == "player"/*&&this.photonView.isMine*/){
+            Debug.Log("碰撞到了玩家");
             health -= other.gameObject.transform.localScale.x * 5;
-            Debug.Log("受到伤害： " + other.gameObject.transform.localScale.x * 5);
-            Debug.Log("当前生命值: " + health);
+            Debug.Log("当前血量： "+health);
         }
-        if (health < 0)
-        {
+        if(health<0){
             //PhotonView.Destroy(this.gameObject);
-            photonView.RPC("PunDestroy", PhotonTargets.AllBufferedViaServer);
+            this.photonView.RPC("DestroyThis",PhotonTargets.All);
         }
     }
 
-   
+ 
+
     public Vector3 GetPlayerSize()
     {
         return playerSize;
     }
-
     [PunRPC]
-    void PunDestroy(PhotonMessageInfo msgInfo){
-        Destroy(gameObject);
+    void DestroyThis(){
+        PhotonView.Destroy(this.gameObject);
     }
+
 }
