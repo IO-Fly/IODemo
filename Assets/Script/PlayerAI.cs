@@ -30,9 +30,14 @@ public class PlayerAI : MonoBehaviour {
         character.Move(towards * Time.deltaTime * speed);
     }
 
+    //随机方向，“俯仰角”限制在45度以内
     private Vector3 GetRandomDirection()
     {
-        return new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-0.5f, 0.5f), Random.Range(-1.0f, 1.0f)).normalized;
-
+        float theta = Random.Range(0.0f, 2 * Mathf.PI);
+        float phi = Random.Range(-Mathf.PI / 4, Mathf.PI / 4);
+        float x = Mathf.Cos(theta) * Mathf.Cos(phi);
+        float z = Mathf.Sin(theta) * Mathf.Cos(phi);
+        float y = Mathf.Sin(phi);
+        return new Vector3(x, y, z);
     }
 }
