@@ -37,8 +37,9 @@ public class Player : Photon.PunBehaviour {
         }
         if(other.gameObject!=this.gameObject&&other.gameObject.tag == "player"&&this.photonView.isMine){
             Debug.Log("碰撞到了玩家");
-            health -= other.gameObject.transform.localScale.x * 5;
+            this.photonView.RPC("GetDamage",PhotonTargets.AllViaServer,other.gameObject.transform.localScale.x*5);
             Debug.Log("当前血量： "+health);
+            Debug.Log("对方血量： "+ other.gameObject.gameObject.GetComponent<Player>().health);
         }
         if(health<0){
             //PhotonView.Destroy(this.gameObject);
@@ -55,6 +56,12 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void DestroyThis(){
         PhotonView.Destroy(this.gameObject);
+    }
+
+    [PunRPC]
+    void GetDamage(float damage){
+        health -= damage;
+
     }
 
 }
