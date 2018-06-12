@@ -17,7 +17,7 @@ public class FoodController : Photon.PunBehaviour {
 		Debug.Log ("食物：碰撞，将要删除");
 		if (other.gameObject.tag == "player") {
 			Debug.Log ("食物：删除");
-			PhotonView.Destroy (this.gameObject);
+			PhotonNetwork.Destroy (this.gameObject);
 		}
 	}
 

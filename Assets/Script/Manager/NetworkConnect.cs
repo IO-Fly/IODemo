@@ -41,7 +41,7 @@ public class NetworkConnect : Photon.PunBehaviour {
     //加入房间失败，自己创建房间
     public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
     {
-        RoomOptions roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = 2 , PublishUserId = true };
+        RoomOptions roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = (byte)maxPlayerPerRoom, PublishUserId = true };
         PhotonNetwork.CreateRoom(null, roomOptions, null);
     }
 }
