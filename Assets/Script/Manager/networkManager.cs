@@ -9,7 +9,7 @@ public class networkManager :Photon.PunBehaviour {
 	public int foodCount=50;
 	// Use this for initialization
 	void Start () {
-     
+		
 	}
 	
 	// Update is called once per frame
