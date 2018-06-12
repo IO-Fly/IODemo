@@ -13,22 +13,28 @@ public class PlayerHealthUI : MonoBehaviour {
 
     private Player player;
     private float modelHalfHeight;
-
+    private float modelStartLocalScale;
 
 
     void Start ()
     {
         player = GetComponent<Player>();
+        modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
+        //Debug.Log(modelHalfHeight);
 
-        healthCanvas = GameObject.Instantiate(healthCanvasPrefab, transform.position, Quaternion.identity) as GameObject;
-        healthSlider = Slider.Instantiate(healthSliderPrefab, new Vector3(0,0,0), Quaternion.identity) as Slider;
+        //float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
+        //Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
+
+        healthCanvas = GameObject.Instantiate(healthCanvasPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+        healthCanvas.transform.SetParent(transform, false);
+        float Yoffset = transform.localScale.y * modelHalfHeight + 0.2f;
+        healthCanvas.transform.Translate(0.0f, Yoffset, 0.0f);
+
+
+        healthSlider = Slider.Instantiate(healthSliderPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as Slider;
         healthSlider.transform.SetParent(healthCanvas.transform, false);
         healthSlider.maxValue = player.health;
         healthSlider.value = player.health;
-
-        modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
-        //Debug.Log(modelHalfHeight);
-        healthCanvas.transform.SetParent(transform, false);
 
     }
 	
@@ -44,10 +50,11 @@ public class PlayerHealthUI : MonoBehaviour {
         {
             healthSlider.value = player.health;
 
-            float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
-            Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
-            healthCanvas.transform.position = newPos;
+            //float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
+            //Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
+            //healthCanvas.transform.position = newPos;
             healthCanvas.transform.rotation = Camera.main.transform.rotation;
+            //healthCanvas.transform.LookAt(Camera.main.transform);
         }
 
     }
