@@ -13,8 +13,10 @@ public class PlayerController : MonoBehaviour {
     private Vector3 right;
     public float speed;
 
-    public float force = 50;
-    public float gravity = 0.01f;
+    public bool fly = false;
+    public bool drop = false;
+    public float height = 5;
+    public float gravity = 0.001f;
 
     private enum MOVE_DIRECTION { FRONT,FRONT_LEFT,FRONT_RIGHT, LEFT, RIGHT };
     private MOVE_DIRECTION moveDirection;
@@ -101,18 +103,20 @@ public class PlayerController : MonoBehaviour {
 
         if (moveVertical < 0.0f)
             moveVertical = 0.0f;
-        //Vector3 move = towards * moveVertical + right * moveHorizontal;
+        Vector3 move = towards * moveVertical + right * moveHorizontal;
         //gameObject.transform.position += (move.normalized * speed);
-        Vector3 move = right* moveHorizontal;
-        
-        //move.y = 0;
-        if(force>0){        
-        move.y += force;
-        force -= gravity;
+        //Vector3 move = right* moveHorizontal;
+       if(fly){
+        move.y = 0;
+        if(this.gameObject.transform.position.y < height&&drop==false){
+            move.y +=0.5f;
+            Debug.Log("想飞");
         }
         else{
-            move.y -= gravity;
+            drop =true;
+            move.y-=0.5f;
         }
+       }
         _character.Move(move*speed);
         //_character.SimpleMove(move*speed);
 
