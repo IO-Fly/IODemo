@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour {
     private Vector3 right;
     public float speed;
 
+    public bool fly = false;
+    public bool drop = false;
+    public float height = 5;
+    public float gravity = 0.001f;
+
     private enum MOVE_DIRECTION { FRONT,FRONT_LEFT,FRONT_RIGHT, LEFT, RIGHT };
     private MOVE_DIRECTION moveDirection;
     public  CharacterController _character;
@@ -98,7 +103,21 @@ public class PlayerController : MonoBehaviour {
             moveVertical = 0.0f;
         Vector3 move = towards * moveVertical + right * moveHorizontal;
         //gameObject.transform.position += (move.normalized * speed);
+        //Vector3 move = right* moveHorizontal;
+       if(fly){
+        move.y = 0;
+        if(this.gameObject.transform.position.y < height&&drop==false){
+            move.y +=0.5f;
+            Debug.Log("想飞");
+        }
+        else{
+            drop =true;
+            move.y-=0.5f;
+        }
+       }
         _character.Move(move*speed);
+        //_character.SimpleMove(move*speed);
+
     }
 
     public Vector3 GetTowards()
