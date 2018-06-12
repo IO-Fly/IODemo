@@ -24,7 +24,7 @@ public class PlayerSpeedController : MonoBehaviour {
         if (Input.GetKeyDown("space") && curCooldown <= 0)
         {
             curCooldown = cooldown;
-            gameObject.GetComponent<PlayerController>().speed += addSpeed;
+            gameObject.GetComponent<PlayerController>().AddSpeed(addSpeed);
             StartCoroutine("WaitForEndSkill");
         }
 
@@ -38,6 +38,6 @@ public class PlayerSpeedController : MonoBehaviour {
     IEnumerator WaitForEndSkill()
     {
         yield return new WaitForSeconds(keepTime);
-        gameObject.GetComponent<PlayerController>().speed -= addSpeed;
+        gameObject.GetComponent<PlayerController>().AddSpeed(-addSpeed);
     }
 }
