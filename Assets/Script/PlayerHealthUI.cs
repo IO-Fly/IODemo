@@ -49,4 +49,9 @@ public class PlayerHealthUI : MonoBehaviour {
         }
 
     }
+
+    public GameObject getHealthCanvas()
+    {
+        return healthCanvas;
+    }
 }
