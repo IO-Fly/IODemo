@@ -32,7 +32,10 @@ public class Player : Photon.PunBehaviour {
             Debug.Log("实时更新当前血量： " + health);
             Debug.Log("实时更新对方血量： " + other.gameObject.gameObject.GetComponent<Player>().health);
         }
-
+        if (health < 0)
+        {
+            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
+        }
     }
 
      void OnTriggerEnter(Collider other)
@@ -80,11 +83,7 @@ public class Player : Photon.PunBehaviour {
 
     [PunRPC]
     void GetDamage(float damage){
-        health -= damage;
-        if (health < 0)
-        {   
-            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
-        }
+        health -= damage;  
     }
 
 }
