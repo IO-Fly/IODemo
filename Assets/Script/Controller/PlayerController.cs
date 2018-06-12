@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour {
     private Vector3 right;
     public float speed;
 
+    public float force = 50;
+    public float gravity = 0.01f;
+
     private enum MOVE_DIRECTION { FRONT,FRONT_LEFT,FRONT_RIGHT, LEFT, RIGHT };
     private MOVE_DIRECTION moveDirection;
     public  CharacterController _character;
@@ -98,9 +101,21 @@ public class PlayerController : MonoBehaviour {
 
         if (moveVertical < 0.0f)
             moveVertical = 0.0f;
-        Vector3 move = towards * moveVertical + right * moveHorizontal;
+        //Vector3 move = towards * moveVertical + right * moveHorizontal;
         //gameObject.transform.position += (move.normalized * speed);
+        Vector3 move = right* moveHorizontal;
+        
+        //move.y = 0;
+        if(force>0){        
+        move.y += force;
+        force -= gravity;
+        }
+        else{
+            move.y -= gravity;
+        }
         _character.Move(move*speed);
+        //_character.SimpleMove(move*speed);
+
     }
 
     public Vector3 GetTowards()
