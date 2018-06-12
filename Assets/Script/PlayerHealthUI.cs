@@ -13,10 +13,7 @@ public class PlayerHealthUI : MonoBehaviour {
 
     private Player player;
     private float modelHalfHeight;
-<<<<<<< HEAD
-=======
-    private float modelStartLocalScale;
->>>>>>> master
+
 
 
     void Start ()
@@ -29,16 +26,10 @@ public class PlayerHealthUI : MonoBehaviour {
         healthSlider.maxValue = player.health;
         healthSlider.value = player.health;
 
-<<<<<<< HEAD
-
-        modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
-        Debug.Log(modelHalfHeight);
-=======
-        healthCanvas.transform.SetParent(transform, false);
-
         modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
         //Debug.Log(modelHalfHeight);
->>>>>>> master
+        healthCanvas.transform.SetParent(transform, false);
+
     }
 	
 
