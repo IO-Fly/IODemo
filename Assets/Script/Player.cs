@@ -35,14 +35,14 @@ public class Player : Photon.PunBehaviour {
             playerSize = new Vector3(sq, sq, sq);
             transform.localScale = playerSize;
         }
-        if(other.gameObject.tag == "player"/*&&this.photonView.isMine*/){
+        if(other.gameObject!=this.gameObject&&other.gameObject.tag == "player"&&this.photonView.isMine){
             Debug.Log("碰撞到了玩家");
             health -= other.gameObject.transform.localScale.x * 5;
             Debug.Log("当前血量： "+health);
         }
         if(health<0){
             //PhotonView.Destroy(this.gameObject);
-            this.photonView.RPC("DestroyThis",PhotonTargets.All);
+            this.photonView.RPC("DestroyThis",PhotonTargets.AllViaServer);
         }
     }
 
