@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    ///public new GameObject camera;
-
     public float mouseSensitivity = 1.0f;
 
     private Vector3 towards;//角色朝向的方向
