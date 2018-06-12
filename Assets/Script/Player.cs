@@ -6,17 +6,18 @@ public class Player : Photon.PunBehaviour {
 
     
     public float initialSize = 1.0f;
-    public float speed;
+    public float initialSpeed = 0.7f;
     public float health;
 
     private float playerEnergy;
     private Vector3 playerSize;
-    
+    private float speed;
 
     // Use this for initialization
     void Start () {
         playerEnergy = initialSize * initialSize;
         playerSize = new Vector3(initialSize, initialSize, initialSize);
+        speed = initialSpeed;
 	}
 	
 	// Update is called once per frame
@@ -31,7 +32,7 @@ public class Player : Photon.PunBehaviour {
 			Debug.Log ("玩家：碰到了食物");
             playerEnergy+=0.8f; 
             float sq=Mathf.Sqrt(playerEnergy);
-            gameObject.GetComponent<PlayerController>().speed = 0.7f / sq;
+            speed = initialSpeed / sq;
             playerSize = new Vector3(sq, sq, sq);
             transform.localScale = playerSize;
         }
@@ -46,7 +47,10 @@ public class Player : Photon.PunBehaviour {
         }
     }
 
- 
+    public float GetSpeed()
+    {
+        return speed;
+    }
 
     public Vector3 GetPlayerSize()
     {

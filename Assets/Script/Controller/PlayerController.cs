@@ -11,18 +11,21 @@ public class PlayerController : MonoBehaviour {
     private Vector3 towards;//角色朝向的方向
     private Vector3 up;//向上向量
     private Vector3 right;
-    public float speed;
+    private float speed;
 
     private enum MOVE_DIRECTION { FRONT,FRONT_LEFT,FRONT_RIGHT, LEFT, RIGHT };
     private MOVE_DIRECTION moveDirection;
-    public  CharacterController _character;
+
+    private CharacterController character;
+
     // Use this for initialization
     void Start () {
-        speed = gameObject.GetComponent<Player>().speed;
+        speed = gameObject.GetComponent<Player>().GetSpeed();
         towards = new Vector3(0.0f, 0.0f, 1.0f);
         up = new Vector3(0.0f, 1.0f, 0.0f);
         right = new Vector3(1.0f, 0.0f, 0.0f);
         moveDirection = MOVE_DIRECTION.FRONT;
+        character = gameObject.GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
@@ -99,8 +102,10 @@ public class PlayerController : MonoBehaviour {
         if (moveVertical < 0.0f)
             moveVertical = 0.0f;
         Vector3 move = towards * moveVertical + right * moveHorizontal;
+        speed = gameObject.GetComponent<Player>().GetSpeed();
+        character.Move(move * speed);
         //gameObject.transform.position += (move.normalized * speed);
-        _character.Move(move*speed);
+
     }
 
     public Vector3 GetTowards()
