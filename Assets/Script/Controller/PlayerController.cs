@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-    ///public new GameObject camera;
-
     public float mouseSensitivity = 1.0f;
 
     private Vector3 towards;//角色朝向的方向
@@ -17,6 +15,12 @@ public class PlayerController : MonoBehaviour {
     private float targetLookAtSlerp;
 
     private CharacterController character;
+
+
+    public bool fly = false;
+    public bool drop = false;
+    public float height = 5;
+    public float gravity = 0.001f;
 
     // Use this for initialization
     void Start () {
@@ -97,10 +101,25 @@ public class PlayerController : MonoBehaviour {
         if (moveVertical < 0.0f)
             moveVertical = 0.0f;
 
-        //执行移动操作
+        
         Vector3 move = towards * moveVertical + right * moveHorizontal;
+
+       if(fly){
+        move.y = 0;
+        if(this.gameObject.transform.position.y < height&&drop==false){
+            move.y +=0.5f;
+            Debug.Log("想飞");
+        }
+        else{
+            drop =true;
+            move.y-=0.5f;
+        }
+       }
+
+        //执行移动操作
         speed = gameObject.GetComponent<Player>().GetSpeed();
-        character.Move(move * speed);
+        character.Move(move*speed);
+
     }
 
     public Vector3 GetTowards()

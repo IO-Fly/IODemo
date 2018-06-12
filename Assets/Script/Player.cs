@@ -11,7 +11,11 @@ public class Player : Photon.PunBehaviour {
 
     private float playerEnergy;
     private Vector3 playerSize;
+
     private float speed;
+
+    //Debug
+    public GameObject other;
 
     // Use this for initialization
     void Start () {
@@ -23,6 +27,12 @@ public class Player : Photon.PunBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         
+        if(photonView.isMine && other != null)
+        {
+            Debug.Log("实时更新当前血量： " + health);
+            Debug.Log("实时更新对方血量： " + other.gameObject.gameObject.GetComponent<Player>().health);
+        }
+
     }
 
      void OnTriggerEnter(Collider other)
@@ -36,21 +46,28 @@ public class Player : Photon.PunBehaviour {
             playerSize = new Vector3(sq, sq, sq);
             transform.localScale = playerSize;
         }
-        if(other.gameObject!=this.gameObject&&other.gameObject.tag == "player"&&this.photonView.isMine){
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit other)
+    {
+        if (other.gameObject != this.gameObject && other.gameObject.tag == "player" && this.photonView.isMine)
+        {
             Debug.Log("碰撞到了玩家");
-            health -= other.gameObject.transform.localScale.x * 5;
-            Debug.Log("当前血量： "+health);
-        }
-        if(health<0){
-            //PhotonView.Destroy(this.gameObject);
-            this.photonView.RPC("DestroyThis",PhotonTargets.AllViaServer);
+            this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
+            other.gameObject.GetComponent<Player>().photonView.RPC("GetDamage",
+                PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
+
+            //Debug
+            this.other = other.gameObject;
         }
     }
+
 
     public float GetSpeed()
     {
         return speed;
     }
+
 
     public Vector3 GetPlayerSize()
     {
@@ -58,7 +75,16 @@ public class Player : Photon.PunBehaviour {
     }
     [PunRPC]
     void DestroyThis(){
-        PhotonView.Destroy(this.gameObject);
+        PhotonNetwork.Destroy(this.gameObject);
+    }
+
+    [PunRPC]
+    void GetDamage(float damage){
+        health -= damage;
+        if (health < 0)
+        {   
+            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
+        }
     }
 
 }

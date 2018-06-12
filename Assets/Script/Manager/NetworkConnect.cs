@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkConnect : Photon.PunBehaviour {
-	public int maxPlayerPerRoom=2;
+	public int maxPlayerPerRoom=1;
 	// Use this for initialization
 	void Start () {
        
@@ -29,6 +29,9 @@ public class NetworkConnect : Photon.PunBehaviour {
 	{
 		Debug.Log("joined room");
 		PhotonNetwork.automaticallySyncScene = true;
+
+		PhotonNetwork.LoadLevel("GameScene");
+
 	}
 	public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
 		int number = PhotonNetwork.playerList.Length;
@@ -41,7 +44,7 @@ public class NetworkConnect : Photon.PunBehaviour {
     //加入房间失败，自己创建房间
     public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
     {
-        RoomOptions roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = 2 , PublishUserId = true };
+        RoomOptions roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = (byte)maxPlayerPerRoom, PublishUserId = true };
         PhotonNetwork.CreateRoom(null, roomOptions, null);
     }
 }
