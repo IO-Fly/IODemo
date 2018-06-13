@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PostProcessing;
 
 
 
 public class CameraController : MonoBehaviour {
 
     public static GameObject player;
+
+    public PostProcessingProfile normal, fx;
+    private PostProcessingBehaviour camImageFx;
 
     public float mouseSensitivity = 3.0f;
     public float scrollSensitivity = 3.0f;
@@ -29,6 +33,7 @@ public class CameraController : MonoBehaviour {
 
         offsetAngleHorizontal = 0.0f;
         offsetAngleVertical = 0.0f;
+        camImageFx = FindObjectOfType<PostProcessingBehaviour>();
     }
 
     private void Update()
@@ -89,11 +94,23 @@ public class CameraController : MonoBehaviour {
 
         transform.position = player.gameObject.transform.position + direction * distanceToPlayer;
         transform.LookAt(player.transform);
+        if(this.transform.position.y>0){
+                this.gameObject.GetComponent<PostProcessingBehaviour>().profile = normal;
+            }
+        if(this.transform.position.y<0){
+           this.gameObject.GetComponent<PostProcessingBehaviour>() .profile = fx;
+        }
+
     }
+    
 
 
     public Vector3 GetDirectionNormal()
     {
         return direction;
     }
+
+   
+
+
 }
