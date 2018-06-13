@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour {
 
-    public GameObject healthCanvasPrefab;
-    public Slider healthSliderPrefab;
+    //public Slider screenHealthSliderPrefab; //当前player的血条
 
-    private GameObject healthCanvas;
-    private Slider healthSlider;
+    public GameObject healthCanvasPrefab;   //场景中可移动画布prefab
+    public Slider healthSliderPrefab;       //场景中可移动血条prefab
+
+    private GameObject healthCanvas;//场景中可移动画布
+    private Slider healthSlider;    //场景中可移动血条
 
     private Player player;
     private float modelHalfHeight;
-    private float modelStartLocalScale;
 
 
     void Start ()
@@ -36,6 +37,15 @@ public class PlayerHealthUI : MonoBehaviour {
         healthSlider.maxValue = player.health;
         healthSlider.value = player.health;
 
+
+
+
+        //if (player.photonView.isMine)
+        //{
+        //    screenHealthSlider.maxValue = player.health;
+        //    screenHealthSlider.value = player.health;
+        //}
+
     }
 	
 
@@ -45,16 +55,23 @@ public class PlayerHealthUI : MonoBehaviour {
         {
             Destroy(healthSlider);
             Destroy(healthCanvas);
+            return;
+        }
+        if (player.photonView.isMine)
+        {
+            //screenHealthSlider.value = player.health;
+            healthCanvas.SetActive(false);
+            return;
         }
         if (healthCanvas)
         {
             healthSlider.value = player.health;
 
-            //float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
-            //Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
-            //healthCanvas.transform.position = newPos;
-            healthCanvas.transform.rotation = Camera.main.transform.rotation;
-            //healthCanvas.transform.LookAt(Camera.main.transform);
+            float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
+            Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
+            healthCanvas.transform.position = newPos;
+            //healthCanvas.transform.rotation = Camera.main.transform.rotation;
+            healthCanvas.transform.LookAt(Camera.main.transform);
         }
 
     }
