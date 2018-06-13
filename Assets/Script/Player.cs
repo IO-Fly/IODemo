@@ -58,7 +58,7 @@ public class Player : Photon.PunBehaviour {
             Debug.Log("碰撞到了玩家");
             this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
             other.gameObject.GetComponent<Player>().photonView.RPC("GetDamage",
-                PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
+                PhotonTargets.AllViaServer, this.gameObject.transform.localScale.x * 5);
 
             //Debug
             this.other = other.gameObject;
