@@ -30,7 +30,6 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         distanceToPlayer = distanceToPlayerInit;
-
         offsetAngleHorizontal = 0.0f;
         offsetAngleVertical = 0.0f;
         camImageFx = FindObjectOfType<PostProcessingBehaviour>();
@@ -75,7 +74,7 @@ public class CameraController : MonoBehaviour {
         direction = Vector3.SlerpUnclamped(direction, up, 1.6f + offsetAngleVertical/90.0f).normalized;
 
 
-        float playerSize = player.GetComponent<Player>().GetPlayerSize().x;
+        float playerSize = player.GetComponent<Player>().GetRenderPlayerSize().x;
         distanceToPlayer = playerSize * distanceToPlayerInit;
 
 
