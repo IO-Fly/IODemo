@@ -5,30 +5,45 @@ using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour {
 
-    public GameObject healthCanvasPrefab;
-    public Slider healthSliderPrefab;
+    public GameObject healthCanvasPrefab;   //场景中可移动画布prefab
+    public Slider healthSliderPrefab;       //场景中可移动血条prefab
 
-    private GameObject healthCanvas;
-    private Slider healthSlider;
+    private GameObject healthCanvas;//场景中可移动画布
+    private Slider healthSlider;    //场景中可移动血条
 
     private Player player;
     private float modelHalfHeight;
 
-
+    private Slider screenHealthSlider; //当前player的血条,固定位置
 
     void Start ()
     {
         player = GetComponent<Player>();
+        modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
+        //Debug.Log(modelHalfHeight);
 
-        healthCanvas = GameObject.Instantiate(healthCanvasPrefab, transform.position, Quaternion.identity) as GameObject;
-        healthSlider = Slider.Instantiate(healthSliderPrefab, new Vector3(0,0,0), Quaternion.identity) as Slider;
+        //float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
+        //Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
+
+        healthCanvas = GameObject.Instantiate(healthCanvasPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+        healthCanvas.transform.SetParent(transform, false);
+        float Yoffset = transform.localScale.y * modelHalfHeight + 0.2f;
+        healthCanvas.transform.Translate(0.0f, Yoffset, 0.0f);
+
+
+        healthSlider = Slider.Instantiate(healthSliderPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as Slider;
         healthSlider.transform.SetParent(healthCanvas.transform, false);
         healthSlider.maxValue = player.health;
         healthSlider.value = player.health;
 
-        modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
-        //Debug.Log(modelHalfHeight);
-        healthCanvas.transform.SetParent(transform, false);
+        if (player.photonView.isMine)
+        {
+            GameObject root = GameObject.Find("GameObject");
+            GameObject screenHealthObj = GameObject.Find("HUDCanvas/CurPlayerHealthUI/HealthSlider");
+            screenHealthSlider = screenHealthObj.GetComponent<Slider>();
+            screenHealthSlider.maxValue = player.health;
+            screenHealthSlider.value = player.health;
+        }
 
     }
 	
@@ -39,6 +54,13 @@ public class PlayerHealthUI : MonoBehaviour {
         {
             Destroy(healthSlider);
             Destroy(healthCanvas);
+            return;
+        }
+        if (player.photonView.isMine)
+        {
+            screenHealthSlider.value = player.health;
+            healthCanvas.SetActive(false);
+            return;
         }
         if (healthCanvas)
         {
@@ -47,8 +69,14 @@ public class PlayerHealthUI : MonoBehaviour {
             float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
             Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
             healthCanvas.transform.position = newPos;
-            healthCanvas.transform.rotation = Camera.main.transform.rotation;
+            //healthCanvas.transform.rotation = Camera.main.transform.rotation;
+            healthCanvas.transform.LookAt(Camera.main.transform);
         }
 
+    }
+
+    public GameObject getHealthCanvas()
+    {
+        return healthCanvas;
     }
 }
