@@ -66,6 +66,11 @@ public class Player : Photon.PunBehaviour {
     }
 
 
+    public void AddSpeed(float addSpeed)
+    {
+        speed += addSpeed; 
+    }
+
     public float GetSpeed()
     {
         return speed;
