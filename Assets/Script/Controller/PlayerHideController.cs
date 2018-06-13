@@ -48,9 +48,12 @@ public class PlayerHideController : Photon.PunBehaviour {
             //在其他玩家的视口下隐藏本身
             this.gameObject.GetComponent<Renderer>().enabled = !isHide;
             this.gameObject.GetComponent<PlayerHealthUI>().getHealthCanvas().SetActive(!isHide);
-   
+            Renderer[] renders = this.gameObject.GetComponentsInChildren<Renderer>();
+            foreach (Renderer m in renders)
+            {
+                m.enabled = !isHide;
+            }
         }
-          
     }
 
 }
