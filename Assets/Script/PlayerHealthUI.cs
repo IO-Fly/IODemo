@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour {
 
-    //public Slider screenHealthSliderPrefab; //当前player的血条
-
     public GameObject healthCanvasPrefab;   //场景中可移动画布prefab
     public Slider healthSliderPrefab;       //场景中可移动血条prefab
 
@@ -16,6 +14,7 @@ public class PlayerHealthUI : MonoBehaviour {
     private Player player;
     private float modelHalfHeight;
 
+    private Slider screenHealthSlider; //当前player的血条,固定位置
 
     void Start ()
     {
@@ -37,14 +36,14 @@ public class PlayerHealthUI : MonoBehaviour {
         healthSlider.maxValue = player.health;
         healthSlider.value = player.health;
 
-
-
-
-        //if (player.photonView.isMine)
-        //{
-        //    screenHealthSlider.maxValue = player.health;
-        //    screenHealthSlider.value = player.health;
-        //}
+        if (player.photonView.isMine)
+        {
+            GameObject root = GameObject.Find("GameObject");
+            GameObject screenHealthObj = GameObject.Find("HUDCanvas/CurPlayerHealthUI/HealthSlider");
+            screenHealthSlider = screenHealthObj.GetComponent<Slider>();
+            screenHealthSlider.maxValue = player.health;
+            screenHealthSlider.value = player.health;
+        }
 
     }
 	
@@ -59,7 +58,7 @@ public class PlayerHealthUI : MonoBehaviour {
         }
         if (player.photonView.isMine)
         {
-            //screenHealthSlider.value = player.health;
+            screenHealthSlider.value = player.health;
             healthCanvas.SetActive(false);
             return;
         }
