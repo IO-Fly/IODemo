@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d20b3d3553eb837419dda1621f11c8a6
+guid: f53a1810a961daf4cb57187bbedcae48
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -60,30 +60,6 @@ ModelImporter:
     2100004: blinn1
     2100006: blinn3
     2100008: lambert1
-    2300000: pCone1
-    2300002: pCone1 1
-    2300004: pCone2
-    2300006: pCone2 1
-    2300008: pCone3
-    2300010: pCone3 1
-    2300012: pPyramid1
-    2300014: pPyramid2
-    2300016: pSphere1
-    2300018: pSphere2
-    2300020: pSphere4
-    2300022: pTorus1
-    3300000: pCone1
-    3300002: pCone1 1
-    3300004: pCone2
-    3300006: pCone2 1
-    3300008: pCone3
-    3300010: pCone3 1
-    3300012: pPyramid1
-    3300014: pPyramid2
-    3300016: pSphere1
-    3300018: pSphere2
-    3300020: pSphere4
-    3300022: pTorus1
     4300000: pSphere2
     4300002: pSphere4
     4300004: pCone3
@@ -98,6 +74,18 @@ ModelImporter:
     4300022: pSphere1
     7400000: Take 001
     9500000: //RootNode
+    13700000: pCone1
+    13700002: pCone1 1
+    13700004: pCone2
+    13700006: pCone2 1
+    13700008: pCone3
+    13700010: pCone3 1
+    13700012: pPyramid1
+    13700014: pPyramid2
+    13700016: pSphere1
+    13700018: pSphere2
+    13700020: pSphere4
+    13700022: pTorus1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -130,7 +118,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 120
+      lastFrame: 160
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

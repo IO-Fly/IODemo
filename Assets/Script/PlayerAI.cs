@@ -24,36 +24,38 @@ public class PlayerAI : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
         //检测警戒范围内是否有玩家角色，并找出距离最近的玩家角色
-        Player closestPlayer = null;
-        float currentDistance = Mathf.Infinity;
-        Vector3 selfPosition = gameObject.transform.position;
-        foreach (Player player in playerList)
+        timeCount -= Time.deltaTime;
+        if (timeCount <= 0.0f)
         {
-            Vector3 playerPosition = player.gameObject.transform.position;
-            float distance = Vector3.Distance(playerPosition, selfPosition);
-            if (distance < Mathf.Min(alertDistance, currentDistance))
+            timeCount = Random.Range(2.0f, 3.0f);
+
+            Player closestPlayer = null;
+            float currentDistance = Mathf.Infinity;
+            Vector3 selfPosition = gameObject.transform.position;
+            foreach (Player player in playerList)
             {
-                currentDistance = distance;
-                closestPlayer = player;
+                Vector3 playerPosition = player.gameObject.transform.position;
+                float distance = Vector3.Distance(playerPosition, selfPosition);
+                if (distance < Mathf.Min(alertDistance, currentDistance))
+                {
+                    currentDistance = distance;
+                    closestPlayer = player;
+                }
             }
-        }
-        //如果警戒范围内有玩家，AI选择远离最近玩家的方向作为移动方向
-        if (closestPlayer != null)
-        {
-            Vector3 closestPlayerPosition = closestPlayer.gameObject.transform.position;
-            towards = (selfPosition - closestPlayerPosition).normalized;
-            transform.LookAt(selfPosition + towards);
-        }
-        //如果警戒范围内没有玩家，随机选择移动方向
-        else
-        {
-            timeCount -= Time.deltaTime;
-            if (timeCount <= 0.0f)
+            //如果警戒范围内有玩家，AI选择远离最近玩家的方向作为移动方向
+            if (closestPlayer != null)
+            {
+                Vector3 closestPlayerPosition = closestPlayer.gameObject.transform.position;
+                Vector3 randomOffset = new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f));
+                towards = (selfPosition - closestPlayerPosition + randomOffset).normalized;
+                transform.LookAt(selfPosition + towards);
+            }
+            //如果警戒范围内没有玩家，随机选择移动方向
+            else
             {
                 towards = GetRandomDirection();
-                timeCount = Random.Range(2.0f, 3.0f);
                 transform.LookAt(gameObject.transform.position + towards);
             }
         }
