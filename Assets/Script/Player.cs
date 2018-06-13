@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : Photon.PunBehaviour {
 
     
@@ -9,8 +10,11 @@ public class Player : Photon.PunBehaviour {
     public float initialSpeed = 20.0f;
     public float health;
 
+
     private float playerEnergy;
     private Vector3 playerSize;
+
+    private float sizeEffect;//用于本地视口玩家角色大小显示效果
 
     private float speed;
 
@@ -22,7 +26,9 @@ public class Player : Photon.PunBehaviour {
         playerEnergy = initialSize * initialSize;
         playerSize = new Vector3(initialSize, initialSize, initialSize);
         speed = initialSpeed;
-	}
+        sizeEffect = 1.0f;
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -77,10 +83,30 @@ public class Player : Photon.PunBehaviour {
     }
 
 
-    public Vector3 GetPlayerSize()
+    public Vector3 GetRenderPlayerSize()
     {
-        return playerSize;
+        if(sizeEffect != 0)
+        {
+            return playerSize / sizeEffect;
+        }
+        else
+        {
+            return Vector3.positiveInfinity; 
+        }
+        
     }
+
+    public void SetSizeEffect(float effect)
+    {
+        sizeEffect = effect;
+    }
+
+    public void AddPlayerSize(Vector3 addSize)
+    {
+        playerSize += addSize;
+        transform.localScale = playerSize;
+    }
+
     [PunRPC]
     void DestroyThis(){
         PhotonNetwork.Destroy(this.gameObject);
