@@ -6,7 +6,7 @@ public class Player : Photon.PunBehaviour {
 
     
     public float initialSize = 1.0f;
-    public float initialSpeed = 0.7f;
+    public float initialSpeed = 20.0f;
     public float health;
 
     private float playerEnergy;
