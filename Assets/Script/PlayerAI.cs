@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerAI : MonoBehaviour {
 
+    
+
     private Vector3 towards;
     private float timeCount;
     private CharacterController character;
