@@ -27,7 +27,7 @@ public class PlayerHealthUI : MonoBehaviour {
 
         healthCanvas = GameObject.Instantiate(healthCanvasPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
         healthCanvas.transform.SetParent(transform, false);
-        float Yoffset = transform.localScale.y * modelHalfHeight + 0.2f;
+        float Yoffset = transform.localScale.y * modelHalfHeight + 2.2f;
         healthCanvas.transform.Translate(0.0f, Yoffset, 0.0f);
 
 
@@ -38,7 +38,6 @@ public class PlayerHealthUI : MonoBehaviour {
 
         if (player.photonView.isMine)
         {
-            //GameObject root = GameObject.Find("GameObject");
             GameObject screenHealthObj = GameObject.Find("HUDCanvas/CurPlayerHealthUI/HealthSlider");
             screenHealthSlider = screenHealthObj.GetComponent<Slider>();
             screenHealthSlider.maxValue = player.health;
@@ -50,18 +49,25 @@ public class PlayerHealthUI : MonoBehaviour {
 
 	void Update ()
     {
-        if (player.health <= 0)
+        // 判断player是否死亡
+        if (!player || player.health <= 0)
         {
             Destroy(healthSlider);
             Destroy(healthCanvas);
+            if (player.photonView.isMine)
+            {
+                screenHealthSlider.value = 0;
+            }
             return;
         }
+        // 判断是否是当前客户端的player
         if (player.photonView.isMine)
         {
             screenHealthSlider.value = player.health;
             healthCanvas.SetActive(false);
             return;
         }
+        // 更新敌人血条位置和血量
         if (healthCanvas)
         {
             healthSlider.value = player.health;
