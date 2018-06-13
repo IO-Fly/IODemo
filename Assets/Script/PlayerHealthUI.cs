@@ -38,7 +38,7 @@ public class PlayerHealthUI : MonoBehaviour {
 
         if (player.photonView.isMine)
         {
-            GameObject root = GameObject.Find("GameObject");
+            //GameObject root = GameObject.Find("GameObject");
             GameObject screenHealthObj = GameObject.Find("HUDCanvas/CurPlayerHealthUI/HealthSlider");
             screenHealthSlider = screenHealthObj.GetComponent<Slider>();
             screenHealthSlider.maxValue = player.health;
