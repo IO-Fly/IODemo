@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NetworkConnect : Photon.PunBehaviour {
-	public int maxPlayerPerRoom=1;
+	public int maxPlayerPerRoom=2;
 	// Use this for initialization
 	void Start () {
        

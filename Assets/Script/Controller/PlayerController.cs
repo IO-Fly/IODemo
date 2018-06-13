@@ -102,13 +102,10 @@ public class PlayerController : MonoBehaviour {
         if (moveVertical < 0.0f)
             moveVertical = 0.0f;
         Vector3 move = towards * moveVertical + right * moveHorizontal;
-        //gameObject.transform.position += (move.normalized * speed);
-        //Vector3 move = right* moveHorizontal;
        if(fly){
         move.y = 0;
         if(this.gameObject.transform.position.y < height&&drop==false){
             move.y +=0.5f;
-            Debug.Log("想飞");
         }
         else{
             drop =true;
@@ -116,7 +113,6 @@ public class PlayerController : MonoBehaviour {
         }
        }
         _character.Move(move*speed);
-        //_character.SimpleMove(move*speed);
 
     }
 
