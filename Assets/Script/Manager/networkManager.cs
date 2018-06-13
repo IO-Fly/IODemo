@@ -28,7 +28,7 @@ public class networkManager :Photon.PunBehaviour {
 
 	private void CreateFood(){
 		for(int i=0;i<foodCount;i++){
-			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.identity,0,null);
+			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
 		}
 	}
 
