@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class networkManager :Photon.PunBehaviour {
 
-	public GameObject foodPrefab;
-	public int foodCount=50;
+    public static GameObject localPlayer;
+    public GameObject foodPrefab;
+    public int foodCount=50;
 	// Use this for initialization
 	void Start () {
 		
@@ -36,6 +37,9 @@ public class networkManager :Photon.PunBehaviour {
         string characterName = PhotonNetwork.player.NickName;
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
-        CameraController.player = localPlayer;//将摄像机指向本地玩家
-	}
+        networkManager.localPlayer = localPlayer;//缓存本地玩家对象
+        GameObject playerCamera = GameObject.Find("PlayerCamera");
+        playerCamera.GetComponent<CameraController>().setPlayer(localPlayer);//将摄像机指向本地玩家
+
+    }
 }
