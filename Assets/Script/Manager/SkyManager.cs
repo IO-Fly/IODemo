@@ -14,7 +14,7 @@ public class SkyManager : Photon.PunBehaviour {
 	}
 	void OnTriggerEnter(Collider other){
 		Debug.Log("离开海面");
-		if(other.gameObject.tag == "player"&&other.gameObject.transform.position.y>-0.5){
+		if(other.gameObject.tag == "player"&&other.gameObject.transform.position.y>-1){
 			other.gameObject.GetComponent<PlayerController>().fly=true;
 			other.gameObject.GetComponent<PlayerController>().height = 50f/other.gameObject.transform.localScale.x	;
 		}

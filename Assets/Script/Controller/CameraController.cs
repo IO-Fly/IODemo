@@ -7,8 +7,8 @@ using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour {
 
-    public static GameObject player;
 
+    private GameObject player;
     public PostProcessingProfile normal, fx;
     private PostProcessingBehaviour camImageFx;
 
@@ -111,6 +111,9 @@ public class CameraController : MonoBehaviour {
     }
 
    
-
+    public void setPlayer(GameObject player)
+    {
+        this.player = player;
+    }
 
 }

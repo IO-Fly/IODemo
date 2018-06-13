@@ -6,7 +6,7 @@ public class Player : Photon.PunBehaviour {
 
     
     public float initialSize = 1.0f;
-    public float initialSpeed = 0.7f;
+    public float initialSpeed = 20.0f;
     public float health;
 
     private float playerEnergy;
@@ -58,13 +58,18 @@ public class Player : Photon.PunBehaviour {
             Debug.Log("碰撞到了玩家");
             this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
             other.gameObject.GetComponent<Player>().photonView.RPC("GetDamage",
-                PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
+                PhotonTargets.AllViaServer, this.gameObject.transform.localScale.x * 5);
 
             //Debug
             this.other = other.gameObject;
         }
     }
 
+
+    public void AddSpeed(float addSpeed)
+    {
+        speed += addSpeed; 
+    }
 
     public float GetSpeed()
     {
