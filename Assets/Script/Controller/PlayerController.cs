@@ -9,23 +9,28 @@ public class PlayerController : MonoBehaviour {
     private Vector3 towards;//角色朝向的方向
     private Vector3 up;//向上向量
     private Vector3 right;
-    public float speed;
+    private float speed;
+
+    private float currentLookAtSlerp;
+    private float targetLookAtSlerp;
+
+    private CharacterController character;
+
 
     public bool fly = false;
     public bool drop = false;
     public float height = 5;
     public float gravity = 0.001f;
 
-    private enum MOVE_DIRECTION { FRONT,FRONT_LEFT,FRONT_RIGHT, LEFT, RIGHT };
-    private MOVE_DIRECTION moveDirection;
-    public  CharacterController _character;
     // Use this for initialization
     void Start () {
-        speed = gameObject.GetComponent<Player>().speed;
+        speed = gameObject.GetComponent<Player>().GetSpeed();
         towards = new Vector3(0.0f, 0.0f, 1.0f);
         up = new Vector3(0.0f, 1.0f, 0.0f);
         right = new Vector3(1.0f, 0.0f, 0.0f);
-        moveDirection = MOVE_DIRECTION.FRONT;
+        character = gameObject.GetComponent<CharacterController>();
+        currentLookAtSlerp = 0.5f;
+        targetLookAtSlerp = 0.5f;
 	}
 	
 	// Update is called once per frame
@@ -63,44 +68,40 @@ public class PlayerController : MonoBehaviour {
             up.Normalize();
         }
 
+        //处理玩家的WSAD输入（改变角色的方向）
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        //由WSAD决定的球面插值的参数（角色移动方向）
         Vector3 lookAt = new Vector3();
         if (moveHorizontal > 0.0f)
             if (moveVertical > 0.0f)
-                moveDirection = MOVE_DIRECTION.FRONT_RIGHT;
+                targetLookAtSlerp = 0.75f;
             else
-                moveDirection = MOVE_DIRECTION.RIGHT;
+                targetLookAtSlerp = 1.0f;
         else if (moveHorizontal < 0.0f)
             if (moveVertical > 0.0f)
-                moveDirection = MOVE_DIRECTION.FRONT_LEFT;
+                targetLookAtSlerp = 0.25f;
             else
-                moveDirection = MOVE_DIRECTION.LEFT;
+                targetLookAtSlerp = 0.0f;
         else if (moveVertical >= 0.0f)
-            moveDirection = MOVE_DIRECTION.FRONT;
-        switch (moveDirection)
-        {
-            case MOVE_DIRECTION.FRONT:
-                lookAt = towards;
-                break;
-            case MOVE_DIRECTION.FRONT_LEFT:
-                lookAt = Vector3.Slerp(towards, -right, 0.5f);
-                break;
-            case MOVE_DIRECTION.LEFT:
-                lookAt = -right;
-                break;
-            case MOVE_DIRECTION.FRONT_RIGHT:
-                lookAt = Vector3.Slerp(towards, right, 0.5f);
-                break;
-            case MOVE_DIRECTION.RIGHT:
-                lookAt = right;
-                break;
-        }
+            targetLookAtSlerp = 0.5f;
+
+        //平滑过渡（角色的转向）
+        if (targetLookAtSlerp - currentLookAtSlerp < 1e-6)
+            currentLookAtSlerp = targetLookAtSlerp;
+        else
+            currentLookAtSlerp += (targetLookAtSlerp - currentLookAtSlerp) * 0.4f;
+
+        //执行转向操作
+        lookAt = Vector3.SlerpUnclamped(-right, towards, currentLookAtSlerp*2);
         transform.LookAt(gameObject.transform.position + lookAt);
 
+        //限制不能往后移动
         if (moveVertical < 0.0f)
             moveVertical = 0.0f;
+
+        
         Vector3 move = towards * moveVertical + right * moveHorizontal;
        if(fly){
         move.y = 0;
@@ -112,7 +113,10 @@ public class PlayerController : MonoBehaviour {
             move.y-=0.5f;
         }
        }
-        _character.Move(move*speed);
+
+        //执行移动操作
+        speed = gameObject.GetComponent<Player>().GetSpeed();
+        character.Move(move*speed);
 
     }
 
@@ -120,4 +124,10 @@ public class PlayerController : MonoBehaviour {
     {
         return towards;
     }
+
+    public void AddSpeed(float addSpeed)
+    {
+        speed += addSpeed;
+    }
+
 }

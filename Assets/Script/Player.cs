@@ -6,11 +6,13 @@ public class Player : Photon.PunBehaviour {
 
     
     public float initialSize = 1.0f;
-    public float speed;
+    public float initialSpeed = 0.7f;
     public float health;
 
     private float playerEnergy;
     private Vector3 playerSize;
+
+    private float speed;
 
     //Debug
     public GameObject other;
@@ -19,6 +21,7 @@ public class Player : Photon.PunBehaviour {
     void Start () {
         playerEnergy = initialSize * initialSize;
         playerSize = new Vector3(initialSize, initialSize, initialSize);
+        speed = initialSpeed;
 	}
 	
 	// Update is called once per frame
@@ -29,7 +32,10 @@ public class Player : Photon.PunBehaviour {
             Debug.Log("实时更新当前血量： " + health);
             Debug.Log("实时更新对方血量： " + other.gameObject.gameObject.GetComponent<Player>().health);
         }
-
+        if (health < 0)
+        {
+            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
+        }
     }
 
      void OnTriggerEnter(Collider other)
@@ -39,7 +45,7 @@ public class Player : Photon.PunBehaviour {
 			Debug.Log ("玩家：碰到了食物");
             playerEnergy+=0.8f; 
             float sq=Mathf.Sqrt(playerEnergy);
-            gameObject.GetComponent<PlayerController>().speed = 0.7f / sq;
+            speed = initialSpeed / sq;
             playerSize = new Vector3(sq, sq, sq);
             transform.localScale = playerSize;
         }
@@ -58,7 +64,13 @@ public class Player : Photon.PunBehaviour {
             this.other = other.gameObject;
         }
     }
- 
+
+
+    public float GetSpeed()
+    {
+        return speed;
+    }
+
 
     public Vector3 GetPlayerSize()
     {
@@ -71,11 +83,7 @@ public class Player : Photon.PunBehaviour {
 
     [PunRPC]
     void GetDamage(float damage){
-        health -= damage;
-        if (health < 0)
-        {   
-            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
-        }
+        health -= damage;  
     }
 
 }
