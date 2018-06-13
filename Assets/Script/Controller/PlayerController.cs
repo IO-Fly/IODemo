@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour {
             targetLookAtSlerp = 0.5f;
 
         //平滑过渡（角色的转向）
-        if (targetLookAtSlerp - currentLookAtSlerp < 1e-6)
+        if (Mathf.Abs(targetLookAtSlerp - currentLookAtSlerp) < 1e-6)
             currentLookAtSlerp = targetLookAtSlerp;
         else
             currentLookAtSlerp += (targetLookAtSlerp - currentLookAtSlerp) * 0.4f;

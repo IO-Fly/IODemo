@@ -17,7 +17,7 @@ public class PlayerAI : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         timeCount -= Time.deltaTime;
         if (timeCount <= 0.0f)
         {
@@ -27,7 +27,7 @@ public class PlayerAI : MonoBehaviour {
         }
 
         speed = gameObject.GetComponent<Player>().GetSpeed();
-        character.Move(towards * Time.deltaTime * speed);
+        character.Move(towards * speed);
     }
 
     //随机方向，“俯仰角”限制在45度以内
