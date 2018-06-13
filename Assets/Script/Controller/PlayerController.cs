@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour {
 
         //执行移动操作
         speed = gameObject.GetComponent<Player>().GetSpeed();
-        character.Move(move*speed);
+        character.Move(move*speed*Time.deltaTime);
 
     }
 

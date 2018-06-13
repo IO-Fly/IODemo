@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 70563b85484ada646af8ed90e7f403a6
+guid: d20b3d3553eb837419dda1621f11c8a6
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -16,19 +16,19 @@ ModelImporter:
     100020: joint3
     100022: joint4
     100024: joint5
-    100026: pCone1
-    100028: pCone1 1
-    100030: pCone2
-    100032: pCone2 1
-    100034: pCone3
-    100036: pCone3 1
-    100038: pPyramid1
-    100040: pPyramid2
-    100042: pSphere1
-    100044: pSphere2
-    100046: pSphere4
-    100048: pTorus1
-    100050: //RootNode
+    100026: //RootNode
+    100028: pCone1
+    100030: pCone1 1
+    100032: pCone2
+    100034: pCone2 1
+    100036: pCone3
+    100038: pCone3 1
+    100040: pPyramid1
+    100042: pPyramid2
+    100044: pSphere1
+    100046: pSphere2
+    100048: pSphere4
+    100050: pTorus1
     400000: group1
     400002: group2
     400004: group3
@@ -42,19 +42,19 @@ ModelImporter:
     400020: joint3
     400022: joint4
     400024: joint5
-    400026: pCone1
-    400028: pCone1 1
-    400030: pCone2
-    400032: pCone2 1
-    400034: pCone3
-    400036: pCone3 1
-    400038: pPyramid1
-    400040: pPyramid2
-    400042: pSphere1
-    400044: pSphere2
-    400046: pSphere4
-    400048: pTorus1
-    400050: //RootNode
+    400026: //RootNode
+    400028: pCone1
+    400030: pCone1 1
+    400032: pCone2
+    400034: pCone2 1
+    400036: pCone3
+    400038: pCone3 1
+    400040: pPyramid1
+    400042: pPyramid2
+    400044: pSphere1
+    400046: pSphere2
+    400048: pSphere4
+    400050: pTorus1
     2100000: blinn2
     2100002: blinn4
     2100004: blinn1
@@ -125,7 +125,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
