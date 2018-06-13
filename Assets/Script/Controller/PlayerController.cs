@@ -103,12 +103,10 @@ public class PlayerController : MonoBehaviour {
 
         
         Vector3 move = towards * moveVertical + right * moveHorizontal;
-
        if(fly){
         move.y = 0;
         if(this.gameObject.transform.position.y < height&&drop==false){
             move.y +=0.5f;
-            Debug.Log("想飞");
         }
         else{
             drop =true;
