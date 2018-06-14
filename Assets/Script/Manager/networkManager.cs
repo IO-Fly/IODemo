@@ -54,6 +54,8 @@ public class networkManager :Photon.PunBehaviour {
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
+        localPlayer.GetComponent<Player>().SetPlayerName(LobbyUIManager.playerName);//设置玩家名字
+
         GameObject playerCamera = GameObject.Find("PlayerCamera");
         playerCamera.GetComponent<CameraController>().setPlayer(localPlayer);//将摄像机指向本地玩家
 
