@@ -36,9 +36,10 @@ public class PlayerCopyController : PlayerSkillController {
             StartCoroutine("WaitForEndSkill");
         }
 
-        if (curCooldown >= 0)
+        if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
+            curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
     }
