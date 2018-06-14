@@ -15,6 +15,8 @@ public class Player : Photon.PunBehaviour {
     private Vector3 playerSize;
 
     private float sizeEffect;//用于本地视口玩家角色大小显示效果
+    private float speedOffset;//用于暂时性的增加速度
+    private Vector3 sizeOffset;//用于暂时性的增加体型
 
     private float speed;
 
@@ -28,6 +30,8 @@ public class Player : Photon.PunBehaviour {
         transform.localScale = playerSize;
         speed = initialSpeed;
         sizeEffect = 1.0f;
+        speedOffset = 0.0f;
+        sizeOffset = Vector3.zero;
 
     }
 	
@@ -52,10 +56,10 @@ public class Player : Photon.PunBehaviour {
 			Debug.Log ("玩家：碰到了食物");
             if(transform.localScale.x<25){
             playerEnergy+=0.2f; 
-            float sq=Mathf.Sqrt(playerEnergy);
+            float sq=Mathf.Sqrt(playerEnergy);     
             speed = 10 / sq+2;
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            transform.localScale = playerSize;
+            transform.localScale = playerSize + sizeOffset;
             }
         }
     }
@@ -75,15 +79,15 @@ public class Player : Photon.PunBehaviour {
     }
 
 
-    public void AddSpeed(float addSpeed)
+    public void AddSpeedOffset(float speedOffset)
     {
-        speed += addSpeed; 
-        Debug.Log("速度改变: "+ addSpeed);
+        this.speedOffset += speedOffset;    
+        Debug.Log("速度改变: "+ speedOffset);
     }
 
     public float GetSpeed()
     {
-        return speed;
+        return speed + speedOffset;
     }
 
 
@@ -91,7 +95,7 @@ public class Player : Photon.PunBehaviour {
     {
         if(sizeEffect != 0)
         {
-            return playerSize / sizeEffect;
+            return (transform.localScale) / sizeEffect;
         }
         else
         {
@@ -100,15 +104,15 @@ public class Player : Photon.PunBehaviour {
         
     }
 
-    public void SetSizeEffect(float effect)
+    public void AddSizeEffect(float sizeEffect)
     {
-        sizeEffect = effect;
+        this.sizeEffect *= sizeEffect;
     }
 
-    public void AddPlayerSize(Vector3 addSize)
+    public void AddSizeOffset(Vector3 sizeOffset)
     {
-        playerSize += addSize;
-        transform.localScale = playerSize;
+        this.sizeOffset += sizeOffset;
+        transform.localScale = playerSize + this.sizeOffset;
     }
 
     [PunRPC]
