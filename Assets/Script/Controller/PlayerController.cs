@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
 
     public bool fly = false;
     public bool drop = false;
-    public float height = 5;
+    public float height = 70;
     public float gravity = 0.001f;
 
     // Use this for initialization
@@ -106,11 +106,11 @@ public class PlayerController : MonoBehaviour {
        if(fly){
         move.y = 0;
         if(this.gameObject.transform.position.y < height&&drop==false){
-            move.y +=0.5f;
+            move.y +=Mathf.Sqrt(this.gameObject.transform.localScale.x);
         }
         else{
             drop =true;
-            move.y-=0.5f;
+            move.y-=Mathf.Sqrt(this.gameObject.transform.localScale.x);
         }
        }
 
