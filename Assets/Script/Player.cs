@@ -20,6 +20,7 @@ public class Player : Photon.PunBehaviour {
     private Vector3 sizeOffset;//用于暂时性的增加体型
 
     private float speed;
+    private string playerName;//玩家自定义的名字
 
     //Debug
     public GameObject other;
@@ -115,6 +116,15 @@ public class Player : Photon.PunBehaviour {
             return Vector3.positiveInfinity;
         }
 
+    }
+
+    public void SetPlayerName(string name)
+    {
+        this.playerName = name;
+    }
+    public string GetPlayerName()
+    {
+        return this.playerName;
     }
 
 
