@@ -30,14 +30,14 @@ public class NetworkConnect : Photon.PunBehaviour {
 		Debug.Log("joined room");
 		PhotonNetwork.automaticallySyncScene = true;
 
-		PhotonNetwork.LoadLevel("GameScene");
+		//PhotonNetwork.LoadLevel("GameScene");
 
 	}
 	public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
 		int number = PhotonNetwork.playerList.Length;
 		Debug.Log(number + "players now in the room");
 		if (number == maxPlayerPerRoom){
-			//PhotonNetwork.LoadLevel("GameScene");
+			PhotonNetwork.LoadLevel("GameScene");
 		}
 	}
 

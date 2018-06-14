@@ -17,9 +17,12 @@ public class FoodController : Photon.PunBehaviour {
 	this.gameObject.transform.Rotate(rotationSpeed*Time.deltaTime,rotationSpeed*Time.deltaTime,rotationSpeed*Time.deltaTime);
 	this.gameObject.transform.Translate(translation*Time.deltaTime,Space.World);
 	if(this.gameObject.transform.position.y<-95||this.gameObject.transform.position.y>-5||this.gameObject.transform.position.x>100||this.gameObject.transform.position.x<-100||this.gameObject.transform.position.z<-100||this.gameObject.transform.position.z>100){
-		PhotonNetwork.Destroy(this.gameObject);
-		PhotonNetwork.InstantiateSceneObject("food",new Vector3(Random.Range(-20,20),Random.Range(-95,-5),Random.Range(-20,20)), Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
-
+		if(photonView.isMine&&PhotonNetwork.isMasterClient){
+		//PhotonNetwork.Destroy(this.gameObject);
+		this.photonView.RPC("DestroyFood",PhotonTargets.All);
+		//PhotonNetwork.InstantiateSceneObject("food",new Vector3(Random.Range(-20,20),Random.Range(-95,-5),Random.Range(-20,20)), Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+		this.photonView.RPC("AddFood",PhotonTargets.All);
+		}
 		}
 	}
 	private void OnTriggerEnter(Collider other){
@@ -29,6 +32,18 @@ public class FoodController : Photon.PunBehaviour {
 			PhotonNetwork.Destroy (this.gameObject);
 			PhotonNetwork.InstantiateSceneObject("food", new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
 		}
+	}
+	[PunRPC]
+	void DestroyFood(){
+		if(photonView.isMine&&PhotonNetwork.isMasterClient)
+		PhotonNetwork.Destroy(this.gameObject);
+		Debug.Log("删除食物");
+	}
+	
+	[PunRPC]
+	void AddFood(){
+		if(PhotonNetwork.isMasterClient)
+		PhotonNetwork.InstantiateSceneObject("food",new Vector3(Random.Range(-20,20),Random.Range(-95,-5),Random.Range(-20,20)), Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
 	}
 
 }
