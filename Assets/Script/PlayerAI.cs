@@ -5,63 +5,124 @@ using UnityEngine;
 public class PlayerAI : MonoBehaviour {
 
     public List<Player> playerList;
-    public float alertDistance = 12.0f;
 
-    private Vector3 towards;
+    public bool EnableEatFood = true;
+    public bool EnableAwayFromPlayer = true;
+    public bool EnableAttackPlayer = true;
+
+    public float playerDetectDistance = 50.0f;
+    public float foodDetectDistance = 20.0f;
+    public float angleOfView = 45.0f;
+    public float targetResetIntervalMin = 2.0f;
+    public float targetResetIntervalMax = 3.0f;
+    public float playerTrackIntervalMin = 0.6f;
+    public float playerTrackIntervalMax = 1.4f;
+    private Player selfPlayer;
+    private Player targetPlayer;
+    private GameObject targetFood;
     private float timeCount;
-    private CharacterController character;
+    private float timeCount2;
+    private CharacterController characterController;
     private float speed;
+    private Vector3 towards;
+    private Vector3 targetPosition;
+    private Vector3 direction;
+    private float angle;
+
 	// Use this for initialization
 	void Start () {
-        towards = GetRandomDirection();
+       
         timeCount = 0.0f;
-        character = gameObject.GetComponent<CharacterController>();
-        speed = gameObject.GetComponent<Player>().GetSpeed();
-
-        //TODO: 
-        //playerList成员添加上所有场上的玩家角色
-
-    }
+        timeCount2 = 0.0f;
+        selfPlayer = gameObject.GetComponent<Player>();
+        characterController = gameObject.GetComponent<CharacterController>();
+        
+	}
 	
 	// Update is called once per frame
 	void Update () {
-        //检测警戒范围内是否有玩家角色，并找出距离最近的玩家角色
+        Vector3 selfPosition = gameObject.transform.position;
+
         timeCount -= Time.deltaTime;
         if (timeCount <= 0.0f)
         {
-            timeCount = Random.Range(2.0f, 3.0f);
+            timeCount = Random.Range(targetResetIntervalMin, targetResetIntervalMax);
 
-            Player closestPlayer = null;
+            targetPlayer = null;
+            targetFood = null;
             float currentDistance = Mathf.Infinity;
-            Vector3 selfPosition = gameObject.transform.position;
-            foreach (Player player in playerList)
+            if (EnableAttackPlayer || EnableAwayFromPlayer)
             {
-                Vector3 playerPosition = player.gameObject.transform.position;
-                float distance = Vector3.Distance(playerPosition, selfPosition);
-                if (distance < Mathf.Min(alertDistance, currentDistance))
+                foreach(Player player in playerList)
                 {
-                    currentDistance = distance;
-                    closestPlayer = player;
+                    Vector3 playerPosition = player.gameObject.transform.position;
+                    direction = (playerPosition - selfPosition).normalized;
+                    angle = Vector3.Angle(towards, direction);
+                    float distance = Vector3.Distance(playerPosition, selfPosition);
+                    if (angle < angleOfView && distance < Mathf.Min(playerDetectDistance, currentDistance)) 
+                    {
+                        currentDistance = distance;
+                        targetPlayer = player;
+                    }
                 }
             }
-            //如果警戒范围内有玩家，AI选择远离最近玩家的方向作为移动方向
-            if (closestPlayer != null)
+            if (EnableEatFood && targetPlayer == null)
             {
-                Vector3 closestPlayerPosition = closestPlayer.gameObject.transform.position;
-                Vector3 randomOffset = new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f));
-                towards = (selfPosition - closestPlayerPosition + randomOffset).normalized;
+                Collider[] foodColliders = Physics.OverlapSphere(selfPosition, foodDetectDistance);
+                foreach (Collider collider in foodColliders)
+                {
+                    if (collider.gameObject.CompareTag("food"))
+                    {
+                        Vector3 foodPosition = collider.gameObject.transform.position;
+                        direction = (foodPosition - selfPosition).normalized;
+                        angle = Vector3.Angle(towards, direction);
+                        float distance = Vector3.Distance(selfPosition, foodPosition);
+                        if (angle<angleOfView && distance < currentDistance) 
+                        {
+                            targetFood = collider.gameObject;
+                            currentDistance = distance;
+                        }
+                    }
+                }
+
+            }
+
+            if (targetPlayer == null && targetFood != null) 
+            {
+                targetPosition = targetFood.gameObject.transform.position;
+                towards = (targetPosition - selfPosition).normalized;
+            }
+            
+            transform.LookAt(selfPosition + towards);
+        }
+
+        timeCount2 -= Time.deltaTime;
+        if (timeCount2 <= 0.0f)
+        {
+            timeCount2 = Random.Range(playerTrackIntervalMin, playerTrackIntervalMax);
+            if (targetPlayer != null)
+            {
+                targetPosition = targetPlayer.gameObject.transform.position;
+                if (GetComponent<Player>().GetPlayerSize() >= targetPlayer.GetComponent<Player>().GetPlayerSize())
+                {
+                    if (EnableAttackPlayer)
+                    {
+                        towards = (targetPosition - selfPosition).normalized;
+                    }
+                }
+                else
+                {
+                    if (EnableAwayFromPlayer)
+                    {
+                        towards = (selfPosition - targetPosition).normalized;
+                    }
+                }
                 transform.LookAt(selfPosition + towards);
             }
-            //如果警戒范围内没有玩家，随机选择移动方向
-            else
-            {
-                towards = GetRandomDirection();
-                transform.LookAt(gameObject.transform.position + towards);
-            }
         }
-        //执行移动操作
-        speed = gameObject.GetComponent<Player>().GetSpeed();
-        character.Move(towards * speed * Time.deltaTime);
+        
+        speed = selfPlayer.GetSpeed();
+        characterController.Move(towards * speed * Time.deltaTime);
     }
 
     //随机方向，“俯仰角”限制在45度以内
