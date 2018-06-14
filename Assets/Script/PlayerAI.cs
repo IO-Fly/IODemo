@@ -15,8 +15,8 @@ public class PlayerAI : MonoBehaviour {
     public float angleOfView = 45.0f;
     public float targetResetIntervalMin = 2.0f;
     public float targetResetIntervalMax = 3.0f;
-    public float playerTrackIntervalMin = 2.0f;
-    public float playerTrackIntervalMax = 3.0f;
+    public float playerTrackIntervalMin = 0.6f;
+    public float playerTrackIntervalMax = 1.4f;
     private Player selfPlayer;
     private Player targetPlayer;
     private GameObject targetFood;
