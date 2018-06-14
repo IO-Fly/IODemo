@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Player : Photon.PunBehaviour {
 
-    
+  
+
     public float initialSize = 1.0f;
     public float initialSpeed = 20.0f;
     public float health;
@@ -37,8 +38,9 @@ public class Player : Photon.PunBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        
-        if(photonView.isMine && other != null)
+
+
+        if (photonView.isMine && other != null)
         {
             Debug.Log("实时更新当前血量： " + health);
             Debug.Log("实时更新对方血量： " + other.gameObject.gameObject.GetComponent<Player>().health);
@@ -85,25 +87,6 @@ public class Player : Photon.PunBehaviour {
         Debug.Log("速度改变: "+ speedOffset);
     }
 
-    public float GetSpeed()
-    {
-        return speed + speedOffset;
-    }
-
-
-    public Vector3 GetRenderPlayerSize()
-    {
-        if(sizeEffect != 0)
-        {
-            return (transform.localScale) / sizeEffect;
-        }
-        else
-        {
-            return Vector3.positiveInfinity; 
-        }
-        
-    }
-
     public void AddSizeEffect(float sizeEffect)
     {
         this.sizeEffect *= sizeEffect;
@@ -114,6 +97,26 @@ public class Player : Photon.PunBehaviour {
         this.sizeOffset += sizeOffset;
         transform.localScale = playerSize + this.sizeOffset;
     }
+
+    public float GetSpeed()
+    {
+        return speed + speedOffset;
+    }
+
+
+    public Vector3 GetRenderPlayerSize()
+    {
+        if (sizeEffect != 0)
+        {
+            return (transform.localScale) / sizeEffect;
+        }
+        else
+        {
+            return Vector3.positiveInfinity;
+        }
+
+    }
+
 
     [PunRPC]
     void DestroyThis(){
