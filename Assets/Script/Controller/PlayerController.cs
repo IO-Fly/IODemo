@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    
     public float mouseSensitivity = 1.0f;
+    public float flyCooldown;//定义跳跃的冷却时间
+    private float curFlyCooldown;//当前的冷却时间
 
     private Vector3 towards;//角色朝向的方向
     private Vector3 up;//向上向量
@@ -19,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 
     public bool fly = false;
     public bool drop = false;
+    public bool waitForFly = false;
     public float height = 70;
     public float gravity = 0.001f;
 
@@ -31,12 +35,17 @@ public class PlayerController : MonoBehaviour {
         character = gameObject.GetComponent<CharacterController>();
         currentLookAtSlerp = 0.5f;
         targetLookAtSlerp = 0.5f;
-	}
+        curFlyCooldown = 0;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        if (curFlyCooldown > 0)
+        {
+            curFlyCooldown -= Time.deltaTime;
+            curFlyCooldown = curFlyCooldown < 0 ? 0 : curFlyCooldown;    
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -103,20 +112,34 @@ public class PlayerController : MonoBehaviour {
 
         
         Vector3 move = towards * moveVertical + right * moveHorizontal;
-       if(fly){
-        move.y = 0;
-        if(this.gameObject.transform.position.y < height&&drop==false){
-            move.y +=Mathf.Sqrt(this.gameObject.transform.localScale.x);
+
+       
+      
+        if (waitForFly)
+        {
+            if(move.y > 0)
+            {
+                move.y = 0;
+            }   
+            Debug.Log("向上移动：" + move.y);
         }
-        else{
-            drop =true;
-            move.y-=Mathf.Sqrt(this.gameObject.transform.localScale.x);
+        else if (fly)
+        {
+            move.y = 0;
+            if (this.gameObject.transform.position.y < height && drop == false)
+            {
+                move.y += Mathf.Sqrt(this.gameObject.transform.localScale.x);
+            }
+            else
+            {
+                drop = true;
+                move.y -= Mathf.Sqrt(this.gameObject.transform.localScale.x);
+            }
         }
-       }
 
         //执行移动操作
         speed = gameObject.GetComponent<Player>().GetSpeed();
-        character.Move(move*speed*Time.deltaTime);
+        character.Move(move.normalized*speed*Time.deltaTime);
 
     }
 
@@ -125,9 +148,22 @@ public class PlayerController : MonoBehaviour {
         return towards;
     }
 
-    public void AddSpeed(float addSpeed)
+    public bool CanFly()
     {
-        speed += addSpeed;
+        if (curFlyCooldown <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public void SetCurFlyCooldown()
+    {
+        this.curFlyCooldown = flyCooldown;
     }
 
 }

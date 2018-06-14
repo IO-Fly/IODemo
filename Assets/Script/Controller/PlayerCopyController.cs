@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCopyController : Photon.PunBehaviour {
+public class PlayerCopyController : PlayerSkillController {
+    
 
     public GameObject playerCopyPrefab;
-    public float cooldown;//定义技能冷却时间
-    public float keepTime;//技能效果持续时间
     public float distance;//分身距离本体的初始距离
 
     private GameObject playerCopy;//分身
-    private float curCooldown;
 
     // Use this for initialization
     void Start()
@@ -38,9 +36,10 @@ public class PlayerCopyController : Photon.PunBehaviour {
             StartCoroutine("WaitForEndSkill");
         }
 
-        if (curCooldown >= 0)
+        if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
+            curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
     }
