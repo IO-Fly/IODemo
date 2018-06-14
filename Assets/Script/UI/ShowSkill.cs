@@ -5,20 +5,22 @@ using UnityEngine.UI;
 
 public class ShowSkill : MonoBehaviour {
 
-    private GameObject player;
     private Text coolTimeText;
+
+    private GameObject player;
+    private SkillManager skillManager;
 
     void Start ()
     {
-        coolTimeText = this.transform.Find("SkillImage/SkillTimeText").gameObject.GetComponent<Text>();
+        Debug.Log(player.name);
 
-        //Debug.Log(player.name);
+        coolTimeText = this.transform.Find("SkillImage/SkillTimeText").gameObject.GetComponent<Text>();
+        skillManager = player.GetComponent<SkillManager>();
     }
-	
-	void Update ()
+
+    void Update ()
     {
-        
-        coolTimeText.text = Mathf.Ceil(player.GetComponent<PlayerSizeController>().GetCurCoolTime()).ToString();
+        coolTimeText.text = Mathf.Ceil(skillManager.GetSkillCurCooldown(0)).ToString();
 	}
 
     public void setPlayer(GameObject player)
