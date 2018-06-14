@@ -37,7 +37,7 @@ public class NetworkConnect : Photon.PunBehaviour {
 		int number = PhotonNetwork.playerList.Length;
 		Debug.Log(number + "players now in the room");
 		if (number == maxPlayerPerRoom){
-			PhotonNetwork.LoadLevel("GameScene");
+			//PhotonNetwork.LoadLevel("GameScene");
 		}
 	}
 

@@ -65,6 +65,15 @@ public class Player : Photon.PunBehaviour {
             transform.localScale = playerSize + sizeOffset;
             }
         }
+        if(other.gameObject.tag=="poison"){
+            Debug.Log("玩家：碰到了毒物");
+            playerEnergy-=0.5f; 
+            float sq=Mathf.Sqrt(playerEnergy);     
+            speed = 10 / sq+2;
+            playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
+            transform.localScale = playerSize + sizeOffset;
+ 
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit other)
