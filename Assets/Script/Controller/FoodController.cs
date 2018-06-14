@@ -19,7 +19,7 @@ public class FoodController : Photon.PunBehaviour {
 		if (other.gameObject.tag == "player") {
 			Debug.Log ("食物：删除");
 			PhotonNetwork.Destroy (this.gameObject);
-			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+			PhotonNetwork.Instantiate("food", new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
 		}
 	}
 

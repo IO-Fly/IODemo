@@ -21,6 +21,7 @@ public class Player : Photon.PunBehaviour {
     void Start () {
         playerEnergy = initialSize * initialSize;
         playerSize = new Vector3(initialSize, initialSize, initialSize);
+        transform.localScale = playerSize;
         speed = initialSpeed;
 	}
 	
@@ -43,11 +44,13 @@ public class Player : Photon.PunBehaviour {
         if (other.gameObject.CompareTag("food"))
         {
 			Debug.Log ("玩家：碰到了食物");
-            playerEnergy+=0.8f; 
+            if(transform.localScale.x<25){
+            playerEnergy+=0.2f; 
             float sq=Mathf.Sqrt(playerEnergy);
-            speed = initialSpeed / sq;
-            playerSize = new Vector3(sq, sq, sq);
+            speed = 10 / sq+2;
+            playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
             transform.localScale = playerSize;
+            }
         }
     }
 
@@ -69,6 +72,7 @@ public class Player : Photon.PunBehaviour {
     public void AddSpeed(float addSpeed)
     {
         speed += addSpeed; 
+        Debug.Log("速度改变: "+ addSpeed);
     }
 
     public float GetSpeed()

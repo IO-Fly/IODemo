@@ -39,5 +39,6 @@ public class PlayerSpeedController : MonoBehaviour {
     {
         yield return new WaitForSeconds(keepTime);
         gameObject.GetComponent<Player>().AddSpeed(-addSpeed);
+        Debug.Log("当前速度:" +gameObject.GetComponent<Player>().GetSpeed());
     }
 }
