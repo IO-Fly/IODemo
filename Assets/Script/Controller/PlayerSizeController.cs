@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSizeController : Photon.PunBehaviour {
+public class PlayerSizeController : PlayerSkillController {
 
-    public float cooldown;//定义技能冷却时间
+    
     public Vector3 addSize;//增加的大小
-    public float keepTime;//技能效果持续时间
     public float sizeEffect = 2;//本地视口增加效果
 
-    private float curCooldown;
 
 	// Use this for initialization
 	void Start () {
