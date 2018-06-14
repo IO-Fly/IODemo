@@ -11,15 +11,9 @@ public class networkManager :Photon.PunBehaviour {
     public int foodCount=300;
 	public int poisonCount=100;
 	private int count=0;
-
-    void Awake()
-    {
-        localPlayer = null;
-    }
-
 	// Use this for initialization
 	void Start () {
-        networkManager.localPlayer = null;
+		
 	}
 	
 	// Update is called once per frame
@@ -56,9 +50,7 @@ public class networkManager :Photon.PunBehaviour {
 
 	private void CreatePlayer(){
 
-        if (!networkManager.localPlayer)
-        {
-            string characterName = PhotonNetwork.player.NickName;
+        string characterName = PhotonNetwork.player.NickName;
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
@@ -68,8 +60,11 @@ public class networkManager :Photon.PunBehaviour {
         playerCamera.GetComponent<CameraController>().setPlayer(localPlayer);//将摄像机指向本地玩家
 
         GameObject minimapCamera = GameObject.Find("MinimapCamera");
-        minimapCamera.GetComponent<MinimapCameraFllow>().setPlayer(localPlayer);//将摄像机指向本地玩家
-        }
+        minimapCamera.GetComponent<MinimapCameraFllow>().setPlayer(localPlayer);//将Minimap摄像机指向本地玩家
+
+        GameObject rootCanvas = GameObject.Find("HUDCanvas");
+        GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
+        skillUI.GetComponent<ShowSkill>().setPlayer(localPlayer);               //将指向本地玩家
         
     }
 }
