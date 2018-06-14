@@ -7,7 +7,8 @@ public class networkManager :Photon.PunBehaviour {
 
     public static GameObject localPlayer;
     public GameObject foodPrefab;
-    public int foodCount=50;
+    public int foodCount=300;
+	private int count=0;
 	// Use this for initialization
 	void Start () {
 		
@@ -22,14 +23,21 @@ public class networkManager :Photon.PunBehaviour {
 
         //在主客户端加载场景
         if (PhotonNetwork.isMasterClient){
-            CreateFood();
+            //CreateFood();
+			this.InvokeRepeating("DelayFood", 1f,0.2f);
         }    	
 	}
 
 	private void CreateFood(){
 		for(int i=0;i<foodCount;i++){
-			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-10,10), Random.Range(-95,-5), Random.Range(-10,10)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
 		}
+	}
+	private void DelayFood(){
+			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-20,20), Random.Range(-95,-5), Random.Range(-20,20)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+			count+=1;
+			if(count==300)
+				this.CancelInvoke();
 	}
 
 	private void CreatePlayer(){
