@@ -11,9 +11,15 @@ public class networkManager :Photon.PunBehaviour {
     public int foodCount=300;
 	public int poisonCount=100;
 	private int count=0;
+
+    void Awake()
+    {
+        localPlayer = null;
+    }
+
 	// Use this for initialization
 	void Start () {
-		
+        networkManager.localPlayer = null;
 	}
 	
 	// Update is called once per frame
@@ -50,7 +56,9 @@ public class networkManager :Photon.PunBehaviour {
 
 	private void CreatePlayer(){
 
-        string characterName = PhotonNetwork.player.NickName;
+        if (!networkManager.localPlayer)
+        {
+            string characterName = PhotonNetwork.player.NickName;
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
@@ -61,5 +69,7 @@ public class networkManager :Photon.PunBehaviour {
 
         GameObject minimapCamera = GameObject.Find("MinimapCamera");
         minimapCamera.GetComponent<MinimapCameraFllow>().setPlayer(localPlayer);//将摄像机指向本地玩家
+        }
+        
     }
 }
