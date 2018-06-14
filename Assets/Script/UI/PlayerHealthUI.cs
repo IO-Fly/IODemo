@@ -5,41 +5,41 @@ using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour {
 
-    public GameObject healthCanvasPrefab;   //场景中可移动画布prefab
-    public Slider healthSliderPrefab;       //场景中可移动血条prefab
-
-    private GameObject healthCanvas;//场景中可移动画布
-    private Slider healthSlider;    //场景中可移动血条
+    public GameObject healthUIPrefab;   //场景中可移动的画布及血条prefab
+    private GameObject healthCanvas;    //场景中可移动画布节点
+    private Slider healthSlider;        //场景中可移动血条节点
 
     private Player player;
-    private float modelHalfHeight;
+    private float modelHalfHeight = 1.5f;
 
     private Slider screenHealthSlider; //当前player的血条,固定位置
 
     void Start ()
     {
+        // 获得player
         player = GetComponent<Player>();
-        modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
-        //Debug.Log(modelHalfHeight);
 
-        //float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
-        //Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
+        // 获得模型原始高度，为了可移动血条的位置，这里固定为 1.5f
+        //modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
+        //Debug.Log("模型高度" + modelHalfHeight);
 
-        healthCanvas = GameObject.Instantiate(healthCanvasPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+        // 初始化可移动的画布及血条
+        healthCanvas = GameObject.Instantiate(healthUIPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+        healthCanvas.transform.localScale += new Vector3(0.02f, 0.05f, 0.05f);
         healthCanvas.transform.SetParent(transform, false);
-        float Yoffset = transform.localScale.y * modelHalfHeight + 2.2f;
-        healthCanvas.transform.Translate(0.0f, Yoffset, 0.0f);
+        //Debug.Log("模型缩放比例" + healthCanvas.transform.localScale);
 
-
-        healthSlider = Slider.Instantiate(healthSliderPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as Slider;
-        healthSlider.transform.SetParent(healthCanvas.transform, false);
+        healthSlider = healthCanvas.transform.Find("PlayerHealthSlider").gameObject.GetComponent<Slider> ();
         healthSlider.maxValue = player.health;
         healthSlider.value = player.health;
 
+        // 初始化固定的血条
         if (player.photonView.isMine)
         {
-            GameObject screenHealthObj = GameObject.Find("HUDCanvas/CurPlayerHealthUI/HealthSlider");
-            screenHealthSlider = screenHealthObj.GetComponent<Slider>();
+            //screenHealthSlider = GameObject.Find("HUDCanvas/CurPlayerHealthUI/HealthSlider").GetComponent<Slider>();
+            GameObject rootCanvas = GameObject.Find("HUDCanvas");
+            screenHealthSlider = rootCanvas.transform.Find("CurPlayerHealthUI/HealthSlider").gameObject.GetComponent<Slider>();
+
             screenHealthSlider.maxValue = player.health;
             screenHealthSlider.value = player.health;
         }
