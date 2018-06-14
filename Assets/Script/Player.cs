@@ -46,7 +46,7 @@ public class Player : Photon.PunBehaviour {
             Debug.Log("实时更新当前血量： " + health);
             Debug.Log("实时更新对方血量： " + other.gameObject.gameObject.GetComponent<Player>().health);
         }
-        if (health < 0)
+        if (health <= 0)
         {
             this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
         }
@@ -81,9 +81,19 @@ public class Player : Photon.PunBehaviour {
         if (other.gameObject != this.gameObject && other.gameObject.tag == "player" && this.photonView.isMine)
         {
             Debug.Log("碰撞到了玩家");
-            this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
-            other.gameObject.GetComponent<Player>().photonView.RPC("GetDamage",
-                PhotonTargets.AllViaServer, this.gameObject.transform.localScale.x * 5);
+
+            //生命值大于0才能伤害敌人
+            Player enemy = other.gameObject.GetComponent<Player>();
+            if(enemy.health > 0)
+            {
+                this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 5);
+            }
+            
+            if(health > 0)
+            {
+                enemy.photonView.RPC("GetDamage",
+               PhotonTargets.AllViaServer, this.gameObject.transform.localScale.x * 5);
+            }
 
             //Debug
             this.other = other.gameObject;
