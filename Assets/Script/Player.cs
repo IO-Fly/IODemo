@@ -82,6 +82,11 @@ public class Player : Photon.PunBehaviour {
         return speed;
     }
 
+    public float GetPlayerSize()
+    {
+        return playerSize.x;
+    }
+
 
     public Vector3 GetRenderPlayerSize()
     {
