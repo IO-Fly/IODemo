@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour {
         if (curFlyCooldown > 0)
         {
             curFlyCooldown -= Time.deltaTime;
+            curFlyCooldown = curFlyCooldown < 0 ? 0 : curFlyCooldown;    
         }
     }
 

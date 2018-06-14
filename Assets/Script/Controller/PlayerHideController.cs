@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHideController : Photon.PunBehaviour {
+public class PlayerHideController : PlayerSkillController {
 
-    public float cooldown;//定义技能冷却时间 
-    public float keepTime;//技能效果持续时间
-
-    private float curCooldown;
 
     // Use this for initialization
     void Start()
@@ -26,10 +22,10 @@ public class PlayerHideController : Photon.PunBehaviour {
             this.photonView.RPC("HidePlayer", PhotonTargets.AllViaServer, true);
             StartCoroutine("WaitForEndSkill");
         }
-
-        if (curCooldown >= 0)
+        if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
+            curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
     }
