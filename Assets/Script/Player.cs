@@ -125,7 +125,7 @@ public class Player : Photon.PunBehaviour {
 
     public float GetPlayerSize()
     {
-        return playerSize.x;
+        return transform.localScale.x;
     }
 
 
