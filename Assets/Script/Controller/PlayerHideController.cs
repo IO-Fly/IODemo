@@ -54,6 +54,7 @@ public class PlayerHideController : Photon.PunBehaviour {
                 m.enabled = !isHide;
             }
         }
+       
     }
 
 }
