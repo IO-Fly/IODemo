@@ -125,9 +125,4 @@ public class PlayerController : MonoBehaviour {
         return towards;
     }
 
-    public void AddSpeed(float addSpeed)
-    {
-        speed += addSpeed;
-    }
-
 }

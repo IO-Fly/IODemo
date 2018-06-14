@@ -24,8 +24,8 @@ public class PlayerSizeController : Photon.PunBehaviour {
         {
             curCooldown = cooldown;
             Player player = this.gameObject.GetComponent<Player>();
-            player.AddPlayerSize(addSize);
-            player.SetSizeEffect(sizeEffect);
+            player.AddSizeOffset(addSize);
+            player.AddSizeEffect(sizeEffect);
             StartCoroutine("WaitForEndSkill");
         }
 
@@ -40,8 +40,12 @@ public class PlayerSizeController : Photon.PunBehaviour {
     {
         yield return new WaitForSeconds(keepTime);
         Player player = this.gameObject.GetComponent<Player>();
-        player.AddPlayerSize(-addSize);
-        player.SetSizeEffect(1);
+        player.AddSizeOffset(-addSize);
+        if(sizeEffect == 0)
+        {
+            Debug.LogError("大小效果倍数不能为0 !");
+        }
+        player.AddSizeEffect(1/sizeEffect);
     }
 
 }
