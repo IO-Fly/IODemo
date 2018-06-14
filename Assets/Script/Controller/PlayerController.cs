@@ -20,11 +20,12 @@ public class PlayerController : MonoBehaviour {
     private CharacterController character;
 
 
-    public bool fly = false;
-    public bool drop = false;
-    public bool waitForFly = false;
-    public float height = 70;
-    public float gravity = 0.001f;
+    private bool fly = false;
+    private bool waitForFly = false;
+    //public bool drop = false;
+    //public float height = 70;
+    public float gravity = 0.98f;
+    private float flySpeed;//空中飞行的垂直速度
 
     // Use this for initialization
     void Start () {
@@ -40,11 +41,13 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
         if (curFlyCooldown > 0)
         {
             curFlyCooldown -= Time.deltaTime;
             curFlyCooldown = curFlyCooldown < 0 ? 0 : curFlyCooldown;    
         }
+
     }
 
     private void FixedUpdate()
@@ -126,15 +129,17 @@ public class PlayerController : MonoBehaviour {
         else if (fly)
         {
             move.y = 0;
-            if (this.gameObject.transform.position.y < height && drop == false)
-            {
-                move.y += Mathf.Sqrt(this.gameObject.transform.localScale.x);
-            }
-            else
-            {
-                drop = true;
-                move.y -= Mathf.Sqrt(this.gameObject.transform.localScale.x);
-            }
+            flySpeed -= gravity * Time.deltaTime;
+            move.y = flySpeed * Time.deltaTime;
+            //if (this.gameObject.transform.position.y < height && drop == false)
+            //{
+            //    move.y += Mathf.Sqrt(this.gameObject.transform.localScale.x);
+            //}
+            //else
+            //{
+            //    drop = true;
+            //    move.y -= Mathf.Sqrt(this.gameObject.transform.localScale.x);
+            //}       
         }
 
         //执行移动操作
@@ -161,9 +166,25 @@ public class PlayerController : MonoBehaviour {
     }
 
 
-    public void SetCurFlyCooldown()
+    public void StartFly()
     {
-        this.curFlyCooldown = flyCooldown;
+        waitForFly = false;
+        fly = true;
+        this.curFlyCooldown = flyCooldown;//技能冷却
+        flySpeed = gameObject.GetComponent<Player>().GetSpeed();
+
+    }
+
+    public void WaitForFly()
+    {
+        waitForFly = true;
+    }
+
+    public void EndFly()
+    {
+        waitForFly = false;
+        fly = false;
+        flySpeed = 0;
     }
 
 }
