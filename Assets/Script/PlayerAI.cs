@@ -117,6 +117,7 @@ public class PlayerAI : MonoBehaviour {
                         towards = (selfPosition - targetPosition).normalized;
                     }
                 }
+                
                 transform.LookAt(selfPosition + towards);
             }
         }
