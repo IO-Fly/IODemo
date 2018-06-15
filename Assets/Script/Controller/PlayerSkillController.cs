@@ -9,7 +9,17 @@ public abstract class PlayerSkillController : Photon.PunBehaviour {
 
     protected float curCooldown;
 
-    
+
+    public float GetKeepTime()
+    {
+        return keepTime;
+    }
+
+    public float GetCurKeepTime()
+    {
+        return (keepTime - (cooldown - curCooldown));
+    }
+
     public  float GetCooldown()
     {
         return cooldown;
@@ -19,6 +29,7 @@ public abstract class PlayerSkillController : Photon.PunBehaviour {
     {
         return curCooldown;
     }
+
 
 
 }
