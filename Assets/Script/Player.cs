@@ -120,7 +120,7 @@ public class Player : Photon.PunBehaviour {
             } 
 
         }
-        else if(other.gameObject.tag == "Wall" && this.photonView.isMine)
+        else if(/*other.gameObject.tag == "Wall" &&*/ this.photonView.isMine)
         {     
             //播放音效
             GameObject Audio = GameObject.Find("Audio");

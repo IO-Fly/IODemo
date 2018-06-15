@@ -15,6 +15,9 @@ public class AudioManager : MonoBehaviour {
 
     public void Play(string MusicName)
     {
+        if(Sound.isPlaying){
+            return ;
+        }
         Debug.Log("Play Music: " + MusicName);
         Sound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
         Sound.Play(); 
