@@ -173,6 +173,9 @@ public class PlayerController : MonoBehaviour {
         this.curFlyCooldown = flyCooldown;//技能冷却
         flySpeed = gameObject.GetComponent<Player>().GetSpeed();
 
+        //Debug
+        flySpeed += 20;
+
     }
 
     public void WaitForFly()

@@ -67,8 +67,16 @@ public class Player : Photon.PunBehaviour {
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
             transform.localScale = playerSize + sizeOffset;
             }
+
+            //播放音效
+            if (this.photonView.isMine)
+            {
+                GameObject Audio = GameObject.Find("Audio");
+                Audio.GetComponent<AudioManager>().PlayEatFood();
+            }
+            
         }
-        if(other.gameObject.tag=="poison"){
+        else if(other.gameObject.tag=="poison"){
             Debug.Log("玩家：碰到了毒物");
             playerEnergy-=0.5f; 
             float sq=Mathf.Sqrt(playerEnergy);     
@@ -77,7 +85,9 @@ public class Player : Photon.PunBehaviour {
             transform.localScale = playerSize + sizeOffset;
  
         }
+
     }
+
 
     void OnControllerColliderHit(ControllerColliderHit other)
     {
@@ -101,17 +111,29 @@ public class Player : Photon.PunBehaviour {
 
             //Debug
             this.other = other.gameObject;
+            GameObject Audio = GameObject.Find("Audio");
             if(other.gameObject.GetComponent<Player>().Lock==0&&this.gameObject.transform.localScale.x>=other.gameObject.transform.localScale.x){
                 //other.gameObject.GetComponent<Player>().StartCoroutine(other.gameObject.GetComponent<Player>().Bomb(-other.normal));
                 other.gameObject.GetComponent<Player>().Lock=1;
                 other.gameObject.GetComponent<Player>().photonView.RPC("DoBomb",PhotonTargets.All,-other.normal);
                 Debug.Log("对方弹开");
+                Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
             }
             else if (this.gameObject.transform.localScale.x<other.gameObject.transform.localScale.x){
                 Debug.Log("自己弹开");
                 this.StartCoroutine(Bomb(other.normal));
+                Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
             }
+
+
         }
+        else if(/*other.gameObject.tag == "Wall" &&*/ this.photonView.isMine)
+        {     
+            //播放音效
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayTouchWall();
+        }
+
     }
 
         IEnumerator Bomb(Vector3 direction){

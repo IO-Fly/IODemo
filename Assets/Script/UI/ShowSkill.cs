@@ -4,38 +4,61 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowSkill : MonoBehaviour {
+    
+    private Image keepShadowImage;
+    private Text keepTimeText;
 
-    private Image shadowImage;
+    private Image coolShadowImage;
     private Text coolTimeText;
 
     private GameObject player;
     private SkillManager skillManager;
-    private float totalTime;
+    private float totalKeepTime;
+    private float totalCoolTime;
+
 
     void Start ()
     {
-        shadowImage = this.transform.Find("ShadowImage").gameObject.GetComponent<Image>();
+        keepShadowImage = this.transform.Find("KeepShadowImage").gameObject.GetComponent<Image>();
+        keepTimeText = this.transform.Find("KeepTimeText").gameObject.GetComponent<Text>();
+
+        coolShadowImage = this.transform.Find("CoolShadowImage").gameObject.GetComponent<Image>();
         coolTimeText = this.transform.Find("CoolTimeText").gameObject.GetComponent<Text>();
 
-        Debug.Log(player.name);
         skillManager = player.GetComponent<SkillManager>();
-        totalTime = skillManager.GetSkillCooldown(0);
+        totalKeepTime = skillManager.GetSkillKeepTime(0);
+        totalCoolTime = skillManager.GetSkillCooldown(0) - totalKeepTime;
     }
 
     void Update ()
     {
-        float remainTime = skillManager.GetSkillCurCooldown(0);
-
-        if (remainTime <= 0 )
+        float curKeepTime = skillManager.GetSkillCurKeepTime(0);
+        if (curKeepTime > 0)
         {
-            shadowImage.fillAmount = 0;
+            // 技能在释放阶段
+            keepTimeText.gameObject.SetActive(true);
+            keepTimeText.text = Mathf.Ceil(curKeepTime).ToString() + "s";
+
+            coolShadowImage.fillAmount = 1;
             coolTimeText.gameObject.SetActive(false);
             return;
         }
+        keepTimeText.gameObject.SetActive(false);
 
-        shadowImage.fillAmount = remainTime / totalTime;
-        coolTimeText.gameObject.SetActive(true);
-        coolTimeText.text = Mathf.Ceil(remainTime).ToString() + "s";
+        float curCoolTime = skillManager.GetSkillCurCooldown(0);
+        if (curCoolTime > 0)
+        {
+            // 技能在冷却阶段
+            coolShadowImage.fillAmount = curCoolTime / totalCoolTime;
+            coolTimeText.gameObject.SetActive(true);
+            coolTimeText.text = Mathf.Ceil(curCoolTime).ToString() + "s";
+        }
+        else
+        {
+            // 技能在可以使用阶段
+            coolShadowImage.fillAmount = 0;
+            coolTimeText.gameObject.SetActive(false);
+        }
     }
 
     public void setPlayer(GameObject player)
