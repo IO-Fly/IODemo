@@ -7,8 +7,8 @@ using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour {
 
-    public static GameObject player;
 
+    private GameObject player;
     public PostProcessingProfile normal, fx;
     private PostProcessingBehaviour camImageFx;
 
@@ -30,7 +30,6 @@ public class CameraController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         distanceToPlayer = distanceToPlayerInit;
-
         offsetAngleHorizontal = 0.0f;
         offsetAngleVertical = 0.0f;
         camImageFx = FindObjectOfType<PostProcessingBehaviour>();
@@ -72,10 +71,10 @@ public class CameraController : MonoBehaviour {
         right = new Vector3(playerTowards.z, 0.0f, -playerTowards.x).normalized;
         up = Vector3.Cross(playerTowards, right).normalized;
         direction = Vector3.SlerpUnclamped(playerTowards, right, offsetAngleHorizontal / 90.0f);
-        direction = Vector3.SlerpUnclamped(direction, up, 1.6f + offsetAngleVertical/90.0f).normalized;
+        direction = Vector3.SlerpUnclamped(direction, up, 1.8f + offsetAngleVertical/90.0f).normalized;
 
 
-        float playerSize = player.GetComponent<Player>().GetPlayerSize().x;
+        float playerSize = player.GetComponent<Player>().GetRenderPlayerSize().x;
         distanceToPlayer = playerSize * distanceToPlayerInit;
 
 
@@ -94,6 +93,7 @@ public class CameraController : MonoBehaviour {
 
         transform.position = player.gameObject.transform.position + direction * distanceToPlayer;
         transform.LookAt(player.transform);
+        transform.Translate(new Vector3(0.0f, 4.5f, -9.0f));
         if(this.transform.position.y>0){
                 this.gameObject.GetComponent<PostProcessingBehaviour>().profile = normal;
             }
@@ -111,6 +111,9 @@ public class CameraController : MonoBehaviour {
     }
 
    
-
+    public void setPlayer(GameObject player)
+    {
+        this.player = player;
+    }
 
 }

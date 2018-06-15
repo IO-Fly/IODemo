@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSizeController : Photon.PunBehaviour {
+public class PlayerSizeController : PlayerSkillController {
 
-    public float cooldown;//定义技能冷却时间
+    
     public Vector3 addSize;//增加的大小
-    public float keepTime;//技能效果持续时间
+    public float sizeEffect = 2;//本地视口增加效果
 
-    private float curCooldown;
 
 	// Use this for initialization
 	void Start () {
@@ -22,21 +21,30 @@ public class PlayerSizeController : Photon.PunBehaviour {
         if (Input.GetKeyDown("space") && curCooldown <= 0)
         {
             curCooldown = cooldown;
-            transform.localScale += addSize;
+            Player player = this.gameObject.GetComponent<Player>();
+            player.AddSizeOffset(addSize);
+            player.AddSizeEffect(sizeEffect);
             StartCoroutine("WaitForEndSkill");
         }
 
-        if(curCooldown >= 0)
+        if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
+            curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
-	}
+    }
 
     IEnumerator WaitForEndSkill()
     {
         yield return new WaitForSeconds(keepTime);
-        transform.localScale -= addSize;
+        Player player = this.gameObject.GetComponent<Player>();
+        player.AddSizeOffset(-addSize);
+        if(sizeEffect == 0)
+        {
+            Debug.LogError("大小效果倍数不能为0 !");
+        }
+        player.AddSizeEffect(1/sizeEffect);
     }
 
 }
