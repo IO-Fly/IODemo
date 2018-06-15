@@ -52,6 +52,8 @@ public class LobbyUIManager : MonoBehaviour {
     {
         if(inputName != null)
         {
+            //房间唯一ID，相同ID的用户不会加入同一个房间
+            PhotonNetwork.AuthValues.UserId = inputName.text;
             LobbyUIManager.playerName = inputName.text;
             matching.gameObject.SetActive(true);
             dropdown.gameObject.SetActive(true);
