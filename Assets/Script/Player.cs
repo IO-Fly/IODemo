@@ -64,8 +64,16 @@ public class Player : Photon.PunBehaviour {
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
             transform.localScale = playerSize + sizeOffset;
             }
+
+            //播放音效
+            if (this.photonView.isMine)
+            {
+                GameObject Audio = GameObject.Find("Audio");
+                Audio.GetComponent<AudioManager>().PlayEatFood();
+            }
+            
         }
-        if(other.gameObject.tag=="poison"){
+        else if(other.gameObject.tag=="poison"){
             Debug.Log("玩家：碰到了毒物");
             playerEnergy-=0.5f; 
             float sq=Mathf.Sqrt(playerEnergy);     
@@ -74,7 +82,9 @@ public class Player : Photon.PunBehaviour {
             transform.localScale = playerSize + sizeOffset;
  
         }
+
     }
+
 
     void OnControllerColliderHit(ControllerColliderHit other)
     {
@@ -97,7 +107,27 @@ public class Player : Photon.PunBehaviour {
 
             //Debug
             this.other = other.gameObject;
+
+            //播放音效
+            GameObject Audio = GameObject.Find("Audio");
+            if(this.transform.localScale.x >= enemy.transform.localScale.x)
+            {
+                Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
+            }
+            else
+            {
+                Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
+            } 
+
         }
+        else if(other.gameObject.tag == "Wall" && this.photonView.isMine)
+        {     
+            //播放音效
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayTouchWall();
+     
+        }
+
     }
 
 

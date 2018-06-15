@@ -21,7 +21,12 @@ public class networkManager :Photon.PunBehaviour {
 		
 	}
 	private void OnLevelWasLoaded(int level){
-		CreatePlayer();
+
+        //播放游戏背景音乐
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlayGameBackground();
+
+        CreatePlayer();
 
         //在主客户端加载场景
         if (PhotonNetwork.isMasterClient){
