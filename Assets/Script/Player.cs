@@ -36,6 +36,7 @@ public class Player : Photon.PunBehaviour {
         sizeEffect = 1.0f;
         speedOffset = 0.0f;
         sizeOffset = Vector3.zero;
+        StartCoroutine(Recover());
 
     }
 	
@@ -148,6 +149,14 @@ public class Player : Photon.PunBehaviour {
         this.photonView.RPC("ReleaseLock",PhotonTargets.All);
         Debug.Log("Lock= " +Lock);
     }
+
+    IEnumerator Recover(){
+        while(true){
+            if(this.health<=99)
+            this.health+=1;
+            yield return new WaitForSeconds(1);
+        }
+    }
     public void AddSpeedOffset(float speedOffset)
     {
         this.speedOffset += speedOffset;    
@@ -219,6 +228,15 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void ReleaseLock(){
             this.Lock =0;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        if(stream.isWriting){
+            stream.SendNext(this.health);
+        }
+        else{
+            this.health = (float)stream.ReceiveNext();
+        }
     }
 
 }
