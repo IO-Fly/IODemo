@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class networkManager :Photon.PunBehaviour {
 
+    public static GameObject[] playerList;
     public static GameObject localPlayer;
     public GameObject foodPrefab;
 	public GameObject poisonPrefab;
@@ -70,6 +71,27 @@ public class networkManager :Photon.PunBehaviour {
         GameObject rootCanvas = GameObject.Find("HUDCanvas");
         GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
         skillUI.GetComponent<ShowSkill>().setPlayer(localPlayer);               //将指向本地玩家
-        
+
+
+        this.photonView.RPC("UpdatePlayerList", PhotonTargets.All);
+
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        this.photonView.RPC("UpdatePlayerList", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    void UpdatePlayerList()
+    {
+        GameObject []players = GameObject.FindGameObjectsWithTag("player");
+
+        for(int i = 0; i  < players.Length; i++)
+        {
+            Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>());
+        }
+       
     }
 }
