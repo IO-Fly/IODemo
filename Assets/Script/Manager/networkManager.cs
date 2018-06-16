@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class networkManager :Photon.PunBehaviour {
 
-    public static GameObject[] playerList;
     public static GameObject localPlayer;
     public GameObject foodPrefab;
 	public GameObject poisonPrefab;
@@ -60,7 +59,7 @@ public class networkManager :Photon.PunBehaviour {
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
-        localPlayer.GetComponent<Player>().SetPlayerName(LobbyUIManager.playerName);//设置玩家名字
+        localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
 
         GameObject playerCamera = GameObject.Find("PlayerCamera");
         playerCamera.GetComponent<CameraController>().setPlayer(localPlayer);//将摄像机指向本地玩家
@@ -70,28 +69,20 @@ public class networkManager :Photon.PunBehaviour {
 
         GameObject rootCanvas = GameObject.Find("HUDCanvas");
         GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
-        skillUI.GetComponent<ShowSkill>().setPlayer(localPlayer);               //将指向本地玩家
-
-
-        this.photonView.RPC("UpdatePlayerList", PhotonTargets.All);
+        skillUI.GetComponent<ShowSkill>().setPlayer(localPlayer);//将指向本地玩家
 
     }
 
-    public override void OnLeftRoom()
-    {
-        base.OnLeftRoom();
-        this.photonView.RPC("UpdatePlayerList", PhotonTargets.All);
-    }
 
-    [PunRPC]
-    void UpdatePlayerList()
+    //获取玩家列表
+    static public GameObject[] GetPlayerList()
     {
         GameObject []players = GameObject.FindGameObjectsWithTag("player");
-
         for(int i = 0; i  < players.Length; i++)
         {
-            Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>());
+            Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>().GetPlayerName());
         }
+        return players;
        
     }
 }
