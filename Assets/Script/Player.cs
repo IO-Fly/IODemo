@@ -27,6 +27,7 @@ public class Player : Photon.PunBehaviour {
     //Debug
     public GameObject other;
 
+
     // Use this for initialization
     void Start () {
         playerEnergy = initialSize * initialSize;
@@ -43,7 +44,7 @@ public class Player : Photon.PunBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-
+ 
         if (photonView.isMine && other != null)
         {
             Debug.Log("实时更新当前血量： " + health);
@@ -198,10 +199,7 @@ public class Player : Photon.PunBehaviour {
 
     }
 
-    public void SetPlayerName(string name)
-    {
-        this.playerName = name;
-    }
+
     public string GetPlayerName()
     {
         return this.playerName;
@@ -237,6 +235,20 @@ public class Player : Photon.PunBehaviour {
         else{
             this.health = (float)stream.ReceiveNext();
         }
+    }
+
+    [PunRPC]
+    public void SetPlayerName(string name)
+    {
+        this.playerName = name;
+        networkManager.GetPlayerList();
+
+    }
+    //更新玩家列表
+    void OnDestroy()
+    {
+        networkManager.GetPlayerList();
+
     }
 
 }
