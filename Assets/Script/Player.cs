@@ -244,13 +244,11 @@ public class Player : Photon.PunBehaviour {
     {
         Debug.LogWarning("调用SetPlayerName");
         this.playerName = name;
-        
-        //添加玩家到玩家列表
-        networkManager.playerList.Add(this);
-        showPlayerList();
 
+        //呈现更新的玩家列表
+        //showPlayerList();
     }
-    //更新玩家列表
+
     void OnDestroy()
     {
         
@@ -260,21 +258,30 @@ public class Player : Photon.PunBehaviour {
             Player curPlayer = networkManager.playerList[i].GetComponent<Player>();
             if (this.photonView.viewID == curPlayer.photonView.viewID)
             {
+   
                 networkManager.playerList.Remove(curPlayer);
             }
         }
-        showPlayerList();
+        //呈现更新的玩家列表
+        //showPlayerList();
     }
 
     void Awake()
     {
-
+        networkManager.playerList.Add(this);
         if (!this.photonView.isMine)
         {
-            Debug.LogWarning("调用OnAwake");    
+            Debug.LogWarning("调用OnAwake");
             networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
         }
-
+        else
+        {
+            playerName = LobbyUIManager.playerName;
+            //呈现更新的玩家列表
+            //showPlayerList();
+        }
+        //networkManager.playerList.Add(this);
+       
     }
 
     //Debug

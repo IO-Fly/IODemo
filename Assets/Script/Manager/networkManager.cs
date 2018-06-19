@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class networkManager :Photon.PunBehaviour {
 
     public static GameObject localPlayer;
+    public static List<Player> playerList = new List<Player>();
     public GameObject foodPrefab;
 	public GameObject poisonPrefab;
     public int foodCount=300;
 	public int poisonCount=100;
 	private int count=0;
-    public static List<Player> playerList = new List<Player>();
 	// Use this for initialization
 	void Start () {
 		
@@ -85,5 +85,4 @@ public class networkManager :Photon.PunBehaviour {
         return players;
        
     }
-
 }
