@@ -20,6 +20,10 @@ public class LobbyUIManager : MonoBehaviour {
         matching.gameObject.SetActive(false);
         dropdown.gameObject.SetActive(false);
 
+        //播放大厅背景音乐
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlayLobbyBackground();
+
     }
 
     // Use this for initialization

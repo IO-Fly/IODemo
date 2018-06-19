@@ -9,6 +9,7 @@ public class PlayerHealthUI : MonoBehaviour {
     private GameObject healthCanvas;    //场景中可移动画布节点
     private Slider healthSlider;        //场景中可移动血条节点
 
+    private Camera mainCamera;
     private Player player;
     private float modelHalfHeight = 1.5f;
 
@@ -16,8 +17,9 @@ public class PlayerHealthUI : MonoBehaviour {
 
     void Start ()
     {
-        // 获得player
+        // 获得player及mainCamera
         player = GetComponent<Player>();
+        mainCamera = Camera.main;
 
         // 获得模型原始高度，为了可移动血条的位置，这里固定为 1.5f
         //modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
@@ -74,9 +76,10 @@ public class PlayerHealthUI : MonoBehaviour {
 
             float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
             Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
-            healthCanvas.transform.position = newPos;
+            healthCanvas.transform.SetPositionAndRotation(newPos,mainCamera.transform.rotation);
+            //healthCanvas.transform.position = newPos;
             //healthCanvas.transform.rotation = Camera.main.transform.rotation;
-            healthCanvas.transform.LookAt(Camera.main.transform);
+            //healthCanvas.transform.LookAt(Camera.main.transform);
         }
 
     }

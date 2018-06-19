@@ -27,6 +27,14 @@ public class PlayerController : MonoBehaviour
     private ObjectBehaviour objectBehaviour;
     private PlayerBehaviour playerBehaviour;
 
+<<<<<<< HEAD
+=======
+    private bool fly = false;
+    private bool waitForFly = false;
+    public float gravity = 9.8f;
+    public float minFlySpeed = 10f;
+    private float flySpeed;//空中飞行的垂直速度
+>>>>>>> master
 
     // Use this for initialization
     void Start()
@@ -171,6 +179,7 @@ public class PlayerController : MonoBehaviour
         {
             if (playerBehaviour.flyState == PlayerBehaviour.FlyState.Flying)
             {
+<<<<<<< HEAD
                 Vector3 towards = objectBehaviour.GetForwardDirection();
                 playerBehaviour.MoveInSky(towards);
             }
@@ -185,6 +194,64 @@ public class PlayerController : MonoBehaviour
         }
         else
             objectBehaviour.Move(ObjectBehaviour.MoveDirection.Stay);
+=======
+                move.y = 0;
+            }   
+            Debug.Log("向上移动：" + move.y);
+        }
+        else if (fly)
+        {
+            move.y = 0;
+            flySpeed -= gravity * Time.deltaTime;
+            move.y = flySpeed * Time.deltaTime; 
+        }
+
+        //执行移动操作
+        speed = gameObject.GetComponent<Player>().GetSpeed();
+        character.Move(move.normalized*speed*Time.deltaTime);
+
+    }
+
+    public Vector3 GetTowards()
+    {
+        return towards;
+    }
+
+    public bool CanFly()
+    {
+        if (curFlyCooldown <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    public void StartFly()
+    {
+        waitForFly = false;
+        fly = true;
+        this.curFlyCooldown = flyCooldown;//技能冷却
+        flySpeed = gameObject.GetComponent<Player>().GetSpeed();
+
+        flySpeed += minFlySpeed;
+
+    }
+
+    public void WaitForFly()
+    {
+        waitForFly = true;
+    }
+
+    public void EndFly()
+    {
+        waitForFly = false;
+        fly = false;
+        flySpeed = 0;
+>>>>>>> master
     }
 
 }
