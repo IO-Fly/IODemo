@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Player : Photon.PunBehaviour {
 
-  
+
+    private BattleUI battleUI;
 
     public float initialSize = 1.0f;
     public float initialSpeed = 20.0f;
@@ -27,6 +28,14 @@ public class Player : Photon.PunBehaviour {
     //Debug
     public GameObject other;
 
+    void Awake()
+    {
+        // battleUI
+        GameObject rootCanvas = GameObject.Find("HUDCanvas");
+        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
+        battleUI = battleUINode.GetComponent<BattleUI>();
+
+    }
 
     // Use this for initialization
     void Start () {
@@ -54,7 +63,7 @@ public class Player : Photon.PunBehaviour {
         {
             this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
         }
-        Debug.Log("当前Lock值: "+Lock);
+        //Debug.Log("当前Lock值: "+Lock);
     }
 
      void OnTriggerEnter(Collider other)
@@ -138,7 +147,7 @@ public class Player : Photon.PunBehaviour {
 
     }
 
-        IEnumerator Bomb(Vector3 direction){
+    IEnumerator Bomb(Vector3 direction){
         while(count<5){
             yield return null;
             this.gameObject.GetComponent<CharacterController>().Move(direction*Time.deltaTime*40);
@@ -241,8 +250,8 @@ public class Player : Photon.PunBehaviour {
     public void SetPlayerName(string name)
     {
         this.playerName = name;
-        networkManager.GetPlayerList();
-
+        //networkManager.GetPlayerList();
+        battleUI.addPlayer();
     }
     //更新玩家列表
     void OnDestroy()
