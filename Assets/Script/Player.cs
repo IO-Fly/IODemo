@@ -27,6 +27,7 @@ public class Player : Photon.PunBehaviour {
     //Debug
     public GameObject other;
 
+
     // Use this for initialization
     void Start () {
         playerEnergy = initialSize * initialSize;
@@ -36,13 +37,14 @@ public class Player : Photon.PunBehaviour {
         sizeEffect = 1.0f;
         speedOffset = 0.0f;
         sizeOffset = Vector3.zero;
+        StartCoroutine(Recover());
 
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
-
+ 
         if (photonView.isMine && other != null)
         {
             Debug.Log("实时更新当前血量： " + health);
@@ -148,6 +150,14 @@ public class Player : Photon.PunBehaviour {
         this.photonView.RPC("ReleaseLock",PhotonTargets.All);
         Debug.Log("Lock= " +Lock);
     }
+
+    IEnumerator Recover(){
+        while(true){
+            if(this.health<=99)
+            this.health+=1;
+            yield return new WaitForSeconds(1);
+        }
+    }
     public void AddSpeedOffset(float speedOffset)
     {
         this.speedOffset += speedOffset;    
@@ -189,10 +199,7 @@ public class Player : Photon.PunBehaviour {
 
     }
 
-    public void SetPlayerName(string name)
-    {
-        this.playerName = name;
-    }
+
     public string GetPlayerName()
     {
         return this.playerName;
@@ -219,6 +226,29 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void ReleaseLock(){
             this.Lock =0;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+        if(stream.isWriting){
+            stream.SendNext(this.health);
+        }
+        else{
+            this.health = (float)stream.ReceiveNext();
+        }
+    }
+
+    [PunRPC]
+    public void SetPlayerName(string name)
+    {
+        this.playerName = name;
+        networkManager.GetPlayerList();
+
+    }
+    //更新玩家列表
+    void OnDestroy()
+    {
+        networkManager.GetPlayerList();
+
     }
 
 }
