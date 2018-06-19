@@ -28,14 +28,6 @@ public class Player : Photon.PunBehaviour {
     //Debug
     public GameObject other;
 
-    void Awake()
-    {
-        // battleUI
-        GameObject rootCanvas = GameObject.Find("HUDCanvas");
-        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
-        battleUI = battleUINode.GetComponent<BattleUI>();
-
-    }
 
     // Use this for initialization
     void Start () {
@@ -63,15 +55,10 @@ public class Player : Photon.PunBehaviour {
         {
             this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
         }
-<<<<<<< HEAD
+
         //Debug.Log("当前Lock值: "+Lock);
-=======
-        Debug.Log("当前Lock值: "+Lock);
 
-        //networkManager.GetPlayerList();
-        //networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
 
->>>>>>> refs/remotes/origin/master
     }
 
      void OnTriggerEnter(Collider other)
@@ -274,11 +261,12 @@ public class Player : Photon.PunBehaviour {
         Debug.LogWarning("调用OnAwake");   
         StartCoroutine(WaitForInitName());
 
-
+        // battleUI
+        GameObject rootCanvas = GameObject.Find("HUDCanvas");
+        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
+        battleUI = battleUINode.GetComponent<BattleUI>();
 
     }
-
-
 
     IEnumerator WaitForInitName()
     {

@@ -79,7 +79,7 @@ public class networkManager :Photon.PunBehaviour {
         GameObject []players = GameObject.FindGameObjectsWithTag("player");
         for(int i = 0; i  < players.Length; i++)
         {
-            Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>().GetPlayerName());
+            //Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>().GetPlayerName());
         }
         return players;
        
