@@ -73,16 +73,4 @@ public class networkManager :Photon.PunBehaviour {
 
     }
 
-
-    //获取玩家列表
-    static public GameObject[] GetPlayerList()
-    {
-        GameObject []players = GameObject.FindGameObjectsWithTag("player");
-        for(int i = 0; i  < players.Length; i++)
-        {
-            //Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>().GetPlayerName());
-        }
-        return players;
-       
-    }
 }

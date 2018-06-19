@@ -8,54 +8,92 @@ public class BattleUI : MonoBehaviour {
     public GameObject itemPanelPrefab;
 
     private GameObject panel;
-
-    private GameObject[] players;
+    private List<Text> nameList;
+    private List<Text> sizeList;
 
     void Awake()
     {
         panel = this.transform.Find("Panel").gameObject;
+        nameList = new List<Text>();
+        sizeList = new List<Text>();
     }
 
-	void FixedUpdate ()
+	void Update ()
     {
-        players = networkManager.GetPlayerList();
-
-        clearItem();
-        for (int i = 0; i < players.Length; i++)
+        int playerCount = networkManager.playerList.Count;
+        if (playerCount < 1)
         {
-            GameObject itemPanel = GameObject.Instantiate(itemPanelPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
-            itemPanel.transform.Find("OrderText").GetComponent<Text>().text = (i + 1).ToString();
-            itemPanel.transform.Find("NameText").GetComponent<Text>().text = players[i].GetComponent<Player>().GetPlayerName();
-            itemPanel.transform.Find("ScaleText").GetComponent<Text>().text = players[i].GetComponent<Player>().GetPlayerSize().ToString();
-            itemPanel.transform.SetParent(panel.transform, false);
+            return;
+        }
+        if (playerCount != nameList.Count)
+        {
+            Debug.LogWarning("玩家列表未更新");
+            return;
         }
 
+        sortPlayerList();
+        for (int i = 0; i < playerCount; i++)
+        {
+            nameList[i].text = networkManager.playerList[i].GetPlayerName();
+            sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString();
+        }
     }
 
+    // 增加一个player时，增加一个排行榜的item, 并需更新 nameList、sizeList
     public void addPlayer()
     {
-        players = networkManager.GetPlayerList();
-
-        this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * players.Length);
-
-        clearItem();
-        for (int i = 0; i < players.Length; i++)
+        int playerCount = networkManager.playerList.Count;
+        if (playerCount < 1)
         {
-            GameObject itemPanel = GameObject.Instantiate(itemPanelPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
-            itemPanel.transform.Find("OrderText").GetComponent<Text>().text = (i+1).ToString();
-            itemPanel.transform.Find("NameText").GetComponent<Text>().text = players[i].GetComponent<Player>().GetPlayerName();
-            itemPanel.transform.Find("ScaleText").GetComponent<Text>().text = players[i].GetComponent<Player>().GetPlayerSize().ToString();
-            itemPanel.transform.SetParent(panel.transform, false);
+            return;
         }
+        this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount +1));
 
+        // 增加的player必须在networkManager.playerList[playerCount - 1]
+        GameObject itemPanel = GameObject.Instantiate(itemPanelPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
+        Text orderText = itemPanel.transform.Find("OrderText").GetComponent<Text>();
+        Text nameText = itemPanel.transform.Find("NameText").GetComponent<Text>();
+        Text scaleText = itemPanel.transform.Find("ScaleText").GetComponent<Text>();
 
+        orderText.text = (playerCount).ToString();
+        nameText.text = networkManager.playerList[playerCount - 1].GetPlayerName();
+        scaleText.text = networkManager.playerList[playerCount - 1].GetPlayerSize().ToString();
+        itemPanel.transform.SetParent(panel.transform, false);
+
+        // 维护Text列表
+        nameList.Add(nameText);
+        sizeList.Add(scaleText);
     }
 
-    private void clearItem()
+    // 当一个player死亡时，减少一个排行榜的item
+    public void removePlayer()
     {
-        for(int i = 1; i < panel.transform.childCount; i++)
+        int playerCount = networkManager.playerList.Count;
+
+        this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount + 1));
+        Destroy(nameList[playerCount].transform.parent.gameObject);
+        nameList.RemoveAt(playerCount);
+        sizeList.RemoveAt(playerCount);
+
+    }
+
+    // 插入排序
+    private void sortPlayerList()
+    {
+        int playerCount = networkManager.playerList.Count;
+
+        for(int i = 1; i < playerCount; i++)
         {
-            Destroy(panel.transform.GetChild(i).gameObject);
+            int j = i - 1;
+            Player current = networkManager.playerList[i];
+            while(j > -1 && networkManager.playerList[j].GetPlayerSize() < current.GetPlayerSize())
+            {
+                networkManager.playerList[j + 1] = networkManager.playerList[j];
+                j--;
+            }
+            networkManager.playerList[j + 1] = current;
         }
     }
+
+
 }
