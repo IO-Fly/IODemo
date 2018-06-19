@@ -63,7 +63,15 @@ public class Player : Photon.PunBehaviour {
         {
             this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
         }
+<<<<<<< HEAD
         //Debug.Log("当前Lock值: "+Lock);
+=======
+        Debug.Log("当前Lock值: "+Lock);
+
+        //networkManager.GetPlayerList();
+        //networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+
+>>>>>>> refs/remotes/origin/master
     }
 
      void OnTriggerEnter(Collider other)
@@ -259,5 +267,25 @@ public class Player : Photon.PunBehaviour {
         networkManager.GetPlayerList();
 
     }
+
+    void Awake()
+    {
+
+        Debug.LogWarning("调用OnAwake");   
+        StartCoroutine(WaitForInitName());
+
+
+
+    }
+
+
+
+    IEnumerator WaitForInitName()
+    {
+        yield return new WaitForSeconds(0.5f);
+        networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+
+    }
+
 
 }
