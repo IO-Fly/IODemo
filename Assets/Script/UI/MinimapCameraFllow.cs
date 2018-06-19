@@ -8,6 +8,10 @@ public class MinimapCameraFllow : MonoBehaviour {
 
     void Update ()
     {
+        if(!player)
+        {
+            return;
+        }
         transform.position = player.transform.position + new Vector3(0.0f, 10.0f, 0.0f);
 	}
 
