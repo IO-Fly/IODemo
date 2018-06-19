@@ -29,8 +29,10 @@ public class FoodController : Photon.PunBehaviour {
 		Debug.Log ("食物：碰撞，将要删除");
 		if (other.gameObject.tag == "player") {
 			Debug.Log ("食物：删除");
-			PhotonNetwork.Destroy (this.gameObject);
-			PhotonNetwork.InstantiateSceneObject("food", new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+			//PhotonNetwork.Destroy (this.gameObject);
+			this.photonView.RPC("DestroyFood",PhotonTargets.All);
+			//PhotonNetwork.InstantiateSceneObject("food", new Vector3(Random.Range(-95,95), Random.Range(-95,-5), Random.Range(-95,95)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+			this.photonView.RPC("AddFood",PhotonTargets.All);
 		}
 	}
 	[PunRPC]

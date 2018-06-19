@@ -22,9 +22,8 @@ public class PlayerController : MonoBehaviour {
 
     private bool fly = false;
     private bool waitForFly = false;
-    //public bool drop = false;
-    //public float height = 70;
-    public float gravity = 0.98f;
+    public float gravity = 9.8f;
+    public float minFlySpeed = 10f;
     private float flySpeed;//空中飞行的垂直速度
 
     // Use this for initialization
@@ -130,16 +129,7 @@ public class PlayerController : MonoBehaviour {
         {
             move.y = 0;
             flySpeed -= gravity * Time.deltaTime;
-            move.y = flySpeed * Time.deltaTime;
-            //if (this.gameObject.transform.position.y < height && drop == false)
-            //{
-            //    move.y += Mathf.Sqrt(this.gameObject.transform.localScale.x);
-            //}
-            //else
-            //{
-            //    drop = true;
-            //    move.y -= Mathf.Sqrt(this.gameObject.transform.localScale.x);
-            //}       
+            move.y = flySpeed * Time.deltaTime; 
         }
 
         //执行移动操作
@@ -172,6 +162,8 @@ public class PlayerController : MonoBehaviour {
         fly = true;
         this.curFlyCooldown = flyCooldown;//技能冷却
         flySpeed = gameObject.GetComponent<Player>().GetSpeed();
+
+        flySpeed += minFlySpeed;
 
     }
 
