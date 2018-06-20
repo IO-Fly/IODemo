@@ -19,35 +19,36 @@ public class BattleUI : MonoBehaviour {
     }
 
 
-    private int curFrame = 0;
-    private int maxFrame = 10;
-    public void updateSeveralFrame()
-    {
-        curFrame = 0;
-    }
+    //private int curFrame = 0;
+    //private int maxFrame = 10;
+    //public void updateSeveralFrame()
+    //{
+    //    curFrame = 0;
+    //}
 
     // 排名发生变化时更新，只更新几帧
     void Update ()
     {
-        if (curFrame++ < maxFrame)
+        //if (curFrame++ > maxFrame)
+        //{
+        //    return;
+        //}
+        int playerCount = networkManager.playerList.Count;
+        if (playerCount < 1)
         {
-            int playerCount = networkManager.playerList.Count;
-            if (playerCount < 1)
-            {
-                return;
-            }
-            if (playerCount != nameList.Count)
-            {
-                Debug.LogWarning("玩家列表未更新");
-                return;
-            }
+            return;
+        }
+        if (playerCount != nameList.Count)
+        {
+            Debug.LogWarning("玩家列表未更新");
+            return;
+        }
 
-            sortPlayerList();
-            for (int i = 0; i < playerCount; i++)
-            {
-                nameList[i].text = networkManager.playerList[i].GetPlayerName();
-                sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString();
-            }
+        sortPlayerList();
+        for (int i = 0; i < playerCount; i++)
+        {
+            nameList[i].text = networkManager.playerList[i].GetPlayerName();
+            sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString();
         }
     }
 
@@ -77,7 +78,7 @@ public class BattleUI : MonoBehaviour {
         sizeList.Add(scaleText);
 
         // 更新name，由于player的创建是异步的，需要时间
-        updateSeveralFrame();
+        // updateSeveralFrame();
     }
 
     // 当一个player死亡时，减少一个排行榜的item
