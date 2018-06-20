@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
     public bool GetFlyState()
     {
-        return fly;
+        return playerBehaviour.flyState == PlayerBehaviour.FlyState.Flying;
     }
 
 }
