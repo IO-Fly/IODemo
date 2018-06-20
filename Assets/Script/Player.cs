@@ -307,7 +307,7 @@ public class Player : Photon.PunBehaviour {
     {
         transform.localScale = playerSize + sizeOffset;
 
-
+        //battleUI.updateSeveralFrame();
     }
 
 }
