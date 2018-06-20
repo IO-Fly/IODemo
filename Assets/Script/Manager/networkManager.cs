@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class networkManager :Photon.PunBehaviour {
 
     public static GameObject localPlayer;
+    public static List<Player> playerList = new List<Player>();
     public GameObject foodPrefab;
 	public GameObject poisonPrefab;
     public int foodCount=300;
@@ -63,7 +64,6 @@ void Awake(){
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
-        localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
 
         GameObject playerCamera = GameObject.Find("PlayerCamera");
         playerCamera.GetComponent<CameraController>().setPlayer(localPlayer);//将摄像机指向本地玩家
@@ -77,16 +77,4 @@ void Awake(){
 
     }
 
-
-    //获取玩家列表
-    static public GameObject[] GetPlayerList()
-    {
-        GameObject []players = GameObject.FindGameObjectsWithTag("player");
-        for(int i = 0; i  < players.Length; i++)
-        {
-            Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>().GetPlayerName());
-        }
-        return players;
-       
-    }
 }
