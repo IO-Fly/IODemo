@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour {
     public bool enterSky = false;//角色是否进入“天空”触发器内（包括角色在海平面上的情况）
 
     private float flySpeed=0.0f;
-    public float gravity = 0.98f;
+    public float gravity = 9.8f;
 
     private float speed;
 
