@@ -85,7 +85,46 @@ public class PlayerController : MonoBehaviour
             }
         }
         else
+<<<<<<< HEAD
             objectBehaviour.Move(ObjectBehaviour.MoveDirection.Stay);
+=======
+        {
+            return false;
+        }
+    }
+
+
+    public void StartFly()
+    {
+        waitForFly = false;
+        fly = true;
+        this.curFlyCooldown = flyCooldown;//技能冷却
+        flySpeed = gameObject.GetComponent<Player>().GetSpeed();
+
+        flySpeed += minFlySpeed;
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlaySeaOut();
+
+    }
+
+    public void WaitForFly()
+    {
+        waitForFly = true;
+    }
+
+    public void EndFly()
+    {
+        waitForFly = false;
+        fly = false;
+        flySpeed = 0;
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlaySeaIn();
+
+>>>>>>> master
     }
 
 }

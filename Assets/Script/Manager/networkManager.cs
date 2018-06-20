@@ -15,6 +15,10 @@ public class networkManager :Photon.PunBehaviour {
     public int moveableCount = 5;
 	private int count=0;
 	// Use this for initialization
+void Awake(){
+		PhotonNetwork.sendRate=20;
+		PhotonNetwork.sendRateOnSerialize=20;
+	}
 	void Start () {
 		
 	}
@@ -79,16 +83,4 @@ public class networkManager :Photon.PunBehaviour {
 
     }
 
-
-    //获取玩家列表
-    static public GameObject[] GetPlayerList()
-    {
-        GameObject []players = GameObject.FindGameObjectsWithTag("player");
-        for(int i = 0; i  < players.Length; i++)
-        {
-            Debug.LogWarning("房间玩家：" + players[i].GetComponent<Player>().GetPlayerName());
-        }
-        return players;
-       
-    }
 }
