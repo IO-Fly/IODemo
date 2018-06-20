@@ -82,6 +82,7 @@ public class ObjectBehaviour : MonoBehaviour {
     //控制角色的转向操作
     public void Turn(float yaw, float pitch)
     {
+        if (yaw == 0 && pitch == 0) return;
         //ctrlX和ctrlY可置为1或-1，控制角色朝向的操控方式
         float ctrlX = 1.0f, ctrlY = 1.0f;
 
@@ -106,6 +107,20 @@ public class ObjectBehaviour : MonoBehaviour {
         targetTowards = towards;
     }
 
+    public void TurnBack()
+    {
+        TurnBack(true, true, true);
+    }
+    public void TurnBack(bool turnX,bool turnY,bool turnZ)
+    {
+        if (turnX)
+            targetTowards.x *= -1;
+        if (turnY)
+            targetTowards.y *= -1;
+        if (turnZ)
+            targetTowards.z *= -1;
+    }
+
     public void SetForwardDirecion(Vector3 forward)
     {
         targetTowards = forward;
@@ -115,4 +130,7 @@ public class ObjectBehaviour : MonoBehaviour {
     {
         return towards;
     }
+
+    
+
 }

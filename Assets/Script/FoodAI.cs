@@ -9,11 +9,16 @@ public class FoodAI : MonoBehaviour {
     public float speed = 10.0f;
     public float targetResetInv = 5.0f;
     public float directionResetInv = 2.0f;
- 
+
     protected List<Player> playersDetected = new List<Player>();
     protected Player targetPlayer = null;
     protected float directionResetCount = 0.0f;
     protected float targetResetCount = 0.0f;
+
+    protected float resetCountForWander = 0.0f;
+    protected float turnHorizontal = 0.0f;
+    protected float turnVertical = 0.0f;
+
     protected CharacterController character;
     protected ObjectBehaviour objectBehaviour;
     
@@ -44,7 +49,13 @@ public class FoodAI : MonoBehaviour {
         
     }
 
+
+
     protected void DetectPlayers()
+    {
+        DetectPlayers(playerDetectDistance);
+    }
+    protected void DetectPlayers(float detectDistance)
     {
         playersDetected.Clear();
         Vector3 selfPosition = gameObject.transform.position;
@@ -54,7 +65,9 @@ public class FoodAI : MonoBehaviour {
             {
                 Vector3 playerPosition = player.gameObject.transform.position;
                 float distance = Vector3.Distance(playerPosition, selfPosition);
-                if (distance < playerDetectDistance)
+                Vector3 playerDirection = (playerPosition - selfPosition).normalized;
+                Vector3 forwardDirection = gameObject.transform.forward;
+                if (distance < detectDistance && Vector3.Angle(forwardDirection,playerDirection)<70.0f)
                 {
                     playersDetected.Add(player);
                 }
@@ -100,13 +113,26 @@ public class FoodAI : MonoBehaviour {
 
     protected void Wander()
     {
-        directionResetCount -= Time.deltaTime;
-        if (directionResetCount <= 0.0f)
+        resetCountForWander -= Time.deltaTime;
+        if (resetCountForWander <= 0.0f)
         {
-            directionResetCount = directionResetInv;
-            Vector3 dir = GetRandomDirection();
-            objectBehaviour.SetForwardDirecion(dir);
+            float p = Random.Range(0.0f, 1.0f);
+            if (p < 0.8f)
+            {
+                turnHorizontal = Random.Range(-0.3f, 0.3f);
+                turnVertical = Random.Range(-0.1f, 0.1f);
+                resetCountForWander = Random.Range(2.0f, 5.0f);
+            }
+            else
+            {
+                Vector3 dir = GetRandomDirection();
+                objectBehaviour.SetForwardDirecion(dir);
+                turnHorizontal = 0.0f;
+                turnVertical = 0.0f;
+                resetCountForWander = 0.1f;
+            }
         }
+        objectBehaviour.Turn(turnHorizontal, turnVertical);
         objectBehaviour.Move(ObjectBehaviour.MoveDirection.Front, speed);
     }
 
@@ -129,9 +155,8 @@ public class FoodAI : MonoBehaviour {
         MoveTowards(targetPosition, speed);
     }
 
-
     //随机方向，“俯仰角”限制在45度以内
-    private Vector3 GetRandomDirection()
+    public Vector3 GetRandomDirection()
     {
         float theta = Random.Range(0.0f, 2 * Mathf.PI);
         float phi = Random.Range(-Mathf.PI / 4, Mathf.PI / 4);
@@ -140,4 +165,6 @@ public class FoodAI : MonoBehaviour {
         float y = Mathf.Sin(phi);
         return new Vector3(x, y, z).normalized;
     }
+
+
 }

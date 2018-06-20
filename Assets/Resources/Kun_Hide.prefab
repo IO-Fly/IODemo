@@ -230,6 +230,8 @@ GameObject:
   - component: {fileID: 114350970136409508}
   - component: {fileID: 114131873619974998}
   - component: {fileID: 114245747448000720}
+  - component: {fileID: 114944349491334958}
+  - component: {fileID: 114717964914668300}
   m_Layer: 0
   m_Name: Kun_Hide
   m_TagString: player
@@ -1146,9 +1148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
-  flyCooldown: 15
-  gravity: 9.8
-  minFlySpeed: 10
 --- !u!114 &114055370175448724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1291,6 +1290,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthUIPrefab: {fileID: 1764662472245442, guid: 6e4e6e352eafd4a4680658d98aaed346,
     type: 2}
+--- !u!114 &114717964914668300
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373179133066842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07494256a26eeab4e9a481ea7b39a689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyState: 1
+  enterSky: 0
+  gravity: 0.98
+  flyCooldown: 10
+--- !u!114 &114944349491334958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373179133066842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!114 &114952920977218202
 MonoBehaviour:
   m_ObjectHideFlags: 1
