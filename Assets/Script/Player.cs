@@ -174,7 +174,7 @@ public class Player : Photon.PunBehaviour {
     public void AddSizeOffset(Vector3 sizeOffset)
     {
         this.sizeOffset += sizeOffset;
-        SetLocalScale(playerSize, sizeOffset);
+        SetLocalScale(playerSize, this.sizeOffset);
         
     }
 
