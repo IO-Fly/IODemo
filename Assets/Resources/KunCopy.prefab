@@ -942,7 +942,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b9c723875413d44bc724c9f361d0e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUIPrefab: {fileID: 0}
+  healthUIPrefab: {fileID: 1764662472245442, guid: 6e4e6e352eafd4a4680658d98aaed346,
+    type: 2}
 --- !u!114 &114909107446131046
 MonoBehaviour:
   m_ObjectHideFlags: 1

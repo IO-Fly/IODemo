@@ -70,6 +70,10 @@ public class BattleUI : MonoBehaviour {
     {
         int playerCount = networkManager.playerList.Count;
 
+        if(!this)
+        {
+            return;
+        }
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount + 1));
         Destroy(nameList[playerCount].transform.parent.gameObject);
         nameList.RemoveAt(playerCount);
