@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Player : Photon.PunBehaviour {
 
-  
+    private BattleUI battleUI;
 
     public float initialSize = 1.0f;
     public float initialSpeed = 20.0f;
@@ -54,7 +54,9 @@ public class Player : Photon.PunBehaviour {
         {
             this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
         }
-        Debug.Log("当前Lock值: "+Lock);
+
+        //Debug.Log("当前Lock值: "+Lock);
+
     }
 
      void OnTriggerEnter(Collider other)
@@ -138,7 +140,7 @@ public class Player : Photon.PunBehaviour {
 
     }
 
-        IEnumerator Bomb(Vector3 direction){
+    IEnumerator Bomb(Vector3 direction){
         while(count<5){
             yield return null;
             this.gameObject.GetComponent<CharacterController>().Move(direction*Time.deltaTime*40);
@@ -240,15 +242,64 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     public void SetPlayerName(string name)
     {
+        Debug.LogWarning("调用SetPlayerName");
         this.playerName = name;
-        networkManager.GetPlayerList();
 
+        //呈现更新的玩家列表
+        //showPlayerList();
     }
-    //更新玩家列表
+
     void OnDestroy()
     {
-        networkManager.GetPlayerList();
-
+        //从玩家列表中移除玩家
+        for (int i  = networkManager.playerList.Count - 1; i >= 0; i--)
+        {
+            Player curPlayer = networkManager.playerList[i].GetComponent<Player>();
+            if (this.photonView.viewID == curPlayer.photonView.viewID)
+            {
+                networkManager.playerList.Remove(curPlayer);
+            }
+        }
+        //呈现更新的玩家列表
+        //showPlayerList();
+        battleUI.removePlayer();
     }
+
+    void Awake()
+    {
+        // 获得battleUI
+        GameObject rootCanvas = GameObject.Find("HUDCanvas");
+        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
+        battleUI = battleUINode.GetComponent<BattleUI>();
+
+        // 增加当前player到玩家列表
+        networkManager.playerList.Add(this);
+        if (!this.photonView.isMine)
+        {
+            Debug.LogWarning("调用OnAwake");
+            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+        }
+        else
+        {
+            this.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+            //playerName = LobbyUIManager.playerName;
+            //呈现更新的玩家列表
+            //showPlayerList();
+        }
+
+        battleUI.addPlayer();
+    }
+
+
+    void showPlayerList()
+    {
+        Debug.LogWarning("玩家数：" + networkManager.playerList.Count);
+        for (int i = 0; i < networkManager.playerList.Count; i++)
+        {
+            Player curPlayer = networkManager.playerList[i];
+            Debug.LogWarning("玩家" + i + curPlayer.GetPlayerName());
+        }
+    }
+
 
 }
