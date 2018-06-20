@@ -188,4 +188,9 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public bool GetFlyState()
+    {
+        return fly;
+    }
+
 }

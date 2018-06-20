@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour {
 
     public void Play(string MusicName)
     {
+
+        MusicName = "music/" + MusicName;
         if(Sound.isPlaying){
             return ;
         }
@@ -27,7 +29,7 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayLobbyBackground()
     {
-        string MusicName = LobbyBackground.name;
+        string MusicName = "music/" + LobbyBackground.name;
         Debug.Log("Play Music: " + MusicName);
         BackgroundSound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
         BackgroundSound.Play();
@@ -35,7 +37,7 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayGameBackground()
     {
-        string MusicName = GameBackground.name;
+        string MusicName = "music/" + GameBackground.name;
         Debug.Log("Play Music: " + MusicName);
         BackgroundSound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
         BackgroundSound.Play();
