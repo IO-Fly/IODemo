@@ -12,6 +12,10 @@ public class networkManager :Photon.PunBehaviour {
 	public int poisonCount=100;
 	private int count=0;
 	// Use this for initialization
+void Awake(){
+		PhotonNetwork.sendRate=20;
+		PhotonNetwork.sendRateOnSerialize=20;
+	}
 	void Start () {
 		
 	}
