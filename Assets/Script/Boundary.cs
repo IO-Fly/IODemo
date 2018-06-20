@@ -22,24 +22,24 @@ public class Boundary : Photon.PunBehaviour{
         
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if ((collision.gameObject.tag == "player" && blockPlayer)
-    //        || (collision.gameObject.tag == "food" && blockFood))
-    //    {
-    //        ObjectBehaviour objectBehaviour = collision.gameObject.GetComponent<ObjectBehaviour>();
-    //        if (objectBehaviour != null)
-    //        {
-    //            switch (verticalAxis)
-    //            {
-    //                case Axis.X: objectBehaviour.TurnBack(true, false, false); break;
-    //                case Axis.Y: objectBehaviour.TurnBack(false, true, false); break;
-    //                case Axis.Z: objectBehaviour.TurnBack(false, false, true); break;
-    //                default: objectBehaviour.TurnBack(); break;
-    //            }
-    //        }
-    //    }
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if ((collision.gameObject.tag == "player" && blockPlayer)
+            || (collision.gameObject.tag == "food" && blockFood))
+        {
+            ObjectBehaviour objectBehaviour = collision.gameObject.GetComponent<ObjectBehaviour>();
+            if (objectBehaviour != null)
+            {
+                switch (verticalAxis)
+                {
+                    case Axis.X: objectBehaviour.TurnBack(true, false, false); break;
+                    case Axis.Y: objectBehaviour.TurnBack(false, true, false); break;
+                    case Axis.Z: objectBehaviour.TurnBack(false, false, true); break;
+                    default: objectBehaviour.TurnBack(); break;
+                }
+            }
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -49,21 +49,17 @@ public class Boundary : Photon.PunBehaviour{
             ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
             if (objectBehaviour != null)
             {
-                //float theta = Random.Range(0.0f, 2 * Mathf.PI);
-                //float phi = Random.Range(Mathf.PI / 3, Mathf.PI / 2);
-                //float n1 = Mathf.Cos(theta) * Mathf.Cos(phi);
-                //float n2 = Mathf.Sin(theta) * Mathf.Cos(phi);
-                //float n3 = Mathf.Sin(phi);
-                //if (forceDirection == ForceDirection.Negative) n3 *= -1;
-                Vector3 randomDirection = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+                float theta = Random.Range(0.0f, 2 * Mathf.PI);
+                float phi = Random.Range(Mathf.PI / 3, Mathf.PI / 2);
+                float n1 = Mathf.Cos(theta) * Mathf.Cos(phi);
+                float n2 = Mathf.Sin(theta) * Mathf.Cos(phi);
+                float n3 = Mathf.Sin(phi);
+                if (forceDirection == ForceDirection.Negative) n3 *= -1;
                 switch (verticalAxis)
                 {
-                    //case Axis.X:objectBehaviour.SetForwardDirecion(new Vector3(n3, n1, n2));break;
-                    //case Axis.Y:objectBehaviour.SetForwardDirecion(new Vector3(n2, n3, n1));break;
-                    //case Axis.Z:objectBehaviour.SetForwardDirecion(new Vector3(n1, n2, n3));break;
-                    case Axis.X: objectBehaviour.SetForwardDirecion(randomDirection); break;
-                    case Axis.Y: objectBehaviour.SetForwardDirecion(randomDirection); break;
-                    case Axis.Z: objectBehaviour.SetForwardDirecion(randomDirection); break;
+                    case Axis.X:objectBehaviour.SetForwardDirecion(new Vector3(n3, n1, n2));break;
+                    case Axis.Y:objectBehaviour.SetForwardDirecion(new Vector3(n2, n3, n1));break;
+                    case Axis.Z:objectBehaviour.SetForwardDirecion(new Vector3(n1, n2, n3));break;
                     //case Axis.X: objectBehaviour.TurnBack(true, false, false); break;
                     //case Axis.Y: objectBehaviour.TurnBack(false, true, false); break;
                     //case Axis.Z: objectBehaviour.TurnBack(false, false, true); break;
