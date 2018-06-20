@@ -282,7 +282,7 @@ public class Player : Photon.PunBehaviour {
         }
         else
         {
-            this.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+            this.photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
             //playerName = LobbyUIManager.playerName;
             //呈现更新的玩家列表
             //showPlayerList();
