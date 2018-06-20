@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour {
     public Object TouchBigEnemy;
     public Object TouchSmallEnemy;
     public Object TouchWall;
+    public Object SeaOut;
+    public Object SeaIn;
 
     public void Play(string MusicName)
     {
@@ -57,6 +59,16 @@ public class AudioManager : MonoBehaviour {
     public void PlayTouchWall()
     {
         Play(TouchWall.name);
+    }
+
+    public void PlaySeaOut()
+    {
+        Play(SeaOut.name);
+    }
+
+    public void PlaySeaIn()
+    {
+        Play(SeaIn.name);
     }
 
 
