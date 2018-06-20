@@ -25,7 +25,7 @@ public class ObjectBehaviour : MonoBehaviour {
         up = new Vector3(0.0f, 1.0f, 0.0f);
         right = new Vector3(1.0f, 0.0f, 0.0f);
 
-        targetTowards = new Vector3(0.0f, 0.0f, 1.0f);
+        towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
 
         character = GetComponent<CharacterController>();
     }
