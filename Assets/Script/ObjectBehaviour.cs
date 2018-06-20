@@ -21,11 +21,10 @@ public class ObjectBehaviour : MonoBehaviour {
 
     private void Awake()
     {
-        towards = new Vector3(0.0f, 0.0f, 1.0f);
-        up = new Vector3(0.0f, 1.0f, 0.0f);
-        right = new Vector3(1.0f, 0.0f, 0.0f);
 
-        targetTowards = new Vector3(0.0f, 0.0f, 1.0f);
+        towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+        right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
+        up = Vector3.Cross(towards, right);
 
         character = GetComponent<CharacterController>();
     }
