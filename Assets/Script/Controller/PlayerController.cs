@@ -88,4 +88,9 @@ public class PlayerController : MonoBehaviour
             objectBehaviour.Move(ObjectBehaviour.MoveDirection.Stay);
     }
 
+    public bool GetFlyState()
+    {
+        return fly;
+    }
+
 }

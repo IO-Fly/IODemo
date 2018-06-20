@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerHideController : PlayerSkillController {
 
+    protected ParticleSystem effect;
+
+    void Awake()
+    {
+        effect = gameObject.GetComponentInChildren<ParticleSystem>();
+        DisableParticle();
+    }
 
     // Use this for initialization
     void Start()
@@ -21,6 +28,10 @@ public class PlayerHideController : PlayerSkillController {
             curCooldown = cooldown;
             this.photonView.RPC("HidePlayer", PhotonTargets.AllViaServer, true);
             StartCoroutine("WaitForEndSkill");
+
+            //开启粒子效果
+            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer); 
+
         }
         if (curCooldown > 0)
         {
@@ -34,6 +45,9 @@ public class PlayerHideController : PlayerSkillController {
     {
         yield return new WaitForSeconds(keepTime);
         this.photonView.RPC("HidePlayer", PhotonTargets.AllViaServer, false);
+
+        //关闭粒子效果
+        this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);    
     }
 
     [PunRPC]
@@ -49,8 +63,35 @@ public class PlayerHideController : PlayerSkillController {
             {
                 m.enabled = !isHide;
             }
-        }
-       
+
+            //显示粒子效果
+            if (isHide)
+            {
+                renders = this.GetComponentInChildren<ParticleSystem>().GetComponents<Renderer>();
+                foreach (Renderer m in renders)
+                {
+                    m.enabled = true;
+                }
+            }
+
+        }      
+    }
+
+    [PunRPC]
+    protected void EnableParticle()
+    {
+        effect.Play();
+        effect.transform.parent = null;
+    }
+
+    [PunRPC]
+    protected void DisableParticle()
+    {
+
+        effect.Clear();
+        effect.Pause();
+        effect.transform.parent = this.transform;
+        effect.transform.localPosition = Vector3.zero;
     }
 
 }
