@@ -485,7 +485,10 @@ Transform:
   m_Children:
   - {fileID: 4219610427889096}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
   - {fileID: 4710396439841582}
   - {fileID: 4540045175086504}
 >>>>>>> master
@@ -1024,6 +1027,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba0cfa40910f3a47afc0a1e4ec81e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 --- !u!137 &137012265471756996
 SkinnedMeshRenderer:

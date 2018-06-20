@@ -536,9 +536,38 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
+<<<<<<< HEAD
   - component: {fileID: 4813657387168874}
   m_Layer: 8
   m_Name: joint16
+=======
+  - component: {fileID: 4628079055013010}
+  m_Layer: 8
+  m_Name: joint14
+>>>>>>> master
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1865086221874288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+<<<<<<< HEAD
+  - component: {fileID: 4626108268569914}
+  - component: {fileID: 33537015279174794}
+  - component: {fileID: 23189765717684704}
+  m_Layer: 9
+  m_Name: SphereForMinimap
+=======
+  - component: {fileID: 4813657387168874}
+  m_Layer: 8
+  m_Name: joint16
+>>>>>>> master
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -616,7 +645,10 @@ Transform:
   m_Children:
   - {fileID: 4978466444822306}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
   - {fileID: 4626108268569914}
   - {fileID: 4912424729433954}
 >>>>>>> master
