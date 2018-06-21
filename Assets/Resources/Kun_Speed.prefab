@@ -889,7 +889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flyState: 1
   enterSky: 0
-  gravity: 0.98
+  gravity: 9.8
+  minFlySpeed: 5
   flyCooldown: 10
 --- !u!114 &114654253896672656
 MonoBehaviour:
