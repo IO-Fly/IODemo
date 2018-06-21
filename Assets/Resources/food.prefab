@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 135059262435036050}
   - component: {fileID: 23581912182374966}
   - component: {fileID: 114472727156811982}
-  - component: {fileID: 114570977651795896}
+  - component: {fileID: 114084854490244860}
   m_Layer: 0
   m_Name: food
   m_TagString: food
@@ -225,13 +225,28 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114472727156811982
+--- !u!114 &114084854490244860
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1895278205754436}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4922e6b20da981640a88ebef1793d714, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  foodPrefab: {fileID: 0}
+  rotationSpeed: 2
+  translationSpeed: 0.5
+--- !u!114 &114472727156811982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1895278205754436}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b44ce7d4fe447c42b28e94cddb446f8, type: 3}
   m_Name: 
@@ -239,32 +254,6 @@ MonoBehaviour:
   foodPrefab: {fileID: 1895278205754436}
   rotationSpeed: 10
   translationSpeed: 1
---- !u!114 &114570977651795896
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1895278205754436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 114472727156811982}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!135 &135059262435036050
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectBehaviour : MonoBehaviour {
 
-    public float speed=20.0f;
+    public float defaultSpeed=20.0f;
 
     public enum MoveDirection { Left,FrontLeft,Front,FrontRight,Right,Stay};
 
@@ -21,12 +21,13 @@ public class ObjectBehaviour : MonoBehaviour {
 
     private void Awake()
     {
-        towards = new Vector3(0.0f, 0.0f, 1.0f);
-        up = new Vector3(0.0f, 1.0f, 0.0f);
-        right = new Vector3(1.0f, 0.0f, 0.0f);
-
         towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+        right = new Vector3(towards.z, 0.0f, -towards.x);
+        up = Vector3.Cross(towards, right);
+    }
 
+    private void Start()
+    {
         character = GetComponent<CharacterController>();
     }
 
@@ -47,7 +48,7 @@ public class ObjectBehaviour : MonoBehaviour {
     //控制角色移动的操作
     public void Move(MoveDirection direction)
     {
-        Move(direction, this.speed);
+        Move(direction, this.defaultSpeed);
     }
     public void Move(float speed)
     {
