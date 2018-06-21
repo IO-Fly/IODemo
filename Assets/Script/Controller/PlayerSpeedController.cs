@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerSpeedController : PlayerSkillController {
 
+    public override int GetSkillType()
+    {
+        return 2;
+    }
+
     public float addSpeed;//增加的速度
 
     protected ParticleSystem effect;

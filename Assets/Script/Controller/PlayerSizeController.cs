@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerSizeController : PlayerSkillController {
 
-    
+    public override int GetSkillType()
+    {
+        return 1;
+    }
+
     public Vector3 addSize;//增加的大小
     public float sizeEffect = 2;//本地视口增加效果
 
