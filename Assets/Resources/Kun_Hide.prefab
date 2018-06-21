@@ -1369,6 +1369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keepTime: 5
   cooldown: 5
+  effect: {fileID: 198957664754417644}
 --- !u!114 &114180784195388058
 MonoBehaviour:
   m_ObjectHideFlags: 1

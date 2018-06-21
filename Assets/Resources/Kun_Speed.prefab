@@ -996,6 +996,7 @@ MonoBehaviour:
   keepTime: 5
   cooldown: 5
   addSpeed: 10
+  effect: {fileID: 198205815029833684}
 --- !u!114 &114780577258646490
 MonoBehaviour:
   m_ObjectHideFlags: 1
