@@ -28,13 +28,16 @@ public class PlayerBehaviour : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         player = GetComponent<Player>();
-        character = GetComponent<CharacterController>();
-
         speed = player.GetSpeed();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void Start()
+    {
+        character = GetComponent<CharacterController>();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (curFlyCoolDown > 0)
         {
             curFlyCoolDown -= Time.deltaTime;
