@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectBehaviour : MonoBehaviour {
 
-    public float speed=20.0f;
+    public float defaultSpeed=20.0f;
 
     public enum MoveDirection { Left,FrontLeft,Front,FrontRight,Right,Stay};
 
@@ -47,7 +47,7 @@ public class ObjectBehaviour : MonoBehaviour {
     //控制角色移动的操作
     public void Move(MoveDirection direction)
     {
-        Move(direction, this.speed);
+        Move(direction, this.defaultSpeed);
     }
     public void Move(float speed)
     {
