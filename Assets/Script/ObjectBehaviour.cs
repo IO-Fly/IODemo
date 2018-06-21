@@ -70,7 +70,7 @@ public class ObjectBehaviour : MonoBehaviour {
         if (Mathf.Abs(targetLookAtSlerp - currentLookAtSlerp) < 1e-6)
             currentLookAtSlerp = targetLookAtSlerp;
         else
-            currentLookAtSlerp += (targetLookAtSlerp - currentLookAtSlerp) * 0.4f;
+            currentLookAtSlerp += (targetLookAtSlerp - currentLookAtSlerp) * 0.2f;
 
 
         Vector3 lookAt = Vector3.SlerpUnclamped(-right, towards, currentLookAtSlerp * 2);
