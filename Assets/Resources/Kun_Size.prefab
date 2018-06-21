@@ -174,6 +174,8 @@ GameObject:
   - component: {fileID: 114010965365263074}
   - component: {fileID: 114247464368533522}
   - component: {fileID: 114936574889460180}
+  - component: {fileID: 114798483522717384}
+  - component: {fileID: 114530751368429128}
   m_Layer: 0
   m_Name: Kun_Size
   m_TagString: player
@@ -770,6 +772,22 @@ MonoBehaviour:
   cooldown: 5
   addSize: {x: 1, y: 1, z: 1}
   sizeEffect: 2
+--- !u!114 &114530751368429128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492382451508526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07494256a26eeab4e9a481ea7b39a689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyState: 1
+  enterSky: 0
+  gravity: 9.8
+  minFlySpeed: 5
+  flyCooldown: 10
 --- !u!114 &114546039911506798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -782,9 +800,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
-  flyCooldown: 15
-  gravity: 9.8
-  minFlySpeed: 10
+--- !u!114 &114798483522717384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1492382451508526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!114 &114847987269646436
 MonoBehaviour:
   m_ObjectHideFlags: 1

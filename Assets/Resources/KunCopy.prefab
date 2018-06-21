@@ -275,9 +275,12 @@ GameObject:
   - component: {fileID: 114909107446131046}
   - component: {fileID: 114709949688311852}
   - component: {fileID: 114834639817588582}
+  - component: {fileID: 114152418926031950}
+  - component: {fileID: 114717670276857490}
+  - component: {fileID: 114487858673662320}
   m_Layer: 0
   m_Name: KunCopy
-  m_TagString: player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -875,6 +878,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114152418926031950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613026644344698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!114 &114179645476148740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -907,15 +922,29 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1613026644344698}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00e18f1aabbe58141a1bc002eca86615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
-  flyCooldown: 15
-  gravity: 9.8
-  minFlySpeed: 10
+--- !u!114 &114487858673662320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613026644344698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541e951edb0d9114ea50b54410040229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allPlayers: []
+  playerDetectDistance: 50
+  speed: 20
+  targetResetInv: 5
+  directionResetInv: 2
+  foodDetectDistance: 50
 --- !u!114 &114709949688311852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -931,6 +960,22 @@ MonoBehaviour:
   - {fileID: 114435195922509752}
   - {fileID: 114942718953486326}
   - {fileID: 0}
+--- !u!114 &114717670276857490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1613026644344698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07494256a26eeab4e9a481ea7b39a689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyState: 1
+  enterSky: 0
+  gravity: 9.8
+  minFlySpeed: 5
+  flyCooldown: 10
 --- !u!114 &114834639817588582
 MonoBehaviour:
   m_ObjectHideFlags: 1
