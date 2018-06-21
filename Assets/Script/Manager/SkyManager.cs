@@ -20,9 +20,13 @@ public class SkyManager : Photon.PunBehaviour {
             other.gameObject.GetComponent<PlayerBehaviour>().EnterSky();
             if (other.gameObject.GetComponent<PlayerBehaviour>().CanFly())
             {
-                other.gameObject.GetComponent<PlayerBehaviour>().StartFly();
+                other.gameObject.GetComponent<PlayerBehaviour>().StartFly();   
                 Debug.Log("飞向天空");
-            }else
+
+                //粒子效果
+                other.gameObject.GetComponent<SeaParticleController>().EnterSky();
+            }
+            else
             {
                 ///other.gameObject.GetComponent<PlayerBehaviour>().WaitForFly();
             }
@@ -35,6 +39,10 @@ public class SkyManager : Photon.PunBehaviour {
         if (other.gameObject.tag == "player"){
             other.gameObject.GetComponent<PlayerBehaviour>().LeaveSky();
             other.gameObject.GetComponent<PlayerBehaviour>().EndFly();
+
+            //粒子效果
+            other.gameObject.GetComponent<SeaParticleController>().LeaveSky();
+
         }
        
 	}
