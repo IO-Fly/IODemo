@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FoodAI : MonoBehaviour {
 
-    public List<Player> allPlayers;
+    public static List<Player> allPlayers;
     public float playerDetectDistance = 50.0f;
     public float speed = 10.0f;
     public float targetResetInv = 5.0f;
