@@ -39,6 +39,19 @@ public class Player : Photon.PunBehaviour {
         sizeOffset = Vector3.zero;
         StartCoroutine(Recover());
 
+        if (!this.photonView.isMine)
+        {
+            Debug.LogWarning("调用OnAwake");
+            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+        }
+        else
+        {
+            this.photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+            //playerName = LobbyUIManager.playerName;
+            //呈现更新的玩家列表
+            //showPlayerList();
+        }
+
     }
 	
 	// Update is called once per frame
@@ -246,8 +259,7 @@ public class Player : Photon.PunBehaviour {
         Debug.LogWarning("调用SetPlayerName");
         this.playerName = name;
 
-        //呈现更新的玩家列表
-        //showPlayerList();
+        this.GetComponent<PlayerHealthUI>().setPlayerName(name);
     }
 
     void OnDestroy()
@@ -275,20 +287,10 @@ public class Player : Photon.PunBehaviour {
 
         // 增加当前player到玩家列表
         networkManager.playerList.Add(this);
-        if (!this.photonView.isMine)
-        {
-            Debug.LogWarning("调用OnAwake");
-            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
-        }
-        else
-        {
-            this.photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
-            //playerName = LobbyUIManager.playerName;
-            //呈现更新的玩家列表
-            //showPlayerList();
-        }
 
+        // battleUI排行榜增加一个用户
         battleUI.addPlayer();
+
     }
 
 
