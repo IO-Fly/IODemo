@@ -41,38 +41,39 @@ public class Boundary : Photon.PunBehaviour{
         }
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if ((other.gameObject.tag=="player" && blockPlayer)
-            || (other.gameObject.tag=="food" && blockFood)) 
-        {
-            ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
-            if (objectBehaviour != null)
-            {
-                float theta = Random.Range(0.0f, 2 * Mathf.PI);
-                float phi = Random.Range(Mathf.PI / 3, Mathf.PI / 2);
-                float n1 = Mathf.Cos(theta) * Mathf.Cos(phi);
-                float n2 = Mathf.Sin(theta) * Mathf.Cos(phi);
-                float n3 = Mathf.Sin(phi);
-                if (forceDirection == ForceDirection.Negative) n3 *= -1;
-                switch (verticalAxis)
-                {
-                    case Axis.X:objectBehaviour.SetForwardDirecion(new Vector3(n3, n1, n2));break;
-                    case Axis.Y:objectBehaviour.SetForwardDirecion(new Vector3(n2, n3, n1));break;
-                    case Axis.Z:objectBehaviour.SetForwardDirecion(new Vector3(n1, n2, n3));break;
-                    //case Axis.X: objectBehaviour.TurnBack(true, false, false); break;
-                    //case Axis.Y: objectBehaviour.TurnBack(false, true, false); break;
-                    //case Axis.Z: objectBehaviour.TurnBack(false, false, true); break;
-                    default: objectBehaviour.TurnBack(); break;
-                }
-            }
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if ((other.gameObject.tag=="player" && blockPlayer)
+    //        || (other.gameObject.tag=="food" && blockFood)) 
+    //    {
+    //        ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
+    //        if (objectBehaviour != null)
+    //        {
+    //            float theta = Random.Range(0.0f, 2 * Mathf.PI);
+    //            float phi = Random.Range(Mathf.PI / 3, Mathf.PI / 2);
+    //            float n1 = Mathf.Cos(theta) * Mathf.Cos(phi);
+    //            float n2 = Mathf.Sin(theta) * Mathf.Cos(phi);
+    //            float n3 = Mathf.Sin(phi);
+    //            if (forceDirection == ForceDirection.Negative) n3 *= -1;
+    //            switch (verticalAxis)
+    //            {
+    //                case Axis.X:objectBehaviour.SetForwardDirecion(new Vector3(n3, n1, n2));break;
+    //                case Axis.Y:objectBehaviour.SetForwardDirecion(new Vector3(n2, n3, n1));break;
+    //                case Axis.Z:objectBehaviour.SetForwardDirecion(new Vector3(n1, n2, n3));break;
+    //                //case Axis.X: objectBehaviour.TurnBack(true, false, false); break;
+    //                //case Axis.Y: objectBehaviour.TurnBack(false, true, false); break;
+    //                //case Axis.Z: objectBehaviour.TurnBack(false, false, true); break;
+    //                default: objectBehaviour.TurnBack(); break;
+    //            }
+    //        }
+    //    }
+    //}
 
     private void OnTriggerStay(Collider other)
     {
-        if ((other.gameObject.tag == "player" && blockPlayer)
-            || (other.gameObject.tag == "food" && blockFood))
+        string tag = other.gameObject.tag;
+        if ((tag == "player" && blockPlayer)
+            || ((tag == "food" || tag == "poison") && blockFood))
         {
             ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
             if (objectBehaviour != null)
