@@ -2334,11 +2334,8 @@ MonoBehaviour:
   foodPrefab: {fileID: 1895278205754436, guid: 3482c3e8e263cd942939a7266ed182c2, type: 2}
   poisonPrefab: {fileID: 1170017552055430, guid: 3830497b14c78ea4bbbe356b4e274475,
     type: 2}
-  moveablePrefab: {fileID: 1815880380957606, guid: 2da5cf9475107e4419b1869a3fb7c8a7,
-    type: 2}
   foodCount: 100
   poisonCount: 50
-  moveableCount: 50
 --- !u!114 &1230288051
 MonoBehaviour:
   m_ObjectHideFlags: 0

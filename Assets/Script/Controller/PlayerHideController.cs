@@ -9,11 +9,11 @@ public class PlayerHideController : PlayerSkillController {
         return 4;
     }
 
-    protected ParticleSystem effect;
+    public ParticleSystem effect;
 
     void Awake()
     {
-        effect = gameObject.GetComponentInChildren<ParticleSystem>();
+        //effect = gameObject.GetComponentInChildren<ParticleSystem>();
         DisableParticle();
     }
 

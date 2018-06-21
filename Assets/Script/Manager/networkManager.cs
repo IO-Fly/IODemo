@@ -37,7 +37,7 @@ void Awake(){
 
         //在主客户端加载场景
         if (PhotonNetwork.isMasterClient){
-            CreateFood();
+            //CreateFood();
 			//this.InvokeRepeating("DelayFood", 1f,0.2f);
         }    	
 	}
