@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PlayerHideController : PlayerSkillController {
 
-    protected ParticleSystem effect;
+    public ParticleSystem effect;
 
     void Awake()
     {
-        effect = gameObject.GetComponentInChildren<ParticleSystem>();
+        //effect = gameObject.GetComponentInChildren<ParticleSystem>();
         DisableParticle();
     }
 
