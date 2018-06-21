@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCopyController : PlayerSkillController {
-    
+
+    public override int GetSkillType()
+    {
+        return 3;
+    }
 
     public GameObject playerCopyPrefab;
     public float distance;//分身距离本体的初始距离

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class PlayerHideController : PlayerSkillController {
 
+    public override int GetSkillType()
+    {
+        return 4;
+    }
+
     public ParticleSystem effect;
 
     void Awake()
