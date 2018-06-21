@@ -36,8 +36,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095289287370296}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.330074, y: -123.16437, z: 85.01527}
+  m_LocalRotation: {x: -0.31124443, y: 0.26472804, z: -0.090724066, w: 0.90819335}
+  m_LocalPosition: {x: 81.60015, y: 5.4392433, z: 57.58343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,7 +63,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -259,3 +259,5 @@ MonoBehaviour:
   TouchBigEnemy: {fileID: 8300000, guid: 13d1a37acfe8b6c4bbcc735dbd5b20bf, type: 3}
   TouchSmallEnemy: {fileID: 8300000, guid: 26740aecb2dfa2a47aac81dac5e79d89, type: 3}
   TouchWall: {fileID: 8300000, guid: abcf543ad90671949861e6a6885cb2af, type: 3}
+  SeaOut: {fileID: 8300000, guid: 98d223568d593944792f15177be2b80b, type: 3}
+  SeaIn: {fileID: 8300000, guid: 65e16a7f43c674746be8e59c7b46f1a0, type: 3}

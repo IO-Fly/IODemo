@@ -67,7 +67,7 @@ public class CameraController : MonoBehaviour {
                 offsetAngleVertical *= 0.6f;
         }
 
-        Vector3 playerTowards = player.gameObject.GetComponent<PlayerController>().GetTowards();
+        Vector3 playerTowards = player.gameObject.GetComponent<ObjectBehaviour>().GetForwardDirection();
         right = new Vector3(playerTowards.z, 0.0f, -playerTowards.x).normalized;
         up = Vector3.Cross(playerTowards, right).normalized;
         direction = Vector3.SlerpUnclamped(playerTowards, right, offsetAngleHorizontal / 90.0f);

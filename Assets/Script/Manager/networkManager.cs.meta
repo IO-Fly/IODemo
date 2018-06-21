@@ -4,9 +4,10 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - playerPrefab: {fileID: 1648086730235954, guid: 2c802df941a1c244aa85356c81bf382b,
-      type: 2}
   - foodPrefab: {fileID: 1895278205754436, guid: 3482c3e8e263cd942939a7266ed182c2,
+      type: 2}
+  - poisonPrefab: {instanceID: 0}
+  - moveablePrefab: {fileID: 1014810977391708, guid: 2da5cf9475107e4419b1869a3fb7c8a7,
       type: 2}
   executionOrder: 0
   icon: {instanceID: 0}

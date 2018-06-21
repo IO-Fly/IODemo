@@ -39,6 +39,19 @@ public class Player : Photon.PunBehaviour {
         sizeOffset = Vector3.zero;
         StartCoroutine(Recover());
 
+        if (!this.photonView.isMine)
+        {
+            Debug.LogWarning("调用OnAwake");
+            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+        }
+        else
+        {
+            this.photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+            //playerName = LobbyUIManager.playerName;
+            //呈现更新的玩家列表
+            //showPlayerList();
+        }
+
     }
 	
 	// Update is called once per frame
@@ -69,7 +82,7 @@ public class Player : Photon.PunBehaviour {
             float sq=Mathf.Sqrt(playerEnergy);     
             speed = 10 / sq+2;
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            transform.localScale = playerSize + sizeOffset;
+            SetLocalScale(playerSize, sizeOffset);//设置人物尺寸
             }
 
             //播放音效
@@ -86,8 +99,8 @@ public class Player : Photon.PunBehaviour {
             float sq=Mathf.Sqrt(playerEnergy);     
             speed = 10 / sq+2;
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            transform.localScale = playerSize + sizeOffset;
- 
+            SetLocalScale(playerSize, sizeOffset);
+
         }
 
     }
@@ -174,7 +187,8 @@ public class Player : Photon.PunBehaviour {
     public void AddSizeOffset(Vector3 sizeOffset)
     {
         this.sizeOffset += sizeOffset;
-        transform.localScale = playerSize + this.sizeOffset;
+        SetLocalScale(playerSize, this.sizeOffset);
+        
     }
 
     public float GetSpeed()
@@ -227,7 +241,7 @@ public class Player : Photon.PunBehaviour {
 
     [PunRPC]
     void ReleaseLock(){
-            this.Lock =0;
+        this.Lock =0;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
@@ -245,8 +259,7 @@ public class Player : Photon.PunBehaviour {
         Debug.LogWarning("调用SetPlayerName");
         this.playerName = name;
 
-        //呈现更新的玩家列表
-        //showPlayerList();
+        this.GetComponent<PlayerHealthUI>().setPlayerName(name);
     }
 
     void OnDestroy()
@@ -274,20 +287,10 @@ public class Player : Photon.PunBehaviour {
 
         // 增加当前player到玩家列表
         networkManager.playerList.Add(this);
-        if (!this.photonView.isMine)
-        {
-            Debug.LogWarning("调用OnAwake");
-            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
-        }
-        else
-        {
-            this.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
-            //playerName = LobbyUIManager.playerName;
-            //呈现更新的玩家列表
-            //showPlayerList();
-        }
 
+        // battleUI排行榜增加一个用户
         battleUI.addPlayer();
+
     }
 
 
@@ -301,5 +304,12 @@ public class Player : Photon.PunBehaviour {
         }
     }
 
+    //更改大小
+    void SetLocalScale(Vector3 playerSize,Vector3 sizeOffset)
+    {
+        transform.localScale = playerSize + sizeOffset;
+
+        //battleUI.updateSeveralFrame();
+    }
 
 }

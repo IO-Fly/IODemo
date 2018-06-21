@@ -5,7 +5,15 @@ using UnityEngine;
 public class PlayerSpeedController : PlayerSkillController {
 
     public float addSpeed;//增加的速度
-  
+
+    public ParticleSystem effect;
+
+    void Awake()
+    {
+        //effect = gameObject.GetComponentInChildren<ParticleSystem>();
+        DisableParticle();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -19,9 +27,13 @@ public class PlayerSpeedController : PlayerSkillController {
         //技能触发
         if (Input.GetKeyDown("space") && curCooldown <= 0)
         {
+
             curCooldown = cooldown;
-            gameObject.GetComponent<Player>().AddSpeedOffset(addSpeed);    
+            gameObject.GetComponent<Player>().AddSpeedOffset(addSpeed);
             StartCoroutine("WaitForEndSkill");
+            //开启粒子效果
+            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+           
         }
 
         if (curCooldown > 0)
@@ -35,6 +47,25 @@ public class PlayerSpeedController : PlayerSkillController {
     IEnumerator WaitForEndSkill()
     {
         yield return new WaitForSeconds(keepTime);
-        gameObject.GetComponent<Player>().AddSpeedOffset(-addSpeed); 
+        gameObject.GetComponent<Player>().AddSpeedOffset(-addSpeed);
+
+        //关闭粒子效果
+        this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
+
     }
+
+    [PunRPC]
+    protected void EnableParticle()
+    {
+        effect.Play();
+    }
+
+    [PunRPC]
+    protected void DisableParticle()
+    {
+
+        effect.Clear();
+        effect.Pause();
+    }
+
 }
