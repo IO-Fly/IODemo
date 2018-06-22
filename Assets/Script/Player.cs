@@ -342,7 +342,7 @@ public class Player : Photon.PunBehaviour {
         const float minSize = 1.0f, maxSize = 25.0f;
         const float minDamage = 10.0f, maxDamage = 80.0f;
         float average = (selfSize + enemySize) / 2.0f;
-        float ratio = (selfSize - minSize) / (maxSize - minSize);
+        float ratio = (average - minSize) / (maxSize - minSize);
         float sumDamage = minDamage + (maxDamage - minDamage) * ratio;
         out_selfDamage = sumDamage * enemySize / (selfSize + enemySize);
         out_enemyDamage = sumDamage * selfSize / (selfSize + enemySize);
@@ -355,11 +355,12 @@ public class Player : Photon.PunBehaviour {
 
 
     //判断两个对象是否是分身关系
-    bool isCopyRelation(GameObject other)
+    public bool isCopyRelation(GameObject other)
     {
         if(this.gameObject.tag == "playerCopy" && other.tag == "player")
         {
             PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
+
             if(copyController == null)
             {
                 return false;
