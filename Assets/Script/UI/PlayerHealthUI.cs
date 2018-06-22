@@ -24,7 +24,6 @@ public class PlayerHealthUI : MonoBehaviour {
 
         // 获得模型原始高度，为了可移动血条的位置，这里固定为 1.5f
         //modelHalfHeight = GetComponent<MeshFilter>().mesh.bounds.size.y / 2;
-        //Debug.Log("模型高度" + modelHalfHeight);
 
         // 加载可移动的画布到场景中
         healthCanvas = GameObject.Instantiate(healthUIPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
@@ -39,8 +38,8 @@ public class PlayerHealthUI : MonoBehaviour {
         // 初始化可移动的名字
         nameText = healthCanvas.transform.Find("PlayerNameText").gameObject.GetComponent<Text>();
         nameText.text = player.GetPlayerName();
-        // 初始化固定的血条
-        if (player.photonView.isMine)
+        // 初始化固定的血条 (如果该object是当前用户控制的，且非分身技能的分身体)
+        if (player.photonView.isMine && player.tag == "player")
         {
             GameObject rootCanvas = GameObject.Find("HUDCanvas");
             screenHealthSlider = rootCanvas.transform.Find("CurPlayerHealthUI/HealthSlider").gameObject.GetComponent<Slider>();
@@ -54,29 +53,30 @@ public class PlayerHealthUI : MonoBehaviour {
 	void Update ()
     {
         // 判断player是否死亡
-        if (!player || player.health <= 0)
+        if (player == null || player.health <= 0)
         {
-            //Destroy(nameText);
-            //Destroy(healthSlider);
             Destroy(healthCanvas);
-            if (player.photonView.isMine)
+            if (screenHealthSlider)
             {
                 screenHealthSlider.value = 0;
             }
             return;
         }
-        // 判断是否是当前客户端的player
-        if (player.photonView.isMine)
+        // 作为当前用户控制的player(非分身), 更新血量
+        if (screenHealthSlider != null)
         {
             screenHealthSlider.value = player.health;
-            healthCanvas.SetActive(false);
+
+            if (healthCanvas)
+            {
+                healthCanvas.SetActive(false);
+            }
             return;
         }
-        // 更新敌人的血量、名字、画布位置
-        if (healthCanvas)
+        // 作为当前用户的分身或者敌人，更新血量、画布位置
+        if (healthCanvas != null)
         {
             healthSlider.value = player.health;
-            //nameText.text = player.GetPlayerName();
 
             float newY = transform.position.y + transform.localScale.y * modelHalfHeight + 0.2f;
             Vector3 newPos = new Vector3(transform.position.x, newY, transform.position.z);
@@ -88,7 +88,8 @@ public class PlayerHealthUI : MonoBehaviour {
 
     }
 
-    public void setPlayerName(string name)
+    // 更新当前用户的分身或者敌人的名称
+    public void SetPlayerName(string name)
     {
         if(nameText)
         {
