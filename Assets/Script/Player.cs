@@ -23,6 +23,7 @@ public class Player : Photon.PunBehaviour {
     private string playerName;//玩家自定义的名字
     private int count;//碰撞后偏移的执行次数
     public int Lock=0;
+    public int HitLock=0;
 
 
     // Use this for initialization
@@ -101,7 +102,12 @@ public class Player : Photon.PunBehaviour {
 
     void OnControllerColliderHit(ControllerColliderHit other)
     {
-        if (other.gameObject != this.gameObject && other.gameObject.tag == "player" && this.photonView.isMine)
+
+        if(HitLock!=0)
+        return;
+        HitLock = 1;
+        StartCoroutine(ReleaseHitLock());
+        if (other.gameObject != this.gameObject && (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") && this.photonView.isMine)
         {
 
             Debug.Log("碰撞到了玩家");
@@ -174,6 +180,10 @@ public class Player : Photon.PunBehaviour {
             this.health+=1;
             yield return new WaitForSeconds(1);
         }
+    }
+    IEnumerator ReleaseHitLock(){
+        yield return new WaitForSeconds(1);
+        this.HitLock=0;
     }
     public void AddSpeedOffset(float speedOffset)
     {
@@ -261,7 +271,7 @@ public class Player : Photon.PunBehaviour {
         Debug.LogWarning("调用SetPlayerName");
         this.playerName = name;
 
-        this.GetComponent<PlayerHealthUI>().setPlayerName(name);
+        this.GetComponent<PlayerHealthUI>().SetPlayerName(name);
     }
 
     void OnDestroy()
@@ -350,16 +360,38 @@ public class Player : Photon.PunBehaviour {
         if(this.gameObject.tag == "playerCopy" && other.tag == "player")
         {
             PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
+<<<<<<< HEAD
             if (copyController != null) 
                 if(copyController.getPlayerCopy() == this.gameObject)
                     return true;
+=======
+            if(copyController == null)
+            {
+                return false;
+            }
+            if(copyController.getPlayerCopy() == this.gameObject)
+            {
+                return true;
+            }
+>>>>>>> master
         }
         else if(this.gameObject.tag == "player" && other.tag == "playerCopy")
         {
             PlayerCopyController copyController = this.gameObject.GetComponent<PlayerCopyController>();
+<<<<<<< HEAD
             if (copyController != null) 
                 if (copyController.getPlayerCopy() == other)
                     return true;
+=======
+            if (copyController == null)
+            {
+                return false;
+            }
+            if (copyController.getPlayerCopy() == other)
+            {
+                return true;
+            }
+>>>>>>> master
         }
 
         return false;

@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 33523003618517686}
   - component: {fileID: 135059262435036050}
   - component: {fileID: 23581912182374966}
-  - component: {fileID: 114472727156811982}
   - component: {fileID: 114084854490244860}
   m_Layer: 0
   m_Name: food
@@ -238,22 +237,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 0
   foodPrefab: {fileID: 0}
+  translation: {x: 0, y: 0, z: 0}
   rotationSpeed: 2
   translationSpeed: 0.5
---- !u!114 &114472727156811982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1895278205754436}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b44ce7d4fe447c42b28e94cddb446f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foodPrefab: {fileID: 1895278205754436}
-  rotationSpeed: 10
-  translationSpeed: 1
 --- !u!135 &135059262435036050
 SphereCollider:
   m_ObjectHideFlags: 1
