@@ -9,6 +9,8 @@ TagManager:
   - sky
   - poison
   - Wall
+  - playerAI
+  - playerCopy
   layers:
   - Default
   - TransparentFX
