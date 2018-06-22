@@ -65,7 +65,7 @@ public class Player : Photon.PunBehaviour {
 
      void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("food"))
+        if (other.gameObject.CompareTag("food") || other.gameObject.tag == "foodAI")
         {
 			Debug.Log ("玩家：碰到了食物");
             if(transform.localScale.x<25){
@@ -93,9 +93,8 @@ public class Player : Photon.PunBehaviour {
             SetLocalScale(playerSize, sizeOffset);
 
             //缺少音效
-
         }
-
+      
     }
 
 
@@ -354,6 +353,8 @@ public class Player : Photon.PunBehaviour {
         this.count = player.count;
         this.Lock = player.Lock;
         this.transform.localScale = player.transform.localScale;
+        this.initialSize = player.transform.localScale.x;
+        this.initialSpeed = player.speed;
     }
 
 }

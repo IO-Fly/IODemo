@@ -28,7 +28,7 @@ public class PlayerCopyController : PlayerSkillController {
             //根据玩家初始化位置，方向，大小
             Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
             Vector3 InitPosition = transform.position + posOffset;
-            playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);   
+            playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);
             //复制本身属性到分身
             playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
             
