@@ -101,7 +101,7 @@ public class Player : Photon.PunBehaviour {
 
     void OnControllerColliderHit(ControllerColliderHit other)
     {
-        if (other.gameObject != this.gameObject && other.gameObject.tag == "player" && this.photonView.isMine)
+        if (other.gameObject != this.gameObject && (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") && this.photonView.isMine)
         {
 
             Debug.Log("碰撞到了玩家");
@@ -257,7 +257,7 @@ public class Player : Photon.PunBehaviour {
         Debug.LogWarning("调用SetPlayerName");
         this.playerName = name;
 
-        this.GetComponent<PlayerHealthUI>().setPlayerName(name);
+        this.GetComponent<PlayerHealthUI>().SetPlayerName(name);
     }
 
     void OnDestroy()
@@ -327,6 +327,10 @@ public class Player : Photon.PunBehaviour {
         if(this.gameObject.tag == "playerCopy" && other.tag == "player")
         {
             PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
+            if(copyController == null)
+            {
+                return false;
+            }
             if(copyController.getPlayerCopy() == this.gameObject)
             {
                 return true;
@@ -335,6 +339,10 @@ public class Player : Photon.PunBehaviour {
         else if(this.gameObject.tag == "player" && other.tag == "playerCopy")
         {
             PlayerCopyController copyController = this.gameObject.GetComponent<PlayerCopyController>();
+            if (copyController == null)
+            {
+                return false;
+            }
             if (copyController.getPlayerCopy() == other)
             {
                 return true;
