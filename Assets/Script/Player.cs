@@ -345,23 +345,21 @@ public class Player : Photon.PunBehaviour {
 
 
     //判断两个对象是否是分身关系
-    bool isCopyRelation(GameObject other)
+    public bool isCopyRelation(GameObject other)
     {
         if(this.gameObject.tag == "playerCopy" && other.tag == "player")
         {
             PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
-            if(copyController.getPlayerCopy() == this.gameObject)
-            {
-                return true;
-            }
+            if (copyController != null) 
+                if(copyController.getPlayerCopy() == this.gameObject)
+                    return true;
         }
         else if(this.gameObject.tag == "player" && other.tag == "playerCopy")
         {
             PlayerCopyController copyController = this.gameObject.GetComponent<PlayerCopyController>();
-            if (copyController.getPlayerCopy() == other)
-            {
-                return true;
-            }
+            if (copyController != null) 
+                if (copyController.getPlayerCopy() == other)
+                    return true;
         }
 
         return false;

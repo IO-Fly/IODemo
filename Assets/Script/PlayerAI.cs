@@ -18,6 +18,7 @@ public class PlayerAI : FoodAI
         character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
         playerBehaviour = gameObject.GetComponent<PlayerBehaviour>();
+        
     }
 
     void Update()
@@ -36,10 +37,10 @@ public class PlayerAI : FoodAI
         }
         if (HasTargetPlayer())
         {
-            if (BiggerThanTarget())
-                ChaseTarget();
-            else
+            if (SmallerThanTarget())
                 Flee();
+            else
+                ChaseTarget();
         }
         else if (HasTargetFood())
             GoGetFood();
@@ -47,11 +48,32 @@ public class PlayerAI : FoodAI
             Wander();
     }
 
+    protected override void DetectPlayers()
+    {
+        this.DetectPlayers(playerDetectDistance);
+    }
+    protected override void DetectPlayers(float detectDistance)
+    {
+        playersDetected.Clear();
+        Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, playerDetectDistance);
+        foreach (Collider collider in colliders)
+        {
+            PlayerCopyController copyJudge = collider.gameObject.GetComponent<PlayerCopyController>();
+            if (copyJudge != null)
+                if (copyJudge.getPlayerCopy() == gameObject)
+                    continue;
+            //if (player.isCopyRelation(collider.gameObject))
+            //    continue;
+            if (collider.gameObject.CompareTag("player"))
+                playersDetected.Add(collider.gameObject);
+        }
+    }
+
     void ChaseTarget()
     {
         if (targetPlayer != null)
         {
-            if (InTheSky())
+            if (!InTheSky())
                 MoveTowards(targetPlayer.gameObject.transform.position);
         }
         else
