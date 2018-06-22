@@ -342,7 +342,7 @@ public class Player : Photon.PunBehaviour {
         const float minSize = 1.0f, maxSize = 25.0f;
         const float minDamage = 10.0f, maxDamage = 80.0f;
         float average = (selfSize + enemySize) / 2.0f;
-        float ratio = (selfSize - minSize) / (maxSize - minSize);
+        float ratio = (average - minSize) / (maxSize - minSize);
         float sumDamage = minDamage + (maxDamage - minDamage) * ratio;
         out_selfDamage = sumDamage * enemySize / (selfSize + enemySize);
         out_enemyDamage = sumDamage * selfSize / (selfSize + enemySize);
@@ -360,11 +360,7 @@ public class Player : Photon.PunBehaviour {
         if(this.gameObject.tag == "playerCopy" && other.tag == "player")
         {
             PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
-<<<<<<< HEAD
-            if (copyController != null) 
-                if(copyController.getPlayerCopy() == this.gameObject)
-                    return true;
-=======
+
             if(copyController == null)
             {
                 return false;
@@ -373,16 +369,10 @@ public class Player : Photon.PunBehaviour {
             {
                 return true;
             }
->>>>>>> master
         }
         else if(this.gameObject.tag == "player" && other.tag == "playerCopy")
         {
             PlayerCopyController copyController = this.gameObject.GetComponent<PlayerCopyController>();
-<<<<<<< HEAD
-            if (copyController != null) 
-                if (copyController.getPlayerCopy() == other)
-                    return true;
-=======
             if (copyController == null)
             {
                 return false;
@@ -391,7 +381,6 @@ public class Player : Photon.PunBehaviour {
             {
                 return true;
             }
->>>>>>> master
         }
 
         return false;
