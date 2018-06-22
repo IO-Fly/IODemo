@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCopyController : PlayerSkillController {
-    
+
+    public override int GetSkillType()
+    {
+        return 3;
+    }
 
     public GameObject playerCopyPrefab;
     public float distance;//分身距离本体的初始距离
@@ -28,11 +32,10 @@ public class PlayerCopyController : PlayerSkillController {
             //根据玩家初始化位置，方向，大小
             Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
             Vector3 InitPosition = transform.position + posOffset;
-            playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);
-            playerCopy.transform.rotation = transform.rotation;
-            playerCopy.transform.localScale = transform.localScale;
-            //此处应该在分身对象中保留所有者的对象，用于碰撞检测
-
+            playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);   
+            //复制本身属性到分身
+            playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
+            
             StartCoroutine("WaitForEndSkill");
         }
 

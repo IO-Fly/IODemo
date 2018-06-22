@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class PlayerSkillController : Photon.PunBehaviour {
 
+    public abstract int GetSkillType();
+
+
     public float keepTime;//技能效果持续时间
     public float cooldown;//定义技能冷却时间
 
@@ -20,7 +23,7 @@ public abstract class PlayerSkillController : Photon.PunBehaviour {
         return (keepTime - (cooldown - curCooldown));
     }
 
-    public  float GetCooldown()
+    public float GetCooldown()
     {
         return cooldown;
     }
@@ -29,7 +32,6 @@ public abstract class PlayerSkillController : Photon.PunBehaviour {
     {
         return curCooldown;
     }
-
 
 
 }

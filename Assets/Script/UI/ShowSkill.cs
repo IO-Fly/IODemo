@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ShowSkill : MonoBehaviour {
-    
+
     private Image keepShadowImage;
     private Text keepTimeText;
 
@@ -17,8 +17,11 @@ public class ShowSkill : MonoBehaviour {
     private float totalCoolTime;
 
 
+    private Image skillImage;
+
     void Start ()
     {
+
         keepShadowImage = this.transform.Find("KeepShadowImage").gameObject.GetComponent<Image>();
         keepTimeText = this.transform.Find("KeepTimeText").gameObject.GetComponent<Text>();
 
@@ -28,6 +31,30 @@ public class ShowSkill : MonoBehaviour {
         skillManager = player.GetComponent<SkillManager>();
         totalKeepTime = skillManager.GetSkillKeepTime(0);
         totalCoolTime = skillManager.GetSkillCooldown(0) - totalKeepTime;
+
+        // 初始化技能图片，加载对应技能的图片
+        Sprite skillSprite;
+        if(skillManager.playerSkills[0].GetSkillType() == 1)
+        {
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/big");
+        }
+        else if(skillManager.playerSkills[0].GetSkillType() == 2)
+        {
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/fast");
+        }
+        else if (skillManager.playerSkills[0].GetSkillType() == 3)
+        {
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/bomb");
+        }
+        else 
+        {
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/hide");
+        }
+
+        skillImage = this.transform.Find("SkillImage").gameObject.GetComponent<Image>();
+        skillImage.sprite = skillSprite;
+
+
     }
 
     void Update ()

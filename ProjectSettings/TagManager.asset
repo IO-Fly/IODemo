@@ -10,6 +10,7 @@ TagManager:
   - poison
   - Wall
   - playerAI
+  - playerCopy
   layers:
   - Default
   - TransparentFX

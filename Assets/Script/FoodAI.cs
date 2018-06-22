@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FoodAI : PoisonAI {
 
-    public List<Player> allPlayers;
+    public static List<Player> allPlayers;
     public float playerDetectDistance = 50.0f;
     
     public float targetResetInv = 5.0f;
