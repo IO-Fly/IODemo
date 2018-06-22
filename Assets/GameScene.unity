@@ -2233,6 +2233,7 @@ GameObject:
   - component: {fileID: 1230288050}
   - component: {fileID: 1230288052}
   - component: {fileID: 1230288051}
+  - component: {fileID: 1230288052}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -2946,8 +2947,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6677e4d2dad51944f8b23eef2fbc31a2, type: 3}
-  m_Type: 3
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
