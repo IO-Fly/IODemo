@@ -9,7 +9,8 @@ public class Player : Photon.PunBehaviour {
 
     public float initialSize = 1.0f;
     public float initialSpeed = 20.0f;
-    public float health;
+    public float initalHealth = 100.0f;
+    public float health = 100.0f;
 
 
     private float playerEnergy;
@@ -35,6 +36,7 @@ public class Player : Photon.PunBehaviour {
         sizeEffect = 1.0f;
         speedOffset = 0.0f;
         sizeOffset = Vector3.zero;
+     
         StartCoroutine(Recover());
 
         if (!this.photonView.isMine)
@@ -61,7 +63,10 @@ public class Player : Photon.PunBehaviour {
         }
 
         //Debug.Log("当前Lock值: "+Lock);
-
+        if(this.tag == "playerCopy")
+        {
+            Debug.LogWarning("分身当前血量：" + health);
+        }
     }
 
      void OnTriggerEnter(Collider other)

@@ -1010,7 +1010,7 @@ MonoBehaviour:
   flyState: 1
   enterSky: 0
   gravity: 9.8
-  minFlySpeed: 5
+  minFlySpeed: 15
   flyCooldown: 10
 --- !u!114 &114834639817588582
 MonoBehaviour:
@@ -1115,8 +1115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSize: 1
   initialSpeed: 20
+  initalHealth: 100
   health: 100
   Lock: 0
+  HitLock: 0
 --- !u!137 &137172594973145308
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

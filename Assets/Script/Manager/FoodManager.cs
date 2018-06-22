@@ -120,6 +120,7 @@ public class FoodManager : Photon.PunBehaviour {
             //主客户端发起同步食物AI位置及旋转
             case 6:
             if(!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+                
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for(int i = 0; i < FoodAICount; i++) {
@@ -211,7 +212,7 @@ public class FoodManager : Photon.PunBehaviour {
                 options.CachingOption = EventCaching.DoNotCache;
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
             }  
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.03f);
         }
     }
 
