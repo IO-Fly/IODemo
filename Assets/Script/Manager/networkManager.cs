@@ -9,13 +9,13 @@ public class networkManager :Photon.PunBehaviour {
     public static List<Player> playerList = new List<Player>();
     public GameObject foodPrefab;
 	public GameObject poisonPrefab;
-    //public GameObject moveablePrefab;
+    public GameObject moveablePrefab;
     public int foodCount=300;
 	public int poisonCount=100;
-    //public int moveableCount = 5;
+    public int moveableCount = 5;
 	private int count=0;
 	// Use this for initialization
-void Awake(){
+    void Awake(){
 		PhotonNetwork.sendRate=20;
 		PhotonNetwork.sendRateOnSerialize=20;
 	}
@@ -49,12 +49,13 @@ void Awake(){
 		for(int i=0;i<poisonCount;i++){
 			PhotonNetwork.InstantiateSceneObject(poisonPrefab.name, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
 		}
-        //for(int i = 0; i < moveableCount; i++){
-        //    GameObject thisObject = PhotonNetwork.InstantiateSceneObject(moveablePrefab.name, new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)), 0, null);
-        //    ///thisObject.GetComponent<FoodAI>().allPlayers = playerList;
-        //    thisObject.GetComponent<FoodAI>().allPlayers.Add(networkManager.localPlayer.GetComponent<Player>());
-        //}
-	}
+
+        for (int i = 0; i < moveableCount; i++)
+        {
+            GameObject thisObject = PhotonNetwork.InstantiateSceneObject(moveablePrefab.name, new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)), 0, null);
+        }
+        FoodAI.allPlayers = playerList;
+    }
 	private void DelayFood(){
 			if(count>=200){
 				this.CancelInvoke();
