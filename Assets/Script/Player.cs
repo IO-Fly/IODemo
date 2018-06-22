@@ -9,7 +9,8 @@ public class Player : Photon.PunBehaviour {
 
     public float initialSize = 1.0f;
     public float initialSpeed = 20.0f;
-    public float health;
+    public float initalHealth = 100.0f;
+    public float health = 100.0f;
 
 
     private float playerEnergy;
@@ -35,6 +36,7 @@ public class Player : Photon.PunBehaviour {
         sizeEffect = 1.0f;
         speedOffset = 0.0f;
         sizeOffset = Vector3.zero;
+     
         StartCoroutine(Recover());
 
         if (!this.photonView.isMine)
@@ -61,12 +63,15 @@ public class Player : Photon.PunBehaviour {
         }
 
         //Debug.Log("当前Lock值: "+Lock);
-
+        if(this.tag == "playerCopy")
+        {
+            Debug.LogWarning("分身当前血量：" + health);
+        }
     }
 
      void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("food"))
+        if (other.gameObject.CompareTag("food") || other.gameObject.tag == "foodAI")
         {
 			Debug.Log ("玩家：碰到了食物");
             if(transform.localScale.x<25){
@@ -94,9 +99,8 @@ public class Player : Photon.PunBehaviour {
             SetLocalScale(playerSize, sizeOffset);
 
             //缺少音效
-
         }
-
+      
     }
 
 
@@ -396,6 +400,8 @@ public class Player : Photon.PunBehaviour {
         this.count = player.count;
         this.Lock = player.Lock;
         this.transform.localScale = player.transform.localScale;
+        this.initialSize = player.transform.localScale.x;
+        this.initialSpeed = player.speed;
     }
 
 }
