@@ -24,9 +24,6 @@ public class Player : Photon.PunBehaviour {
     private int count;//碰撞后偏移的执行次数
     public int Lock=0;
 
-    //Debug
-    public GameObject other;
-
 
     // Use this for initialization
     void Start () {
@@ -56,13 +53,7 @@ public class Player : Photon.PunBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
- 
-        if (photonView.isMine && other != null)
-        {
-            Debug.Log("实时更新当前血量： " + health);
-            Debug.Log("实时更新对方血量： " + other.gameObject.gameObject.GetComponent<Player>().health);
-        }
+       
         if (health <= 0)
         {
             this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
@@ -86,7 +77,7 @@ public class Player : Photon.PunBehaviour {
             }
 
             //播放音效
-            if (this.photonView.isMine)
+            if (this.photonView.isMine && this.tag == "player")
             {
                 GameObject Audio = GameObject.Find("Audio");
                 Audio.GetComponent<AudioManager>().PlayEatFood();
@@ -101,6 +92,8 @@ public class Player : Photon.PunBehaviour {
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
             SetLocalScale(playerSize, sizeOffset);
 
+            //缺少音效
+
         }
 
     }
@@ -110,9 +103,11 @@ public class Player : Photon.PunBehaviour {
     {
         if (other.gameObject != this.gameObject && other.gameObject.tag == "player" && this.photonView.isMine)
         {
+
             Debug.Log("碰撞到了玩家");
             Debug.Log("对方Lock值："+other.gameObject.GetComponent<Player>().Lock);
 
+<<<<<<< HEAD
             //生命值大于0才能伤害敌人
             Player enemy = other.gameObject.GetComponent<Player>();
 
@@ -127,10 +122,27 @@ public class Player : Photon.PunBehaviour {
             if(health > 0)
             {
                 enemy.photonView.RPC("GetDamage",PhotonTargets.AllViaServer, enemyDamage);
-            }
+=======
+            //自己的分身不能攻击自己
+            if (!isCopyRelation(other.gameObject))
+            {
+                //生命值大于0才能伤害敌人
+                Player enemy = other.gameObject.GetComponent<Player>();
+                if (enemy.health > 0)
+                {
+                    this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x * 0.5f);
+                }
 
-            //Debug
-            this.other = other.gameObject;
+                if (health > 0)
+                {
+                    enemy.photonView.RPC("GetDamage",
+                   PhotonTargets.AllViaServer, this.gameObject.transform.localScale.x * 0.5f);
+                }
+>>>>>>> master
+            }
+ 
+
+            //碰撞效果
             GameObject Audio = GameObject.Find("Audio");
             if(other.gameObject.GetComponent<Player>().Lock==0&&this.gameObject.transform.localScale.x>=other.gameObject.transform.localScale.x){
                 //other.gameObject.GetComponent<Player>().StartCoroutine(other.gameObject.GetComponent<Player>().Bomb(-other.normal));
@@ -267,6 +279,13 @@ public class Player : Photon.PunBehaviour {
 
     void OnDestroy()
     {
+
+        //玩家分身不维护在玩家列表
+        if(this.tag == "playerCopy")
+        {
+            return;
+        }
+
         //从玩家列表中移除玩家
         for (int i  = networkManager.playerList.Count - 1; i >= 0; i--)
         {
@@ -288,12 +307,16 @@ public class Player : Photon.PunBehaviour {
         GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
         battleUI = battleUINode.GetComponent<BattleUI>();
 
-        // 增加当前player到玩家列表
-        networkManager.playerList.Add(this);
 
-        // battleUI排行榜增加一个用户
-        battleUI.addPlayer();
-
+        //玩家分身不维护在玩家列表
+        if (this.tag != "playerCopy")
+        {
+            // 增加当前player到玩家列表
+            networkManager.playerList.Add(this);
+            // battleUI排行榜增加一个用户
+            battleUI.addPlayer();
+        }
+        
     }
 
 
@@ -315,6 +338,7 @@ public class Player : Photon.PunBehaviour {
         //battleUI.updateSeveralFrame();
     }
 
+<<<<<<< HEAD
 
     private void CalculateDamage(float selfSize,float enemySize,ref float out_selfDamage,ref float out_enemyDamage)
     {
@@ -332,5 +356,41 @@ public class Player : Photon.PunBehaviour {
         out_enemyDamage = Mathf.Pow(out_enemyDamage, enemyExp);
     }
 
+=======
+    //判断两个对象是否是分身关系
+    bool isCopyRelation(GameObject other)
+    {
+        if(this.gameObject.tag == "playerCopy" && other.tag == "player")
+        {
+            PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
+            if(copyController.getPlayerCopy() == this.gameObject)
+            {
+                return true;
+            }
+        }
+        else if(this.gameObject.tag == "player" && other.tag == "playerCopy")
+        {
+            PlayerCopyController copyController = this.gameObject.GetComponent<PlayerCopyController>();
+            if (copyController.getPlayerCopy() == other)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void CopyPlayer(Player player)
+    {
+        this.health = player.health;
+        this.playerEnergy = player.playerEnergy;
+        this.playerSize = player.playerSize;
+        this.speed = player.speed;
+        this.playerName = player.playerName;
+        this.count = player.count;
+        this.Lock = player.Lock;
+        this.transform.localScale = player.transform.localScale;
+    }
+>>>>>>> master
 
 }
