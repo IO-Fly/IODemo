@@ -6,11 +6,11 @@ public class PlayerSpeedController : PlayerSkillController {
 
     public float addSpeed;//增加的速度
 
-    protected ParticleSystem effect;
+    public ParticleSystem effect;
 
     void Awake()
     {
-        effect = gameObject.GetComponentInChildren<ParticleSystem>();
+        //effect = gameObject.GetComponentInChildren<ParticleSystem>();
         DisableParticle();
     }
 

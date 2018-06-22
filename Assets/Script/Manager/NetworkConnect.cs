@@ -46,6 +46,7 @@ public class NetworkConnect : Photon.PunBehaviour {
     public override void OnCreatedRoom(){
 		Debug.Log("create room");
 	}
+
 	public override void OnJoinedRoom()
 	{
 		Debug.Log("joined room");

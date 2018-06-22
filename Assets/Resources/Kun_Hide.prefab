@@ -220,7 +220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4056515120867574}
   - component: {fileID: 33247652182694632}
-  - component: {fileID: 23620256868049638}
   - component: {fileID: 114023955301936108}
   - component: {fileID: 114956835836928392}
   - component: {fileID: 143225295676539368}
@@ -231,6 +230,8 @@ GameObject:
   - component: {fileID: 114180784195388058}
   - component: {fileID: 114131873619974998}
   - component: {fileID: 114245747448000720}
+  - component: {fileID: 114209927957256662}
+  - component: {fileID: 114415320513394086}
   m_Layer: 0
   m_Name: Kun_Hide
   m_TagString: player
@@ -1172,41 +1173,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23620256868049638
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1373179133066842}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &33247652182694632
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1251,9 +1217,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 1
-  flyCooldown: 15
-  gravity: 9.8
-  minFlySpeed: 10
 --- !u!114 &114055370175448724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1370,6 +1333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keepTime: 5
   cooldown: 5
+  effect: {fileID: 198957664754417644}
 --- !u!114 &114180784195388058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1381,6 +1345,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba0cfa40910f3a47afc0a1e4ec81e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114209927957256662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373179133066842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!114 &114245747448000720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1407,6 +1383,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthUIPrefab: {fileID: 1764662472245442, guid: 6e4e6e352eafd4a4680658d98aaed346,
     type: 2}
+--- !u!114 &114415320513394086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373179133066842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07494256a26eeab4e9a481ea7b39a689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyState: 1
+  enterSky: 0
+  gravity: 9.8
+  minFlySpeed: 5
+  flyCooldown: 10
 --- !u!114 &114952920977218202
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1422,6 +1414,8 @@ MonoBehaviour:
   - {fileID: 114023955301936108}
   - {fileID: 114956835836928392}
   - {fileID: 114131873619974998}
+  - {fileID: 114209927957256662}
+  - {fileID: 114415320513394086}
 --- !u!114 &114956835836928392
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9,6 +9,9 @@ TagManager:
   - sky
   - poison
   - Wall
+  - playerAI
+  - playerCopy
+  - foodAI
   layers:
   - Default
   - TransparentFX
