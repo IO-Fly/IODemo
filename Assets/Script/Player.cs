@@ -324,7 +324,7 @@ public class Player : Photon.PunBehaviour {
         float ratio = (selfSize - minSize) / (maxSize - minSize);
         float sumDamage = minDamage + (maxDamage - minDamage) * ratio;
         out_selfDamage = sumDamage * enemySize / (selfSize + enemySize);
-        out_enemyDamage = sumDamage * out_selfDamage / (selfSize + enemySize);
+        out_enemyDamage = sumDamage * selfSize / (selfSize + enemySize);
         const float expAmend = 0.013f;
         float selfExp = 1 + (enemySize - selfSize) * expAmend;
         float enemyExp = 1 + (selfSize - enemySize) * expAmend;
