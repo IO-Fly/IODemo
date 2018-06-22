@@ -115,15 +115,18 @@ public class Player : Photon.PunBehaviour {
 
             //生命值大于0才能伤害敌人
             Player enemy = other.gameObject.GetComponent<Player>();
+
+            float selfDamage=0.0f, enemyDamage=0.0f;
+            CalculateDamage(gameObject.transform.localScale.x, other.gameObject.transform.localScale.x,ref selfDamage,ref enemyDamage);
+
             if(enemy.health > 0)
             {
-                this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, other.gameObject.transform.localScale.x *0.5f);
+                this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, selfDamage);
             }
             
             if(health > 0)
             {
-                enemy.photonView.RPC("GetDamage",
-               PhotonTargets.AllViaServer, this.gameObject.transform.localScale.x *0.5f);
+                enemy.photonView.RPC("GetDamage",PhotonTargets.AllViaServer, enemyDamage);
             }
 
             //Debug
@@ -311,5 +314,23 @@ public class Player : Photon.PunBehaviour {
 
         //battleUI.updateSeveralFrame();
     }
+
+
+    private void CalculateDamage(float selfSize,float enemySize,ref float out_selfDamage,ref float out_enemyDamage)
+    {
+        const float minSize = 1.0f, maxSize = 25.0f;
+        const float minDamage = 10.0f, maxDamage = 80.0f;
+        float average = (selfSize + enemySize) / 2.0f;
+        float ratio = (selfSize - minSize) / (maxSize - minSize);
+        float sumDamage = minDamage + (maxDamage - minDamage) * ratio;
+        out_selfDamage = sumDamage * enemySize / (selfSize + enemySize);
+        out_enemyDamage = sumDamage * out_selfDamage / (selfSize + enemySize);
+        const float expAmend = 0.013f;
+        float selfExp = 1 + (enemySize - selfSize) * expAmend;
+        float enemyExp = 1 + (selfSize - enemySize) * expAmend;
+        out_selfDamage = Mathf.Pow(out_selfDamage, selfExp);
+        out_enemyDamage = Mathf.Pow(out_enemyDamage, enemyExp);
+    }
+
 
 }
