@@ -24,6 +24,9 @@ GameObject:
   - component: {fileID: 135082507826857420}
   - component: {fileID: 114038287056062028}
   - component: {fileID: 114861310481990502}
+  - component: {fileID: 143276632627773960}
+  - component: {fileID: 114999660254877048}
+  - component: {fileID: 114779032652830366}
   m_Layer: 0
   m_Name: poisonFood
   m_TagString: poison
@@ -97,6 +100,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef6c8d1697c4b048adec84d0564b22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114779032652830366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1170017552055430}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019603e5077500e4d916c481c8247dda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
 --- !u!114 &114861310481990502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -123,6 +138,18 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114999660254877048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1170017552055430}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSpeed: 20
 --- !u!135 &135082507826857420
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -134,4 +161,21 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &143276632627773960
+CharacterController:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1170017552055430}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
