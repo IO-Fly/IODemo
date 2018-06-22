@@ -165,6 +165,10 @@ public class PlayerController : MonoBehaviour {
 
         flySpeed += minFlySpeed;
 
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlaySeaOut();
+
     }
 
     public void WaitForFly()
@@ -177,6 +181,16 @@ public class PlayerController : MonoBehaviour {
         waitForFly = false;
         fly = false;
         flySpeed = 0;
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlaySeaIn();
+
+    }
+
+    public bool GetFlyState()
+    {
+        return fly;
     }
 
 }

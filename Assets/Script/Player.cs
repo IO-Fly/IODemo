@@ -69,7 +69,7 @@ public class Player : Photon.PunBehaviour {
             float sq=Mathf.Sqrt(playerEnergy);     
             speed = 10 / sq+2;
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            transform.localScale = playerSize + sizeOffset;
+            SetLocalScale(playerSize, sizeOffset);//设置人物尺寸
             }
 
             //播放音效
@@ -86,8 +86,8 @@ public class Player : Photon.PunBehaviour {
             float sq=Mathf.Sqrt(playerEnergy);     
             speed = 10 / sq+2;
             playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            transform.localScale = playerSize + sizeOffset;
- 
+            SetLocalScale(playerSize, sizeOffset);
+
         }
 
     }
@@ -174,7 +174,8 @@ public class Player : Photon.PunBehaviour {
     public void AddSizeOffset(Vector3 sizeOffset)
     {
         this.sizeOffset += sizeOffset;
-        transform.localScale = playerSize + this.sizeOffset;
+        SetLocalScale(playerSize, this.sizeOffset);
+        
     }
 
     public float GetSpeed()
@@ -227,7 +228,7 @@ public class Player : Photon.PunBehaviour {
 
     [PunRPC]
     void ReleaseLock(){
-            this.Lock =0;
+        this.Lock =0;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
@@ -281,7 +282,7 @@ public class Player : Photon.PunBehaviour {
         }
         else
         {
-            this.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
+            this.photonView.RPC("SetPlayerName", PhotonTargets.All, LobbyUIManager.playerName);//设置玩家名字
             //playerName = LobbyUIManager.playerName;
             //呈现更新的玩家列表
             //showPlayerList();
@@ -301,5 +302,12 @@ public class Player : Photon.PunBehaviour {
         }
     }
 
+    //更改大小
+    void SetLocalScale(Vector3 playerSize,Vector3 sizeOffset)
+    {
+        transform.localScale = playerSize + sizeOffset;
+
+        //battleUI.updateSeveralFrame();
+    }
 
 }

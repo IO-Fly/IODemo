@@ -18,8 +18,21 @@ public class BattleUI : MonoBehaviour {
         sizeList = new List<Text>();
     }
 
-	void Update ()
+
+    //private int curFrame = 0;
+    //private int maxFrame = 10;
+    //public void updateSeveralFrame()
+    //{
+    //    curFrame = 0;
+    //}
+
+    // 排名发生变化时更新，只更新几帧
+    void Update ()
     {
+        //if (curFrame++ > maxFrame)
+        //{
+        //    return;
+        //}
         int playerCount = networkManager.playerList.Count;
         if (playerCount < 1)
         {
@@ -63,6 +76,9 @@ public class BattleUI : MonoBehaviour {
         // 维护Text列表
         nameList.Add(nameText);
         sizeList.Add(scaleText);
+
+        // 更新name，由于player的创建是异步的，需要时间
+        // updateSeveralFrame();
     }
 
     // 当一个player死亡时，减少一个排行榜的item
@@ -70,6 +86,10 @@ public class BattleUI : MonoBehaviour {
     {
         int playerCount = networkManager.playerList.Count;
 
+        if(!this)
+        {
+            return;
+        }
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount + 1));
         Destroy(nameList[playerCount].transform.parent.gameObject);
         nameList.RemoveAt(playerCount);
