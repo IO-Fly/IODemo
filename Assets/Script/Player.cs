@@ -23,6 +23,7 @@ public class Player : Photon.PunBehaviour {
     private string playerName;//玩家自定义的名字
     private int count;//碰撞后偏移的执行次数
     public int Lock=0;
+    public int HitLock=0;
 
 
     // Use this for initialization
@@ -101,6 +102,10 @@ public class Player : Photon.PunBehaviour {
 
     void OnControllerColliderHit(ControllerColliderHit other)
     {
+        if(HitLock!=0)
+        return;
+        HitLock = 1;
+       StartCoroutine(ReleaseHitLock());
         if (other.gameObject != this.gameObject && other.gameObject.tag == "player" && this.photonView.isMine)
         {
 
@@ -174,6 +179,10 @@ public class Player : Photon.PunBehaviour {
             this.health+=1;
             yield return new WaitForSeconds(1);
         }
+    }
+    IEnumerator ReleaseHitLock(){
+        yield return new WaitForSeconds(1);
+        this.HitLock=0;
     }
     public void AddSpeedOffset(float speedOffset)
     {
