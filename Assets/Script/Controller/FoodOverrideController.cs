@@ -34,18 +34,21 @@ public class FoodOverrideController : MonoBehaviour {
 	}
 	private void OnTriggerEnter(Collider other){
 		Debug.Log ("食物：碰撞，将要删除");
-		if (other.gameObject.tag == "player") {
+		if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") {
 			Debug.Log ("食物：删除");
 			if(other.GetComponent<Player>().photonView.isMine){
-			Vector3 tempPosition = GetRandomVector3();
-			Vector3 temptranslation= (this.transform.position - new Vector3(0,this.transform.position.y+Random.Range(-10f,10f),0)).normalized * translationSpeed;
-			Vector3[] Data = {tempPosition,temptranslation,new Vector3(this.ID,0,0)};
-			RaiseEventOptions options = new RaiseEventOptions();
-			options.Receivers = ReceiverGroup.All;
-			options.CachingOption = EventCaching.DoNotCache;
-			PhotonNetwork.RaiseEvent(4,Data,true,options);
-			}
-		}
+			    Vector3 tempPosition = GetRandomVector3();
+			    Vector3 temptranslation= (this.transform.position - new Vector3(0,this.transform.position.y+Random.Range(-10f,10f),0)).normalized * translationSpeed;
+			    Vector3[] Data = {tempPosition,temptranslation,new Vector3(this.ID,0,0)};
+			    RaiseEventOptions options = new RaiseEventOptions();
+			    options.Receivers = ReceiverGroup.All;
+			    options.CachingOption = EventCaching.DoNotCache;
+			    PhotonNetwork.RaiseEvent(4,Data,true,options);
+
+                //触发玩家吃到食物事件
+                other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);
+            }
+        }
 	}
 	private  Vector3 GetRandomVector3(){
 		return new Vector4(Random.Range(-20,20),Random.Range(-95,-5),Random.Range(-20,20));

@@ -136,11 +136,13 @@ public class FoodManager : Photon.PunBehaviour {
             break;
             //主客户端重置食物AI事件
             case 7:
-            if(!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+            /*if(!PhotonNetwork.isMasterClient && sender.IsMasterClient)*/{
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 this.foodAIInstances[foodAIInfoObject[0].ID].transform.position = foodAIInfoObject[0].position;
                 this.foodAIInstances[foodAIInfoObject[0].ID].transform.rotation = foodAIInfoObject[0].rotation;
+                //重新激活
+                this.foodAIInstances[foodAIInfoObject[0].ID].SetActive(true);
             }
             break;
             
@@ -217,7 +219,7 @@ public class FoodManager : Photon.PunBehaviour {
                 options.CachingOption = EventCaching.DoNotCache;
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
             }  
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.016f);
         }
     }
 

@@ -26,8 +26,9 @@ public class PlayerSizeController : PlayerSkillController {
         {
             curCooldown = cooldown;
             Player player = this.gameObject.GetComponent<Player>();
-            player.AddSizeOffset(addSize);
             player.AddSizeEffect(sizeEffect);
+
+            player.photonView.RPC("AddSizeOffset", PhotonTargets.AllViaServer, addSize);
             StartCoroutine("WaitForEndSkill");
         }
 
@@ -43,8 +44,8 @@ public class PlayerSizeController : PlayerSkillController {
     {
         yield return new WaitForSeconds(keepTime);
         Player player = this.gameObject.GetComponent<Player>();
-        player.AddSizeOffset(-addSize);
-        if(sizeEffect == 0)
+        player.photonView.RPC("AddSizeOffset", PhotonTargets.AllViaServer, -addSize);
+        if (sizeEffect == 0)
         {
             Debug.LogError("大小效果倍数不能为0 !");
         }

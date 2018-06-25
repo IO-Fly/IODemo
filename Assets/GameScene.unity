@@ -2365,7 +2365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1ab6f318325384d948581d1c82cf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodCount: 0
+  FoodCount: 50
   foodPrefab: {fileID: 1895278205754436, guid: 3482c3e8e263cd942939a7266ed182c2, type: 2}
   foodInstances: []
   FoodAICount: 50
