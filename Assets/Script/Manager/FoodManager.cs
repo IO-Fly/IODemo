@@ -12,6 +12,7 @@ public class FoodManager : Photon.PunBehaviour {
 
     //食物AI
     public int FoodAICount;
+	private int foodFlushLock=0;
     public GameObject foodAIPrefab;
     public GameObject[] foodAIInstances;
 
@@ -97,10 +98,14 @@ public class FoodManager : Photon.PunBehaviour {
 			break;
 			//主客户端发起重置食物位置事件
 			case 4:
-			if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+			//if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+				if(foodFlushLock!=0)
+				return;
+				this.foodFlushLock = 1;
+				StartCoroutine(SetLock());
 				this.foodInstances[(int)((Vector3[])content)[2].x].transform.position = ((Vector3[])content)[0];
 				this.foodInstances[(int)((Vector3[])content)[2].x].GetComponent<FoodOverrideController>().translation= ((Vector3[])content)[1];
-			}
+			//}
 			break;
             //其他客户端根据主客户端生成食物AI
             case 5:
@@ -215,6 +220,11 @@ public class FoodManager : Photon.PunBehaviour {
             yield return new WaitForSeconds(0.016f);
         }
     }
+
+	IEnumerator SetLock(){
+		yield return new WaitForSeconds(1);
+		this.foodFlushLock = 0;	
+	}
 
 	
 }
