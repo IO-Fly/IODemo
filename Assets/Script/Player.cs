@@ -69,215 +69,6 @@ public class Player : Photon.PunBehaviour {
         }
     }
 
-     void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("food") || other.gameObject.tag == "foodAI")
-        {
-			Debug.Log ("玩家：碰到了食物");
-            if(transform.localScale.x<25){
-            playerEnergy+=0.2f; 
-            float sq=Mathf.Sqrt(playerEnergy);     
-            speed = 10 / sq+2;
-            playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            SetLocalScale(playerSize, sizeOffset);//设置人物尺寸
-            }
-
-            //播放音效
-            if (this.photonView.isMine && this.tag == "player")
-            {
-                GameObject Audio = GameObject.Find("Audio");
-                Audio.GetComponent<AudioManager>().PlayEatFood();
-            }
-            
-        }
-        else if(other.gameObject.tag=="poison"){
-            Debug.Log("玩家：碰到了毒物");
-            playerEnergy-=0.5f; 
-            float sq=Mathf.Sqrt(playerEnergy);     
-            speed = 10 / sq+2;
-            playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
-            SetLocalScale(playerSize, sizeOffset);
-
-            //缺少音效
-        }
-      
-    }
-
-
-    void OnControllerColliderHit(ControllerColliderHit other)
-    {
-
-        if(HitLock!=0)
-        return;
-        HitLock = 1;
-        StartCoroutine(ReleaseHitLock());
-        if (other.gameObject != this.gameObject && (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") && this.photonView.isMine)
-        {
-
-            Debug.Log("碰撞到了玩家");
-            Debug.Log("对方Lock值："+other.gameObject.GetComponent<Player>().Lock);
-
-
-            //自己的分身不能攻击自己
-            if (!isCopyRelation(other.gameObject))
-            {
-                //生命值大于0才能伤害敌人
-                Player enemy = other.gameObject.GetComponent<Player>();
-
-                float selfDamage = 0.0f, enemyDamage = 0.0f;
-                CalculateDamage(transform.localScale.x, other.gameObject.transform.localScale.x, ref selfDamage, ref enemyDamage);
-
-                if (enemy.health > 0)
-                {
-                    this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, selfDamage);
-                }
-
-                if (health > 0)
-                {
-                    enemy.photonView.RPC("GetDamage",PhotonTargets.AllViaServer, enemyDamage);
-                }
-            }
- 
-
-            //碰撞效果
-            GameObject Audio = GameObject.Find("Audio");
-            if(other.gameObject.GetComponent<Player>().Lock==0&&this.gameObject.transform.localScale.x>=other.gameObject.transform.localScale.x){
-                //other.gameObject.GetComponent<Player>().StartCoroutine(other.gameObject.GetComponent<Player>().Bomb(-other.normal));
-                other.gameObject.GetComponent<Player>().Lock=1;
-                other.gameObject.GetComponent<Player>().photonView.RPC("DoBomb",PhotonTargets.All,-other.normal);
-                Debug.Log("对方弹开");
-                Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
-            }
-            else if (this.gameObject.transform.localScale.x<other.gameObject.transform.localScale.x){
-                Debug.Log("自己弹开");
-                this.StartCoroutine(Bomb(other.normal));
-                Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
-            }
-
-
-        }
-        else if(/*other.gameObject.tag == "Wall" &&*/ this.photonView.isMine)
-        {     
-            //播放音效
-            GameObject Audio = GameObject.Find("Audio");
-            Audio.GetComponent<AudioManager>().PlayTouchWall();
-        }
-
-    }
-
-    IEnumerator Bomb(Vector3 direction){
-        while(count<5){
-            yield return null;
-            this.gameObject.GetComponent<CharacterController>().Move(direction*Time.deltaTime*40);
-            Debug.Log("弹开方向： "+direction);
-            Debug.Log("弹开执行次数： "+count);
-            count++;
-        }
-        count = 0;
-        this.photonView.RPC("ReleaseLock",PhotonTargets.All);
-        Debug.Log("Lock= " +Lock);
-    }
-
-    IEnumerator Recover(){
-        while(true){
-            if(this.health<=99)
-            this.health+=1;
-            yield return new WaitForSeconds(1);
-        }
-    }
-    IEnumerator ReleaseHitLock(){
-        yield return new WaitForSeconds(1);
-        this.HitLock=0;
-    }
-    public void AddSpeedOffset(float speedOffset)
-    {
-        this.speedOffset += speedOffset;    
-        Debug.Log("速度改变: "+ speedOffset);
-    }
-
-    public void AddSizeEffect(float sizeEffect)
-    {
-        this.sizeEffect *= sizeEffect;
-    }
-
-    public void AddSizeOffset(Vector3 sizeOffset)
-    {
-        this.sizeOffset += sizeOffset;
-        SetLocalScale(playerSize, this.sizeOffset);
-        
-    }
-
-    public float GetSpeed()
-    {
-        return speed + speedOffset;
-    }
-
-    public float GetPlayerSize()
-    {
-        return transform.localScale.x;
-    }
-
-
-    public Vector3 GetRenderPlayerSize()
-    {
-        if (sizeEffect != 0)
-        {
-            return (transform.localScale) / sizeEffect;
-        }
-        else
-        {
-            return Vector3.positiveInfinity;
-        }
-
-    }
-
-
-    public string GetPlayerName()
-    {
-        return this.playerName;
-    }
-
-
-    [PunRPC]
-    void DestroyThis(){
-        PhotonNetwork.Destroy(this.gameObject);
-    }
-
-    [PunRPC]
-    void GetDamage(float damage){
-        health -= damage;  
-    }
-    [PunRPC]
-    void DoBomb(Vector3 direction){
-        if(this.gameObject==networkManager.localPlayer){
-        this.StartCoroutine(Bomb(direction));
-        Debug.Log("弹开RPC调用");
-        }
-    }
-
-    [PunRPC]
-    void ReleaseLock(){
-        this.Lock =0;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-        if(stream.isWriting){
-            stream.SendNext(this.health);
-        }
-        else{
-            this.health = (float)stream.ReceiveNext();
-        }
-    }
-
-    [PunRPC]
-    public void SetPlayerName(string name)
-    {
-        Debug.LogWarning("调用SetPlayerName");
-        this.playerName = name;
-
-        this.GetComponent<PlayerHealthUI>().SetPlayerName(name);
-    }
-
     void OnDestroy()
     {
 
@@ -320,26 +111,68 @@ public class Player : Photon.PunBehaviour {
         
     }
 
-
-    void showPlayerList()
+    void OnControllerColliderHit(ControllerColliderHit other)
     {
-        Debug.LogWarning("玩家数：" + networkManager.playerList.Count);
-        for (int i = 0; i < networkManager.playerList.Count; i++)
+
+        if (HitLock != 0)
+            return;
+        HitLock = 1;
+        StartCoroutine(ReleaseHitLock());
+        if (other.gameObject != this.gameObject && (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") && this.photonView.isMine)
         {
-            Player curPlayer = networkManager.playerList[i];
-            Debug.LogWarning("玩家" + i + curPlayer.GetPlayerName());
+
+            Debug.Log("碰撞到了玩家");
+            Debug.Log("对方Lock值：" + other.gameObject.GetComponent<Player>().Lock);
+
+
+            //自己的分身不能攻击自己
+            if (!isCopyRelation(other.gameObject))
+            {
+                //生命值大于0才能伤害敌人
+                Player enemy = other.gameObject.GetComponent<Player>();
+
+                float selfDamage = 0.0f, enemyDamage = 0.0f;
+                CalculateDamage(transform.localScale.x, other.gameObject.transform.localScale.x, ref selfDamage, ref enemyDamage);
+
+                if (enemy.health > 0)
+                {
+                    this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, selfDamage);
+                }
+
+                if (health > 0)
+                {
+                    enemy.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, enemyDamage);
+                }
+            }
+
+
+            //碰撞效果
+            GameObject Audio = GameObject.Find("Audio");
+            if (other.gameObject.GetComponent<Player>().Lock == 0 && this.gameObject.transform.localScale.x >= other.gameObject.transform.localScale.x)
+            {
+                //other.gameObject.GetComponent<Player>().StartCoroutine(other.gameObject.GetComponent<Player>().Bomb(-other.normal));
+                other.gameObject.GetComponent<Player>().Lock = 1;
+                other.gameObject.GetComponent<Player>().photonView.RPC("DoBomb", PhotonTargets.All, -other.normal);
+                Debug.Log("对方弹开");
+                Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
+            }
+            else if (this.gameObject.transform.localScale.x < other.gameObject.transform.localScale.x)
+            {
+                Debug.Log("自己弹开");
+                this.StartCoroutine(Bomb(other.normal));
+                Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
+            }
+
+
         }
+        else if (/*other.gameObject.tag == "Wall" &&*/ this.photonView.isMine)
+        {
+            //播放音效
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayTouchWall();
+        }
+
     }
-
-    //更改大小
-    void SetLocalScale(Vector3 playerSize,Vector3 sizeOffset)
-    {
-        transform.localScale = playerSize + sizeOffset;
-
-        //battleUI.updateSeveralFrame();
-    }
-
-
 
     private void CalculateDamage(float selfSize,float enemySize,ref float out_selfDamage,ref float out_enemyDamage)
     {
@@ -356,7 +189,6 @@ public class Player : Photon.PunBehaviour {
         out_selfDamage = Mathf.Pow(out_selfDamage, selfExp);
         out_enemyDamage = Mathf.Pow(out_enemyDamage, enemyExp);
     }
-
 
     //判断两个对象是否是分身关系
     public bool isCopyRelation(GameObject other)
@@ -403,5 +235,198 @@ public class Player : Photon.PunBehaviour {
         this.initialSize = player.transform.localScale.x;
         this.initialSpeed = player.speed;
     }
+
+    //更改大小
+    void SetLocalScale(Vector3 playerSize, Vector3 sizeOffset)
+    {
+        transform.localScale = playerSize + sizeOffset;
+        //battleUI.updateSeveralFrame();
+    }
+
+    void AddPlayerEnergy(float energyAdd)
+    {
+        playerEnergy += energyAdd;
+        float sq = Mathf.Sqrt(playerEnergy);
+        speed = 10 / sq + 2;
+        playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
+        SetLocalScale(playerSize, sizeOffset);
+    }
+
+    public void AddSpeedOffset(float speedOffset)
+    {
+        this.speedOffset += speedOffset;
+        Debug.Log("速度改变: " + speedOffset);
+    }
+
+    public void AddSizeEffect(float sizeEffect)
+    {
+        this.sizeEffect *= sizeEffect;
+    }
+
+    public void AddSizeOffset(Vector3 sizeOffset)
+    {
+        this.sizeOffset += sizeOffset;
+        SetLocalScale(playerSize, this.sizeOffset);
+
+    }
+
+    public float GetSpeed()
+    {
+        return speed + speedOffset;
+    }
+
+    public float GetPlayerSize()
+    {
+        return transform.localScale.x;
+    }
+
+    public Vector3 GetRenderPlayerSize()
+    {
+        if (sizeEffect != 0)
+        {
+            return (transform.localScale) / sizeEffect;
+        }
+        else
+        {
+            return Vector3.positiveInfinity;
+        }
+
+    }
+
+    public string GetPlayerName()
+    {
+        return this.playerName;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(this.health);
+        }
+        else
+        {
+            this.health = (float)stream.ReceiveNext();
+        }
+    }
+
+    #region IEnumerator
+
+    IEnumerator Bomb(Vector3 direction)
+    {
+        while (count < 5)
+        {
+            yield return null;
+            this.gameObject.GetComponent<CharacterController>().Move(direction * Time.deltaTime * 40);
+            Debug.Log("弹开方向： " + direction);
+            Debug.Log("弹开执行次数： " + count);
+            count++;
+        }
+        count = 0;
+        this.photonView.RPC("ReleaseLock", PhotonTargets.All);
+        Debug.Log("Lock= " + Lock);
+    }
+
+    IEnumerator Recover()
+    {
+        while (true)
+        {
+            if (this.health <= 99)
+                this.health += 1;
+            yield return new WaitForSeconds(1);
+        }
+    }
+    IEnumerator ReleaseHitLock()
+    {
+        yield return new WaitForSeconds(1);
+        this.HitLock = 0;
+    }
+
+    #endregion
+
+    #region PunRPC
+
+    [PunRPC]
+    void DestroyThis()
+    {
+        PhotonNetwork.Destroy(this.gameObject);
+    }
+
+    [PunRPC]
+    void GetDamage(float damage)
+    {
+        health -= damage;
+    }
+
+    [PunRPC]
+    void DoBomb(Vector3 direction)
+    {
+        if (this.gameObject == networkManager.localPlayer)
+        {
+            this.StartCoroutine(Bomb(direction));
+            Debug.Log("弹开RPC调用");
+        }
+    }
+
+    [PunRPC]
+    void ReleaseLock()
+    {
+        this.Lock = 0;
+    }
+  
+    [PunRPC]
+    public void SetPlayerName(string name)
+    {
+        Debug.LogWarning("调用SetPlayerName");
+        this.playerName = name;
+
+        this.GetComponent<PlayerHealthUI>().SetPlayerName(name);
+    }
+
+    [PunRPC]
+    void EatFood()
+    {
+        Debug.Log("玩家：碰到了食物");
+        if (transform.localScale.x < 25)
+        {
+            AddPlayerEnergy(0.2f);
+        }
+
+        if (photonView.isMine)
+        {
+            //播放音效
+            if (this.photonView.isMine && this.tag == "player")
+            {
+                GameObject Audio = GameObject.Find("Audio");
+                Audio.GetComponent<AudioManager>().PlayEatFood();
+            }
+        }
+
+    }
+
+    [PunRPC]
+    void EatPoison()
+    {
+        Debug.Log("玩家：碰到了毒物");
+        AddPlayerEnergy(-0.5f);
+
+        //音效？？？
+
+    }
+
+
+    #endregion
+
+    #region Debug
+    void showPlayerList()
+    {
+        Debug.LogWarning("玩家数：" + networkManager.playerList.Count);
+        for (int i = 0; i < networkManager.playerList.Count; i++)
+        {
+            Player curPlayer = networkManager.playerList[i];
+            Debug.LogWarning("玩家" + i + curPlayer.GetPlayerName());
+        }
+    }
+    #endregion
 
 }

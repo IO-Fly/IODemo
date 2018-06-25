@@ -212,7 +212,7 @@ public class FoodManager : Photon.PunBehaviour {
                 options.CachingOption = EventCaching.DoNotCache;
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
             }  
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.016f);
         }
     }
 

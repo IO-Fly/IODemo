@@ -34,7 +34,11 @@ public class FoodAIColliderController : MonoBehaviour {
                 RaiseEventOptions options = new RaiseEventOptions();
                 options.Receivers = ReceiverGroup.Others;
                 options.CachingOption = EventCaching.DoNotCache;
-                PhotonNetwork.RaiseEvent(7, foodAIInfo, true, options);   
+                PhotonNetwork.RaiseEvent(7, foodAIInfo, true, options);
+
+
+                //触发玩家吃到食物事件
+                other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);
 
             }
         }

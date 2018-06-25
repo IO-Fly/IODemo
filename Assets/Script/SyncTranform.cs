@@ -27,17 +27,27 @@ public class SyncTranform : MonoBehaviour {
         if (!PhotonNetwork.isMasterClient)
         {
             //根据距离计算插值速率
-            float lerpRate = 5;
-            float distance = Vector3.Distance(this.transform.position, syncPosition);        
-            if(distance > 0.4)
+            float lerpRate = 15;
+            float distance = Vector3.Distance(this.transform.position, syncPosition);
+            Debug.LogWarning("Distance: " + distance);
+           
+            if(distance > 0.5)
             {
-                lerpRate += (distance - 0.4f) * 10;
+                lerpRate += (distance - 0.5f) * 10; ;
             }
 
-            this.transform.position = Vector3.Lerp(transform.position, syncPosition,lerpRate * Time.deltaTime);
-            this.transform.rotation = syncRotation;
-            //this.transform.position = syncPosition;
-            //this.transform.rotation = Quaternion.Slerp(transform.rotation, syncRotation, 5 * Time.deltaTime);
+            //插值
+            if (distance < 0.2)
+            {
+                this.transform.position = syncPosition;
+                this.transform.rotation = syncRotation;
+            }
+            else
+            {
+                this.transform.position = Vector3.Lerp(transform.position, syncPosition, 25 * Time.deltaTime);
+                this.transform.rotation = Quaternion.Slerp(transform.rotation, syncRotation, 25 * Time.deltaTime);
+            }          
+            
         }
 
     }

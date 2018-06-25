@@ -34,7 +34,7 @@ public class FoodOverrideController : MonoBehaviour {
 	}
 	private void OnTriggerEnter(Collider other){
 		Debug.Log ("食物：碰撞，将要删除");
-		if (other.gameObject.tag == "player") {
+		if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") {
 			Debug.Log ("食物：删除");
 			if(PhotonNetwork.isMasterClient){
 			this.gameObject.transform.position = GetRandomVector3();
@@ -45,7 +45,11 @@ public class FoodOverrideController : MonoBehaviour {
 			options.CachingOption = EventCaching.DoNotCache;
 			PhotonNetwork.RaiseEvent(4,Data,true,options);
 			}
-		}
+
+            //触发玩家吃到食物事件
+            other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);
+
+        }
 	}
 	private  Vector3 GetRandomVector3(){
 		return new Vector4(Random.Range(-20,20),Random.Range(-95,-5),Random.Range(-20,20));
