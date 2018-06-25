@@ -2229,10 +2229,9 @@ GameObject:
   - component: {fileID: 1230288047}
   - component: {fileID: 1230288046}
   - component: {fileID: 1230288045}
-  - component: {fileID: 1230288049}
   - component: {fileID: 1230288050}
-  - component: {fileID: 1230288051}
   - component: {fileID: 1230288052}
+  - component: {fileID: 1230288051}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -2310,17 +2309,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1230288049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1230288044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9217c4759be895c4c8c78b4002f57ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1230288050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2335,8 +2323,11 @@ MonoBehaviour:
   foodPrefab: {fileID: 1895278205754436, guid: 3482c3e8e263cd942939a7266ed182c2, type: 2}
   poisonPrefab: {fileID: 1170017552055430, guid: 3830497b14c78ea4bbbe356b4e274475,
     type: 2}
+  moveablePrefab: {fileID: 1815880380957606, guid: 2da5cf9475107e4419b1869a3fb7c8a7,
+    type: 2}
   foodCount: 100
   poisonCount: 50
+  moveableCount: 0
 --- !u!114 &1230288051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2374,9 +2365,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1ab6f318325384d948581d1c82cf13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodCount: 100
+  FoodCount: 0
   foodPrefab: {fileID: 1895278205754436, guid: 3482c3e8e263cd942939a7266ed182c2, type: 2}
   foodInstances: []
+  FoodAICount: 50
+  foodAIPrefab: {fileID: 1815880380957606, guid: 2da5cf9475107e4419b1869a3fb7c8a7,
+    type: 2}
+  foodAIInstances: []
 --- !u!1 &1274257930
 GameObject:
   m_ObjectHideFlags: 0

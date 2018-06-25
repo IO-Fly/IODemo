@@ -43,12 +43,12 @@ public class networkManager :Photon.PunBehaviour {
 	}
 
 	private void CreateFood(){
-		for(int i=0;i<foodCount;i++){
-			PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
-		}
-		for(int i=0;i<poisonCount;i++){
-			PhotonNetwork.InstantiateSceneObject(poisonPrefab.name, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
-		}
+		//for(int i=0;i<foodCount;i++){
+		//	PhotonNetwork.InstantiateSceneObject(foodPrefab.name, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+		//}
+		//for(int i=0;i<poisonCount;i++){
+		//	PhotonNetwork.InstantiateSceneObject(poisonPrefab.name, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)),0,null);
+		//}
 
         for (int i = 0; i < moveableCount; i++)
         {
