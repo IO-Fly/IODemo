@@ -263,13 +263,6 @@ public class Player : Photon.PunBehaviour {
         this.sizeEffect *= sizeEffect;
     }
 
-    public void AddSizeOffset(Vector3 sizeOffset)
-    {
-        this.sizeOffset += sizeOffset;
-        SetLocalScale(playerSize, this.sizeOffset);
-
-    }
-
     public float GetSpeed()
     {
         return speed + speedOffset;
@@ -345,6 +338,14 @@ public class Player : Photon.PunBehaviour {
     #endregion
 
     #region PunRPC
+
+    [PunRPC]
+    public void AddSizeOffset(Vector3 sizeOffset)
+    {
+        this.sizeOffset += sizeOffset;
+        SetLocalScale(playerSize, this.sizeOffset);
+
+    }
 
     [PunRPC]
     void DestroyThis()
