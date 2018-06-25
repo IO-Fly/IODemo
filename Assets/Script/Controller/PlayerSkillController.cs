@@ -4,8 +4,9 @@ using UnityEngine;
 
 public abstract class PlayerSkillController : Photon.PunBehaviour {
 
-    public abstract int GetSkillType();
-
+    public enum SkillType { SIZE, SPEED, COPY, HIDE };
+    public abstract SkillType GetSkillType();
+    
 
     public float keepTime;//技能效果持续时间
     public float cooldown;//定义技能冷却时间

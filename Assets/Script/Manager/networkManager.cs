@@ -80,7 +80,7 @@ public class networkManager :Photon.PunBehaviour {
 
         GameObject rootCanvas = GameObject.Find("HUDCanvas");
         GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
-        skillUI.GetComponent<ShowSkill>().setPlayer(localPlayer);//将指向本地玩家
+        skillUI.GetComponent<SkillUI>().setPlayer(localPlayer);//将指向本地玩家
 
     }
 

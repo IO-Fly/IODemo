@@ -44,7 +44,7 @@ public class BattleUI : MonoBehaviour {
             return;
         }
 
-        sortPlayerList();
+        SortPlayerList();
         for (int i = 0; i < playerCount; i++)
         {
             nameList[i].text = networkManager.playerList[i].GetPlayerName();
@@ -53,7 +53,7 @@ public class BattleUI : MonoBehaviour {
     }
 
     // 增加一个player时，增加一个排行榜的item, 并需更新 nameList、sizeList
-    public void addPlayer()
+    public void AddPlayer()
     {
         int playerCount = networkManager.playerList.Count;
         if (playerCount < 1)
@@ -82,23 +82,23 @@ public class BattleUI : MonoBehaviour {
     }
 
     // 当一个player死亡时，减少一个排行榜的item
-    public void removePlayer()
+    public void RemovePlayer()
     {
-        int playerCount = networkManager.playerList.Count;
-
-        if(!this)
+        if (this == null)
         {
             return;
         }
+        int playerCount = networkManager.playerList.Count;
+
+        // 删除排行榜最后一个，为了不用维护 orderList，重新更新即可
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount + 1));
         Destroy(nameList[playerCount].transform.parent.gameObject);
         nameList.RemoveAt(playerCount);
         sizeList.RemoveAt(playerCount);
-
     }
 
     // 插入排序
-    private void sortPlayerList()
+    private void SortPlayerList()
     {
         int playerCount = networkManager.playerList.Count;
 
