@@ -26,7 +26,7 @@ public class Boundary : Photon.PunBehaviour{
     {
         string tag = other.gameObject.tag;
         if ((tag == "player" && blockPlayer)
-            || ((tag == "food" || tag == "poison") && blockFood))
+            || ((tag == "food" || tag == "poison"||tag=="foodAI") && blockFood))
         {
             ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
             if (objectBehaviour != null)
