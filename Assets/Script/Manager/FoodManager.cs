@@ -12,13 +12,13 @@ public class FoodManager : Photon.PunBehaviour {
 
     //食物AI
     public int FoodAICount;
-	private int foodFlushLock=0;
+	private int[] foodFlushLock;
     public GameObject foodAIPrefab;
     public GameObject[] foodAIInstances;
 
 
 	void Awake(){
-
+		foodFlushLock = new int[FoodCount];
 		PhotonNetwork.OnEventCall += this.OnEventRaised;
 		foodInstances = new GameObject[FoodCount];
         //食物AI列表
@@ -99,10 +99,10 @@ public class FoodManager : Photon.PunBehaviour {
 			//主客户端发起重置食物位置事件
 			case 4:
 			//if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
-				if(foodFlushLock!=0)
+				if(foodFlushLock[(int)((Vector3[])content)[2].x]!=0)
 				return;
-				this.foodFlushLock = 1;
-				StartCoroutine(SetLock());
+				this.foodFlushLock[(int)((Vector3[])content)[2].x] = 1;
+				StartCoroutine(SetLock((int)((Vector3[])content)[2].x));
 				this.foodInstances[(int)((Vector3[])content)[2].x].transform.position = ((Vector3[])content)[0];
 				this.foodInstances[(int)((Vector3[])content)[2].x].GetComponent<FoodOverrideController>().translation= ((Vector3[])content)[1];
 			//}
@@ -221,9 +221,9 @@ public class FoodManager : Photon.PunBehaviour {
         }
     }
 
-	IEnumerator SetLock(){
+	IEnumerator SetLock(int id){
 		yield return new WaitForSeconds(1);
-		this.foodFlushLock = 0;	
+		this.foodFlushLock[id] = 0;	
 	}
 
 	
