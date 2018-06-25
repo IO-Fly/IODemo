@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowSkill : MonoBehaviour {
+public class SkillUI : MonoBehaviour {
 
     private Image keepShadowImage;
     private Text keepTimeText;
