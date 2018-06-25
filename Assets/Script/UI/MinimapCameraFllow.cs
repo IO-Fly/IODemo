@@ -8,12 +8,28 @@ public class MinimapCameraFllow : MonoBehaviour {
 
     void Update ()
     {
-        if(!player)
+        if(player == null)
         {
             return;
         }
-        transform.position = player.transform.position + new Vector3(0.0f, 10.0f, 0.0f);
-	}
+
+        Vector3 minimapCameraPosition = player.transform.position;
+        if(minimapCameraPosition.y < -4.0f)
+        {
+            minimapCameraPosition.y = 1.0f;
+        }
+        else if (minimapCameraPosition.y < 1.0f)
+        {
+            minimapCameraPosition.y += 20.0f;
+        }
+        else
+        {
+            minimapCameraPosition.y = 100.0f;
+        }
+        //transform.position = Vector3.Slerp(transform.position, minimapCameraPosition);
+        transform.position = minimapCameraPosition;
+
+    }
 
     public void setPlayer(GameObject player)
     {
