@@ -89,7 +89,9 @@ public class Player : Photon.PunBehaviour {
         }
         //呈现更新的玩家列表
         //showPlayerList();
-        battleUI.removePlayer();
+
+        //排行榜UI清除一个用户
+        battleUI.RemovePlayer();
     }
 
     void Awake()
@@ -106,7 +108,7 @@ public class Player : Photon.PunBehaviour {
             // 增加当前player到玩家列表
             networkManager.playerList.Add(this);
             // battleUI排行榜增加一个用户
-            battleUI.addPlayer();
+            battleUI.AddPlayer();
         }
         
     }
@@ -240,7 +242,7 @@ public class Player : Photon.PunBehaviour {
     void SetLocalScale(Vector3 playerSize, Vector3 sizeOffset)
     {
         transform.localScale = playerSize + sizeOffset;
-        //battleUI.updateSeveralFrame();
+        battleUI.UpdateSeveralFrame();
     }
 
     void AddPlayerEnergy(float energyAdd)
