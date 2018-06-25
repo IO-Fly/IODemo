@@ -9,7 +9,8 @@ public class Player : Photon.PunBehaviour {
 
     public float initialSize = 1.0f;
     public float initialSpeed = 20.0f;
-    public float health;
+    public float initalHealth = 100.0f;
+    public float health = 100.0f;
 
 
     private float playerEnergy;
@@ -35,6 +36,7 @@ public class Player : Photon.PunBehaviour {
         sizeEffect = 1.0f;
         speedOffset = 0.0f;
         sizeOffset = Vector3.zero;
+     
         StartCoroutine(Recover());
 
         if (!this.photonView.isMine)
@@ -61,12 +63,15 @@ public class Player : Photon.PunBehaviour {
         }
 
         //Debug.Log("当前Lock值: "+Lock);
-
+        if(this.tag == "playerCopy")
+        {
+            Debug.LogWarning("分身当前血量：" + health);
+        }
     }
 
      void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("food"))
+        if (other.gameObject.CompareTag("food") || other.gameObject.tag == "foodAI")
         {
 			Debug.Log ("玩家：碰到了食物");
             if(transform.localScale.x<25){
@@ -94,9 +99,8 @@ public class Player : Photon.PunBehaviour {
             SetLocalScale(playerSize, sizeOffset);
 
             //缺少音效
-
         }
-
+      
     }
 
 
@@ -342,7 +346,7 @@ public class Player : Photon.PunBehaviour {
         const float minSize = 1.0f, maxSize = 25.0f;
         const float minDamage = 10.0f, maxDamage = 80.0f;
         float average = (selfSize + enemySize) / 2.0f;
-        float ratio = (selfSize - minSize) / (maxSize - minSize);
+        float ratio = (average - minSize) / (maxSize - minSize);
         float sumDamage = minDamage + (maxDamage - minDamage) * ratio;
         out_selfDamage = sumDamage * enemySize / (selfSize + enemySize);
         out_enemyDamage = sumDamage * selfSize / (selfSize + enemySize);
@@ -355,11 +359,12 @@ public class Player : Photon.PunBehaviour {
 
 
     //判断两个对象是否是分身关系
-    bool isCopyRelation(GameObject other)
+    public bool isCopyRelation(GameObject other)
     {
         if(this.gameObject.tag == "playerCopy" && other.tag == "player")
         {
             PlayerCopyController copyController = other.GetComponent<PlayerCopyController>();
+
             if(copyController == null)
             {
                 return false;
@@ -395,6 +400,8 @@ public class Player : Photon.PunBehaviour {
         this.count = player.count;
         this.Lock = player.Lock;
         this.transform.localScale = player.transform.localScale;
+        this.initialSize = player.transform.localScale.x;
+        this.initialSpeed = player.speed;
     }
 
 }

@@ -11,7 +11,7 @@ public class FoodAI : PoisonAI {
     public float targetResetInv = 5.0f;
     public float directionResetInv = 2.0f;
 
-    protected List<Player> playersDetected = new List<Player>();
+    protected List<GameObject> playersDetected = new List<GameObject>();
     protected Player targetPlayer = null;
     protected float directionResetCount = 0.0f;
     protected float targetResetCount = 0.0f;
@@ -45,27 +45,18 @@ public class FoodAI : PoisonAI {
 
 
 
-    protected void DetectPlayers()
+    protected virtual void DetectPlayers()
     {
         DetectPlayers(playerDetectDistance);
     }
-    protected void DetectPlayers(float detectDistance)
+    protected virtual void DetectPlayers(float detectDistance)
     {
         playersDetected.Clear();
-        Vector3 selfPosition = gameObject.transform.position;
-        if (allPlayers != null)
+        Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, playerDetectDistance);
+        foreach (Collider collider in colliders)
         {
-            foreach (Player player in allPlayers)
-            {
-                Vector3 playerPosition = player.gameObject.transform.position;
-                float distance = Vector3.Distance(playerPosition, selfPosition);
-                Vector3 playerDirection = (playerPosition - selfPosition).normalized;
-                Vector3 forwardDirection = gameObject.transform.forward;
-                if (distance < detectDistance && Vector3.Angle(forwardDirection,playerDirection)<70.0f)
-                {
-                    playersDetected.Add(player);
-                }
-            }
+            if (collider.gameObject.CompareTag("player"))
+                playersDetected.Add(collider.gameObject);
         }
     }
 
@@ -78,7 +69,7 @@ public class FoodAI : PoisonAI {
             rand = Random.Range(0.0f, 1.0f);
             if (rand < 0.8f)
             {
-                targetPlayer = playersDetected[i];
+                targetPlayer = playersDetected[i].gameObject.GetComponent<Player>();
                 break;
             }
         }

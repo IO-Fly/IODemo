@@ -24,7 +24,7 @@ public class SkyManager : Photon.PunBehaviour {
                 Debug.Log("飞向天空");
 
                 //粒子效果
-                other.gameObject.GetComponent<SeaParticleController>().EnterSky();
+                //other.gameObject.GetComponent<SeaParticleController>().EnterSky();
             }
             else
             {
@@ -41,7 +41,7 @@ public class SkyManager : Photon.PunBehaviour {
             other.gameObject.GetComponent<PlayerBehaviour>().EndFly();
 
             //粒子效果
-            other.gameObject.GetComponent<SeaParticleController>().LeaveSky();
+            //other.gameObject.GetComponent<SeaParticleController>().LeaveSky();
 
         }
        

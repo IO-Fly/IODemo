@@ -33,7 +33,7 @@ public class PlayerHealthUI : MonoBehaviour {
 
         // 初始化可移动的血条
         healthSlider = healthCanvas.transform.Find("PlayerHealthSlider").gameObject.GetComponent<Slider> ();
-        healthSlider.maxValue = player.health;
+        healthSlider.maxValue = player.initalHealth;
         healthSlider.value = player.health;
         // 初始化可移动的名字
         nameText = healthCanvas.transform.Find("PlayerNameText").gameObject.GetComponent<Text>();
