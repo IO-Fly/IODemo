@@ -18,10 +18,13 @@ public class FoodAIColliderController : MonoBehaviour {
         //Debug.Log("食物AI：碰撞");
         if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy")
         {    
-            if (PhotonNetwork.isMasterClient)
+            if (other.gameObject.GetComponent<Player>().photonView.isMine)
             {
                 Debug.Log("食物AI：删除");
                 //重置主客户端食物AI位置
+              
+                this.gameObject.SetActive(false);
+
                 this.gameObject.GetComponentInParent<FoodAI>().transform.position = GetRandomVector3();
                 this.gameObject.GetComponentInParent<FoodAI>().transform.rotation = GetRandomQuaternion();
 
@@ -32,9 +35,12 @@ public class FoodAIColliderController : MonoBehaviour {
 
                 //发送事件
                 RaiseEventOptions options = new RaiseEventOptions();
-                options.Receivers = ReceiverGroup.Others;
+                options.Receivers = ReceiverGroup.All;
                 options.CachingOption = EventCaching.DoNotCache;
-                PhotonNetwork.RaiseEvent(7, foodAIInfo, true, options);   
+                PhotonNetwork.RaiseEvent(7, foodAIInfo, true, options);
+
+                //触发玩家吃到食物事件
+                other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);
 
             }
         }

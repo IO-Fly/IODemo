@@ -978,7 +978,7 @@ MonoBehaviour:
   speed: 20
   playerDetectDistance: 50
   targetResetInv: 5
-  directionResetInv: 2
+  directionResetInv: 1
   foodDetectDistance: 50
 --- !u!114 &114709949688311852
 MonoBehaviour:

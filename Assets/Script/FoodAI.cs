@@ -9,7 +9,7 @@ public class FoodAI : PoisonAI {
     public float playerDetectDistance = 50.0f;
     
     public float targetResetInv = 5.0f;
-    public float directionResetInv = 2.0f;
+    public float directionResetInv = 1.0f;
 
     protected List<GameObject> playersDetected = new List<GameObject>();
     protected Player targetPlayer = null;

@@ -12,12 +12,13 @@ public class FoodManager : Photon.PunBehaviour {
 
     //食物AI
     public int FoodAICount;
+	private int[] foodFlushLock;
     public GameObject foodAIPrefab;
     public GameObject[] foodAIInstances;
 
 
 	void Awake(){
-
+		foodFlushLock = new int[FoodCount];
 		PhotonNetwork.OnEventCall += this.OnEventRaised;
 		foodInstances = new GameObject[FoodCount];
         //食物AI列表
@@ -97,10 +98,14 @@ public class FoodManager : Photon.PunBehaviour {
 			break;
 			//主客户端发起重置食物位置事件
 			case 4:
-			if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+			//if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+				if(foodFlushLock[(int)((Vector3[])content)[2].x]!=0)
+				return;
+				this.foodFlushLock[(int)((Vector3[])content)[2].x] = 1;
+				StartCoroutine(SetLock((int)((Vector3[])content)[2].x));
 				this.foodInstances[(int)((Vector3[])content)[2].x].transform.position = ((Vector3[])content)[0];
 				this.foodInstances[(int)((Vector3[])content)[2].x].GetComponent<FoodOverrideController>().translation= ((Vector3[])content)[1];
-			}
+			//}
 			break;
             //其他客户端根据主客户端生成食物AI
             case 5:
@@ -131,11 +136,13 @@ public class FoodManager : Photon.PunBehaviour {
             break;
             //主客户端重置食物AI事件
             case 7:
-            if(!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+            /*if(!PhotonNetwork.isMasterClient && sender.IsMasterClient)*/{
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 this.foodAIInstances[foodAIInfoObject[0].ID].transform.position = foodAIInfoObject[0].position;
                 this.foodAIInstances[foodAIInfoObject[0].ID].transform.rotation = foodAIInfoObject[0].rotation;
+                //重新激活
+                this.foodAIInstances[foodAIInfoObject[0].ID].SetActive(true);
             }
             break;
             
@@ -212,9 +219,14 @@ public class FoodManager : Photon.PunBehaviour {
                 options.CachingOption = EventCaching.DoNotCache;
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
             }  
-            yield return new WaitForSeconds(0.03f);
+            yield return new WaitForSeconds(0.016f);
         }
     }
+
+	IEnumerator SetLock(int id){
+		yield return new WaitForSeconds(1);
+		this.foodFlushLock[id] = 0;	
+	}
 
 	
 }
