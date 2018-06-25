@@ -34,15 +34,15 @@ public class ShowSkill : MonoBehaviour {
 
         // 初始化技能图片，加载对应技能的图片
         Sprite skillSprite;
-        if(skillManager.playerSkills[0].GetSkillType() == 1)
+        if(skillManager.playerSkills[0].GetSkillType() == PlayerSkillController.SkillType.SIZE)
         {
             skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/big");
         }
-        else if(skillManager.playerSkills[0].GetSkillType() == 2)
+        else if(skillManager.playerSkills[0].GetSkillType() == PlayerSkillController.SkillType.SPEED)
         {
             skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/fast");
         }
-        else if (skillManager.playerSkills[0].GetSkillType() == 3)
+        else if (skillManager.playerSkills[0].GetSkillType() == PlayerSkillController.SkillType.COPY)
         {
             skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/bomb");
         }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerSizeController : PlayerSkillController {
 
-    public override int GetSkillType()
+    public override SkillType GetSkillType()
     {
-        return 1;
+        return PlayerSkillController.SkillType.SIZE;
     }
 
     public Vector3 addSize;//增加的大小
