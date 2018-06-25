@@ -21,8 +21,10 @@ public class ObjectBehaviour : MonoBehaviour {
 
     private void Awake()
     {
-        towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
-        right = new Vector3(towards.z, 0.0f, -towards.x);
+        do{
+            towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+        } while (towards.magnitude > 0.0f);
+        right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
         up = Vector3.Cross(towards, right);
     }
 
