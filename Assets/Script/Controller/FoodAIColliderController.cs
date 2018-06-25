@@ -46,12 +46,12 @@ public class FoodAIColliderController : MonoBehaviour {
         }
     }
 
-    private Vector3 GetRandomVector3()
+    public Vector3 GetRandomVector3()
     {
         return new Vector3(Random.Range(-20, 20), Random.Range(-95, -5), Random.Range(-20, 20));
     }
 
-    private Quaternion GetRandomQuaternion()
+    public Quaternion GetRandomQuaternion()
     {
         return Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
     }

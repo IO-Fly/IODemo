@@ -649,7 +649,7 @@ MonoBehaviour:
     InterpolateRotateTowardsSpeed: 20
     InterpolateLerpSpeed: 30
   m_ScaleModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
