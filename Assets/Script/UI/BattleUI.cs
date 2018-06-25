@@ -19,21 +19,20 @@ public class BattleUI : MonoBehaviour {
     }
 
 
-    private int curFrame = 0;
-    private readonly int maxFrame = 10;
-    public void UpdateSeveralFrame()
-    {
-        curFrame = 0;
-    }
+    //private int curFrame = 0;
+    //private int maxFrame = 10;
+    //public void updateSeveralFrame()
+    //{
+    //    curFrame = 0;
+    //}
 
     // 排名发生变化时更新，只更新几帧
     void Update ()
     {
-        if (curFrame++ > maxFrame)
-        {
-            return;
-        }
-
+        //if (curFrame++ > maxFrame)
+        //{
+        //    return;
+        //}
         int playerCount = networkManager.playerList.Count;
         if (playerCount < 1)
         {
@@ -45,7 +44,7 @@ public class BattleUI : MonoBehaviour {
             return;
         }
 
-        SortPlayerList();
+        sortPlayerList();
         for (int i = 0; i < playerCount; i++)
         {
             nameList[i].text = networkManager.playerList[i].GetPlayerName();
@@ -54,7 +53,7 @@ public class BattleUI : MonoBehaviour {
     }
 
     // 增加一个player时，增加一个排行榜的item, 并需更新 nameList、sizeList
-    public void AddPlayer()
+    public void addPlayer()
     {
         int playerCount = networkManager.playerList.Count;
         if (playerCount < 1)
@@ -79,29 +78,27 @@ public class BattleUI : MonoBehaviour {
         sizeList.Add(scaleText);
 
         // 更新name，由于player的创建是异步的，需要时间
-        UpdateSeveralFrame();
+        // updateSeveralFrame();
     }
 
-    // 当一个player死亡时，减少一个排行榜的item, 并需更新 nameList、sizeList
-    public void RemovePlayer()
+    // 当一个player死亡时，减少一个排行榜的item
+    public void removePlayer()
     {
-        if (this == null)
+        int playerCount = networkManager.playerList.Count;
+
+        if(!this)
         {
             return;
         }
-
-        int playerCount = networkManager.playerList.Count;
-        // 把排行榜最后一名删除， 这样不用维护 orderText的列表
         this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount + 1));
         Destroy(nameList[playerCount].transform.parent.gameObject);
         nameList.RemoveAt(playerCount);
         sizeList.RemoveAt(playerCount);
-        // 再次更新
-        UpdateSeveralFrame();
+
     }
 
     // 插入排序
-    private void SortPlayerList()
+    private void sortPlayerList()
     {
         int playerCount = networkManager.playerList.Count;
 
