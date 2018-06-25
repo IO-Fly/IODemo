@@ -1356,7 +1356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  defaultSpeed: 20
 --- !u!114 &114245747448000720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   flyState: 1
   enterSky: 0
   gravity: 9.8
-  minFlySpeed: 5
+  minFlySpeed: 15
   flyCooldown: 10
 --- !u!114 &114952920977218202
 MonoBehaviour:
@@ -1429,9 +1429,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialSize: 1
   initialSpeed: 20
+  initalHealth: 100
   health: 100
   Lock: 0
-  other: {fileID: 0}
+  HitLock: 0
 --- !u!137 &137003038085053906
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
