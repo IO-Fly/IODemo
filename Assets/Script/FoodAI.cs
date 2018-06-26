@@ -20,6 +20,8 @@ public class FoodAI : PoisonAI {
     void Start() {
         character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
+        objectBehaviour.SetForwardDirecion(GetRandomDirection());
+        resetCountForWander = 1.0f;
     }
 
     // Update is called once per frame

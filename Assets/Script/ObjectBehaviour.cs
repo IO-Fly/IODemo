@@ -8,11 +8,11 @@ public class ObjectBehaviour : MonoBehaviour {
 
     public enum MoveDirection { Left,FrontLeft,Front,FrontRight,Right,Stay};
 
-    private Vector3 towards;
-    private Vector3 up;
-    private Vector3 right;
+    private Vector3 towards=new Vector3(0.0f,0.0f,1.0f);
+    private Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
+    private Vector3 right = new Vector3(1.0f, 0.0f, 0.0f);
 
-    private Vector3 targetTowards;
+    private Vector3 targetTowards = new Vector3(0.0f, 0.0f, 1.0f);
 
     private float currentLookAtSlerp = 0.5f;
     private float targetLookAtSlerp = 0.5f;
@@ -21,12 +21,13 @@ public class ObjectBehaviour : MonoBehaviour {
 
     private void Awake()
     {
-        do
-        {
-            towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
-        } while (towards.magnitude > 0.0f && towards.y * towards.y > towards.x * towards.x + towards.z * towards.z);
-        right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
-        up = Vector3.Cross(towards, right);
+        //do
+        //{
+        //    towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+        //} while (towards.magnitude > 0.0f && towards.y * towards.y > towards.x * towards.x + towards.z * towards.z);
+        //right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
+        //up = Vector3.Cross(towards, right);
+        //targetTowards = towards;
     }
 
     private void Start()
@@ -88,9 +89,9 @@ public class ObjectBehaviour : MonoBehaviour {
     {
         if (yaw == 0 && pitch == 0) return;
         //ctrlX和ctrlY可置为1或-1，控制角色朝向的操控方式
-        float ctrlX = 1.0f, ctrlY = 1.0f;
+        float ctrlX = -1.0f, ctrlY = 1.0f;
 
-        right = Vector3.Cross(towards, up);
+        right = Vector3.Cross(up,towards);
         towards = Vector3.SlerpUnclamped(towards, up, ctrlY * pitch / 90.0f);
         towards.Normalize();
         //限制最大“俯仰角”不超过45度
