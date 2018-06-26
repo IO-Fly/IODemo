@@ -13,7 +13,7 @@ public class FoodAIColliderController : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         //Debug.Log("食物AI：碰撞");
         if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy")
@@ -21,16 +21,18 @@ public class FoodAIColliderController : MonoBehaviour {
             if (other.gameObject.GetComponent<Player>().photonView.isMine)
             {
                 Debug.Log("食物AI：删除");
-                //重置主客户端食物AI位置
-              
-                this.gameObject.SetActive(false);
 
-                this.gameObject.GetComponentInParent<SyncTranform>().transform.position = GetRandomVector3();
-                this.gameObject.GetComponentInParent<SyncTranform>().transform.rotation = GetRandomQuaternion();
+                //重置主客户端食物AI位置
+                GameObject parent = this.gameObject.GetComponentInParent<SyncTranform>().gameObject;
+                parent.transform.position = GetRandomVector3();
+                parent.transform.rotation = GetRandomQuaternion();
+
+                //隐藏父物体
+                parent.SetActive(false);
 
                 //序列化数据
                 GameObject[] foodAIInstances = new GameObject[1];
-                foodAIInstances[0] = this.gameObject.GetComponentInParent<SyncTranform>().transform.gameObject;
+                foodAIInstances[0] = parent;
                 float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
 
                 //发送事件

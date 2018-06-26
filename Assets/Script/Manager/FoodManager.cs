@@ -90,7 +90,7 @@ public class FoodManager : Photon.PunBehaviour {
                     for(int j = 0; j < poisonCounts[i]; j++){                   
                         GameObject AIInstance = Instantiate(poisonPrefabs[i], new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
                         AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;        
-                        poisonInstances[poisonCountAll] = AIInstance;          
+                        poisonInstances[poisonCountAll] = AIInstance;         
                         poisonCountAll ++;
                     }
                 }
@@ -161,9 +161,11 @@ public class FoodManager : Photon.PunBehaviour {
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for(int i = 0; i < FoodAICount; i++) {
-                    this.foodAIInstances[i].GetComponent<SyncTranform>().syncPosition = foodAIInfoObject[i].position;
-                    this.foodAIInstances[i].GetComponent<SyncTranform>().syncRotation = foodAIInfoObject[i].rotation;
+                    SyncTranform syncTranform = this.foodAIInstances[i].GetComponent<SyncTranform>();
+                    syncTranform.syncPosition = foodAIInfoObject[i].position;
+                    syncTranform.syncRotation = foodAIInfoObject[i].rotation;           
                 }
+
             }
             break;
             //主客户端重置食物AI事件
@@ -205,8 +207,9 @@ public class FoodManager : Photon.PunBehaviour {
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for (int i = 0; i < poisonCountAll; i++)
                 {
-                    this.poisonInstances[i].GetComponent<SyncTranform>().syncPosition = foodAIInfoObject[i].position;
-                    this.poisonInstances[i].GetComponent<SyncTranform>().syncRotation = foodAIInfoObject[i].rotation;
+                    SyncTranform syncTranform = this.poisonInstances[i].GetComponent<SyncTranform>();
+                    syncTranform.syncPosition = foodAIInfoObject[i].position;
+                    syncTranform.syncRotation = foodAIInfoObject[i].rotation;    
                 }
 
             }
@@ -218,6 +221,7 @@ public class FoodManager : Photon.PunBehaviour {
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 this.poisonInstances[foodAIInfoObject[0].ID].transform.position = foodAIInfoObject[0].position;
                 this.poisonInstances[foodAIInfoObject[0].ID].transform.rotation = foodAIInfoObject[0].rotation;
+
                 //重新激活
                 this.poisonInstances[foodAIInfoObject[0].ID].SetActive(true);
             }
