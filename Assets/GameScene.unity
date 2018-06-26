@@ -2372,6 +2372,10 @@ MonoBehaviour:
   foodAIPrefab: {fileID: 1815880380957606, guid: 2da5cf9475107e4419b1869a3fb7c8a7,
     type: 2}
   foodAIInstances: []
+  snakeCount: 50
+  snakePrefab: {fileID: 1003748915625674, guid: 00ac5bef3d9a16b4a93c2059b3657023,
+    type: 2}
+  snakeInstances: []
 --- !u!1 &1274257930
 GameObject:
   m_ObjectHideFlags: 0
