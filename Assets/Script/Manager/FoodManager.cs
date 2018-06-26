@@ -19,13 +19,14 @@ public class FoodManager : Photon.PunBehaviour {
     public GameObject[] foodAIInstances;
 
     //毒物AI
-    public int snakeCount;
-    public GameObject snakePrefab;
-    public GameObject[] snakeInstances;
+    public int[] poisonCounts;
+    public GameObject[] poisonPrefabs;
+    private int poisonCountAll;
+    private GameObject[] poisonInstances;
 
 
 
-	void Awake(){
+    void Awake(){
 
         PhotonNetwork.OnEventCall += this.OnEventRaised;
 
@@ -35,7 +36,14 @@ public class FoodManager : Photon.PunBehaviour {
         //食物AI列表
         foodAIInstances = new GameObject[FoodAICount];
         //毒物AI列表
-        snakeInstances = new GameObject[snakeCount];
+        poisonCountAll = 0;
+        for(int i = 0; i < poisonCounts.Length; i++) {
+            for(int j = 0; j < poisonCounts[i]; j++) {
+                poisonCountAll++;
+            }
+        }
+        poisonInstances = new GameObject[poisonCountAll];
+
 
         RaiseEventOptions options = new RaiseEventOptions();
 		options.Receivers = ReceiverGroup.All;
@@ -77,10 +85,14 @@ public class FoodManager : Photon.PunBehaviour {
                 }
         
                 //生成主客户端的毒物AI
-                for(int i = 0; i < snakeCount; i++) { 
-                    GameObject AIInstance = Instantiate(snakePrefab, new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
-                    AIInstance.GetComponent<SyncTranform>().ID = i;
-                    snakeInstances[i] = AIInstance;
+                poisonCountAll = 0;
+                for(int i = 0; i < poisonCounts.Length; i++) { 
+                    for(int j = 0; j < poisonCounts[i]; j++){                   
+                        GameObject AIInstance = Instantiate(poisonPrefabs[i], new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+                        AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;        
+                        poisonInstances[poisonCountAll] = AIInstance;         
+                        poisonCountAll ++;
+                    }
                 }
 
                 StartCoroutine(SyncFoodAITranform());//定时同步食物AI(包含毒物）
@@ -149,9 +161,11 @@ public class FoodManager : Photon.PunBehaviour {
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for(int i = 0; i < FoodAICount; i++) {
-                    this.foodAIInstances[i].GetComponent<SyncTranform>().syncPosition = foodAIInfoObject[i].position;
-                    this.foodAIInstances[i].GetComponent<SyncTranform>().syncRotation = foodAIInfoObject[i].rotation;
+                    SyncTranform syncTranform = this.foodAIInstances[i].GetComponent<SyncTranform>();
+                    syncTranform.syncPosition = foodAIInfoObject[i].position;
+                    syncTranform.syncRotation = foodAIInfoObject[i].rotation;           
                 }
+
             }
             break;
             //主客户端重置食物AI事件
@@ -166,42 +180,50 @@ public class FoodManager : Photon.PunBehaviour {
             }
             break;
             case 8:
-            //其他客户端根据主客户端生成毒物AI-snake
+            //其他客户端根据主客户端生成毒物AI-poison
             if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
-                for(int i = 0; i < snakeCount; i++) {
-                    Vector3 pos = foodAIInfoObject[i].position;
-                    Quaternion rotation = foodAIInfoObject[i].rotation;
-                    GameObject AIInstance = Instantiate(snakePrefab,pos,rotation);
-                    AIInstance.GetComponent<SyncTranform>().ID = i;
-                    snakeInstances[i] = AIInstance;           
+                //生成主客户端的毒物AI
+                poisonCountAll = 0;
+                for(int i = 0; i < poisonCounts.Length; i++) { 
+                    for(int j = 0; j < poisonCounts[i]; j++){                   
+                        Vector3 pos = foodAIInfoObject[poisonCountAll].position;
+                        Quaternion rotation = foodAIInfoObject[poisonCountAll].rotation;
+                        GameObject AIInstance = Instantiate(poisonPrefabs[i],pos,rotation);
+                        AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;  
+                        poisonInstances[poisonCountAll] = AIInstance;                     
+                        poisonCountAll ++;
+                    }
                 }
+
             }
             break;
-            //主客户端发起同步毒物AI位置及旋转-snake
+            //主客户端发起同步毒物AI位置及旋转-poison
             case 9:
             if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){
 
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
-                for (int i = 0; i < FoodAICount; i++)
+                for (int i = 0; i < poisonCountAll; i++)
                 {
-                    this.snakeInstances[i].GetComponent<SyncTranform>().syncPosition = foodAIInfoObject[i].position;
-                    this.snakeInstances[i].GetComponent<SyncTranform>().syncRotation = foodAIInfoObject[i].rotation;
+                    SyncTranform syncTranform = this.poisonInstances[i].GetComponent<SyncTranform>();
+                    syncTranform.syncPosition = foodAIInfoObject[i].position;
+                    syncTranform.syncRotation = foodAIInfoObject[i].rotation;    
                 }
 
             }
             break;
-            //主客户端重置毒物AI事件-snake
+            //主客户端重置毒物AI事件-poison
             case 10:
             /*if(!PhotonNetwork.isMasterClient && sender.IsMasterClient)*/ {
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
-                this.snakeInstances[foodAIInfoObject[0].ID].transform.position = foodAIInfoObject[0].position;
-                this.snakeInstances[foodAIInfoObject[0].ID].transform.rotation = foodAIInfoObject[0].rotation;
+                this.poisonInstances[foodAIInfoObject[0].ID].transform.position = foodAIInfoObject[0].position;
+                this.poisonInstances[foodAIInfoObject[0].ID].transform.rotation = foodAIInfoObject[0].rotation;
+
                 //重新激活
-                this.snakeInstances[foodAIInfoObject[0].ID].SetActive(true);
+                this.poisonInstances[foodAIInfoObject[0].ID].SetActive(true);
             }
             break;
         }
@@ -233,7 +255,7 @@ public class FoodManager : Photon.PunBehaviour {
             PhotonNetwork.RaiseEvent(5, foodAIInfo, true, options);
 
             //主客户端发请求给加入的客户端更新毒物AI
-            foodAIInfo = FoodAISyncInfo.Serialize(snakeInstances);
+            foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
             PhotonNetwork.RaiseEvent(8, foodAIInfo, true, options);
 
 
@@ -271,6 +293,8 @@ public class FoodManager : Photon.PunBehaviour {
     {
         while (true)
         {
+            yield return new WaitForSeconds(0.016f);
+
             Debug.Log("主客户端周期发起更新食物AI");
             RaiseEventOptions options = new RaiseEventOptions();
             options.Receivers = ReceiverGroup.Others;
@@ -282,13 +306,12 @@ public class FoodManager : Photon.PunBehaviour {
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
             }
 
-            if (snakeCount > 0 && snakeInstances[0] != null)
+            if (poisonCountAll > 0 && poisonInstances[0] != null)
             {
-                float[] foodAIInfo = FoodAISyncInfo.Serialize(snakeInstances);
+                float[] foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
                 PhotonNetwork.RaiseEvent(9, foodAIInfo, true, options);
             }
-
-            yield return new WaitForSeconds(0.016f);
+   
         }
     }
 
