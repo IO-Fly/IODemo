@@ -36,18 +36,23 @@ public class SyncTranform : MonoBehaviour {
                 lerpRate += (distance - 0.5f) * 10; ;
             }
 
+            Vector3 newPosition;
             //插值
             if (distance < 0.2)
             {
-                this.transform.position = syncPosition;
+                newPosition = syncPosition;     
                 this.transform.rotation = syncRotation;
             }
             else
             {
-                this.transform.position = Vector3.Lerp(transform.position, syncPosition, 25 * Time.deltaTime);
+                newPosition = Vector3.Lerp(transform.position, syncPosition, 25 * Time.deltaTime);
                 this.transform.rotation = Quaternion.Slerp(transform.rotation, syncRotation, 25 * Time.deltaTime);
-            }          
-            
+            }
+           
+            this.transform.position = newPosition;
+            //this.transform.LookAt(newPosition);
+            //this.transform.rotation = syncRotation;
+
         }
 
     }
