@@ -27,12 +27,15 @@ public class CameraController : MonoBehaviour {
     private float offsetAngleHorizontal;
     private float offsetAngleVertical;
 
+    private RaycastHit[] raycastHits;
+
     // Use this for initialization
     void Start () {
         distanceToPlayer = distanceToPlayerInit;
         offsetAngleHorizontal = 0.0f;
         offsetAngleVertical = 0.0f;
         camImageFx = FindObjectOfType<PostProcessingBehaviour>();
+        raycastHits = null;
     }
 
     private void Update()
@@ -94,16 +97,59 @@ public class CameraController : MonoBehaviour {
         transform.position = player.gameObject.transform.position + direction * distanceToPlayer;
         transform.LookAt(player.transform);
         transform.Translate(new Vector3(0.0f, 4.5f, -9.0f));
+        ///HandleBarrier();
         if(this.transform.position.y>0){
                 this.gameObject.GetComponent<PostProcessingBehaviour>().profile = normal;
             }
         if(this.transform.position.y<0){
            this.gameObject.GetComponent<PostProcessingBehaviour>() .profile = fx;
         }
-
+        
     }
     
+    private void HandleBarrier()
+    {
+        Vector3 pointBegin = transform.position;
+        Vector3 pointEnd = player.transform.position;
+        Vector3 direction = (pointEnd - pointBegin).normalized;
+        Ray ray = new Ray(pointBegin, direction);
 
+        //if (raycastHits != null)
+        //{
+        //    foreach (RaycastHit hit in raycastHits)
+        //    {
+        //        MeshRenderer renderer = hit.collider.GetComponent<MeshRenderer>();
+        //        if (renderer != null)
+        //        {
+        //            SetTransparancy(renderer, 1.0f);
+        //        }
+        //    }
+        //}
+
+
+        raycastHits = Physics.RaycastAll(ray, (pointEnd - pointBegin).magnitude);
+
+        //if(Physics.Raycast(ray,out hit, (pointEnd-pointBegin).magnitude))
+        foreach (RaycastHit hit in raycastHits)
+        {
+            Collider c = hit.collider;
+            if (c.gameObject != player)
+            {
+                Renderer renderer = c.gameObject.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    renderer.materials[0].SetColor(0, new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 0.3f));
+
+                    ///renderer.material.SetColor(0, new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 0.3f));
+                }
+            }
+        }
+    }
+
+    private void SetTransparancy(MeshRenderer renderer,float alpha)
+    {
+        renderer.materials[0].color = new Color(renderer.materials[0].color.r, renderer.materials[0].color.g, renderer.materials[0].color.b, alpha);
+    }
 
     public Vector3 GetDirectionNormal()
     {
