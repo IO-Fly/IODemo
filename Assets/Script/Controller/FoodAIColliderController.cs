@@ -24,11 +24,13 @@ public class FoodAIColliderController : MonoBehaviour {
 
                 //重置主客户端食物AI位置
                 GameObject parent = this.gameObject.GetComponentInParent<SyncTranform>().gameObject;
-                parent.transform.position = GetRandomVector3();
-                parent.transform.rotation = GetRandomQuaternion();
 
                 //隐藏父物体
                 parent.SetActive(false);
+
+                //随机生成transform
+                parent.transform.position = GetRandomVector3();
+                parent.transform.rotation = GetRandomQuaternion();
 
                 //序列化数据
                 GameObject[] foodAIInstances = new GameObject[1];
