@@ -80,7 +80,8 @@ public class ObjectBehaviour : MonoBehaviour {
         Vector3 lookAt = Vector3.SlerpUnclamped(-right, towards, currentLookAtSlerp * 2);
         lookAt.Normalize();
         gameObject.transform.LookAt(gameObject.transform.position + lookAt);
-        if (direction!=MoveDirection.Stay)
+        if (direction != MoveDirection.Stay)
+            ///gameObject.transform.position += lookAt * speed * Time.deltaTime;
             character.Move(lookAt * speed * Time.deltaTime);
     }
 
