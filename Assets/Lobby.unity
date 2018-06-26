@@ -532,6 +532,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1568419123}
+        m_MethodName: OnDropStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &198719350
@@ -2449,6 +2460,10 @@ Prefab:
       propertyPath: m_TagString
       value: foodAI
       objectReference: {fileID: 0}
+    - target: {fileID: 1613026644344698, guid: ca652d2df2a262d40a87d927d06894ad, type: 2}
+      propertyPath: m_Name
+      value: Kun_Copy
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114909107446131046, guid: ca652d2df2a262d40a87d927d06894ad, type: 2}
     - {fileID: 114942718953486326, guid: ca652d2df2a262d40a87d927d06894ad, type: 2}
@@ -2496,7 +2511,7 @@ MonoBehaviour:
   - {fileID: 1324855515791646, guid: 646965e557b68cb4e8929bdb11e6ee0d, type: 2}
   - {fileID: 1424722576695702, guid: efe74d7fca7356244843606bf42a61dc, type: 2}
   - {fileID: 1373179133066842, guid: 990f9be0a289bb944b93a8bff9837402, type: 2}
-  LobbyCamera: {fileID: 0}
+  LobbyCamera: {fileID: 1568419121}
 --- !u!4 &1202371463
 Transform:
   m_ObjectHideFlags: 0
@@ -3856,7 +3871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76973df2c71352b46b5984477d5089b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 10355906}
+  player: {fileID: 0}
   normal: {fileID: 11400000, guid: 3a33559ab06b88042b4c87c0d6ed9f09, type: 2}
   fx: {fileID: 11400000, guid: 83ce151667819494cb8a5305edfdd5ab, type: 2}
   mouseSensitivity: 3
