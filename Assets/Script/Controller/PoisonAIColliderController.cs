@@ -23,12 +23,12 @@ public class PoisonAIColliderController : FoodAIColliderController {
 
                 this.gameObject.SetActive(false);
 
-                this.gameObject.GetComponentInParent<PoisonAI>().transform.position = GetRandomVector3();
-                this.gameObject.GetComponentInParent<PoisonAI>().transform.rotation = GetRandomQuaternion();
+                this.gameObject.GetComponentInParent<SyncTranform>().transform.position = GetRandomVector3();
+                this.gameObject.GetComponentInParent<SyncTranform>().transform.rotation = GetRandomQuaternion();
 
                 //序列化数据
                 GameObject[] foodAIInstances = new GameObject[1];
-                foodAIInstances[0] = this.gameObject.GetComponentInParent<PoisonAI>().transform.gameObject;
+                foodAIInstances[0] = this.gameObject.GetComponentInParent<SyncTranform>().transform.gameObject;
                 float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
 
                 //发送事件
