@@ -248,7 +248,18 @@ public class Player : Photon.PunBehaviour {
     //更改大小
     void SetLocalScale(Vector3 playerSize, Vector3 sizeOffset)
     {
-        transform.localScale = playerSize + sizeOffset;
+
+        Vector3 scale = playerSize + sizeOffset;
+        if (scale.x <= 1)
+        {
+            playerEnergy = 1;
+            this.playerSize = Vector3.one;
+            transform.localScale = this.playerSize;
+        }
+        else
+        {
+            transform.localScale = scale;    
+        }
         //battleUI.updateSeveralFrame();
     }
 
