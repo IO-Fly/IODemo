@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerSizeController : PlayerSkillController {
 
-    public override int GetSkillType()
+    public override SkillType GetSkillType()
     {
-        return 1;
+        return PlayerSkillController.SkillType.SIZE;
     }
 
     public Vector3 addSize;//增加的大小
@@ -27,8 +27,8 @@ public class PlayerSizeController : PlayerSkillController {
             curCooldown = cooldown;
             Player player = this.gameObject.GetComponent<Player>();
             player.AddSizeEffect(sizeEffect);
-
-            player.photonView.RPC("AddSizeOffset", PhotonTargets.AllViaServer, addSize);
+            player.AddSizeOffset(addSize);
+            
             StartCoroutine("WaitForEndSkill");
         }
 
@@ -44,7 +44,7 @@ public class PlayerSizeController : PlayerSkillController {
     {
         yield return new WaitForSeconds(keepTime);
         Player player = this.gameObject.GetComponent<Player>();
-        player.photonView.RPC("AddSizeOffset", PhotonTargets.AllViaServer, -addSize);
+        player.AddSizeOffset(-addSize);
         if (sizeEffect == 0)
         {
             Debug.LogError("大小效果倍数不能为0 !");

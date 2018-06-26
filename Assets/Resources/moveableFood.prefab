@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 114857933697096136}
   - component: {fileID: 114392540778032794}
   - component: {fileID: 114033205528275938}
-  - component: {fileID: 114482869223514148}
+  - component: {fileID: 114885384851770092}
   m_Layer: 0
   m_Name: moveableFood
   m_TagString: foodAI
@@ -339,7 +339,19 @@ MonoBehaviour:
   playerDetectDistance: 50
   targetResetInv: 5
   directionResetInv: 2
---- !u!114 &114482869223514148
+--- !u!114 &114857933697096136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815880380957606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultSpeed: 20
+--- !u!114 &114885384851770092
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -353,18 +365,6 @@ MonoBehaviour:
   stuffNeedDisable:
   - {fileID: 114857933697096136}
   - {fileID: 114392540778032794}
---- !u!114 &114857933697096136
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815880380957606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a0c460a91877ce40b32eb544cc8748d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultSpeed: 20
 --- !u!136 &136115920649745648
 CapsuleCollider:
   m_ObjectHideFlags: 1

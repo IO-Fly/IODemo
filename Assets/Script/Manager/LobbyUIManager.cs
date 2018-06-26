@@ -12,6 +12,7 @@ public class LobbyUIManager : MonoBehaviour {
     public Button matching;
     public Dropdown dropdown;
     public GameObject[] characterPrefab;
+    public Camera LobbyCamera;
 
     void Awake()
     {
@@ -50,6 +51,8 @@ public class LobbyUIManager : MonoBehaviour {
     {
         PhotonNetwork.player.NickName = dropdown.options[dropdown.value].text;
         Debug.Log("选择角色： " + PhotonNetwork.player.NickName);
+        GameObject playerTemp = GameObject.Find(dropdown.options[dropdown.value].text);
+        LobbyCamera.GetComponent<LobbyCameraController>().setPlayer(playerTemp);
     }
 
     public void OnStartGame()

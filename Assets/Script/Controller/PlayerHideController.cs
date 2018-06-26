@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerHideController : PlayerSkillController {
 
-    public override int GetSkillType()
+    public override SkillType GetSkillType()
     {
-        return 4;
+        return PlayerSkillController.SkillType.HIDE;
     }
 
     public ParticleSystem effect;

@@ -269,6 +269,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1401529239165480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4069978612489974}
+  - component: {fileID: 136902180897387838}
+  - component: {fileID: 114495076003348932}
+  m_Layer: 0
+  m_Name: Collider
+  m_TagString: foodAI
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1439799243716640
 GameObject:
   m_ObjectHideFlags: 1
@@ -613,13 +630,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4436113882574760}
   - component: {fileID: 33007228352855812}
-  - component: {fileID: 23163706061911238}
-  - component: {fileID: 135952044388529962}
-  - component: {fileID: 114676260275967298}
-  - component: {fileID: 114875805990399618}
   - component: {fileID: 143312035500382746}
   - component: {fileID: 114117558101306716}
   - component: {fileID: 114889689325247198}
+  - component: {fileID: 114477124284443462}
+  - component: {fileID: 114921694221694886}
   m_Layer: 0
   m_Name: jellyfish
   m_TagString: poison
@@ -641,6 +656,19 @@ Transform:
   m_Father: {fileID: 4206714210462390}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4069978612489974
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401529239165480}
+  m_LocalRotation: {x: 0.70294565, y: -0.0151310405, z: 0.015302615, w: 0.71091795}
+  m_LocalPosition: {x: 2.2696552e-10, y: 0, z: 0}
+  m_LocalScale: {x: 0.42148083, y: 2.240069, z: 1.1105452}
+  m_Children: []
+  m_Father: {fileID: 4436113882574760}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 89.354004, y: 0, z: 2.466}
 --- !u!4 &4083568934504896
 Transform:
   m_ObjectHideFlags: 1
@@ -881,6 +909,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4346633533624654}
+  - {fileID: 4069978612489974}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 89.59701, y: 0, z: 0}
@@ -1186,41 +1215,6 @@ Transform:
   m_Father: {fileID: 4332777866530688}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23163706061911238
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984773448182634}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &33007228352855812
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -1258,43 +1252,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSpeed: 4
---- !u!114 &114676260275967298
+--- !u!114 &114477124284443462
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984773448182634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde447d06b0cc3c479ca26e152a4cdda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  syncPosition: {x: 0, y: 0, z: 0}
+  syncRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114495076003348932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401529239165480}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ef6c8d1697c4b048adec84d0564b22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114875805990399618
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984773448182634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!114 &114889689325247198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1307,17 +1289,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
---- !u!135 &135952044388529962
-SphereCollider:
+--- !u!114 &114921694221694886
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984773448182634}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a2f94d6f539904290b17d5e32ca9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stuffNeedDisable:
+  - {fileID: 114117558101306716}
+  - {fileID: 114889689325247198}
+--- !u!136 &136902180897387838
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401529239165480}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.8
+  m_Height: 0
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137057929454700560
 SkinnedMeshRenderer:
@@ -1757,8 +1754,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1
-  m_Radius: 0.5
+  m_Height: 0
+  m_Radius: 0.9
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08

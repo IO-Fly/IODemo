@@ -6,23 +6,43 @@ public class FoodManager : Photon.PunBehaviour {
 
 	private Vector3 PositionTemp;
 	private Vector3 RotationTemp;
+
+    //食物
 	public int FoodCount;
 	public GameObject foodPrefab;
 	public GameObject[] foodInstances;
+    private int[] foodFlushLock;
 
     //食物AI
     public int FoodAICount;
-	private int[] foodFlushLock;
     public GameObject foodAIPrefab;
     public GameObject[] foodAIInstances;
 
+    //毒物AI
+    public int[] poisonCounts;
+    public GameObject[] poisonPrefabs;
+    private int poisonCountAll;
+    private GameObject[] poisonInstances;
 
-	void Awake(){
-		foodFlushLock = new int[FoodCount];
-		PhotonNetwork.OnEventCall += this.OnEventRaised;
+
+
+    void Awake(){
+
+        PhotonNetwork.OnEventCall += this.OnEventRaised;
+
+        foodFlushLock = new int[FoodCount];
 		foodInstances = new GameObject[FoodCount];
+
         //食物AI列表
         foodAIInstances = new GameObject[FoodAICount];
+        //毒物AI列表
+        poisonCountAll = 0;
+        for(int i = 0; i < poisonCounts.Length; i++) {
+            for(int j = 0; j < poisonCounts[i]; j++) {
+                poisonCountAll++;
+            }
+        }
+        poisonInstances = new GameObject[poisonCountAll];
 
 
         RaiseEventOptions options = new RaiseEventOptions();
@@ -63,7 +83,19 @@ public class FoodManager : Photon.PunBehaviour {
                     AIInstance.GetComponent<SyncTranform>().ID = i;
                     foodAIInstances[i] = AIInstance;
                 }
-                StartCoroutine(SyncFoodAITranform());//定时同步食物AI
+        
+                //生成主客户端的毒物AI
+                poisonCountAll = 0;
+                for(int i = 0; i < poisonCounts.Length; i++) { 
+                    for(int j = 0; j < poisonCounts[i]; j++){                   
+                        GameObject AIInstance = Instantiate(poisonPrefabs[i], new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+                        AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;        
+                        poisonInstances[poisonCountAll] = AIInstance;         
+                        poisonCountAll ++;
+                    }
+                }
+
+                StartCoroutine(SyncFoodAITranform());//定时同步食物AI(包含毒物）
 
 				if(PhotonNetwork.isMasterClient){
 					//StartCoroutine(SyncPosition());
@@ -129,9 +161,11 @@ public class FoodManager : Photon.PunBehaviour {
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for(int i = 0; i < FoodAICount; i++) {
-                    this.foodAIInstances[i].GetComponent<SyncTranform>().syncPosition = foodAIInfoObject[i].position;
-                    this.foodAIInstances[i].GetComponent<SyncTranform>().syncRotation = foodAIInfoObject[i].rotation;
+                    SyncTranform syncTranform = this.foodAIInstances[i].GetComponent<SyncTranform>();
+                    syncTranform.syncPosition = foodAIInfoObject[i].position;
+                    syncTranform.syncRotation = foodAIInfoObject[i].rotation;           
                 }
+
             }
             break;
             //主客户端重置食物AI事件
@@ -145,10 +179,56 @@ public class FoodManager : Photon.PunBehaviour {
                 this.foodAIInstances[foodAIInfoObject[0].ID].SetActive(true);
             }
             break;
-            
-		}
+            case 8:
+            //其他客户端根据主客户端生成毒物AI-poison
+            if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+                float[] foodAIInfo = (float[])content;
+                FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
+                //生成主客户端的毒物AI
+                poisonCountAll = 0;
+                for(int i = 0; i < poisonCounts.Length; i++) { 
+                    for(int j = 0; j < poisonCounts[i]; j++){                   
+                        Vector3 pos = foodAIInfoObject[poisonCountAll].position;
+                        Quaternion rotation = foodAIInfoObject[poisonCountAll].rotation;
+                        GameObject AIInstance = Instantiate(poisonPrefabs[i],pos,rotation);
+                        AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;  
+                        poisonInstances[poisonCountAll] = AIInstance;                     
+                        poisonCountAll ++;
+                    }
+                }
 
-	}
+            }
+            break;
+            //主客户端发起同步毒物AI位置及旋转-poison
+            case 9:
+            if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+
+                float[] foodAIInfo = (float[])content;
+                FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
+                for (int i = 0; i < poisonCountAll; i++)
+                {
+                    SyncTranform syncTranform = this.poisonInstances[i].GetComponent<SyncTranform>();
+                    syncTranform.syncPosition = foodAIInfoObject[i].position;
+                    syncTranform.syncRotation = foodAIInfoObject[i].rotation;    
+                }
+
+            }
+            break;
+            //主客户端重置毒物AI事件-poison
+            case 10:
+            /*if(!PhotonNetwork.isMasterClient && sender.IsMasterClient)*/ {
+                float[] foodAIInfo = (float[])content;
+                FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
+                this.poisonInstances[foodAIInfoObject[0].ID].transform.position = foodAIInfoObject[0].position;
+                this.poisonInstances[foodAIInfoObject[0].ID].transform.rotation = foodAIInfoObject[0].rotation;
+
+                //重新激活
+                this.poisonInstances[foodAIInfoObject[0].ID].SetActive(true);
+            }
+            break;
+        }
+
+    }
 
     public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
     	if(PhotonNetwork.isMasterClient){
@@ -173,6 +253,10 @@ public class FoodManager : Photon.PunBehaviour {
             //主客户端发请求给加入的客户端更新食物AI       
             float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
             PhotonNetwork.RaiseEvent(5, foodAIInfo, true, options);
+
+            //主客户端发请求给加入的客户端更新毒物AI
+            foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
+            PhotonNetwork.RaiseEvent(8, foodAIInfo, true, options);
 
 
         }
@@ -209,17 +293,25 @@ public class FoodManager : Photon.PunBehaviour {
     {
         while (true)
         {
+            yield return new WaitForSeconds(0.016f);
+
             Debug.Log("主客户端周期发起更新食物AI");
+            RaiseEventOptions options = new RaiseEventOptions();
+            options.Receivers = ReceiverGroup.Others;
+            options.CachingOption = EventCaching.DoNotCache;
             //主客户端定时更新其他客户端的食物AI位置及旋转
             if (FoodAICount > 0 && foodAIInstances[0] != null)
             {
-                float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
-                RaiseEventOptions options = new RaiseEventOptions();
-                options.Receivers = ReceiverGroup.Others;
-                options.CachingOption = EventCaching.DoNotCache;
+                float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);         
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
-            }  
-            yield return new WaitForSeconds(0.016f);
+            }
+
+            if (poisonCountAll > 0 && poisonInstances[0] != null)
+            {
+                float[] foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
+                PhotonNetwork.RaiseEvent(9, foodAIInfo, true, options);
+            }
+   
         }
     }
 

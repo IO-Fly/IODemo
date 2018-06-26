@@ -89,7 +89,7 @@ public class Player : Photon.PunBehaviour {
         }
         //呈现更新的玩家列表
         //showPlayerList();
-        battleUI.removePlayer();
+        battleUI.RemovePlayer();
     }
 
     void Awake()
@@ -106,7 +106,7 @@ public class Player : Photon.PunBehaviour {
             // 增加当前player到玩家列表
             networkManager.playerList.Add(this);
             // battleUI排行榜增加一个用户
-            battleUI.addPlayer();
+            battleUI.AddPlayer();
         }
         
     }
@@ -263,6 +263,13 @@ public class Player : Photon.PunBehaviour {
         this.sizeEffect *= sizeEffect;
     }
 
+    public void AddSizeOffset(Vector3 sizeOffset)
+    {
+        this.sizeOffset += sizeOffset;
+        SetLocalScale(playerSize, this.sizeOffset);
+
+    }
+
     public float GetSpeed()
     {
         return speed + speedOffset;
@@ -340,14 +347,6 @@ public class Player : Photon.PunBehaviour {
     #region PunRPC
 
     [PunRPC]
-    public void AddSizeOffset(Vector3 sizeOffset)
-    {
-        this.sizeOffset += sizeOffset;
-        SetLocalScale(playerSize, this.sizeOffset);
-
-    }
-
-    [PunRPC]
     void DestroyThis()
     {
         PhotonNetwork.Destroy(this.gameObject);
@@ -409,7 +408,11 @@ public class Player : Photon.PunBehaviour {
     void EatPoison()
     {
         Debug.Log("玩家：碰到了毒物");
-        AddPlayerEnergy(-0.5f);
+
+        if(transform.localScale.x > 1)
+        {
+            AddPlayerEnergy(-0.5f);
+        }
 
         //音效？？？
 
