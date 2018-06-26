@@ -8,7 +8,7 @@ public class Boundary : Photon.PunBehaviour{
     public Axis verticalAxis=Axis.None;//表示边界所在的面与哪一个坐标轴垂直
 
     public bool blockFood = true;//边界是否限制可移动食物（AI）的移动
-    public bool blockPlayer = true;//边界是否限制玩家角色（玩家或AI控制）的移动
+    public bool blockPlayerAI = true;//边界是否限制玩家角色（玩家或AI控制）的移动
 
     public enum ForceDirection { Positive, Negative };//在触发器内的玩家强制更改的方向
     public ForceDirection forceDirection=ForceDirection.Positive;
@@ -25,7 +25,7 @@ public class Boundary : Photon.PunBehaviour{
     private void OnTriggerStay(Collider other)
     {
         string tag = other.gameObject.tag;
-        if ((tag == "player" && blockPlayer)
+        if ((tag == "playerCopy" && blockPlayerAI)
             || ((tag == "food" || tag == "poison"||tag=="foodAI") && blockFood))
         {
             ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
