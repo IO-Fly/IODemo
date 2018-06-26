@@ -90,6 +90,14 @@ public class Player : Photon.PunBehaviour {
         //呈现更新的玩家列表
         //showPlayerList();
         battleUI.RemovePlayer();
+
+        //主客户端更换时重新启动同步协程
+        if(PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
+        {
+            Debug.LogWarning("Master change!");
+            FoodManager.localFoodManager.isMasterBefore = true;
+        }
+
     }
 
     void Awake()
