@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerCopyController : PlayerSkillController {
 
-    public override int GetSkillType()
+    public override SkillType GetSkillType()
     {
-        return 3;
+        return PlayerSkillController.SkillType.COPY;
     }
 
     public GameObject playerCopyPrefab;

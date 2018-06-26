@@ -54,4 +54,7 @@ MonoBehaviour:
   - SetPlayerName
   - DisableParticle
   - EnableParticle
+  - EatFood
+  - EatPoison
+  - AddSizeOffset
   DisableAutoOpenWizard: 1
