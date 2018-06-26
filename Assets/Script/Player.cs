@@ -95,6 +95,7 @@ public class Player : Photon.PunBehaviour {
         if(PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
         {
             Debug.LogWarning("Master change!");
+            FoodManager.localFoodManager.StartCoroutine(FoodManager.localFoodManager.SyncFoodAITranform());
             FoodManager.localFoodManager.isMasterBefore = true;
         }
 
