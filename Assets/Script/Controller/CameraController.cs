@@ -31,19 +31,22 @@ public class CameraController : MonoBehaviour {
     {
         public GameObject barrierObject;
         public Shader shader;
-        public bool keepFlag;
-        public Barrier(GameObject _obj, Shader _shader)
+        public Barrier(GameObject _obj = null, Shader _shader = null)
         {
             this.barrierObject = _obj;
             this.shader = _shader;
-            keepFlag = true;
         }
-        public void SetKeepFlag(bool flag)
+        public bool IsEmpty()
         {
-            keepFlag = flag;
+            return barrierObject == null && shader == null;
+        }
+        public void Clear()
+        {
+            barrierObject = null;
+            shader = null;
         }
     }
-    private LinkedList<Barrier> barriers = new LinkedList<Barrier>();
+    private Barrier currentBarrier;
     private Shader transparentShader;
 
     // Use this for initialization
@@ -131,55 +134,32 @@ public class CameraController : MonoBehaviour {
         Vector3 direction = (pointEnd - pointBegin).normalized;
         Ray ray = new Ray(pointBegin, direction);
 
-        
+        bool hasHitBarrier = false;
         RaycastHit[] hits = Physics.RaycastAll(ray, (pointEnd - pointBegin).magnitude);
-        foreach(RaycastHit hit in hits)
+        foreach (RaycastHit hit in hits)
         {
-            GameObject thisBarrier = hit.collider.gameObject;
-            if (thisBarrier == player) continue;
-            MeshRenderer renderer = thisBarrier.GetComponent<MeshRenderer>();
-            if (renderer != null)
+            GameObject thisBarrierObject = hit.collider.gameObject;
+            if (thisBarrierObject == player) continue;
+            MeshRenderer renderer = thisBarrierObject.GetComponent<MeshRenderer>();
+            if (renderer != null && renderer.enabled)
             {
-                bool findFlag = false;
-                foreach(Barrier barrier in barriers)
+                hasHitBarrier = true;
+                if (thisBarrierObject != currentBarrier.barrierObject)
                 {
-                    if (barrier.barrierObject == thisBarrier)
-                    {
-                        barrier.SetKeepFlag(true);
-                        findFlag = true;
-                        break;
-                    }
-                }
-                if (!findFlag)
-                {
-                    barriers.AddFirst(new Barrier(thisBarrier, renderer.material.shader));
-                    renderer.material.shader = transparentShader;
-                    ///renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 0.3f);
-                }
-            } 
+                    currentBarrier.barrierObject = thisBarrierObject;
+                    Material m = renderer.material;
+                    currentBarrier.shader = m.shader;
+                    m.shader = transparentShader;
+                    m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f);
+                } 
+            }
         }
-
-        LinkedListNode<Barrier> link = barriers.First;
-        while (link!=barriers.Last)
+        if (!hasHitBarrier && !currentBarrier.IsEmpty())
         {
-            Barrier barrier = link.Value;
-
-            if (!barrier.keepFlag)
-            {
-                Material thisMaterial = barrier.barrierObject.GetComponent<MeshRenderer>().material;
-                thisMaterial.shader = barrier.shader;
-                ///thisMaterial.color = new Color(thisMaterial.color.r, thisMaterial.color.g, thisMaterial.color.b, 1.0f);
-                barriers.Remove(link);
-            }
-            else
-            {
-                barrier.SetKeepFlag(false);
-            }
-
-            link = link.Next;
+            Material m = currentBarrier.barrierObject.GetComponent<MeshRenderer>().material;
+            m.shader = currentBarrier.shader;
+            currentBarrier.Clear();
         }
-        
-        
     }
 
 
