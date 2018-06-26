@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 114857933697096136}
   - component: {fileID: 114392540778032794}
   - component: {fileID: 114033205528275938}
+  - component: {fileID: 114885384851770092}
   m_Layer: 0
   m_Name: moveableFood
   m_TagString: foodAI
@@ -350,6 +351,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultSpeed: 20
+--- !u!114 &114885384851770092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815880380957606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a2f94d6f539904290b17d5e32ca9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stuffNeedDisable:
+  - {fileID: 114857933697096136}
+  - {fileID: 114392540778032794}
 --- !u!136 &136115920649745648
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -470,7 +485,7 @@ CharacterController:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1815880380957606}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 0

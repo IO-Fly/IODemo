@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114051794927159486}
   - component: {fileID: 114332449045596266}
   - component: {fileID: 114338976030494428}
+  - component: {fileID: 114021538697296250}
   m_Layer: 0
   m_Name: snake
   m_TagString: poison
@@ -305,6 +306,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114021538697296250
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1003748915625674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a2f94d6f539904290b17d5e32ca9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stuffNeedDisable:
+  - {fileID: 114051794927159486}
+  - {fileID: 114332449045596266}
 --- !u!114 &114051794927159486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,7 +338,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1980322928061986}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ef6c8d1697c4b048adec84d0564b22d, type: 3}
   m_Name: 
@@ -363,8 +378,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.3
+  m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137064319323214074
