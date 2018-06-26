@@ -1157,7 +1157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 0
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 0
 --- !u!23 &670323819
 MeshRenderer:
@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 1
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 0
 --- !u!23 &695664409
 MeshRenderer:
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 2
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 1
 --- !u!23 &738148562
 MeshRenderer:
@@ -1657,7 +1657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 2
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 0
 --- !u!23 &896507137
 MeshRenderer:
@@ -2747,7 +2747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 1
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 1
 --- !u!23 &1525582422
 MeshRenderer:
@@ -3190,7 +3190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 0
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 1
 --- !u!23 &1828180584
 MeshRenderer:
