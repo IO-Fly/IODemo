@@ -19,17 +19,6 @@ public class ObjectBehaviour : MonoBehaviour {
 
     private CharacterController character;
 
-    private void Awake()
-    {
-        //do
-        //{
-        //    towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
-        //} while (towards.magnitude > 0.0f && towards.y * towards.y > towards.x * towards.x + towards.z * towards.z);
-        //right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
-        //up = Vector3.Cross(towards, right);
-        //targetTowards = towards;
-    }
-
     private void Start()
     {
         character = GetComponent<CharacterController>();
@@ -43,9 +32,6 @@ public class ObjectBehaviour : MonoBehaviour {
             towards = targetTowards;
         else
             towards = Vector3.Slerp(towards, targetTowards, 0.2f);
-
-        ///right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
-        ///up = Vector3.Cross(towards, right);
     }
 
 
@@ -80,7 +66,7 @@ public class ObjectBehaviour : MonoBehaviour {
         Vector3 lookAt = Vector3.SlerpUnclamped(-right, towards, currentLookAtSlerp * 2);
         lookAt.Normalize();
         gameObject.transform.LookAt(gameObject.transform.position + lookAt);
-        if (direction!=MoveDirection.Stay)
+        if (direction != MoveDirection.Stay)
             character.Move(lookAt * speed * Time.deltaTime);
     }
 

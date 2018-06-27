@@ -50,7 +50,7 @@ public class PlayerBehaviour : MonoBehaviour {
                 }
             }
         }
-        if (enterSky)
+        if (flyState==FlyState.Flying)
         {
             DropInSky();
         }

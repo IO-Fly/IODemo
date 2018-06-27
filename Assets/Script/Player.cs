@@ -26,7 +26,7 @@ public class Player : Photon.PunBehaviour {
     public int Lock=0;
     public int HitLock=0;
 
-
+    #region MoboBehaviour CallBacks
     // Use this for initialization
     void Start () {
         playerEnergy = initialSize * initialSize;
@@ -57,11 +57,6 @@ public class Player : Photon.PunBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
        
-        if (health <= 0)
-        {
-            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
-        }
-
         //Debug.Log("当前Lock值: "+Lock);
         if(this.tag == "playerCopy")
         {
@@ -90,6 +85,15 @@ public class Player : Photon.PunBehaviour {
         //呈现更新的玩家列表
         //showPlayerList();
         battleUI.RemovePlayer();
+
+        //主客户端更换时重新启动同步协程
+        if(PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
+        {
+            Debug.LogWarning("Master change!");
+            FoodManager.localFoodManager.StartCoroutine(FoodManager.localFoodManager.SyncFoodAITranform());
+            FoodManager.localFoodManager.isMasterBefore = true;
+        }
+
     }
 
     void Awake()
@@ -174,6 +178,10 @@ public class Player : Photon.PunBehaviour {
 
     }
 
+    #endregion
+
+    #region Utility
+
     private void CalculateDamage(float selfSize,float enemySize,ref float out_selfDamage,ref float out_enemyDamage)
     {
         const float minSize = 1.0f, maxSize = 25.0f;
@@ -222,6 +230,10 @@ public class Player : Photon.PunBehaviour {
         return false;
     }
 
+    #endregion
+
+    #region Change Attribute
+
     public void CopyPlayer(Player player)
     {
         this.health = player.health;
@@ -239,13 +251,29 @@ public class Player : Photon.PunBehaviour {
     //更改大小
     void SetLocalScale(Vector3 playerSize, Vector3 sizeOffset)
     {
-        transform.localScale = playerSize + sizeOffset;
+
+        Vector3 scale = playerSize + sizeOffset;
+        if (scale.x <= 1)
+        {
+            playerEnergy = 1;
+            this.playerSize = Vector3.one;
+            transform.localScale = this.playerSize;
+        }
+        else
+        {
+            transform.localScale = scale;    
+        }
         //battleUI.updateSeveralFrame();
     }
 
     void AddPlayerEnergy(float energyAdd)
     {
+        
         playerEnergy += energyAdd;
+
+        //限制最大能量
+        playerEnergy = playerEnergy > 25 ? 25 : playerEnergy; 
+
         float sq = Mathf.Sqrt(playerEnergy);
         speed = 10 / sq + 2;
         playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
@@ -269,6 +297,10 @@ public class Player : Photon.PunBehaviour {
         SetLocalScale(playerSize, this.sizeOffset);
 
     }
+
+    #endregion
+
+    #region Get Method
 
     public float GetSpeed()
     {
@@ -298,17 +330,7 @@ public class Player : Photon.PunBehaviour {
         return this.playerName;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(this.health);
-        }
-        else
-        {
-            this.health = (float)stream.ReceiveNext();
-        }
-    }
+    #endregion
 
     #region IEnumerator
 
@@ -344,18 +366,27 @@ public class Player : Photon.PunBehaviour {
 
     #endregion
 
-    #region PunRPC
-
-    [PunRPC]
-    void DestroyThis()
+    #region Photon Network
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        PhotonNetwork.Destroy(this.gameObject);
+        if (stream.isWriting)
+        {
+            stream.SendNext(this.health);
+        }
+        else
+        {
+            this.health = (float)stream.ReceiveNext();
+        }
     }
 
     [PunRPC]
     void GetDamage(float damage)
     {
         health -= damage;
+        if(health <= 0 && this.photonView.isMine)
+        {
+            PhotonNetwork.Destroy(this.gameObject);
+        }
     }
 
     [PunRPC]
@@ -386,11 +417,8 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
-        Debug.Log("玩家：碰到了食物");
-        if (transform.localScale.x < 25)
-        {
-            AddPlayerEnergy(0.2f);
-        }
+ 
+        AddPlayerEnergy(0.2f);
 
         if (photonView.isMine)
         {

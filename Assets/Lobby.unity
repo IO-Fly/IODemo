@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44827092, g: 0.49829865, b: 0.5755894, a: 1}
+  m_IndirectSpecularColor: {r: 0.44827127, g: 0.49829948, b: 0.5755907, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 0
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 0
 --- !u!23 &670863043
 MeshRenderer:
@@ -1800,7 +1800,18 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1202371462}
+        m_MethodName: OnInputName
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.InputField+OnChangeEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
@@ -2046,7 +2057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 1
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 1
 --- !u!23 &1006903555
 MeshRenderer:
@@ -2690,7 +2701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 0
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 1
 --- !u!23 &1254867433
 MeshRenderer:
@@ -3148,7 +3159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 2
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 1
 --- !u!23 &1465580952
 MeshRenderer:
@@ -3597,7 +3608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 2
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 0
 --- !u!23 &1531272184
 MeshRenderer:
@@ -4297,7 +4308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalAxis: 1
   blockFood: 1
-  blockPlayer: 0
+  blockPlayerAI: 1
   forceDirection: 0
 --- !u!23 &2020515766
 MeshRenderer:

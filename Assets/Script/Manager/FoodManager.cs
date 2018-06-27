@@ -24,9 +24,13 @@ public class FoodManager : Photon.PunBehaviour {
     private int poisonCountAll;
     private GameObject[] poisonInstances;
 
-
+    public bool isMasterBefore = false;
+    public static FoodManager localFoodManager = null;
 
     void Awake(){
+
+        //缓存全局的本地食物管理器
+        localFoodManager = this;
 
         PhotonNetwork.OnEventCall += this.OnEventRaised;
 
@@ -96,10 +100,7 @@ public class FoodManager : Photon.PunBehaviour {
                 }
 
                 StartCoroutine(SyncFoodAITranform());//定时同步食物AI(包含毒物）
-
-				if(PhotonNetwork.isMasterClient){
-					//StartCoroutine(SyncPosition());
-		        }
+			    isMasterBefore = true;
 
 			}
 
@@ -113,7 +114,7 @@ public class FoodManager : Photon.PunBehaviour {
 					instance.GetComponent<FoodOverrideController>().translation = new Vector3(((float[])content)[i*7+3],((float[])content)[i*7+4],((float[])content)[i*7+5]);
 					instance.GetComponent<FoodOverrideController>().ID = (int)((float[])content)[i*7+6];
 					foodInstances[i] = instance;
-				}    
+				}
 			}
 
 			break;
@@ -161,6 +162,10 @@ public class FoodManager : Photon.PunBehaviour {
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for(int i = 0; i < FoodAICount; i++) {
+                    //未实例化时不同步
+                    if(this.foodAIInstances[i] == null){
+                        continue;
+                    }
                     SyncTranform syncTranform = this.foodAIInstances[i].GetComponent<SyncTranform>();
                     syncTranform.syncPosition = foodAIInfoObject[i].position;
                     syncTranform.syncRotation = foodAIInfoObject[i].rotation;           
@@ -181,7 +186,8 @@ public class FoodManager : Photon.PunBehaviour {
             break;
             case 8:
             //其他客户端根据主客户端生成毒物AI-poison
-            if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+            if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){      
+                      
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 //生成主客户端的毒物AI
@@ -206,7 +212,11 @@ public class FoodManager : Photon.PunBehaviour {
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for (int i = 0; i < poisonCountAll; i++)
-                {
+                {  
+                    //未实例化时不同步
+                    if(this.poisonInstances[i] == null){
+                        continue;
+                    }
                     SyncTranform syncTranform = this.poisonInstances[i].GetComponent<SyncTranform>();
                     syncTranform.syncPosition = foodAIInfoObject[i].position;
                     syncTranform.syncRotation = foodAIInfoObject[i].rotation;    
@@ -258,7 +268,6 @@ public class FoodManager : Photon.PunBehaviour {
             foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
             PhotonNetwork.RaiseEvent(8, foodAIInfo, true, options);
 
-
         }
     }
 
@@ -289,7 +298,7 @@ public class FoodManager : Photon.PunBehaviour {
 
 
     //定时同步食物AI位置及旋转
-    IEnumerator SyncFoodAITranform()
+    public IEnumerator SyncFoodAITranform()
     {
         while (true)
         {

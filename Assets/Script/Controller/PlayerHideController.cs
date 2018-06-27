@@ -9,7 +9,8 @@ public class PlayerHideController : PlayerSkillController {
         return PlayerSkillController.SkillType.HIDE;
     }
 
-    public ParticleSystem effect;
+    //public ParticleSystem effect;
+    public GameObject particleEffect;
 
     void Awake()
     {
@@ -60,8 +61,7 @@ public class PlayerHideController : PlayerSkillController {
     {
         if (!this.photonView.isMine)
         {
-            //在其他玩家的视口下隐藏本身
-            this.gameObject.GetComponent<Renderer>().enabled = !isHide;
+            //在其他玩家的视口下隐藏本身 
             this.gameObject.GetComponent<PlayerHealthUI>().getHealthCanvas().SetActive(!isHide);
             Renderer[] renders = this.gameObject.GetComponentsInChildren<Renderer>();
             foreach (Renderer m in renders)
@@ -85,18 +85,36 @@ public class PlayerHideController : PlayerSkillController {
     [PunRPC]
     protected void EnableParticle()
     {
-        effect.Play();
-        effect.transform.parent = null;
+        //effect.Play();
+        //effect.transform.parent = null;
+
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for(int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Play();
+            systems[i].transform.parent = null;
+        }
+
+
     }
 
     [PunRPC]
     protected void DisableParticle()
     {
+        //effect.Clear();
+        //effect.Pause();
+        //effect.transform.parent = this.transform;
+        //effect.transform.localPosition = Vector3.zero;
 
-        effect.Clear();
-        effect.Pause();
-        effect.transform.parent = this.transform;
-        effect.transform.localPosition = Vector3.zero;
-    }
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Clear();
+            systems[i].Pause();
+            systems[i].transform.parent = this.transform;
+            systems[i].transform.localPosition = Vector3.zero;
+        }
+
+    }   
 
 }

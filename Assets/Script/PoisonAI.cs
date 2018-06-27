@@ -17,6 +17,9 @@ public class PoisonAI : MonoBehaviour {
     void Start () {
         character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
+        //设置一个随机的初始方向
+        objectBehaviour.SetForwardDirecion(GetRandomDirection());
+        resetCountForWander = 1.0f;
     }
 	
 	// Update is called once per frame
