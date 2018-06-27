@@ -45,8 +45,19 @@ public class CameraController : MonoBehaviour {
             barrierObject = null;
             shader = null;
         }
+
+        public void SetBarrierObject(GameObject barrierObject)
+        {
+            this.barrierObject = barrierObject;
+        }
+
+        public void SetShader(Shader shader)
+        {
+            this.shader = shader;
+        }
+
     }
-    private Barrier currentBarrier;
+    private List<Barrier> currentBarrier = new List<Barrier>();
     private Shader transparentShader;
 
     // Use this for initialization
@@ -138,32 +149,54 @@ public class CameraController : MonoBehaviour {
         Vector3 direction = (pointEnd - pointBegin).normalized;
         Ray ray = new Ray(pointBegin, direction);
 
+
         bool hasHitBarrier = false;
         RaycastHit[] hits = Physics.RaycastAll(ray, (pointEnd - pointBegin).magnitude);
-        foreach (RaycastHit hit in hits)
+        foreach(RaycastHit hit in hits)
         {
             GameObject thisBarrierObject = hit.collider.gameObject;
             if (thisBarrierObject == player) continue;
-            MeshRenderer renderer = thisBarrierObject.GetComponent<MeshRenderer>();
-            if (renderer != null && renderer.enabled)
+
+            bool isHasObject = false;
+            for (int i = 0; i < currentBarrier.Count; i++)
             {
                 hasHitBarrier = true;
-                if (thisBarrierObject != currentBarrier.barrierObject)
+                if (currentBarrier[i].barrierObject == thisBarrierObject)
                 {
-                    currentBarrier.barrierObject = thisBarrierObject;
-                    Material m = renderer.material;
-                    currentBarrier.shader = m.shader;
-                    m.shader = transparentShader;
-                    m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f);
-                } 
+                    isHasObject = true;
+                }
             }
+
+            if (isHasObject)
+            {
+                continue;
+            }
+
+            MeshRenderer renderer = thisBarrierObject.GetComponent<MeshRenderer>();
+            if (renderer != null && renderer.enabled)
+            {      
+                hasHitBarrier = true;
+
+                Material m = renderer.material;
+                Barrier barrier = new Barrier(thisBarrierObject, m.shader);
+                currentBarrier.Add(barrier);
+
+                m.shader = transparentShader;
+                m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f);
+            }          
         }
-        if (!hasHitBarrier && !currentBarrier.IsEmpty())
+
+
+        if (!hasHitBarrier && currentBarrier.Count > 0)
         {
-            Material m = currentBarrier.barrierObject.GetComponent<MeshRenderer>().material;
-            m.shader = currentBarrier.shader;
+            for(int i = 0; i < currentBarrier.Count; i++)
+            {         
+                Material m = currentBarrier[i].barrierObject.GetComponent<MeshRenderer>().material;
+                m.shader = currentBarrier[i].shader;
+            }             
             currentBarrier.Clear();
         }
+
     }
 
     private void HandlePostProcessing()
@@ -183,6 +216,7 @@ public class CameraController : MonoBehaviour {
         //   this.gameObject.GetComponent<PostProcessingBehaviour>() .profile = fx;
         //}
     }
+
 
 
     public Vector3 GetDirectionNormal()
