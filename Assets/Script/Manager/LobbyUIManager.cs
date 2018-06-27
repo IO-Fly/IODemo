@@ -57,8 +57,10 @@ public class LobbyUIManager : MonoBehaviour {
 
     public void OnStartGame()
     {
-        if(inputName != null)
+        if(inputName.text != "")
         {
+
+            Debug.Log("InputName:" + inputName.text + "-end");
             //房间唯一ID，相同ID的用户不会加入同一个房间
             PhotonNetwork.AuthValues.UserId = inputName.text;
             LobbyUIManager.playerName = inputName.text;
@@ -67,6 +69,16 @@ public class LobbyUIManager : MonoBehaviour {
             startGame.gameObject.SetActive(false);
             inputName.gameObject.SetActive(false);
         }
+    }
+
+    public void OnInputName()
+    {
+        //限制长度
+        if(inputName.text.Length > 10)
+        {
+            inputName.text = inputName.text.Substring(0, 10);
+        }
+        
     }
 
 
