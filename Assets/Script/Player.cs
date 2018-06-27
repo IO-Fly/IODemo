@@ -26,7 +26,7 @@ public class Player : Photon.PunBehaviour {
     public int Lock=0;
     public int HitLock=0;
 
-
+    #region MoboBehaviour CallBacks
     // Use this for initialization
     void Start () {
         playerEnergy = initialSize * initialSize;
@@ -57,11 +57,6 @@ public class Player : Photon.PunBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
        
-        if (health <= 0)
-        {
-            this.photonView.RPC("DestroyThis", PhotonTargets.AllViaServer);
-        }
-
         //Debug.Log("当前Lock值: "+Lock);
         if(this.tag == "playerCopy")
         {
@@ -183,6 +178,10 @@ public class Player : Photon.PunBehaviour {
 
     }
 
+    #endregion
+
+    #region Utility
+
     private void CalculateDamage(float selfSize,float enemySize,ref float out_selfDamage,ref float out_enemyDamage)
     {
         const float minSize = 1.0f, maxSize = 25.0f;
@@ -231,6 +230,10 @@ public class Player : Photon.PunBehaviour {
         return false;
     }
 
+    #endregion
+
+    #region Change Attribute
+
     public void CopyPlayer(Player player)
     {
         this.health = player.health;
@@ -265,7 +268,12 @@ public class Player : Photon.PunBehaviour {
 
     void AddPlayerEnergy(float energyAdd)
     {
+        
         playerEnergy += energyAdd;
+
+        //限制最大能量
+        playerEnergy = playerEnergy > 25 ? 25 : playerEnergy; 
+
         float sq = Mathf.Sqrt(playerEnergy);
         speed = 10 / sq + 2;
         playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
@@ -289,6 +297,10 @@ public class Player : Photon.PunBehaviour {
         SetLocalScale(playerSize, this.sizeOffset);
 
     }
+
+    #endregion
+
+    #region Get Method
 
     public float GetSpeed()
     {
@@ -318,17 +330,7 @@ public class Player : Photon.PunBehaviour {
         return this.playerName;
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            stream.SendNext(this.health);
-        }
-        else
-        {
-            this.health = (float)stream.ReceiveNext();
-        }
-    }
+    #endregion
 
     #region IEnumerator
 
@@ -364,18 +366,27 @@ public class Player : Photon.PunBehaviour {
 
     #endregion
 
-    #region PunRPC
-
-    [PunRPC]
-    void DestroyThis()
+    #region Photon Network
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        PhotonNetwork.Destroy(this.gameObject);
+        if (stream.isWriting)
+        {
+            stream.SendNext(this.health);
+        }
+        else
+        {
+            this.health = (float)stream.ReceiveNext();
+        }
     }
 
     [PunRPC]
     void GetDamage(float damage)
     {
         health -= damage;
+        if(health <= 0 && this.photonView.isMine)
+        {
+            PhotonNetwork.Destroy(this.gameObject);
+        }
     }
 
     [PunRPC]
@@ -406,11 +417,8 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
-        Debug.Log("玩家：碰到了食物");
-        if (transform.localScale.x < 25)
-        {
-            AddPlayerEnergy(0.2f);
-        }
+ 
+        AddPlayerEnergy(0.2f);
 
         if (photonView.isMine)
         {
