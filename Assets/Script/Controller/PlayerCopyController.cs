@@ -10,7 +10,7 @@ public class PlayerCopyController : PlayerSkillController {
     }
 
     public GameObject playerCopyPrefab;
-    public float distance;//分身距离本体的初始距离
+    //public float distance;//分身距离本体的初始距离
 
     private GameObject playerCopy;//分身
 
@@ -30,8 +30,9 @@ public class PlayerCopyController : PlayerSkillController {
             curCooldown = cooldown;
 
             //根据玩家初始化位置，方向，大小
-            Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
-            Vector3 InitPosition = transform.position + posOffset;
+            //Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
+            //Vector3 InitPosition = transform.position + posOffset;
+            Vector3 InitPosition = transform.position;
             playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);
             //复制本身属性到分身
             playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
