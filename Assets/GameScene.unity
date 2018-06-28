@@ -2389,6 +2389,7 @@ MonoBehaviour:
   poisonPrefabs:
   - {fileID: 1003748915625674, guid: 00ac5bef3d9a16b4a93c2059b3657023, type: 2}
   - {fileID: 1984773448182634, guid: f3804857a03880f438531c154d4e168d, type: 2}
+  isMasterBefore: 0
 --- !u!1 &1274257930
 GameObject:
   m_ObjectHideFlags: 0
