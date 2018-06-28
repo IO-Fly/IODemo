@@ -36,17 +36,8 @@ public class CameraController : MonoBehaviour {
             this.barrierObject = _obj;
             this.shader = _shader;
         }
-        public bool IsEmpty()
-        {
-            return barrierObject == null && shader == null;
-        }
-        public void Clear()
-        {
-            barrierObject = null;
-            shader = null;
-        }
     }
-    private Barrier currentBarrier;
+    private List<Barrier> currentBarrier = new List<Barrier>();
     private Shader transparentShader;
 
     // Use this for initialization
@@ -65,12 +56,27 @@ public class CameraController : MonoBehaviour {
 
     private void FixedUpdate()
     {
-
         //缺少指定的玩家
         if(player == null){
             return;
         }
+        HandleMouseButtonDown();
+        HandleMouseScroll();
+    }
 
+    void LateUpdate () {
+        //缺少指定的玩家
+        if (player == null)
+        {
+            return;
+        }
+        FollowPlayer();
+        HandleBarrier();
+        HandlePostProcessing(); 
+    }
+
+    private void HandleMouseButtonDown()
+    {
         if (Input.GetMouseButton(1))//鼠标右键被按下，调整视角
         {
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
@@ -89,44 +95,33 @@ public class CameraController : MonoBehaviour {
             else
                 offsetAngleVertical *= 0.6f;
         }
+    }
 
-        Vector3 playerTowards = player.gameObject.GetComponent<ObjectBehaviour>().GetForwardDirection();
-        right = new Vector3(playerTowards.z, 0.0f, -playerTowards.x).normalized;
-        up = Vector3.Cross(playerTowards, right).normalized;
-        direction = Vector3.SlerpUnclamped(playerTowards, right, offsetAngleHorizontal / 90.0f);
-        direction = Vector3.SlerpUnclamped(direction, up, 1.8f + offsetAngleVertical/90.0f).normalized;
-
-
+    private void HandleMouseScroll()
+    {
         float playerSize = player.GetComponent<Player>().GetRenderPlayerSize().x;
-        distanceToPlayer = playerSize * distanceToPlayerInit;
-
-
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         distanceToPlayerInit -= scroll * scrollSensitivity * playerSize;//滚轮往“上”滚时，摄像机距离拉近
         distanceToPlayerInit = Mathf.Clamp(distanceToPlayerInit, minDistanceInit, maxDistanceInit);
     }
 
-    void LateUpdate () {
 
-        //缺少指定的玩家
-        if (player == null)
-        {
-            return;
-        }
+    private void FollowPlayer()
+    {
+        Vector3 playerTowards = player.gameObject.GetComponent<ObjectBehaviour>().GetForwardDirection();
+        right = new Vector3(playerTowards.z, 0.0f, -playerTowards.x).normalized;
+        up = Vector3.Cross(playerTowards, right).normalized;
+        direction = Vector3.SlerpUnclamped(playerTowards, right, offsetAngleHorizontal / 90.0f);
+        direction = Vector3.SlerpUnclamped(direction, up, 1.8f + offsetAngleVertical / 90.0f).normalized;
+
+        float playerSize = player.GetComponent<Player>().GetRenderPlayerSize().x;
+        distanceToPlayer = playerSize * distanceToPlayerInit;
 
         transform.position = player.gameObject.transform.position + direction * distanceToPlayer;
         transform.LookAt(player.transform);
         transform.Translate(new Vector3(0.0f, 4.5f, -9.0f));
-        HandleBarrier();
-        if(this.transform.position.y>0){
-                this.gameObject.GetComponent<PostProcessingBehaviour>().profile = normal;
-            }
-        if(this.transform.position.y<0){
-           this.gameObject.GetComponent<PostProcessingBehaviour>() .profile = fx;
-        }
-        
     }
-    
+
     private void HandleBarrier()
     {
         Vector3 pointBegin = transform.position;
@@ -134,33 +129,74 @@ public class CameraController : MonoBehaviour {
         Vector3 direction = (pointEnd - pointBegin).normalized;
         Ray ray = new Ray(pointBegin, direction);
 
+
         bool hasHitBarrier = false;
         RaycastHit[] hits = Physics.RaycastAll(ray, (pointEnd - pointBegin).magnitude);
-        foreach (RaycastHit hit in hits)
+        foreach(RaycastHit hit in hits)
         {
             GameObject thisBarrierObject = hit.collider.gameObject;
             if (thisBarrierObject == player) continue;
+
+            hasHitBarrier = true;
+
+            bool isHasObject = false;
+            for (int i = 0; i < currentBarrier.Count; i++)
+            {
+                
+                if (currentBarrier[i].barrierObject == thisBarrierObject)
+                {
+                    isHasObject = true;
+                }
+            }
+
+            if (isHasObject)
+            {
+                continue;
+            }
+
             MeshRenderer renderer = thisBarrierObject.GetComponent<MeshRenderer>();
             if (renderer != null && renderer.enabled)
             {
-                hasHitBarrier = true;
-                if (thisBarrierObject != currentBarrier.barrierObject)
-                {
-                    currentBarrier.barrierObject = thisBarrierObject;
-                    Material m = renderer.material;
-                    currentBarrier.shader = m.shader;
-                    m.shader = transparentShader;
-                    m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f);
-                } 
-            }
+                Material m = renderer.material;
+                Barrier barrier = new Barrier(thisBarrierObject, m.shader);
+                currentBarrier.Add(barrier);
+
+                m.shader = transparentShader;
+                m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f);
+            }          
         }
-        if (!hasHitBarrier && !currentBarrier.IsEmpty())
+
+
+        if (!hasHitBarrier && currentBarrier.Count > 0)
         {
-            Material m = currentBarrier.barrierObject.GetComponent<MeshRenderer>().material;
-            m.shader = currentBarrier.shader;
+            for(int i = 0; i < currentBarrier.Count; i++)
+            {         
+                Material m = currentBarrier[i].barrierObject.GetComponent<MeshRenderer>().material;
+                m.shader = currentBarrier[i].shader;
+            }             
             currentBarrier.Clear();
         }
+
     }
+
+    private void HandlePostProcessing()
+    {
+        if (player.transform.position.y > 0.0f)
+        {
+            this.gameObject.GetComponent<PostProcessingBehaviour>().profile = normal;
+        }
+        if (player.transform.position.y < 0.0f)
+        {
+            this.gameObject.GetComponent<PostProcessingBehaviour>().profile = fx;
+        }
+        //if(this.transform.position.y>0){
+        //        this.gameObject.GetComponent<PostProcessingBehaviour>().profile = normal;
+        //    }
+        //if (this.transform.position.y<0){
+        //   this.gameObject.GetComponent<PostProcessingBehaviour>() .profile = fx;
+        //}
+    }
+
 
 
     public Vector3 GetDirectionNormal()

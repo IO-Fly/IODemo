@@ -19,33 +19,34 @@ public class ObjectBehaviour : MonoBehaviour {
 
     private CharacterController character;
 
-    private void Awake()
-    {
-        //do
-        //{
-        //    towards = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
-        //} while (towards.magnitude > 0.0f && towards.y * towards.y > towards.x * towards.x + towards.z * towards.z);
-        //right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
-        //up = Vector3.Cross(towards, right);
-        //targetTowards = towards;
-    }
-
     private void Start()
     {
         character = GetComponent<CharacterController>();
+        StartCoroutine(SmoothForwardDirectionChange());
     }
 
 
     private void Update()
     {
-        //平滑过渡
-        if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
-            towards = targetTowards;
-        else
-            towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+        ////平滑过渡
+        //if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
+        //    towards = targetTowards;
+        //else
+        //    towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+    }
 
-        ///right = new Vector3(towards.z, 0.0f, -towards.x).normalized;
-        ///up = Vector3.Cross(towards, right);
+    IEnumerator SmoothForwardDirectionChange()
+    {
+        while (true)
+        {
+            //平滑过渡
+            if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
+                towards = targetTowards;
+            else
+                towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+
+            yield return null;
+        }
     }
 
 
@@ -81,13 +82,14 @@ public class ObjectBehaviour : MonoBehaviour {
         lookAt.Normalize();
         gameObject.transform.LookAt(gameObject.transform.position + lookAt);
         if (direction != MoveDirection.Stay)
-            ///gameObject.transform.position += lookAt * speed * Time.deltaTime;
             character.Move(lookAt * speed * Time.deltaTime);
     }
 
     //控制角色的转向操作
     public void Turn(float yaw, float pitch)
     {
+        if (towards != targetTowards) return;
+
         if (yaw == 0 && pitch == 0) return;
         //ctrlX和ctrlY可置为1或-1，控制角色朝向的操控方式
         float ctrlX = -1.0f, ctrlY = 1.0f;

@@ -20,6 +20,7 @@ public class FoodAI : PoisonAI {
     void Start() {
         character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
+        //设置一个随机的初始方向
         objectBehaviour.SetForwardDirecion(GetRandomDirection());
         resetCountForWander = 1.0f;
     }
@@ -44,8 +45,6 @@ public class FoodAI : PoisonAI {
         }
         
     }
-
-
 
     protected virtual void DetectPlayers()
     {
@@ -98,9 +97,6 @@ public class FoodAI : PoisonAI {
         }
     }
 
-    
-
-
     protected void MoveTowards(Vector3 targetPosition,float speed)
     {
         directionResetCount -= Time.deltaTime;
@@ -118,8 +114,5 @@ public class FoodAI : PoisonAI {
     {
         MoveTowards(targetPosition, speed);
     }
-
     
-
-
 }
