@@ -34,4 +34,9 @@ public class PlayerMinimapUI : MonoBehaviour {
         
     }
 
+    private void OnDestroy()
+    {
+        Destroy(sphereForMinimap);
+    }
+
 }
