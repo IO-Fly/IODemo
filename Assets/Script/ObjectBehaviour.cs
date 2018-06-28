@@ -22,16 +22,31 @@ public class ObjectBehaviour : MonoBehaviour {
     private void Start()
     {
         character = GetComponent<CharacterController>();
+        StartCoroutine(SmoothForwardDirectionChange());
     }
 
 
     private void Update()
     {
-        //平滑过渡
-        if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
-            towards = targetTowards;
-        else
-            towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+        ////平滑过渡
+        //if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
+        //    towards = targetTowards;
+        //else
+        //    towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+    }
+
+    IEnumerator SmoothForwardDirectionChange()
+    {
+        while (true)
+        {
+            //平滑过渡
+            if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
+                towards = targetTowards;
+            else
+                towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+
+            yield return null;
+        }
     }
 
 
@@ -73,6 +88,8 @@ public class ObjectBehaviour : MonoBehaviour {
     //控制角色的转向操作
     public void Turn(float yaw, float pitch)
     {
+        if (towards != targetTowards) return;
+
         if (yaw == 0 && pitch == 0) return;
         //ctrlX和ctrlY可置为1或-1，控制角色朝向的操控方式
         float ctrlX = -1.0f, ctrlY = 1.0f;
