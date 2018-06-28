@@ -23,6 +23,8 @@ public class FoodAI : PoisonAI {
         //设置一个随机的初始方向
         objectBehaviour.SetForwardDirecion(GetRandomDirection());
         resetCountForWander = 1.0f;
+        
+        StartCoroutine(CheckObstacle());
     }
 
     // Update is called once per frame
@@ -45,8 +47,6 @@ public class FoodAI : PoisonAI {
         }
         
     }
-
-
 
     protected virtual void DetectPlayers()
     {
@@ -99,9 +99,6 @@ public class FoodAI : PoisonAI {
         }
     }
 
-    
-
-
     protected void MoveTowards(Vector3 targetPosition,float speed)
     {
         directionResetCount -= Time.deltaTime;
@@ -120,7 +117,10 @@ public class FoodAI : PoisonAI {
         MoveTowards(targetPosition, speed);
     }
 
-    
-
+    protected override void HandleCheckObstacle()
+    {
+        base.HandleCheckObstacle();
+        targetPlayer = null;
+    }
 
 }

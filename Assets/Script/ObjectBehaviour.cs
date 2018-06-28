@@ -24,7 +24,6 @@ public class ObjectBehaviour : MonoBehaviour {
         character = GetComponent<CharacterController>();
     }
 
-
     private void Update()
     {
         //平滑过渡
@@ -33,7 +32,6 @@ public class ObjectBehaviour : MonoBehaviour {
         else
             towards = Vector3.Slerp(towards, targetTowards, 0.2f);
     }
-
 
     //控制角色移动的操作
     public void Move(MoveDirection direction)
@@ -73,6 +71,8 @@ public class ObjectBehaviour : MonoBehaviour {
     //控制角色的转向操作
     public void Turn(float yaw, float pitch)
     {
+        if (towards != targetTowards) return;
+
         if (yaw == 0 && pitch == 0) return;
         //ctrlX和ctrlY可置为1或-1，控制角色朝向的操控方式
         float ctrlX = -1.0f, ctrlY = 1.0f;
@@ -119,7 +119,7 @@ public class ObjectBehaviour : MonoBehaviour {
 
     public Vector3 GetForwardDirection()
     {
-        return towards;
+        return targetTowards;
     }
 
     
