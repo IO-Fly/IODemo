@@ -36,26 +36,6 @@ public class CameraController : MonoBehaviour {
             this.barrierObject = _obj;
             this.shader = _shader;
         }
-        public bool IsEmpty()
-        {
-            return barrierObject == null && shader == null;
-        }
-        public void Clear()
-        {
-            barrierObject = null;
-            shader = null;
-        }
-
-        public void SetBarrierObject(GameObject barrierObject)
-        {
-            this.barrierObject = barrierObject;
-        }
-
-        public void SetShader(Shader shader)
-        {
-            this.shader = shader;
-        }
-
     }
     private List<Barrier> currentBarrier = new List<Barrier>();
     private Shader transparentShader;
@@ -157,10 +137,12 @@ public class CameraController : MonoBehaviour {
             GameObject thisBarrierObject = hit.collider.gameObject;
             if (thisBarrierObject == player) continue;
 
+            hasHitBarrier = true;
+
             bool isHasObject = false;
             for (int i = 0; i < currentBarrier.Count; i++)
             {
-                hasHitBarrier = true;
+                
                 if (currentBarrier[i].barrierObject == thisBarrierObject)
                 {
                     isHasObject = true;
@@ -174,9 +156,7 @@ public class CameraController : MonoBehaviour {
 
             MeshRenderer renderer = thisBarrierObject.GetComponent<MeshRenderer>();
             if (renderer != null && renderer.enabled)
-            {      
-                hasHitBarrier = true;
-
+            {
                 Material m = renderer.material;
                 Barrier barrier = new Barrier(thisBarrierObject, m.shader);
                 currentBarrier.Add(barrier);
