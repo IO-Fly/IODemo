@@ -20,12 +20,36 @@ public class PoisonAI : MonoBehaviour {
         //设置一个随机的初始方向
         objectBehaviour.SetForwardDirecion(GetRandomDirection());
         resetCountForWander = 1.0f;
+
+        StartCoroutine(CheckObstacle());
     }
 	
 	// Update is called once per frame
 	void Update () {
         Wander();
 	}
+
+    protected IEnumerator CheckObstacle()
+    {
+        while (true)
+        {
+            Vector3 checkDirection = objectBehaviour.GetForwardDirection();
+            Ray checkRay = new Ray(transform.position, checkDirection);
+            float checkDistance = 5.0f;
+
+            RaycastHit hit;
+            if(Physics.Raycast(checkRay, out hit, checkDistance))
+            {
+                objectBehaviour.SetForwardDirecion(GetRandomDirection());
+                resetCountForWander = 0.2f;
+            }
+            
+            yield return new WaitForSeconds(0.5f) ;
+        }
+        
+    }
+
+
 
     protected void Wander()
     {

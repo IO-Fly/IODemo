@@ -136,7 +136,7 @@ public class ObjectBehaviour : MonoBehaviour {
 
     public Vector3 GetForwardDirection()
     {
-        return towards;
+        return targetTowards;
     }
 
     
