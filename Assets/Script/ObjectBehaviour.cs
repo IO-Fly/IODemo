@@ -22,33 +22,16 @@ public class ObjectBehaviour : MonoBehaviour {
     private void Start()
     {
         character = GetComponent<CharacterController>();
-        StartCoroutine(SmoothForwardDirectionChange());
     }
-
 
     private void Update()
     {
-        ////平滑过渡
-        //if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
-        //    towards = targetTowards;
-        //else
-        //    towards = Vector3.Slerp(towards, targetTowards, 0.2f);
+        //平滑过渡
+        if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
+            towards = targetTowards;
+        else
+            towards = Vector3.Slerp(towards, targetTowards, 0.2f);
     }
-
-    IEnumerator SmoothForwardDirectionChange()
-    {
-        while (true)
-        {
-            //平滑过渡
-            if (Mathf.Abs((targetTowards - towards).magnitude) < 1e-6)
-                towards = targetTowards;
-            else
-                towards = Vector3.Slerp(towards, targetTowards, 0.2f);
-
-            yield return null;
-        }
-    }
-
 
     //控制角色移动的操作
     public void Move(MoveDirection direction)
