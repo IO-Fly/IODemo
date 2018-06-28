@@ -15,7 +15,14 @@ public class PlayerHideController : PlayerSkillController {
     void Awake()
     {
         //effect = gameObject.GetComponentInChildren<ParticleSystem>();
-        DisableParticle();
+        //DisableParticle();
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            //systems[i].Clear();
+            systems[i].Pause();
+        }
+ 
     }
 
     // Use this for initialization
@@ -92,9 +99,8 @@ public class PlayerHideController : PlayerSkillController {
         for(int i = 0; i < systems.Length; i++)
         {
             systems[i].Play();
-            systems[i].transform.parent = null;
         }
-
+        particleEffect.transform.parent = null;
 
     }
 
@@ -106,15 +112,8 @@ public class PlayerHideController : PlayerSkillController {
         //effect.transform.parent = this.transform;
         //effect.transform.localPosition = Vector3.zero;
 
-        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
-        for (int i = 0; i < systems.Length; i++)
-        {
-            systems[i].Clear();
-            systems[i].Pause();
-            systems[i].transform.parent = this.transform;
-            systems[i].transform.localPosition = Vector3.zero;
-        }
-
+           particleEffect.transform.parent = this.transform;
+            particleEffect.transform.localPosition = Vector3.zero;
     }   
 
 }
