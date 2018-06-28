@@ -13,6 +13,7 @@ public class PoisonAI : MonoBehaviour {
     protected CharacterController character;
     protected ObjectBehaviour objectBehaviour;
 
+
     // Use this for initialization
     void Start () {
         character = gameObject.GetComponent<CharacterController>();
@@ -21,6 +22,7 @@ public class PoisonAI : MonoBehaviour {
         objectBehaviour.SetForwardDirecion(GetRandomDirection());
         resetCountForWander = 1.0f;
 
+
         StartCoroutine(CheckObstacle());
     }
 	
@@ -28,6 +30,8 @@ public class PoisonAI : MonoBehaviour {
 	void Update () {
         Wander();
 	}
+
+
 
     protected IEnumerator CheckObstacle()
     {
@@ -40,8 +44,7 @@ public class PoisonAI : MonoBehaviour {
             RaycastHit hit;
             if(Physics.Raycast(checkRay, out hit, checkDistance))
             {
-                objectBehaviour.SetForwardDirecion(GetRandomDirection());
-                resetCountForWander = 0.2f;
+                HandleCheckObstacle();
             }
             
             yield return new WaitForSeconds(0.5f) ;
@@ -85,5 +88,11 @@ public class PoisonAI : MonoBehaviour {
         float z = Mathf.Sin(theta) * Mathf.Cos(phi);
         float y = Mathf.Sin(phi);
         return new Vector3(x, y, z).normalized;
+    }
+
+    protected virtual void HandleCheckObstacle()
+    {
+        objectBehaviour.SetForwardDirecion(GetRandomDirection());
+        resetCountForWander = 0.2f;
     }
 }

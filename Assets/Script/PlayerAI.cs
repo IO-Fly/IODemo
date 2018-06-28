@@ -153,4 +153,10 @@ public class PlayerAI : FoodAI
         }
         
     }
+
+    protected override void HandleCheckObstacle()
+    {
+        base.HandleCheckObstacle();
+        targetFood = null;
+    }
 }

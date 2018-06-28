@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4968675260301018}
   - component: {fileID: 114076328684890650}
   m_Layer: 0
-  m_Name: pf_vfx-ult_demo_psys_loop_serenity
+  m_Name: "\u6295\u5C04\u5149\u6548"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
