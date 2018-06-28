@@ -76,7 +76,7 @@ public class networkManager :Photon.PunBehaviour {
         playerCamera.GetComponent<CameraController>().setPlayer(localPlayer);//将摄像机指向本地玩家
 
         GameObject minimapCamera = GameObject.Find("MinimapCamera");
-        minimapCamera.GetComponent<MinimapCameraFllow>().setPlayer(localPlayer);//将Minimap摄像机指向本地玩家
+        minimapCamera.GetComponent<MinimapCameraFllow>().SetPlayer(localPlayer);//将Minimap摄像机指向本地玩家
 
         GameObject rootCanvas = GameObject.Find("HUDCanvas");
         GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
