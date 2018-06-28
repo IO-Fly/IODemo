@@ -46,7 +46,10 @@ public class PlayerBehaviour : MonoBehaviour {
                 curFlyCoolDown = 0.0f;
                 if (flyState == FlyState.WaitForFly)
                 {
-                    flyState = FlyState.ReadyToFly;
+                    if (enterSky)
+                        flyState = FlyState.Flying;
+                    else
+                        flyState = FlyState.ReadyToFly;
                 }
             }
         }
@@ -72,8 +75,10 @@ public class PlayerBehaviour : MonoBehaviour {
 
     public void MoveInSeaSurface()
     {
-        float moveY = transform.forward.y < 0.0f ? transform.forward.y : 0.0f;
-        Vector3 moveDirection = new Vector3(transform.forward.x, moveY, transform.forward.z);
+        Vector3 playerForward = GetComponent<ObjectBehaviour>().GetForwardDirection();
+        transform.LookAt(transform.position + playerForward);
+        float moveY = playerForward.y < 0.0f ? playerForward.y : 0.0f;
+        Vector3 moveDirection = new Vector3(playerForward.x, moveY, playerForward.z);
         character.Move(moveDirection * speed * Time.deltaTime);
     }
 

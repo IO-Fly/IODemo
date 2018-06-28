@@ -46,8 +46,6 @@ public class FoodAI : PoisonAI {
         
     }
 
-
-
     protected virtual void DetectPlayers()
     {
         DetectPlayers(playerDetectDistance);
@@ -99,9 +97,6 @@ public class FoodAI : PoisonAI {
         }
     }
 
-    
-
-
     protected void MoveTowards(Vector3 targetPosition,float speed)
     {
         directionResetCount -= Time.deltaTime;
@@ -119,8 +114,5 @@ public class FoodAI : PoisonAI {
     {
         MoveTowards(targetPosition, speed);
     }
-
     
-
-
 }

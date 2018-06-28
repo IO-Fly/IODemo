@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PostProcessing;
+using UnityEngine.UI;
 
 public class LobbyCameraController : MonoBehaviour {
 
@@ -114,6 +115,11 @@ public class LobbyCameraController : MonoBehaviour {
     }
 
 	public void OnDropStart(){
+        GameObject input = GameObject.Find("InputField");
+        if (input != null)
+            if (input.GetComponent<InputField>() != null)
+                if (input.GetComponent<InputField>().text == "")
+                    return;
 		StartCoroutine(DropWater());
 	}
 	IEnumerator DropWater(){
