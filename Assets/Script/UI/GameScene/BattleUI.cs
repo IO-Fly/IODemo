@@ -48,7 +48,7 @@ public class BattleUI : MonoBehaviour {
         for (int i = 0; i < playerCount; i++)
         {
             nameList[i].text = networkManager.playerList[i].GetPlayerName();
-            sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString();
+            sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString("0.0");
         }
     }
 
@@ -70,7 +70,7 @@ public class BattleUI : MonoBehaviour {
 
         orderText.text = (playerCount).ToString();
         nameText.text = networkManager.playerList[playerCount - 1].GetPlayerName();
-        scaleText.text = networkManager.playerList[playerCount - 1].GetPlayerSize().ToString();
+        scaleText.text = networkManager.playerList[playerCount - 1].GetPlayerSize().ToString("0.0");
         itemPanel.transform.SetParent(panel.transform, false);
 
         // 维护Text列表
