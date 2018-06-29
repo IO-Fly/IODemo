@@ -55,6 +55,7 @@ public class LoginAndQuit : Photon.PunBehaviour
         NetworkMatch.playerName = inputName.text;
         if (!PhotonNetwork.connected)
         {
+            connectTip.text = "正在连接服务器";
             PhotonNetwork.ConnectUsingSettings("0.0.1");
         }
 
