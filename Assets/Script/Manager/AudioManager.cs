@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour {
     public Object LobbyBackground;
     public Object GameBackground;
     public Object EatFood;
+    public Object EatPoison;
     public Object TouchBigEnemy;
     public Object TouchSmallEnemy;
     public Object TouchWall;
@@ -48,6 +49,11 @@ public class AudioManager : MonoBehaviour {
         Play(EatFood.name);
     }
 
+    public void PlayEatPoison()
+    {
+        Play(EatPoison.name);
+    }
+
     public void PlayTouchBigEnemy()
     {
         Play(TouchBigEnemy.name);
@@ -72,6 +78,8 @@ public class AudioManager : MonoBehaviour {
     {
         Play(SeaIn.name);
     }
+
+
 
 
 
