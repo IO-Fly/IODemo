@@ -12,9 +12,15 @@ public class PlayerSizeController : PlayerSkillController {
     public Vector3 addSize;//增加的大小
     public float sizeEffect = 2;//本地视口增加效果
 
+    public GameObject particleEffect;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
+        DisableParticle();
+    }
+
+    // Use this for initialization
+    void Start () {
         curCooldown = 0;
 	}
 	
@@ -28,7 +34,10 @@ public class PlayerSizeController : PlayerSkillController {
             Player player = this.gameObject.GetComponent<Player>();
             player.AddSizeEffect(sizeEffect);
             player.AddSizeOffset(addSize);
-            
+
+            //开启技能效果
+            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+
             StartCoroutine("WaitForEndSkill");
         }
 
@@ -50,6 +59,34 @@ public class PlayerSizeController : PlayerSkillController {
             Debug.LogError("大小效果倍数不能为0 !");
         }
         player.AddSizeEffect(1/sizeEffect);
+
+        //关闭技能效果
+        this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
+
+    }
+
+    [PunRPC]
+    protected void EnableParticle()
+    {
+
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Play();
+        }
+
+    }
+
+    [PunRPC]
+    protected void DisableParticle()
+    {
+
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Clear();
+            systems[i].Pause();
+        }
     }
 
 }
