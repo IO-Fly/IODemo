@@ -302,7 +302,7 @@ public class FoodManager : Photon.PunBehaviour {
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.016f);
+            yield return new WaitForSeconds(0.05f);
 
             Debug.Log("主客户端周期发起更新食物AI");
             RaiseEventOptions options = new RaiseEventOptions();
