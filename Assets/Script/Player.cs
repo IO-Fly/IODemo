@@ -158,18 +158,30 @@ public class Player : Photon.PunBehaviour {
                 other.gameObject.GetComponent<Player>().Lock = 1;
                 other.gameObject.GetComponent<Player>().photonView.RPC("DoBomb", PhotonTargets.All, -other.normal);
                 Debug.Log("对方弹开");
-                Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
+
+                //玩家播放音效，分身不播放
+                if(this.tag == "player")
+                {
+                    Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
+                }
+                
             }
             else if (this.gameObject.transform.localScale.x < other.gameObject.transform.localScale.x)
             {
                 Debug.Log("自己弹开");
                 this.StartCoroutine(Bomb(other.normal));
-                Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
+
+                //玩家播放音效，分身不播放
+                if (this.tag == "player")
+                {
+                    Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
+                }
+               
             }
 
 
         }
-        else if (/*other.gameObject.tag == "Wall" &&*/ this.photonView.isMine)
+        else if (this.photonView.isMine && other.gameObject.tag != "poison")/*other.gameObject.tag == "Wall" */
         {
             //播放音效
             GameObject Audio = GameObject.Find("Audio");
@@ -436,14 +448,14 @@ public class Player : Photon.PunBehaviour {
     void EatPoison()
     {
         Debug.Log("玩家：碰到了毒物");
+        AddPlayerEnergy(-0.5f);
 
-        if(transform.localScale.x > 1)
+        //播放音效
+        if (this.tag == "player" && this.GetComponent<Player>().photonView.isMine)
         {
-            AddPlayerEnergy(-0.5f);
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayEatPoison();
         }
-
-        //音效？？？
-
     }
 
 
