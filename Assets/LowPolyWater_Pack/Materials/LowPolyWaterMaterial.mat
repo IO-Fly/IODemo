@@ -32,7 +32,7 @@ Material:
     - _isInnerAlphaBlendOrColor: 1
     m_Colors:
     - <noninit>: {r: 0, g: 1.3587732e-34, b: 0, a: 1.3587659e-34}
-    - _BaseColor: {r: 0.36734605, g: 0.37931326, b: 0.6132076, a: 0.7411765}
+    - _BaseColor: {r: 0.14440194, g: 0.31685376, b: 0.5566038, a: 0.7411765}
     - _BumpDirection: {r: 1, g: 1, b: -1, a: 1}
     - _BumpTiling: {r: 1, g: 1, b: -2, a: 3}
     - _Foam: {r: 0.1, g: 0.375, b: 0, a: 0}
