@@ -9,7 +9,7 @@ public class LobbyUI : MonoBehaviour
     public Dropdown dropdown;
     public GameObject[] characterPrefab;
 
-    private void Awake()
+    private void Start()
     {
         //播放大厅背景音乐
         GameObject Audio = GameObject.Find("Audio");
