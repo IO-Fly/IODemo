@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f08549fb3a3ca8409d50f7776ba91d7
+guid: cc6337eab8540954a927986998bd42e5
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -19050,7 +19050,12 @@ ModelImporter:
     4306846: pasted__objeye_geo
     7400000: Take 001
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert7
+    second: {fileID: 2100000, guid: eccbfddb1bee9e748b692558d986d84e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

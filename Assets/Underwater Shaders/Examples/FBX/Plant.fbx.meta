@@ -1,0 +1,139 @@
+fileFormatVersion: 2
+guid: 410ebd63b5fdbfc4795089a7c7de7b67
+timeCreated: 1465669508
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Plant01_Jnt
+    100004: Plant02_Jnt
+    100006: Plant03_Jnt
+    100008: Plant04_Jnt
+    100010: Plant05_Jnt
+    100012: Plant06_Jnt
+    100014: Plant07_Jnt
+    100016: Plant08_Jnt
+    100018: Plant09_Jnt
+    100020: Plant_Geo
+    400000: //RootNode
+    400002: Plant01_Jnt
+    400004: Plant02_Jnt
+    400006: Plant03_Jnt
+    400008: Plant04_Jnt
+    400010: Plant05_Jnt
+    400012: Plant06_Jnt
+    400014: Plant07_Jnt
+    400016: Plant08_Jnt
+    400018: Plant09_Jnt
+    400020: Plant_Geo
+    4300000: Plant_Geo
+    7400000: Motion
+    9500000: //RootNode
+    13700000: Plant_Geo
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Motion
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Plant01_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt/Plant04_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt/Plant04_Jnt/Plant05_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt/Plant04_Jnt/Plant05_Jnt/Plant06_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt/Plant04_Jnt/Plant05_Jnt/Plant06_Jnt/Plant07_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt/Plant04_Jnt/Plant05_Jnt/Plant06_Jnt/Plant07_Jnt/Plant08_Jnt
+        weight: 1
+      - path: Plant01_Jnt/Plant02_Jnt/Plant03_Jnt/Plant04_Jnt/Plant05_Jnt/Plant06_Jnt/Plant07_Jnt/Plant08_Jnt/Plant09_Jnt
+        weight: 1
+      - path: Plant_Geo
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
