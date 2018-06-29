@@ -884,6 +884,7 @@ MonoBehaviour:
   cooldown: 5
   addSize: {x: 1, y: 1, z: 1}
   sizeEffect: 2
+  particleEffect: {fileID: 1510480534711628}
 --- !u!114 &114530751368429128
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1074,6 +1074,7 @@ MonoBehaviour:
   cooldown: 5
   playerCopyPrefab: {fileID: 1613026644344698, guid: ca652d2df2a262d40a87d927d06894ad,
     type: 2}
+  particleEffect: {fileID: 1834704706168128}
 --- !u!114 &114112936050954168
 MonoBehaviour:
   m_ObjectHideFlags: 1

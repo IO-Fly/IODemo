@@ -14,6 +14,18 @@ public class PlayerCopyController : PlayerSkillController {
 
     private GameObject playerCopy;//分身
 
+    public GameObject particleEffect;
+
+    void Awake()
+    {
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Pause();
+        }
+
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -36,7 +48,10 @@ public class PlayerCopyController : PlayerSkillController {
             playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);
             //复制本身属性到分身
             playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
-            
+
+            //开启技能效果
+            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+
             StartCoroutine("WaitForEndSkill");
         }
 
@@ -55,11 +70,37 @@ public class PlayerCopyController : PlayerSkillController {
         {
             PhotonNetwork.Destroy(playerCopy);
             Destroy(playerCopy.GetComponent<PlayerHealthUI>().getHealthCanvas());
-        }    
+        }
+
+        //关闭技能效果
+        this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
+
     }
 
     public GameObject getPlayerCopy()
     {
         return playerCopy;
     }
+
+    [PunRPC]
+    protected void EnableParticle()
+    {
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Play();
+        }
+        particleEffect.transform.parent = null;
+
+    }
+
+    [PunRPC]
+    protected void DisableParticle()
+    {
+
+        particleEffect.transform.parent = this.transform;
+        particleEffect.transform.localPosition = Vector3.zero;
+
+    }
+
 }
