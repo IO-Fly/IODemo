@@ -9,7 +9,6 @@ public class AudioManager : MonoBehaviour {
     public Object LobbyBackground;
     public Object GameBackground;
     public Object EatFood;
-    public Object EatPoison;
     public Object TouchBigEnemy;
     public Object TouchSmallEnemy;
     public Object TouchWall;
@@ -19,7 +18,7 @@ public class AudioManager : MonoBehaviour {
     public void Play(string MusicName)
     {
 
-        MusicName = "Music/" + MusicName;
+        MusicName = "music/" + MusicName;
         if(Sound.isPlaying){
             return ;
         }
@@ -30,7 +29,7 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayLobbyBackground()
     {
-        string MusicName = "Music/" + LobbyBackground.name;
+        string MusicName = "music/" + LobbyBackground.name;
         Debug.Log("Play Music: " + MusicName);
         BackgroundSound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
         BackgroundSound.Play();
@@ -38,7 +37,7 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayGameBackground()
     {
-        string MusicName = "Music/" + GameBackground.name;
+        string MusicName = "music/" + GameBackground.name;
         Debug.Log("Play Music: " + MusicName);
         BackgroundSound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
         BackgroundSound.Play();
@@ -47,11 +46,6 @@ public class AudioManager : MonoBehaviour {
     public void PlayEatFood()
     {
         Play(EatFood.name);
-    }
-
-    public void PlayEatPoison()
-    {
-        Play(EatPoison.name);
     }
 
     public void PlayTouchBigEnemy()
@@ -78,8 +72,6 @@ public class AudioManager : MonoBehaviour {
     {
         Play(SeaIn.name);
     }
-
-
 
 
 
