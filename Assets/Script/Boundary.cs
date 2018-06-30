@@ -57,18 +57,5 @@ public class Boundary : Photon.PunBehaviour{
                 }
             }
         }
-        else if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
-            if(transform.parent.gameObject.GetComponent<MeshRenderer>()!=null)
-            transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = true;
-        }
-    }
-    
-    private void OnTriggerExit(Collider other){
-        string tag = other.gameObject.tag;
-        if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
-            if(transform.parent.gameObject.GetComponent<MeshRenderer>()!=null)
-            transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = false;
-        }
-
     }
 }
