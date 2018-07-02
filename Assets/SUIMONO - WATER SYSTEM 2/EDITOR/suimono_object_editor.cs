@@ -752,9 +752,9 @@ public class suimono_object_editor : Editor {
 
 
             EditorGUI.LabelField(new Rect(rt.x+margin+10, rt.y+200, 90, 18),"Fog Distance");
-			script.underwaterFogDist = EditorGUI.Slider(new Rect(rt.x+margin+165, rt.y+200, setWidth, 18),"",script.underwaterFogDist,0.0f,600.0f);
+			script.underwaterFogDist = EditorGUI.Slider(new Rect(rt.x+margin+165, rt.y+200, setWidth, 18),"",script.underwaterFogDist,0.0f,1000.0f);
             EditorGUI.LabelField(new Rect(rt.x+margin+10, rt.y+220, 90, 18),"Fog Spread");
-			script.underwaterFogSpread = EditorGUI.Slider(new Rect(rt.x+margin+165, rt.y+220, setWidth, 18),"",script.underwaterFogSpread,-40.0f,40.0f);
+			script.underwaterFogSpread = EditorGUI.Slider(new Rect(rt.x+margin+165, rt.y+220, setWidth, 18),"",script.underwaterFogSpread,-80.0f,80.0f);
 
             EditorGUI.LabelField(new Rect(rt.x+margin+10, rt.y+240, 90, 18),"Fog Color");
 			script.underwaterColor = EditorGUI.ColorField(new Rect(rt.x+margin+165, rt.y+240, setWidth, 18),"",script.underwaterColor);
