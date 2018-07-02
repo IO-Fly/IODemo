@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour {
 
 
     private GameObject player;
-    public PostProcessingProfile normal, fx;
-    private PostProcessingBehaviour camImageFx;
+    //public PostProcessingProfile normal, fx;
+    //private PostProcessingBehaviour camImageFx;
 
     public float mouseSensitivity = 3.0f;
     public float scrollSensitivity = 3.0f;
@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour {
         distanceToPlayer = distanceToPlayerInit;
         offsetAngleHorizontal = 0.0f;
         offsetAngleVertical = 0.0f;
-        camImageFx = FindObjectOfType<PostProcessingBehaviour>();
+        //camImageFx = FindObjectOfType<PostProcessingBehaviour>();
         transparentShader = Shader.Find("Transparent/Diffuse");
     }
 
@@ -72,7 +72,7 @@ public class CameraController : MonoBehaviour {
         }
         FollowPlayer();
         HandleBarrier();
-        HandlePostProcessing(); 
+        //HandlePostProcessing(); 
     }
 
     private void HandleMouseButtonDown()
@@ -137,6 +137,9 @@ public class CameraController : MonoBehaviour {
             GameObject thisBarrierObject = hit.collider.gameObject;
             if (thisBarrierObject == player) continue;
 
+            //不处理海面
+            if (thisBarrierObject.tag == "seaSurface")
+                continue;
             
 
             hasHitBarrier = true;
@@ -187,7 +190,7 @@ public class CameraController : MonoBehaviour {
 
     }
 
-    private void HandlePostProcessing()
+    /*private void HandlePostProcessing()
     {
         if (player.transform.position.y > 0.0f)
         {
@@ -203,7 +206,7 @@ public class CameraController : MonoBehaviour {
         //if (this.transform.position.y<0){
         //   this.gameObject.GetComponent<PostProcessingBehaviour>() .profile = fx;
         //}
-    }
+    }*/
 
 
 
