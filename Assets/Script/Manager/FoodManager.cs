@@ -126,14 +126,26 @@ public class FoodManager : Photon.PunBehaviour {
 			break;
 			//主客户端发起重置食物位置事件
 			case 4:
-			//if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+			/*if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient)*/{
+
 				if(foodFlushLock[(int)((Vector3[])content)[2].x]!=0)
 				return;
 				this.foodFlushLock[(int)((Vector3[])content)[2].x] = 1;
 				StartCoroutine(SetLock((int)((Vector3[])content)[2].x));
-				this.foodInstances[(int)((Vector3[])content)[2].x].transform.position = ((Vector3[])content)[0];
-				this.foodInstances[(int)((Vector3[])content)[2].x].GetComponent<FoodOverrideController>().translation= ((Vector3[])content)[1];
-			//}
+                //未实例化时延迟同步
+                int foodID = (int)((Vector3[])content)[2].x;
+                Vector3 pos = ((Vector3[])content)[0];
+                Vector3 translation = ((Vector3[])content)[1];
+                if (this.foodInstances[foodID] == null)
+                {
+                    StartCoroutine(WaitForSyncFood(foodID, pos, translation));
+                }
+                else
+                { 
+                    this.foodInstances[foodID].transform.position = pos;
+                    this.foodInstances[foodID].GetComponent<FoodOverrideController>().translation = translation;
+                }
+			}
 			break;
             //其他客户端根据主客户端生成食物AI
             case 5:
@@ -340,6 +352,20 @@ public class FoodManager : Photon.PunBehaviour {
                 break;
             }
 
+        }
+    }
+
+    IEnumerator WaitForSyncFood(int foodID, Vector3 pos, Vector3 translation)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.05f);
+            if(foodInstances[foodID] != null)
+            {
+                foodInstances[foodID].transform.position = pos;
+                foodInstances[foodID].GetComponent<FoodOverrideController>().translation = translation;
+                break;
+            }         
         }
     }
 
