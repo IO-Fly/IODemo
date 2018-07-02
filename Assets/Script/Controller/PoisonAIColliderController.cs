@@ -27,8 +27,8 @@ public class PoisonAIColliderController : FoodAIColliderController {
                 parent.SetActive(false);
 
                 //随机生成transform
-                parent.transform.position = GetRandomVector3();
-                parent.transform.rotation = GetRandomQuaternion();
+                parent.transform.position = FoodManager.GetInitPosition();
+                parent.transform.rotation = FoodManager.GetInitRotation();
 
                 //序列化数据
                 GameObject[] foodAIInstances = new GameObject[1];
