@@ -12,6 +12,7 @@ TagManager:
   - playerAI
   - playerCopy
   - foodAI
+  - edge
   layers:
   - Default
   - TransparentFX
