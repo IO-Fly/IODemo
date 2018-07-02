@@ -15,6 +15,11 @@ public class LoginAndQuit : Photon.PunBehaviour
 
     private void Awake()
     {
+        // 播放大厅背景音乐
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlayLobbyBackground();
+        DontDestroyOnLoad(Audio);
+
         // 初始化PhotonNetwork
         PhotonNetwork.autoJoinLobby = false;
         PhotonNetwork.automaticallySyncScene = true;

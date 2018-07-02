@@ -12,8 +12,8 @@ public class LobbyUI : MonoBehaviour
     private void Start()
     {
         //播放大厅背景音乐
-        GameObject Audio = GameObject.Find("Audio");
-        Audio.GetComponent<AudioManager>().PlayLobbyBackground();
+        //GameObject Audio = GameObject.Find("Audio");
+        //Audio.GetComponent<AudioManager>().PlayLobbyBackground();
 
         //初始化角色名字下拉框
         SetCharacterNameList();

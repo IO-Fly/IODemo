@@ -29,8 +29,8 @@ public class FoodAIColliderController : MonoBehaviour {
                 parent.SetActive(false);
 
                 //随机生成transform
-                parent.transform.position = GetRandomVector3();
-                parent.transform.rotation = GetRandomQuaternion();
+                parent.transform.position = FoodManager.GetInitPosition();
+                parent.transform.rotation = FoodManager.GetInitRotation();
 
                 //序列化数据
                 GameObject[] foodAIInstances = new GameObject[1];
@@ -48,16 +48,6 @@ public class FoodAIColliderController : MonoBehaviour {
 
             }
         }
-    }
-
-    public Vector3 GetRandomVector3()
-    {
-        return new Vector3(Random.Range(-20, 20), Random.Range(-95, -5), Random.Range(-20, 20));
-    }
-
-    public Quaternion GetRandomQuaternion()
-    {
-        return Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
     }
 
 }

@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class FoodManager : Photon.PunBehaviour {
 
-	private Vector3 PositionTemp;
-	private Vector3 RotationTemp;
-
     //食物
 	public int FoodCount;
 	public GameObject foodPrefab;
-	public GameObject[] foodInstances;
+	private GameObject[] foodInstances;
     private int[] foodFlushLock;
 
     //食物AI
     public int FoodAICount;
     public GameObject foodAIPrefab;
-    public GameObject[] foodAIInstances;
+    private GameObject[] foodAIInstances;
 
     //毒物AI
     public int[] poisonCounts;
@@ -26,6 +23,10 @@ public class FoodManager : Photon.PunBehaviour {
 
     public bool isMasterBefore = false;
     public static FoodManager localFoodManager = null;
+
+    //边界
+    const int boundary = 195;
+    const int treeBoundary = 40;
 
     void Awake(){
 
@@ -57,16 +58,6 @@ public class FoodManager : Photon.PunBehaviour {
 
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
 	private void OnEventRaised(byte evCode, object content, int senderid){
 		PhotonPlayer sender = PhotonPlayer.Find(senderid);
 		switch(evCode){
@@ -76,14 +67,14 @@ public class FoodManager : Photon.PunBehaviour {
 			Debug.Log("是否是主客户端: " +sender.IsMasterClient);//主客户端生成食物
 			if(PhotonNetwork.isMasterClient&&sender.IsMasterClient){
 				for(int i=0;i<FoodCount;i++){
-					GameObject instance = (GameObject)Instantiate(foodPrefab, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)));
+					GameObject instance = (GameObject)Instantiate(foodPrefab, GetInitPosition(), GetInitRotation());
 					instance.GetComponent<FoodOverrideController>().ID = i;
 					foodInstances[i] = instance;
 				}
 
                 //生成主客户端的食物AI
                 for(int i = 0; i < FoodAICount; i++){
-                    GameObject AIInstance = Instantiate(foodAIPrefab, new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+                    GameObject AIInstance = Instantiate(foodAIPrefab, GetInitPosition(), GetInitRotation());
                     AIInstance.GetComponent<SyncTranform>().ID = i;
                     foodAIInstances[i] = AIInstance;
                 }
@@ -92,7 +83,7 @@ public class FoodManager : Photon.PunBehaviour {
                 poisonCountAll = 0;
                 for(int i = 0; i < poisonCounts.Length; i++) { 
                     for(int j = 0; j < poisonCounts[i]; j++){                   
-                        GameObject AIInstance = Instantiate(poisonPrefabs[i], new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+                        GameObject AIInstance = Instantiate(poisonPrefabs[i], GetInitPosition(), GetInitRotation());
                         AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;        
                         poisonInstances[poisonCountAll] = AIInstance;         
                         poisonCountAll ++;
@@ -110,7 +101,7 @@ public class FoodManager : Photon.PunBehaviour {
 			Debug.Log("其他客户端更新食物");
 			if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
 				for(int i=0;i<FoodCount;i++){
-					GameObject instance = (GameObject)Instantiate(foodPrefab, new Vector3(((float[])content)[i*7+0],((float[])content)[i*7+1],((float[])content)[i*7+2]),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)));
+					GameObject instance = (GameObject)Instantiate(foodPrefab, new Vector3(((float[])content)[i*7+0],((float[])content)[i*7+1],((float[])content)[i*7+2]), GetInitRotation());
 					instance.GetComponent<FoodOverrideController>().translation = new Vector3(((float[])content)[i*7+3],((float[])content)[i*7+4],((float[])content)[i*7+5]);
 					instance.GetComponent<FoodOverrideController>().ID = (int)((float[])content)[i*7+6];
 					foodInstances[i] = instance;
@@ -290,13 +281,6 @@ public class FoodManager : Photon.PunBehaviour {
     	}
     }
 
-    void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer){
-    	if(PhotonNetwork.isMasterClient){
-    		//StartCoroutine(SyncPosition());
-    	}
-    }
-
-
     //定时同步食物AI位置及旋转
     public IEnumerator SyncFoodAITranform()
     {
@@ -329,5 +313,52 @@ public class FoodManager : Photon.PunBehaviour {
 		this.foodFlushLock[id] = 0;	
 	}
 
-	
+    #region Utility
+    public static Vector3 GetInitPosition()
+    {
+
+        Vector3 initPos = new Vector3();
+
+        while (true)
+        {
+            initPos.x = Random.Range(-boundary, boundary);
+            initPos.y = Random.Range(-boundary, -5);
+            initPos.z = Random.Range(-boundary, boundary);
+
+            if (IsInBoundary(initPos))
+            {
+                break;
+            }
+        }
+        return initPos;
+
+    }
+
+    public static Quaternion GetInitRotation()
+    {
+        return Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
+    }
+
+    public static bool IsInBoundary(Vector3 pos)
+    {
+        if(pos.x < -boundary || pos.x > boundary ||
+            pos.y < -boundary || pos.y > -5 ||
+            pos.z <-boundary || pos.z > boundary
+            )
+        {
+            return false;
+        }
+        else if(pos.x > -treeBoundary && pos.x < treeBoundary &&
+            pos.z > -treeBoundary && pos.z < treeBoundary)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    #endregion
+
 }

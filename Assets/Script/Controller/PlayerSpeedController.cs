@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class PlayerSpeedController : PlayerSkillController {
 
-    public override SkillType GetSkillType()
-    {
-        return PlayerSkillController.SkillType.SPEED;
-    }
 
     public float addSpeed;//增加的速度
 
     public GameObject particleEffect;
+
     void Awake()
     {    
         DisableParticle();
@@ -82,4 +79,8 @@ public class PlayerSpeedController : PlayerSkillController {
         }
     }
 
+    public override SkillType GetSkillType()
+    {
+        return PlayerSkillController.SkillType.SPEED;
+    }
 }
