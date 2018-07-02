@@ -10,7 +10,7 @@ GameObject:
   - component: {fileID: 400006}
   - component: {fileID: 3300004}
   - component: {fileID: 2300004}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Suimono_ObjectScale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,9 +26,9 @@ GameObject:
   m_Component:
   - component: {fileID: 400008}
   - component: {fileID: 11496036}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: SUIMONO_Surface
-  m_TagString: Untagged
+  m_TagString: seaSurface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,9 +44,9 @@ GameObject:
   - component: {fileID: 3300006}
   - component: {fileID: 6480814}
   - component: {fileID: 2300006}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Suimono_Object
-  m_TagString: Untagged
+  m_TagString: seaSurface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 2061816}
   - component: {fileID: 11442224}
   - component: {fileID: 11449608}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: cam_LocalReflections
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,8 +89,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 235.79, y: 11.589, z: 209.59}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 1, z: 20}
   m_Children:
   - {fileID: 400010}
   - {fileID: 400006}
@@ -117,9 +117,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171792}
-  m_LocalRotation: {x: -0.0000000030272402, y: 0.99883753, z: 1.4609353e-10, w: -0.04820354}
-  m_LocalPosition: {x: 11.090012, y: 2.5910006, z: 23.910004}
-  m_LocalScale: {x: 1.0001969, y: 1, z: 1.0547462}
+  m_LocalRotation: {x: 0.00033264002, y: -0.030810945, z: 0.0107904095, w: -0.99946696}
+  m_LocalPosition: {x: -1.625, y: -153.9, z: -7.072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
   m_RootOrder: 2
@@ -133,23 +133,23 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.15766464, g: 0.42825288, b: 0.6629412, a: 1}
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 1
+  near clip plane: 0.3
   far clip plane: 1000
-  field of view: 50
+  field of view: 60
   orthographic: 0
-  orthographic size: 100
+  orthographic size: 5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4097
-  m_RenderingPath: 1
+    m_Bits: 1
+  m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -210,7 +210,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 434999af31d77af4aacb107170c00ba3, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   surfaceRenderer: {fileID: 2300006}
   scaleRenderer: {fileID: 2300004}
   reflectionDistance: 1200
-  setLayers: 4097
+  setLayers: 1
 --- !u!114 &11449608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   systemTime: 0
-  systemLocalTime: 0
+  systemLocalTime: 26.011347
   flowSpeed: 0.05
   flowDirection: 180
   useBeaufortScale: 1
@@ -364,7 +364,7 @@ MonoBehaviour:
   useEnableDynamicReflections: 1
   useReflections: 1
   useDynReflections: 1
-  reflectLayer: 4097
+  reflectLayer: 1
   reflectResolution: 3
   reflectLayerMask:
     serializedVersion: 2
@@ -383,7 +383,7 @@ MonoBehaviour:
   useTexNormal3: {fileID: 2800000, guid: fb77700eb10ac344db495df815b29823, type: 3}
   showWaves: 0
   customWaves: 0
-  localTime: 0
+  localTime: 2.6011348
   beaufortVal: 0.16666667
   showShore: 0
   shorelineHeight: 0.25
@@ -414,17 +414,17 @@ MonoBehaviour:
   hFoamSpread: 0.276
   heightFoamAmt: 0.85
   showUnderwater: 0
-  underwaterColor: {r: 0.034, g: 0.102, b: 0.154, a: 0.404}
+  underwaterColor: {r: 0.1441349, g: 0.3960784, b: 0.745283, a: 0.7607843}
   underLightFactor: 1
-  underRefractionAmount: 0.005
+  underRefractionAmount: 0.018
   underRefractionScale: 0.5
-  underRefractionSpeed: 1
-  underwaterFogDist: 34
-  underwaterFogSpread: 0
+  underRefractionSpeed: 1.16
+  underwaterFogDist: 300
+  underwaterFogSpread: 15.7
   enableUnderwater: 1
   enableUnderDebris: 1
-  underBlurAmount: 1
-  underDarkRange: 50
+  underBlurAmount: 0.09
+  underDarkRange: 327
   setScale: 1
   currentAngles: {x: 0, y: 0, z: 0}
   currentPosition: {x: 0, y: 0, z: 0}
@@ -461,7 +461,7 @@ MonoBehaviour:
   presetFileIndex: 0
   presetFileUseIndex: 0
   presetOptions: []
-  showPresets: 0
+  showPresets: 1
   presetStartTransition: 0
   presetTimer: 1
   currentPresetFolder: Built-In Presets
@@ -473,178 +473,65 @@ MonoBehaviour:
   presetToggleSave: 0
   presetsLoaded: 0
   presetDataArray:
-  - <color_depth>(0.160,0.281,0.382,1.000)
-  - <color_shallow>(0.208,0.373,0.441,0.784)
-  - <color_blend>(0.360,1.000,0.867,0.220)
-  - <color_overlay>(0.000,0.000,0.000,0.000)
-  - <color_caustics>(1.000,1.000,1.000,1.000)
-  - <color_reflection>(1.000,1.000,1.000,0.376)
-  - <color_specular>(0.063,0.326,0.375,0.161)
-  - <color_sss>(0.000,0.324,0.015,0.239)
-  - <color_foam>(0.912,0.874,0.791,1.000)
-  - <color_underwater>(0.034,0.102,0.154,0.404)
-  - <data_beaufort>(2)
-  - <data_flowdir>(180)
-  - <data_flowspeed>(0.05)
-  - <data_wavescale>(0.5)
-  - <data_customwaves>(False)
-  - <data_waveheight>(0.65)
-  - <data_heightprojection>(1)
-  - <data_turbulence>(0.24)
-  - <data_lgwaveheight>(0.04666669)
-  - <data_lgwavescale>(0.03125)
-  - <data_shorelineheight>(0.25)
-  - <data_shorelinefreq>(1)
-  - <data_shorelinescale>(3.55)
-  - <data_shorelinespeed>(4)
-  - <data_shorelinenorm>(0)
-  - <data_overallbright>(1)
-  - <data_overalltransparency>(1)
-  - <data_edgeamt>(0.064)
-  - <data_depthamt>(0.064)
-  - <data_shallowamt>(0.057)
-  - <data_refractstrength>(0.5)
-  - <data_aberrationscale>(0)
-  - <data_causticsfade>(0.122)
-  - <data_reflectprojection>(1)
-  - <data_reflectblur>(0.25)
-  - <data_reflectterm>(0)
-  - <data_reflectsharpen>(0)
-  - <data_roughness>(0.025)
-  - <data_roughness2>(0.45)
-  - <data_enablefoam>(True)
-  - <data_foamscale>(0.94)
-  - <data_foamspeed>(0)
-  - <data_edgefoamamt>(0.933)
-  - <data_shallowfoamamt>(1)
-  - <data_heightfoamamt>(0.85)
-  - <data_hfoamheight>(0.65)
-  - <data_hfoamspread>(0.276)
-  - <data_enableunderdebris>(True)
-  - <data_underlightfactor>(1)
-  - <data_underrefractionamount>(0.005)
-  - <data_underrefractionscale>(0.5)
-  - <data_underrefractionspeed>(1)
-  - <data_underbluramount>(1)
-  - <data_underwaterfogdist>(34)
-  - <data_underwaterfogspread>(0)
-  - <data_underDarkRange>(50)
+  - "<color_depth>(0.16,0.281,0.382,1)\r"
+  - "<color_shallow>(0.208,0.373,0.441,0.784)\r"
+  - "<color_blend>(0.36,1,0.867,0.22)\r"
+  - "<color_overlay>(0,0,0,0)\r"
+  - "<color_caustics>(1,1,1,1)\r"
+  - "<color_reflection>(1,1,1,0.376)\r"
+  - "<color_specular>(0.063,0.326,0.375,0.161)\r"
+  - "<color_sss>(0,0.324,0.015,0.239)\r"
+  - "<color_foam>(0.912,0.874,0.791,1)\r"
+  - "<color_underwater>(0.1441349,0.3960784,0.745283,0.7607843)\r"
+  - "<data_beaufort>(2)\r"
+  - "<data_flowdir>(180)\r"
+  - "<data_flowspeed>(0.05)\r"
+  - "<data_wavescale>(0.5)\r"
+  - "<data_customwaves>(False)\r"
+  - "<data_waveheight>(0.65)\r"
+  - "<data_heightprojection>(1)\r"
+  - "<data_turbulence>(0.24)\r"
+  - "<data_lgwaveheight>(0.04666669)\r"
+  - "<data_lgwavescale>(0.03125)\r"
+  - "<data_shorelineheight>(0.25)\r"
+  - "<data_shorelinefreq>(1)\r"
+  - "<data_shorelinescale>(3.55)\r"
+  - "<data_shorelinespeed>(4)\r"
+  - "<data_shorelinenorm>(0)\r"
+  - "<data_overallbright>(1)\r"
+  - "<data_overalltransparency>(1)\r"
+  - "<data_edgeamt>(0.064)\r"
+  - "<data_depthamt>(0.064)\r"
+  - "<data_shallowamt>(0.057)\r"
+  - "<data_refractstrength>(0.5)\r"
+  - "<data_aberrationscale>(0)\r"
+  - "<data_causticsfade>(0.122)\r"
+  - "<data_reflectprojection>(1)\r"
+  - "<data_reflectblur>(0.25)\r"
+  - "<data_reflectterm>(0)\r"
+  - "<data_reflectsharpen>(0)\r"
+  - "<data_roughness>(0.025)\r"
+  - "<data_roughness2>(0.45)\r"
+  - "<data_enablefoam>(True)\r"
+  - "<data_foamscale>(0.94)\r"
+  - "<data_foamspeed>(0)\r"
+  - "<data_edgefoamamt>(0.933)\r"
+  - "<data_shallowfoamamt>(1)\r"
+  - "<data_heightfoamamt>(0.85)\r"
+  - "<data_hfoamheight>(0.65)\r"
+  - "<data_hfoamspread>(0.276)\r"
+  - "<data_enableunderdebris>(True)\r"
+  - "<data_underlightfactor>(1)\r"
+  - "<data_underrefractionamount>(0.018)\r"
+  - "<data_underrefractionscale>(0.5)\r"
+  - "<data_underrefractionspeed>(1.16)\r"
+  - "<data_underbluramount>(0.09)\r"
+  - "<data_underwaterfogdist>(300)\r"
+  - "<data_underwaterfogspread>(15.7)\r"
+  - "<data_underDarkRange>(327)\r"
   - 
-  presetDataString: '<color_depth>(0.160,0.281,0.382,1.000)
-
-    <color_shallow>(0.208,0.373,0.441,0.784)
-
-    <color_blend>(0.360,1.000,0.867,0.220)
-
-    <color_overlay>(0.000,0.000,0.000,0.000)
-
-    <color_caustics>(1.000,1.000,1.000,1.000)
-
-    <color_reflection>(1.000,1.000,1.000,0.376)
-
-    <color_specular>(0.063,0.326,0.375,0.161)
-
-    <color_sss>(0.000,0.324,0.015,0.239)
-
-    <color_foam>(0.912,0.874,0.791,1.000)
-
-    <color_underwater>(0.034,0.102,0.154,0.404)
-
-    <data_beaufort>(2)
-
-    <data_flowdir>(180)
-
-    <data_flowspeed>(0.05)
-
-    <data_wavescale>(0.5)
-
-    <data_customwaves>(False)
-
-    <data_waveheight>(0.65)
-
-    <data_heightprojection>(1)
-
-    <data_turbulence>(0.24)
-
-    <data_lgwaveheight>(0.04666669)
-
-    <data_lgwavescale>(0.03125)
-
-    <data_shorelineheight>(0.25)
-
-    <data_shorelinefreq>(1)
-
-    <data_shorelinescale>(3.55)
-
-    <data_shorelinespeed>(4)
-
-    <data_shorelinenorm>(0)
-
-    <data_overallbright>(1)
-
-    <data_overalltransparency>(1)
-
-    <data_edgeamt>(0.064)
-
-    <data_depthamt>(0.064)
-
-    <data_shallowamt>(0.057)
-
-    <data_refractstrength>(0.5)
-
-    <data_aberrationscale>(0)
-
-    <data_causticsfade>(0.122)
-
-    <data_reflectprojection>(1)
-
-    <data_reflectblur>(0.25)
-
-    <data_reflectterm>(0)
-
-    <data_reflectsharpen>(0)
-
-    <data_roughness>(0.025)
-
-    <data_roughness2>(0.45)
-
-    <data_enablefoam>(True)
-
-    <data_foamscale>(0.94)
-
-    <data_foamspeed>(0)
-
-    <data_edgefoamamt>(0.933)
-
-    <data_shallowfoamamt>(1)
-
-    <data_heightfoamamt>(0.85)
-
-    <data_hfoamheight>(0.65)
-
-    <data_hfoamspread>(0.276)
-
-    <data_enableunderdebris>(True)
-
-    <data_underlightfactor>(1)
-
-    <data_underrefractionamount>(0.005)
-
-    <data_underrefractionscale>(0.5)
-
-    <data_underrefractionspeed>(1)
-
-    <data_underbluramount>(1)
-
-    <data_underwaterfogdist>(34)
-
-    <data_underwaterfogspread>(0)
-
-    <data_underDarkRange>(50)
-
-'
-  dir: G:/PROJECTS/SUIMONO 2.0/SUIMONO_V2.1.4 (base 5.0)/Assets/SUIMONO - WATER SYSTEM
-    2/RESOURCES/
+  presetDataString: "<color_depth>(0.16,0.281,0.382,1)\r\n<color_shallow>(0.208,0.373,0.441,0.784)\r\n<color_blend>(0.36,1,0.867,0.22)\r\n<color_overlay>(0,0,0,0)\r\n<color_caustics>(1,1,1,1)\r\n<color_reflection>(1,1,1,0.376)\r\n<color_specular>(0.063,0.326,0.375,0.161)\r\n<color_sss>(0,0.324,0.015,0.239)\r\n<color_foam>(0.912,0.874,0.791,1)\r\n<color_underwater>(0.1441349,0.3960784,0.745283,0.7607843)\r\n<data_beaufort>(2)\r\n<data_flowdir>(180)\r\n<data_flowspeed>(0.05)\r\n<data_wavescale>(0.5)\r\n<data_customwaves>(False)\r\n<data_waveheight>(0.65)\r\n<data_heightprojection>(1)\r\n<data_turbulence>(0.24)\r\n<data_lgwaveheight>(0.04666669)\r\n<data_lgwavescale>(0.03125)\r\n<data_shorelineheight>(0.25)\r\n<data_shorelinefreq>(1)\r\n<data_shorelinescale>(3.55)\r\n<data_shorelinespeed>(4)\r\n<data_shorelinenorm>(0)\r\n<data_overallbright>(1)\r\n<data_overalltransparency>(1)\r\n<data_edgeamt>(0.064)\r\n<data_depthamt>(0.064)\r\n<data_shallowamt>(0.057)\r\n<data_refractstrength>(0.5)\r\n<data_aberrationscale>(0)\r\n<data_causticsfade>(0.122)\r\n<data_reflectprojection>(1)\r\n<data_reflectblur>(0.25)\r\n<data_reflectterm>(0)\r\n<data_reflectsharpen>(0)\r\n<data_roughness>(0.025)\r\n<data_roughness2>(0.45)\r\n<data_enablefoam>(True)\r\n<data_foamscale>(0.94)\r\n<data_foamspeed>(0)\r\n<data_edgefoamamt>(0.933)\r\n<data_shallowfoamamt>(1)\r\n<data_heightfoamamt>(0.85)\r\n<data_hfoamheight>(0.65)\r\n<data_hfoamspread>(0.276)\r\n<data_enableunderdebris>(True)\r\n<data_underlightfactor>(1)\r\n<data_underrefractionamount>(0.018)\r\n<data_underrefractionscale>(0.5)\r\n<data_underrefractionspeed>(1.16)\r\n<data_underbluramount>(0.09)\r\n<data_underwaterfogdist>(300)\r\n<data_underwaterfogspread>(15.7)\r\n<data_underDarkRange>(327)\r\n"
+  dir: E:/Github/IODemo/Assets/SUIMONO - WATER SYSTEM 2/RESOURCES/
   baseDir: SUIMONO - WATER SYSTEM 2/RESOURCES/
   presetSaveName: my custom preset
   presetFile: 
@@ -657,11 +544,11 @@ MonoBehaviour:
   scaleOff: {x: 0, y: 0}
   i: 32
   layerName: 
-  skybox: {fileID: 2100000, guid: d4ddea6029592ec40aad6d5080007bda, type: 2}
+  skybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   d: 2
   dn: 2
-  pdir: G:/PROJECTS/SUIMONO 2.0/SUIMONO_V2.1.4 (base 5.0)/Assets/SUIMONO - WATER SYSTEM
-    2/RESOURCES//SUIMONO_PRESETS_Built-In Presets
+  pdir: E:/Github/IODemo/Assets/SUIMONO - WATER SYSTEM 2/RESOURCES//SUIMONO_PRESETS_Built-In
+    Presets
   f: 26
   px: 13
   nx: 26
@@ -673,13 +560,13 @@ MonoBehaviour:
   moveName: 
   setNum: 0
   key: data_underDarkRange
-  dat: 50
+  dat: 327
   pFrom: 22
-  pTo: 24
+  pTo: 25
   dx: 57
   datFile: {fileID: 0}
   dataS:
-  - 50
+  - 327
   retData: 
   retVal: 1
 --- !u!1001 &100100000

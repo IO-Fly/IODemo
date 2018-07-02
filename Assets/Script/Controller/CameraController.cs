@@ -137,6 +137,9 @@ public class CameraController : MonoBehaviour {
             GameObject thisBarrierObject = hit.collider.gameObject;
             if (thisBarrierObject == player) continue;
 
+            //不处理海面
+            if (thisBarrierObject.tag == "seaSurface")
+                continue;
             
 
             hasHitBarrier = true;
