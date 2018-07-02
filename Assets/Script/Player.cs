@@ -181,7 +181,7 @@ public class Player : Photon.PunBehaviour {
 
 
         }
-        else if (this.photonView.isMine && other.gameObject.tag != "poison")/*other.gameObject.tag == "Wall" */
+        else if (this.photonView.isMine && other.gameObject.tag != "poison" && other.gameObject.tag != "foodAI")/*other.gameObject.tag == "Wall" */
         {
             //播放音效
             GameObject Audio = GameObject.Find("Audio");
