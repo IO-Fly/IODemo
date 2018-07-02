@@ -4,17 +4,11 @@ using UnityEngine;
 
 public class PlayerCopyController : PlayerSkillController {
 
-    public override SkillType GetSkillType()
-    {
-        return PlayerSkillController.SkillType.COPY;
-    }
 
     public GameObject playerCopyPrefab;
-    //public float distance;//分身距离本体的初始距离
+    public GameObject particleEffect;
 
     private GameObject playerCopy;//分身
-
-    public GameObject particleEffect;
 
     void Awake()
     {
@@ -102,5 +96,11 @@ public class PlayerCopyController : PlayerSkillController {
         particleEffect.transform.localPosition = Vector3.zero;
 
     }
+
+    public override SkillType GetSkillType()
+    {
+        return PlayerSkillController.SkillType.COPY;
+    }
+
 
 }

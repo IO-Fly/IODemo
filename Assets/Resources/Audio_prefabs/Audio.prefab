@@ -253,9 +253,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sound: {fileID: 82890445664684188}
   BackgroundSound: {fileID: 82162152795526810}
-  LobbyBackground: {fileID: 8300000, guid: 2f3f750c1a2202f45a1f4076c9791f30, type: 3}
-  GameBackground: {fileID: 8300000, guid: 7a87800c41ceb6d47a1c4d9c7ab6ff2a, type: 3}
+  LobbyBackground: {fileID: 8300000, guid: 443feee1a3f1a5642bcee7b34eda1ab7, type: 3}
+  GameBackground: {fileID: 8300000, guid: 53ac393a0e834cf4b89e8d147523b531, type: 3}
   EatFood: {fileID: 8300000, guid: ea967600191d22e46884b74d866ac792, type: 3}
+  EatPoison: {fileID: 8300000, guid: 2fa95909a54fd304682dc8905be7adda, type: 3}
   TouchBigEnemy: {fileID: 8300000, guid: 13d1a37acfe8b6c4bbcc735dbd5b20bf, type: 3}
   TouchSmallEnemy: {fileID: 8300000, guid: 26740aecb2dfa2a47aac81dac5e79d89, type: 3}
   TouchWall: {fileID: 8300000, guid: abcf543ad90671949861e6a6885cb2af, type: 3}

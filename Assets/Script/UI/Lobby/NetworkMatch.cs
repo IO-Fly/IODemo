@@ -6,23 +6,7 @@ using UnityEngine.UI;
 public class NetworkMatch : Photon.PunBehaviour
 {
     public static string playerName;    // 在游戏过程中保留当前玩家名称
-
     public int maxPlayerPerRoom = 2;    // 单个房间最多玩家数目
-
-    public Dropdown dropdown;           // 角色选择框
-
-    public void StartMatching()
-    {
-        PhotonNetwork.player.NickName = dropdown.options[dropdown.value].text;
-        if (PhotonNetwork.connected)
-        {
-            PhotonNetwork.JoinRandomRoom();
-        }
-        else
-        {
-            PhotonNetwork.ConnectUsingSettings("0.0.2");
-        }
-    }
 
     public override void OnConnectedToMaster()
     {
