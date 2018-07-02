@@ -12,6 +12,8 @@ TagManager:
   - playerAI
   - playerCopy
   - foodAI
+  - edge
+  - seaSurface
   layers:
   - Default
   - TransparentFX
