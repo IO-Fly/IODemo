@@ -8,7 +8,7 @@ public class NetworkMatch : Photon.PunBehaviour
     public static string playerName;    // 在游戏过程中保留当前玩家名称
     public int maxPlayerPerRoom = 2;    // 单个房间最多玩家数目
 
-<<<<<<< HEAD
+
     public Dropdown dropdown;           // 角色选择框
 
     public void StartMatching()
@@ -24,8 +24,6 @@ public class NetworkMatch : Photon.PunBehaviour
         }
     }
 
-=======
->>>>>>> master
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
