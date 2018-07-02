@@ -269,6 +269,51 @@ ModelImporter:
     4300084: pCube4
     4300086: pCube5
     4300088: pCube6
+    6400000: pCone1
+    6400002: pCone1 1
+    6400004: pCone1 2
+    6400006: pCube1
+    6400008: pCube10
+    6400010: pCube10 1
+    6400012: pCube10 2
+    6400014: pCube11
+    6400016: pCube11 1
+    6400018: pCube11 2
+    6400020: pCube12
+    6400022: pCube12 1
+    6400024: pCube12 2
+    6400026: pCube2
+    6400028: pCube3
+    6400030: pCube3 1
+    6400032: pCube3 2
+    6400034: pCube4
+    6400036: pCube4 1
+    6400038: pCube4 2
+    6400040: pCube5
+    6400042: pCube5 1
+    6400044: pCube5 2
+    6400046: pCube6
+    6400048: pCube6 1
+    6400050: pCube6 2
+    6400052: pCube7
+    6400054: pCube7 1
+    6400056: pCube7 2
+    6400058: pCube8
+    6400060: pCube8 1
+    6400062: pCube8 2
+    6400064: pCube9
+    6400066: pCube9 1
+    6400068: pCube9 2
+    6400070: pPlane1
+    6400072: pPlane2
+    6400074: pPlane3
+    6400076: pPlane4
+    6400078: pPyramid1
+    6400080: pSphere1
+    6400082: pSphere2
+    6400084: pSphere3
+    6400086: pSphere3 1
+    6400088: pSphere3 2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -302,10 +347,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
+    importCameras: 0
     importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

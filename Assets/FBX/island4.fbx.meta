@@ -136,6 +136,27 @@ ModelImporter:
     4300036: pCylinder4
     4300038: pCylinder2
     4300040: pCylinder6
+    6400000: coconut1
+    6400002: coconut2
+    6400004: coconut3
+    6400006: i4_land
+    6400008: pCone2
+    6400010: pCone3
+    6400012: pCylinder1
+    6400014: pCylinder2
+    6400016: pCylinder4
+    6400018: pCylinder6
+    6400020: pCylinder7
+    6400022: polySurface1
+    6400024: polySurface1 1
+    6400026: polySurface1 2
+    6400028: polySurface2
+    6400030: polySurface2 1
+    6400032: polySurface2 2
+    6400034: polySurface4
+    6400036: polySurface4 1
+    6400038: polySurface4 2
+    6400040: pPlane1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -169,10 +190,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
+    importCameras: 0
     importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

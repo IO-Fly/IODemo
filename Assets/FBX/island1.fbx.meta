@@ -704,6 +704,129 @@ ModelImporter:
     4300240: pCube18
     4300242: pCube17
     4300244: pCube21
+    6400000: bigfloor
+    6400002: coconut1
+    6400004: coconut1 1
+    6400006: coconut2
+    6400008: coconut2 1
+    6400010: coconut3
+    6400012: coconut3 1
+    6400014: pCone2
+    6400016: pCone2 1
+    6400018: pCube1
+    6400020: pCube10
+    6400022: pCube11
+    6400024: pCube12
+    6400026: pCube13
+    6400028: pCube14
+    6400030: pCube14 1
+    6400032: pCube15
+    6400034: pCube17
+    6400036: pCube17 1
+    6400038: pCube17 10
+    6400040: pCube17 11
+    6400042: pCube17 2
+    6400044: pCube17 3
+    6400046: pCube17 4
+    6400048: pCube17 5
+    6400050: pCube17 6
+    6400052: pCube17 7
+    6400054: pCube17 8
+    6400056: pCube17 9
+    6400058: pCube18
+    6400060: pCube18 1
+    6400062: pCube18 10
+    6400064: pCube18 11
+    6400066: pCube18 2
+    6400068: pCube18 3
+    6400070: pCube18 4
+    6400072: pCube18 5
+    6400074: pCube18 6
+    6400076: pCube18 7
+    6400078: pCube18 8
+    6400080: pCube18 9
+    6400082: pCube19
+    6400084: pCube19 1
+    6400086: pCube19 10
+    6400088: pCube19 11
+    6400090: pCube19 2
+    6400092: pCube19 3
+    6400094: pCube19 4
+    6400096: pCube19 5
+    6400098: pCube19 6
+    6400100: pCube19 7
+    6400102: pCube19 8
+    6400104: pCube19 9
+    6400106: pCube2
+    6400108: pCube20
+    6400110: pCube20 1
+    6400112: pCube20 10
+    6400114: pCube20 11
+    6400116: pCube20 2
+    6400118: pCube20 3
+    6400120: pCube20 4
+    6400122: pCube20 5
+    6400124: pCube20 6
+    6400126: pCube20 7
+    6400128: pCube20 8
+    6400130: pCube20 9
+    6400132: pCube21
+    6400134: pCube21 1
+    6400136: pCube21 10
+    6400138: pCube21 11
+    6400140: pCube21 2
+    6400142: pCube21 3
+    6400144: pCube21 4
+    6400146: pCube21 5
+    6400148: pCube21 6
+    6400150: pCube21 7
+    6400152: pCube21 8
+    6400154: pCube21 9
+    6400156: pCube22
+    6400158: pCube22 1
+    6400160: pCube22 10
+    6400162: pCube22 11
+    6400164: pCube22 2
+    6400166: pCube22 3
+    6400168: pCube22 4
+    6400170: pCube22 5
+    6400172: pCube22 6
+    6400174: pCube22 7
+    6400176: pCube22 8
+    6400178: pCube22 9
+    6400180: pCube3
+    6400182: pCube4
+    6400184: pCube5
+    6400186: pCube6
+    6400188: pCube7
+    6400190: pCube8
+    6400192: pCube9
+    6400194: pCylinder1
+    6400196: pCylinder1 1
+    6400198: pCylinder2
+    6400200: pCylinder2 1
+    6400202: plane
+    6400204: polySurface1
+    6400206: polySurface1 1
+    6400208: polySurface1 2
+    6400210: polySurface1 3
+    6400212: polySurface1 4
+    6400214: polySurface1 5
+    6400216: polySurface2
+    6400218: polySurface2 1
+    6400220: polySurface2 2
+    6400222: polySurface2 3
+    6400224: polySurface2 4
+    6400226: polySurface2 5
+    6400228: polySurface4
+    6400230: polySurface4 1
+    6400232: polySurface4 2
+    6400234: polySurface4 3
+    6400236: polySurface4 4
+    6400238: polySurface4 5
+    6400240: pSphere1
+    6400242: stone1
+    6400244: stone2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -737,10 +860,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 1
+    importCameras: 0
     importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

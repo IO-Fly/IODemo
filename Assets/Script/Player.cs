@@ -342,6 +342,20 @@ public class Player : Photon.PunBehaviour {
         return this.playerName;
     }
 
+
+    public bool GetVisibility()
+    {
+        PlayerHideController hideCtrl = gameObject.GetComponent<PlayerHideController>();
+        if (hideCtrl != null)
+        {
+            if (hideCtrl.SkillInUse())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     #endregion
 
     #region IEnumerator

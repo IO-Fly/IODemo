@@ -110,4 +110,10 @@ public class PlayerHideController : PlayerSkillController {
       
     }
 
+
+    public bool SkillInUse()
+    {
+        return curCooldown > 0.0f;
+    }
+
 }
