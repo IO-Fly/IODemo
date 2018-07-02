@@ -137,6 +137,8 @@ public class CameraController : MonoBehaviour {
             GameObject thisBarrierObject = hit.collider.gameObject;
             if (thisBarrierObject == player) continue;
 
+            
+
             hasHitBarrier = true;
 
             bool isHasObject = false;
@@ -162,7 +164,13 @@ public class CameraController : MonoBehaviour {
                 currentBarrier.Add(barrier);
 
                 m.shader = transparentShader;
-                m.color = new Color(m.color.r, m.color.g, m.color.b, 0.3f);
+
+                float alpha = 0.3f;
+
+                //当摄像机视线穿过的物体是边界透明墙时，作全透明处理
+                if (thisBarrierObject.tag == "edge") alpha=0.0f;
+
+                m.color = new Color(m.color.r, m.color.g, m.color.b, alpha);
             }          
         }
 
