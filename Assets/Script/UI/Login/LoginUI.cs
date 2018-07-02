@@ -36,14 +36,40 @@ public class LoginUI : MonoBehaviour
     /// </字符编码>
     public void OnInputName()
     {
-        if (nameInput.text.Length > 0)
+        // 使用这段代码转换GBK,会有bug：exe运行时nameInput的文本不会实时更新，但调试时不会出现
+        //byte[] bytestr = System.Text.Encoding.GetEncoding("GBK").GetBytes("nameInput.text");
+        //if (bytestr.Length > maxInputBytes)
+        //{
+        //nameInput.text = nameInput.text.Substring(0, nameInput.text.Length - 1);
+        //}
+
+        // 自己统计中文占用的bytes
+        string inputStr = nameInput.text;
+        string outputStr = "";
+        int count = 0;
+        for(int i = 0; i < inputStr.Length; i++)
         {
-            byte[] bytestr = System.Text.Encoding.GetEncoding("GBK").GetBytes(nameInput.text);
-            if (bytestr.Length > maxInputBytes)
+            string tempChar = inputStr.Substring(i, 1);
+            byte[] encodedBytes = System.Text.ASCIIEncoding.Default.GetBytes(tempChar);
+            if(encodedBytes.Length == 1)
             {
-                nameInput.text = nameInput.text.Substring(0, nameInput.text.Length - 1);
+                count += 1;
+            }
+            else
+            {
+                count += 2;
+            }
+            if(count <= maxInputBytes)
+            {
+                outputStr += tempChar;
+            }
+            else
+            {
+                break;
             }
         }
+        nameInput.text = outputStr;
+
     }
 
 
