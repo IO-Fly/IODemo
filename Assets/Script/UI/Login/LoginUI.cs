@@ -17,6 +17,12 @@ public class LoginUI : MonoBehaviour
     {
         // 输入框获取输入焦点
         nameInput.ActivateInputField();
+
+        // 播放大厅背景音乐
+        GameObject audio = GameObject.Find("Audio");
+        audio.GetComponent<AudioManager>().PlayLobbyBackground();
+        DontDestroyOnLoad(audio);
+
     }
 
     private void Update()
