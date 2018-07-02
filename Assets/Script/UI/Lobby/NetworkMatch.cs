@@ -20,7 +20,7 @@ public class NetworkMatch : Photon.PunBehaviour
         }
         else
         {
-            PhotonNetwork.ConnectUsingSettings("0.0.1");
+            PhotonNetwork.ConnectUsingSettings("0.0.2");
         }
     }
 
