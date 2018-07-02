@@ -49,7 +49,7 @@ public class NetworkConnect : Photon.PunBehaviour
         ResourceRequest resourceRequest = Resources.LoadAsync("UI_prefabs/Lobby/LobbyScene");
         yield return resourceRequest;
 
-        Debug.LogWarning("异步加载完成");
+        //Debug.LogWarning("异步加载完成");
         // 加载lobby资源
         GameObject lobbyScene = GameObject.Instantiate(resourceRequest.asset, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
         lobbyCanvas.SetActive(true);
@@ -57,7 +57,6 @@ public class NetworkConnect : Photon.PunBehaviour
         // 释放login资源
         this.gameObject.SetActive(false);
         loginScene.gameObject.SetActive(false);
-        //Destroy(this.gameObject);
     }
 
 }
