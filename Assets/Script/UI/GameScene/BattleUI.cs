@@ -68,7 +68,7 @@ public class BattleUI : MonoBehaviour {
         Text nameText = itemPanel.transform.Find("NameText").GetComponent<Text>();
         Text scaleText = itemPanel.transform.Find("ScaleText").GetComponent<Text>();
 
-        orderText.text = (playerCount).ToString();
+        orderText.text = (nameList.Count+1).ToString();
         nameText.text = networkManager.playerList[playerCount - 1].GetPlayerName();
         scaleText.text = networkManager.playerList[playerCount - 1].GetPlayerSize().ToString("0.0");
         itemPanel.transform.SetParent(panel.transform, false);
