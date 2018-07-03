@@ -17,11 +17,11 @@ public class PlayerMinimapUI : MonoBehaviour {
         Material materialForMinimap;
         if( this.GetComponent<Player>().photonView.isMine )
         {
-            materialForMinimap = Resources.Load("Minimap_materials/blue") as Material;
+            materialForMinimap = Resources.Load("Materials/Minimap_materials/blue") as Material;
         }
         else
         {
-            materialForMinimap = Resources.Load("Minimap_materials/red") as Material;
+            materialForMinimap = Resources.Load("Materials/Minimap_materials/red") as Material;
         }
         sphereForMinimap.GetComponent<Renderer>().material = materialForMinimap;
 
