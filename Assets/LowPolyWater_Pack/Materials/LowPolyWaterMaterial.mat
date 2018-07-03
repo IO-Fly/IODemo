@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 16516895e8a79bf49a6562c3c3b84cbf, type: 3}
   m_ShaderKeywords: _EMISSION _ISINNERALPHABLENDORCOLOR_ON
   m_LightmapFlags: 1
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -32,7 +32,7 @@ Material:
     - _isInnerAlphaBlendOrColor: 1
     m_Colors:
     - <noninit>: {r: 0, g: 1.3587732e-34, b: 0, a: 1.3587659e-34}
-    - _BaseColor: {r: 0.588776, g: 0.8523491, b: 0.8897059, a: 1}
+    - _BaseColor: {r: 0.14440194, g: 0.31685376, b: 0.5566038, a: 0.7411765}
     - _BumpDirection: {r: 1, g: 1, b: -1, a: 1}
     - _BumpTiling: {r: 1, g: 1, b: -2, a: 3}
     - _Foam: {r: 0.1, g: 0.375, b: 0, a: 0}

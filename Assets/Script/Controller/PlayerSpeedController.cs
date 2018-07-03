@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerSpeedController : PlayerSkillController {
 
+
     public float addSpeed;//增加的速度
 
-    protected ParticleSystem effect;
+    public GameObject particleEffect;
 
     void Awake()
-    {
-        effect = gameObject.GetComponentInChildren<ParticleSystem>();
+    {    
         DisableParticle();
     }
 
@@ -54,18 +54,33 @@ public class PlayerSpeedController : PlayerSkillController {
 
     }
 
+
     [PunRPC]
     protected void EnableParticle()
     {
-        effect.Play();
+
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Play();
+        }
+
     }
 
     [PunRPC]
     protected void DisableParticle()
     {
 
-        effect.Clear();
-        effect.Pause();
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Clear();
+            systems[i].Pause();
+        }
     }
 
+    public override SkillType GetSkillType()
+    {
+        return PlayerSkillController.SkillType.SPEED;
+    }
 }

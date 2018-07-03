@@ -2,77 +2,125 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodAI : MonoBehaviour {
 
-    public List<Player> playerList;
-    public float alertDistance = 12.0f;
-    public float speed = 10.0f;
+public class FoodAI : PoisonAI {
 
-    private Vector3 towards;
-    private float timeCount;
-    private CharacterController character;
+    public static List<Player> allPlayers;
+    public float playerDetectDistance = 50.0f;
     
-	// Use this for initialization
-	void Start () {
-        towards = GetRandomDirection();
-        timeCount = 0.0f;
+    public float targetResetInv = 5.0f;
+    public float directionResetInv = 1.0f;
+
+    protected List<GameObject> playersDetected = new List<GameObject>();
+    protected Player targetPlayer = null;
+    protected float directionResetCount = 0.0f;
+    protected float targetResetCount = 0.0f;
+ 
+    // Use this for initialization
+    void Start() {
         character = gameObject.GetComponent<CharacterController>();
-        ///speed = gameObject.GetComponent<Player>().GetSpeed();
-
-        //TODO: 
-        //playerList成员添加上所有场上的玩家角色
-
+        objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
+        //设置一个随机的初始方向
+        objectBehaviour.SetForwardDirecion(GetRandomDirection());
+        resetCountForWander = 1.0f;
+        
+        StartCoroutine(CheckObstacle());
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //检测警戒范围内是否有玩家角色，并找出距离最近的玩家角色
-        timeCount -= Time.deltaTime;
-        if (timeCount <= 0.0f)
-        {
-            timeCount = Random.Range(2.0f, 3.0f);
 
-            Player closestPlayer = null;
-            float currentDistance = Mathf.Infinity;
-            Vector3 selfPosition = gameObject.transform.position;
-            foreach (Player player in playerList)
+    // Update is called once per frame
+    void Update() {
+        targetResetCount -= Time.deltaTime;
+        if (targetResetCount <= 0.0f)
+        {
+            targetResetCount = targetResetInv;
+
+            DetectPlayers();
+            SetTargetPlayer();
+        }
+        if (HasTargetPlayer())
+        {
+            Flee();
+        }
+        else
+        {
+            Wander();
+        }
+        
+    }
+
+    protected virtual void DetectPlayers()
+    {
+        DetectPlayers(playerDetectDistance);
+    }
+    protected virtual void DetectPlayers(float detectDistance)
+    {
+        playersDetected.Clear();
+        Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, playerDetectDistance);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.gameObject.CompareTag("player"))
+                playersDetected.Add(collider.gameObject);
+        }
+    }
+
+    protected void SetTargetPlayer()
+    {
+        float rand;
+        targetPlayer = null;
+        for (int i = 0; i < playersDetected.Count; ++i)
+        {
+            rand = Random.Range(0.0f, 1.0f);
+            if (rand < 0.8f)
             {
-                Vector3 playerPosition = player.gameObject.transform.position;
-                float distance = Vector3.Distance(playerPosition, selfPosition);
-                if (distance < Mathf.Min(alertDistance, currentDistance))
-                {
-                    currentDistance = distance;
-                    closestPlayer = player;
-                }
-            }
-            //如果警戒范围内有玩家，AI选择远离最近玩家的方向作为移动方向
-            if (closestPlayer != null)
-            {
-                Vector3 closestPlayerPosition = closestPlayer.gameObject.transform.position;
-                Vector3 randomOffset = new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f));
-                towards = (selfPosition - closestPlayerPosition + randomOffset).normalized;
-                transform.LookAt(selfPosition + towards);
-            }
-            //如果警戒范围内没有玩家，随机选择移动方向
-            else
-            {
-                towards = GetRandomDirection();
-                transform.LookAt(gameObject.transform.position + towards);
+                targetPlayer = playersDetected[i].gameObject.GetComponent<Player>();
+                break;
             }
         }
-        //执行移动操作
-        ///speed = gameObject.GetComponent<Player>().GetSpeed();
-        character.Move(towards * speed * Time.deltaTime);
+    }
+    protected void SetTargetPlayer(Player player)
+    {
+        targetPlayer = player;
     }
 
-    //随机方向，“俯仰角”限制在45度以内
-    private Vector3 GetRandomDirection()
+    protected bool HasTargetPlayer()
     {
-        float theta = Random.Range(0.0f, 2 * Mathf.PI);
-        float phi = Random.Range(-Mathf.PI / 4, Mathf.PI / 4);
-        float x = Mathf.Cos(theta) * Mathf.Cos(phi);
-        float z = Mathf.Sin(theta) * Mathf.Cos(phi);
-        float y = Mathf.Sin(phi);
-        return new Vector3(x, y, z);
+        return targetPlayer != null;
     }
+
+    protected void Flee()
+    {
+        if (targetPlayer != null)
+        {
+            MoveTowards(transform.position * 2 - targetPlayer.gameObject.transform.position);
+        }
+        else
+        {
+            Wander();
+        }
+    }
+
+    protected void MoveTowards(Vector3 targetPosition,float speed)
+    {
+        directionResetCount -= Time.deltaTime;
+        if (directionResetCount <= 0.0f)
+        {
+            directionResetCount = directionResetInv;
+            Vector3 direction = targetPosition - gameObject.transform.position;
+            direction.Normalize();
+            objectBehaviour.SetForwardDirecion(direction);
+        }
+        objectBehaviour.Move(ObjectBehaviour.MoveDirection.Front, speed);
+    }
+
+    protected void MoveTowards(Vector3 targetPosition)
+    {
+        MoveTowards(targetPosition, speed);
+    }
+
+    protected override void HandleCheckObstacle()
+    {
+        base.HandleCheckObstacle();
+        targetPlayer = null;
+    }
+
 }

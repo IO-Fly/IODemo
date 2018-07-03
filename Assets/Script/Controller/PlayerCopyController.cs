@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCopyController : PlayerSkillController {
-    
+
 
     public GameObject playerCopyPrefab;
-    public float distance;//分身距离本体的初始距离
+    public GameObject particleEffect;
 
     private GameObject playerCopy;//分身
+
+    void Awake()
+    {
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Pause();
+        }
+
+    }
 
     // Use this for initialization
     void Start()
@@ -26,12 +36,15 @@ public class PlayerCopyController : PlayerSkillController {
             curCooldown = cooldown;
 
             //根据玩家初始化位置，方向，大小
-            Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
-            Vector3 InitPosition = transform.position + posOffset;
+            //Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
+            //Vector3 InitPosition = transform.position + posOffset;
+            Vector3 InitPosition = transform.position;
             playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);
-            playerCopy.transform.rotation = transform.rotation;
-            playerCopy.transform.localScale = transform.localScale;
-            //此处应该在分身对象中保留所有者的对象，用于碰撞检测
+            //复制本身属性到分身
+            playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
+
+            //开启技能效果
+            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
 
             StartCoroutine("WaitForEndSkill");
         }
@@ -51,11 +64,43 @@ public class PlayerCopyController : PlayerSkillController {
         {
             PhotonNetwork.Destroy(playerCopy);
             Destroy(playerCopy.GetComponent<PlayerHealthUI>().getHealthCanvas());
-        }    
+        }
+
+        //关闭技能效果
+        this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
+
     }
 
     public GameObject getPlayerCopy()
     {
         return playerCopy;
     }
+
+    [PunRPC]
+    protected void EnableParticle()
+    {
+        ParticleSystem[] systems = particleEffect.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < systems.Length; i++)
+        {
+            systems[i].Play();
+        }
+        particleEffect.transform.parent = null;
+
+    }
+
+    [PunRPC]
+    protected void DisableParticle()
+    {
+
+        particleEffect.transform.parent = this.transform;
+        particleEffect.transform.localPosition = Vector3.zero;
+
+    }
+
+    public override SkillType GetSkillType()
+    {
+        return PlayerSkillController.SkillType.COPY;
+    }
+
+
 }
