@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class networkManager :Photon.PunBehaviour {
 
     public static GameObject localPlayer;
@@ -42,7 +41,6 @@ public class networkManager :Photon.PunBehaviour {
         GameObject rootCanvas = GameObject.Find("HUDCanvas");
         GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
         skillUI.GetComponent<SkillUI>().setPlayer(localPlayer);//将指向本地玩家
-        GameObject.Find("SUIMONO_Module").GetComponent<Suimono.Core.SuimonoModule>().setTrack = localPlayer.transform;
 
     }
 }
