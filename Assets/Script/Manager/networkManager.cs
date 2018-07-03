@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class networkManager :Photon.PunBehaviour {
 
@@ -17,9 +17,18 @@ public class networkManager :Photon.PunBehaviour {
         //CreatePlayer();
     }
 
-	// Update is called once per frame
-	private void OnLevelWasLoaded(int level){
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) { 
+        
         //播放游戏背景音乐
         GameObject Audio = GameObject.Find("Audio");
         Audio.GetComponent<AudioManager>().PlayGameBackground();
@@ -30,19 +39,13 @@ public class networkManager :Photon.PunBehaviour {
         //激活非主客户端的玩家
         if (!PhotonNetwork.isMasterClient)
         {
-            foreach(Player player in playerList)
+            foreach (Player player in playerList)
             {
                 player.gameObject.SetActive(true);
             }
         }
-	}
-
-    void Start()
-    {
-        //创建玩家
-        //CreatePlayer();
-        //CreatePlayer();
     }
+
 
 	private void CreatePlayer(){
 

@@ -34,7 +34,8 @@ public class NetworkMatch : Photon.PunBehaviour
         if (number == maxPlayerPerRoom && PhotonNetwork.isMasterClient)
         {
             PhotonNetwork.LoadLevel("GameScene");
-            //SceneManager.LoadScene("GameScene");
+            //关闭房间
+            PhotonNetwork.room.IsOpen = false;
         }
     }
 
@@ -44,7 +45,5 @@ public class NetworkMatch : Photon.PunBehaviour
         RoomOptions roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = (byte)maxPlayerPerRoom, PublishUserId = true };
         PhotonNetwork.CreateRoom(null, roomOptions, null);
     }
-
-
 
 }
