@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: ca706ebee6268574fb632a31dc5c3ccd
-=======
 guid: ca626f0becee32841a705eaa120f086c
->>>>>>> master
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -152,7 +148,6 @@ ModelImporter:
     4300042: pSphere15
     4300044: pSphere16
     4300046: pCube1
-<<<<<<< HEAD
     6400000: pCone1
     6400002: pCone2
     6400004: pCone3
@@ -177,8 +172,6 @@ ModelImporter:
     6400042: pSphere7
     6400044: pSphere8
     6400046: pSphere9
-=======
->>>>>>> master
   externalObjects: {}
   materials:
     importMaterials: 1
