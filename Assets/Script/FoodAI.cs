@@ -58,14 +58,8 @@ public class FoodAI : PoisonAI {
         Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, playerDetectDistance);
         foreach (Collider collider in colliders)
         {
-            GameObject playerObject = collider.gameObject;
-            if (playerObject.CompareTag("player"))
-            {
-                if (playerObject.GetComponent<Player>().GetVisibility() == true)
-                {
-                    playersDetected.Add(playerObject);
-                }
-            }
+            if (collider.gameObject.CompareTag("player"))
+                playersDetected.Add(collider.gameObject);
         }
     }
 

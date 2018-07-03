@@ -148,30 +148,6 @@ ModelImporter:
     4300042: pSphere15
     4300044: pSphere16
     4300046: pCube1
-    6400000: pCone1
-    6400002: pCone2
-    6400004: pCone3
-    6400006: pCone4
-    6400008: pCone5
-    6400010: pCone6
-    6400012: pCube1
-    6400014: pCylinder1
-    6400016: pSphere1
-    6400018: pSphere10
-    6400020: pSphere11
-    6400022: pSphere12
-    6400024: pSphere13
-    6400026: pSphere14
-    6400028: pSphere15
-    6400030: pSphere16
-    6400032: pSphere2
-    6400034: pSphere3
-    6400036: pSphere4
-    6400038: pSphere5
-    6400040: pSphere6
-    6400042: pSphere7
-    6400044: pSphere8
-    6400046: pSphere9
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -205,10 +181,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
+    importCameras: 1
     importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

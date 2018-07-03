@@ -130,12 +130,6 @@ public class PlayerHideController : PlayerSkillController {
       
     }
 
-    public bool SkillInUse()
-    {
-        return curCooldown > 0.0f;
-    }
-
-
     void HideSelf()
     {
         Renderer[] renders = this.GetComponentsInChildren<Renderer>();
@@ -165,5 +159,5 @@ public class PlayerHideController : PlayerSkillController {
         return PlayerSkillController.SkillType.HIDE;
     }
 
-    
+
 }
