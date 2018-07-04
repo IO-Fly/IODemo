@@ -23,16 +23,21 @@ public class NetworkMatch : Photon.PunBehaviour
     public override void OnJoinedRoom()
     {
         Debug.Log("joined room");
-        PhotonNetwork.LoadLevel("GameScene");
-
+        if (maxPlayerPerRoom == 1)
+        {
+            PhotonNetwork.LoadLevel("GameScene");
+        }
     }
     public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
     {
-        int number = PhotonNetwork.playerList.Length;
+        int number = PhotonNetwork.room.PlayerCount;
         Debug.Log(number + "players now in the room");
-        if (number == maxPlayerPerRoom)
+          
+        if (number == maxPlayerPerRoom && PhotonNetwork.isMasterClient)
         {
             PhotonNetwork.LoadLevel("GameScene");
+            //关闭房间
+            PhotonNetwork.room.IsOpen = false;
         }
     }
 
@@ -42,4 +47,5 @@ public class NetworkMatch : Photon.PunBehaviour
         RoomOptions roomOptions = new RoomOptions { IsVisible = true, MaxPlayers = (byte)maxPlayerPerRoom, PublishUserId = true };
         PhotonNetwork.CreateRoom(null, roomOptions, null);
     }
+
 }

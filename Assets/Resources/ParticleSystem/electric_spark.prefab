@@ -104,7 +104,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4435119205246992}
-  - component: {fileID: 114406086825099904}
   m_Layer: 0
   m_Name: electric_spark
   m_TagString: Untagged
@@ -226,17 +225,6 @@ Transform:
   m_Father: {fileID: 4435119205246992}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114406086825099904
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1936899448263594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198353764572716122
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -6,7 +6,7 @@ public class ObjectBehaviour : MonoBehaviour {
 
     public float defaultSpeed=20.0f;
 
-    public enum MoveDirection { Left,FrontLeft,Front,FrontRight,Right,Stay};
+    public enum MoveDirection { Left,FrontLeft,Front,FrontRight,Right,BackRight,Back,BackLeft,Stay};
 
     private Vector3 towards=new Vector3(0.0f,0.0f,1.0f);
     private Vector3 up = new Vector3(0.0f, 1.0f, 0.0f);
@@ -17,11 +17,20 @@ public class ObjectBehaviour : MonoBehaviour {
     private float currentLookAtSlerp = 0.5f;
     private float targetLookAtSlerp = 0.5f;
 
-    private CharacterController character;
+    protected delegate void MoveHandler(Vector3 offset);
+    protected MoveHandler moveHandler;
+    ///private CharacterController character;
+
+    private void Awake()
+    {
+        moveHandler = null;
+    }
 
     private void Start()
     {
-        character = GetComponent<CharacterController>();
+        ///character = GetComponent<CharacterController>();
+        if(moveHandler==null)
+            SetMove(MoveWay.ChangePosition);
     }
 
     private void Update()
@@ -47,11 +56,14 @@ public class ObjectBehaviour : MonoBehaviour {
         //由移动方向决定球面插值的参数
         switch (direction)
         {
-            case MoveDirection.Left:  targetLookAtSlerp = 0.0f; break;
-            case MoveDirection.FrontLeft: targetLookAtSlerp = 0.25f;break;
-            case MoveDirection.Front: targetLookAtSlerp = 0.5f; break;
-            case MoveDirection.FrontRight: targetLookAtSlerp = 0.75f;break;
-            case MoveDirection.Right: targetLookAtSlerp = 1.0f; break;
+            case MoveDirection.Left: SetTargetSlerp(0.0f); break;
+            case MoveDirection.FrontLeft: SetTargetSlerp(0.25f); break;
+            case MoveDirection.Front: SetTargetSlerp(0.5f); break;
+            case MoveDirection.FrontRight: SetTargetSlerp(0.75f); break;
+            case MoveDirection.Right: SetTargetSlerp(1.0f); break;
+            case MoveDirection.BackRight: SetTargetSlerp(1.25f); break;
+            case MoveDirection.Back: SetTargetSlerp(1.5f); break;
+            case MoveDirection.BackLeft: SetTargetSlerp(1.75f); break;
             default: targetLookAtSlerp = 0.5f;break;
         }
         //平滑过渡（角色的转向）
@@ -65,8 +77,21 @@ public class ObjectBehaviour : MonoBehaviour {
         lookAt.Normalize();
         gameObject.transform.LookAt(gameObject.transform.position + lookAt);
         if (direction != MoveDirection.Stay)
-            character.Move(lookAt * speed * Time.deltaTime);
+            ///character.Move(lookAt * speed * Time.deltaTime);
+            ///transform.position += lookAt * speed * Time.deltaTime;
+            moveHandler(lookAt * speed * Time.deltaTime);
     }
+    private void SetTargetSlerp(float slerp)
+    {
+        float x = 2.0f;
+        float b = currentLookAtSlerp;
+        float n = slerp;
+        float k = Mathf.Floor((n - b) / x + 0.5f);
+        currentLookAtSlerp = k * x + b;
+        targetLookAtSlerp = slerp;
+    }
+    
+
 
     //控制角色的转向操作
     public void Turn(float yaw, float pitch)
@@ -122,6 +147,25 @@ public class ObjectBehaviour : MonoBehaviour {
         return targetTowards;
     }
 
-    
+    protected void MoveByChangePosition(Vector3 offset)
+    {
+        transform.position += offset;
+    }
+    protected void MoveWithCharacterController(Vector3 offset)
+    {
+        CharacterController ctrl = gameObject.GetComponent<CharacterController>();
+        if (ctrl == null) return;
+        ctrl.Move(offset);
+    }
+
+    public enum MoveWay { ChangePosition,ByCharacterController};
+    public void SetMove(MoveWay move)
+    {
+        switch (move)
+        {
+            case MoveWay.ChangePosition:moveHandler = new MoveHandler(MoveByChangePosition); break;
+            case MoveWay.ByCharacterController:moveHandler = new MoveHandler(MoveWithCharacterController); break;
+        }
+    }
 
 }
