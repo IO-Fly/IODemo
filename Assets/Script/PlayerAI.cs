@@ -19,6 +19,8 @@ public class PlayerAI : FoodAI
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
         playerBehaviour = gameObject.GetComponent<PlayerBehaviour>();
 
+        objectBehaviour.SetMove(ObjectBehaviour.MoveWay.ByCharacterController);
+
         StartCoroutine(CheckObstacle());
     }
 
