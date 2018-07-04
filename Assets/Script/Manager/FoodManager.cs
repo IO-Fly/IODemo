@@ -4,19 +4,16 @@ using UnityEngine;
 
 public class FoodManager : Photon.PunBehaviour {
 
-	private Vector3 PositionTemp;
-	private Vector3 RotationTemp;
-
     //食物
 	public int FoodCount;
 	public GameObject foodPrefab;
-	public GameObject[] foodInstances;
+	private GameObject[] foodInstances;
     private int[] foodFlushLock;
 
     //食物AI
     public int FoodAICount;
     public GameObject foodAIPrefab;
-    public GameObject[] foodAIInstances;
+    private GameObject[] foodAIInstances;
 
     //毒物AI
     public int[] poisonCounts;
@@ -26,6 +23,10 @@ public class FoodManager : Photon.PunBehaviour {
 
     public bool isMasterBefore = false;
     public static FoodManager localFoodManager = null;
+
+    //边界
+    const int boundary = 195;
+    const int treeBoundary = 40;
 
     void Awake(){
 
@@ -54,20 +55,15 @@ public class FoodManager : Photon.PunBehaviour {
 		options.CachingOption = EventCaching.DoNotCache;
 		PhotonNetwork.RaiseEvent(1,null,true, options);
 
+        //等待同步食物到其他客户端
+        if (PhotonNetwork.isMasterClient)
+        {
+            StartCoroutine(WaitForInitFood());
+        }
 
-	}
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	private void OnEventRaised(byte evCode, object content, int senderid){
+    private void OnEventRaised(byte evCode, object content, int senderid){
 		PhotonPlayer sender = PhotonPlayer.Find(senderid);
 		switch(evCode){
 			//主客户端生成食物
@@ -76,14 +72,14 @@ public class FoodManager : Photon.PunBehaviour {
 			Debug.Log("是否是主客户端: " +sender.IsMasterClient);//主客户端生成食物
 			if(PhotonNetwork.isMasterClient&&sender.IsMasterClient){
 				for(int i=0;i<FoodCount;i++){
-					GameObject instance = (GameObject)Instantiate(foodPrefab, new Vector3(Random.Range(-90,90), Random.Range(-95,-5), Random.Range(-90,90)),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)));
+					GameObject instance = (GameObject)Instantiate(foodPrefab, GetInitPosition(), GetInitRotation());
 					instance.GetComponent<FoodOverrideController>().ID = i;
 					foodInstances[i] = instance;
 				}
 
                 //生成主客户端的食物AI
                 for(int i = 0; i < FoodAICount; i++){
-                    GameObject AIInstance = Instantiate(foodAIPrefab, new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+                    GameObject AIInstance = Instantiate(foodAIPrefab, GetInitPosition(), GetInitRotation());
                     AIInstance.GetComponent<SyncTranform>().ID = i;
                     foodAIInstances[i] = AIInstance;
                 }
@@ -92,7 +88,7 @@ public class FoodManager : Photon.PunBehaviour {
                 poisonCountAll = 0;
                 for(int i = 0; i < poisonCounts.Length; i++) { 
                     for(int j = 0; j < poisonCounts[i]; j++){                   
-                        GameObject AIInstance = Instantiate(poisonPrefabs[i], new Vector3(Random.Range(-90, 90), Random.Range(-95, -5), Random.Range(-90, 90)), Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)));
+                        GameObject AIInstance = Instantiate(poisonPrefabs[i], GetInitPosition(), GetInitRotation());
                         AIInstance.GetComponent<SyncTranform>().ID = poisonCountAll;        
                         poisonInstances[poisonCountAll] = AIInstance;         
                         poisonCountAll ++;
@@ -109,8 +105,12 @@ public class FoodManager : Photon.PunBehaviour {
 			case 2:
 			Debug.Log("其他客户端更新食物");
 			if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+                
+                //同步主客户端场景
+                PhotonNetwork.automaticallySyncScene = true;
+
 				for(int i=0;i<FoodCount;i++){
-					GameObject instance = (GameObject)Instantiate(foodPrefab, new Vector3(((float[])content)[i*7+0],((float[])content)[i*7+1],((float[])content)[i*7+2]),Quaternion.Euler(Random.Range(0,180),Random.Range(0,180),Random.Range(0,180)));
+					GameObject instance = (GameObject)Instantiate(foodPrefab, new Vector3(((float[])content)[i*7+0],((float[])content)[i*7+1],((float[])content)[i*7+2]), GetInitRotation());
 					instance.GetComponent<FoodOverrideController>().translation = new Vector3(((float[])content)[i*7+3],((float[])content)[i*7+4],((float[])content)[i*7+5]);
 					instance.GetComponent<FoodOverrideController>().ID = (int)((float[])content)[i*7+6];
 					foodInstances[i] = instance;
@@ -131,19 +131,35 @@ public class FoodManager : Photon.PunBehaviour {
 			break;
 			//主客户端发起重置食物位置事件
 			case 4:
-			//if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient){
+			/*if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient)*/{
+
 				if(foodFlushLock[(int)((Vector3[])content)[2].x]!=0)
 				return;
 				this.foodFlushLock[(int)((Vector3[])content)[2].x] = 1;
 				StartCoroutine(SetLock((int)((Vector3[])content)[2].x));
-				this.foodInstances[(int)((Vector3[])content)[2].x].transform.position = ((Vector3[])content)[0];
-				this.foodInstances[(int)((Vector3[])content)[2].x].GetComponent<FoodOverrideController>().translation= ((Vector3[])content)[1];
-			//}
+                //未实例化时延迟同步
+                int foodID = (int)((Vector3[])content)[2].x;
+                Vector3 pos = ((Vector3[])content)[0];
+                Vector3 translation = ((Vector3[])content)[1];
+                if (this.foodInstances[foodID] == null)
+                {
+                    StartCoroutine(WaitForSyncFood(foodID, pos, translation));
+                }
+                else
+                { 
+                    this.foodInstances[foodID].transform.position = pos;
+                    this.foodInstances[foodID].GetComponent<FoodOverrideController>().translation = translation;
+                }
+			}
 			break;
             //其他客户端根据主客户端生成食物AI
             case 5:
             Debug.Log("其他客户端创建食物AI");
             if (!PhotonNetwork.isMasterClient && sender.IsMasterClient){
+
+                //同步主客户端场景
+                PhotonNetwork.automaticallySyncScene = true;
+
                 float[] foodAIInfo = (float[])content;
                 FoodAISyncInfo[] foodAIInfoObject = FoodAISyncInfo.Deserialize(foodAIInfo);
                 for(int i = 0; i < FoodAICount; i++) {
@@ -242,67 +258,65 @@ public class FoodManager : Photon.PunBehaviour {
 
     public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
     	if(PhotonNetwork.isMasterClient){
-    		Debug.Log("主客户端发请求给加入的客户端更新食物");
-            //GameObject[] foodList = GameObject.FindGameObjectsWithTag("food");
-            GameObject[] foodList = foodInstances;
-    		float[] foodInfomation = new float[7*foodList.Length];
-    		for(int i=0;i<foodList.Length;i++){
-    			foodInfomation[i*7+0] = foodList[i].transform.position.x;
-    			foodInfomation[i*7+1] = foodList[i].transform.position.y;
-    			foodInfomation[i*7+2] = foodList[i].transform.position.z;
-    			foodInfomation[i*7+3] = foodList[i].GetComponent<FoodOverrideController>().translation.x;
-    			foodInfomation[i*7+4] = foodList[i].GetComponent<FoodOverrideController>().translation.y;
-    			foodInfomation[i*7+5] = foodList[i].GetComponent<FoodOverrideController>().translation.z;
-    			foodInfomation[i*7+6] = foodList[i].GetComponent<FoodOverrideController>().ID;
-    		}
-    		RaiseEventOptions options = new RaiseEventOptions();
-    		options.TargetActors = new int[]{newPlayer.ID};
-    		PhotonNetwork.RaiseEvent(2,foodInfomation,true,options);
+            //StartCoroutine(WaitForInitFood(newPlayer));
+            //Debug.Log("主客户端发请求给加入的客户端更新食物");
+            ////GameObject[] foodList = GameObject.FindGameObjectsWithTag("food");
+            //GameObject[] foodList = foodInstances;
+            //float[] foodInfomation = new float[7 * foodList.Length];
+            //for (int i = 0; i < foodList.Length; i++)
+            //{
+            //    foodInfomation[i * 7 + 0] = foodList[i].transform.position.x;
+            //    foodInfomation[i * 7 + 1] = foodList[i].transform.position.y;
+            //    foodInfomation[i * 7 + 2] = foodList[i].transform.position.z;
+            //    foodInfomation[i * 7 + 3] = foodList[i].GetComponent<FoodOverrideController>().translation.x;
+            //    foodInfomation[i * 7 + 4] = foodList[i].GetComponent<FoodOverrideController>().translation.y;
+            //    foodInfomation[i * 7 + 5] = foodList[i].GetComponent<FoodOverrideController>().translation.z;
+            //    foodInfomation[i * 7 + 6] = foodList[i].GetComponent<FoodOverrideController>().ID;
+            //}
+            //RaiseEventOptions options = new RaiseEventOptions();
+            //options.TargetActors = new int[] { newPlayer.ID };
+            //PhotonNetwork.RaiseEvent(2, foodInfomation, true, options);
 
 
-            //主客户端发请求给加入的客户端更新食物AI       
-            float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
-            PhotonNetwork.RaiseEvent(5, foodAIInfo, true, options);
+            ////主客户端发请求给加入的客户端更新食物AI       
+            //float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
+            //PhotonNetwork.RaiseEvent(5, foodAIInfo, true, options);
 
-            //主客户端发请求给加入的客户端更新毒物AI
-            foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
-            PhotonNetwork.RaiseEvent(8, foodAIInfo, true, options);
-
+            ////主客户端发请求给加入的客户端更新毒物AI
+            //foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
+            //PhotonNetwork.RaiseEvent(8, foodAIInfo, true, options);
         }
     }
 
-    IEnumerator SyncPosition(){
-    	while(true){
-    		//主客户端发起更新
-    		Debug.Log("主客户端发起更新");
-    		Vector3[] foodsPosition = new Vector3[FoodCount];
-    		for(int i=0;i<FoodCount;i++){
-    			Debug.Log(foodInstances[i].transform.position.x);
-    			foodsPosition[i].x = this.foodInstances[i].transform.position.x;
-    			foodsPosition[i].y = this.foodInstances[i].transform.position.y;
-    			foodsPosition[i].z = this.foodInstances[i].transform.position.z;
-    		}
-    		RaiseEventOptions options  = new RaiseEventOptions();
-    		options.Receivers = ReceiverGroup.Others;
-    		options.CachingOption = EventCaching.DoNotCache;
-    		PhotonNetwork.RaiseEvent(3, foodsPosition,true, options);
-    	    yield return new WaitForSeconds(0.5f);
-    	}
+
+    #region IEnumerator
+    IEnumerator SyncPosition()
+    {
+        while (true)
+        {
+            //主客户端发起更新
+            Debug.Log("主客户端发起更新");
+            Vector3[] foodsPosition = new Vector3[FoodCount];
+            for (int i = 0; i < FoodCount; i++)
+            {
+                Debug.Log(foodInstances[i].transform.position.x);
+                foodsPosition[i].x = this.foodInstances[i].transform.position.x;
+                foodsPosition[i].y = this.foodInstances[i].transform.position.y;
+                foodsPosition[i].z = this.foodInstances[i].transform.position.z;
+            }
+            RaiseEventOptions options = new RaiseEventOptions();
+            options.Receivers = ReceiverGroup.Others;
+            options.CachingOption = EventCaching.DoNotCache;
+            PhotonNetwork.RaiseEvent(3, foodsPosition, true, options);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
-
-    void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer){
-    	if(PhotonNetwork.isMasterClient){
-    		//StartCoroutine(SyncPosition());
-    	}
-    }
-
-
     //定时同步食物AI位置及旋转
     public IEnumerator SyncFoodAITranform()
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.016f);
+            yield return new WaitForSeconds(0.05f);
 
             Debug.Log("主客户端周期发起更新食物AI");
             RaiseEventOptions options = new RaiseEventOptions();
@@ -311,7 +325,7 @@ public class FoodManager : Photon.PunBehaviour {
             //主客户端定时更新其他客户端的食物AI位置及旋转
             if (FoodAICount > 0 && foodAIInstances[0] != null)
             {
-                float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);         
+                float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
                 PhotonNetwork.RaiseEvent(6, foodAIInfo, true, options);
             }
 
@@ -320,14 +334,123 @@ public class FoodManager : Photon.PunBehaviour {
                 float[] foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
                 PhotonNetwork.RaiseEvent(9, foodAIInfo, true, options);
             }
-   
+
+        }
+    }
+    IEnumerator SetLock(int id)
+    {
+        yield return new WaitForSeconds(1);
+        this.foodFlushLock[id] = 0;
+    }
+
+    IEnumerator WaitForInitFood()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2.0f);
+            if(foodInstances[foodAIInstances.Length - 1] != null &&
+                foodAIInstances[foodAIInstances.Length - 1] != null &&
+                poisonInstances[poisonInstances.Length - 1] != null
+                )
+            {
+                Debug.Log("主客户端发请求给加入的客户端更新食物");
+                //GameObject[] foodList = GameObject.FindGameObjectsWithTag("food");
+                GameObject[] foodList = foodInstances;
+                float[] foodInfomation = new float[7 * foodList.Length];
+                for (int i = 0; i < foodList.Length; i++)
+                {
+                    foodInfomation[i * 7 + 0] = foodList[i].transform.position.x;
+                    foodInfomation[i * 7 + 1] = foodList[i].transform.position.y;
+                    foodInfomation[i * 7 + 2] = foodList[i].transform.position.z;
+                    foodInfomation[i * 7 + 3] = foodList[i].GetComponent<FoodOverrideController>().translation.x;
+                    foodInfomation[i * 7 + 4] = foodList[i].GetComponent<FoodOverrideController>().translation.y;
+                    foodInfomation[i * 7 + 5] = foodList[i].GetComponent<FoodOverrideController>().translation.z;
+                    foodInfomation[i * 7 + 6] = foodList[i].GetComponent<FoodOverrideController>().ID;
+                }
+                RaiseEventOptions options = new RaiseEventOptions();
+                //options.TargetActors = new int[] { newPlayer.ID };
+                options.Receivers = ReceiverGroup.Others;
+                PhotonNetwork.RaiseEvent(2, foodInfomation, true, options);
+
+
+                //主客户端发请求给加入的客户端更新食物AI       
+                float[] foodAIInfo = FoodAISyncInfo.Serialize(foodAIInstances);
+                PhotonNetwork.RaiseEvent(5, foodAIInfo, true, options);
+
+                //主客户端发请求给加入的客户端更新毒物AI
+                foodAIInfo = FoodAISyncInfo.Serialize(poisonInstances);
+                PhotonNetwork.RaiseEvent(8, foodAIInfo, true, options);
+
+                break;
+            }
+
         }
     }
 
-	IEnumerator SetLock(int id){
-		yield return new WaitForSeconds(1);
-		this.foodFlushLock[id] = 0;	
-	}
+    IEnumerator WaitForSyncFood(int foodID, Vector3 pos, Vector3 translation)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.05f);
+            if(foodInstances[foodID] != null)
+            {
+                foodInstances[foodID].transform.position = pos;
+                foodInstances[foodID].GetComponent<FoodOverrideController>().translation = translation;
+                break;
+            }         
+        }
+    }
 
-	
+    #endregion
+
+
+
+    #region Utility
+    public static Vector3 GetInitPosition()
+    {
+
+        Vector3 initPos = new Vector3();
+
+        while (true)
+        {
+            initPos.x = Random.Range(-boundary, boundary);
+            initPos.y = Random.Range(-boundary, -5);
+            initPos.z = Random.Range(-boundary, boundary);
+
+            if (IsInBoundary(initPos))
+            {
+                break;
+            }
+        }
+        return initPos;
+
+    }
+
+    public static Quaternion GetInitRotation()
+    {
+        return Quaternion.Euler(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
+    }
+
+    public static bool IsInBoundary(Vector3 pos)
+    {
+        if(pos.x < -boundary || pos.x > boundary ||
+            pos.y < -boundary || pos.y > -5 ||
+            pos.z <-boundary || pos.z > boundary
+            )
+        {
+            return false;
+        }
+        else if(pos.x > -treeBoundary && pos.x < treeBoundary &&
+            pos.z > -treeBoundary && pos.z < treeBoundary)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    #endregion
+
 }

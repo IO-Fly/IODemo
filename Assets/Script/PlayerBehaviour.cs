@@ -94,6 +94,14 @@ public class PlayerBehaviour : MonoBehaviour {
         curFlyCoolDown = flyCooldown;//技能冷却
         float verticalSpeed = gameObject.GetComponent<Player>().GetSpeed() * gameObject.transform.forward.normalized.y;
         flySpeed = minFlySpeed + verticalSpeed;
+
+        //播放音效
+        if(this.tag == "player" && this.GetComponent<Player>().photonView.isMine)
+        {
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlaySeaOut();
+        }
+       
     }
 
     public void WaitForFly()
@@ -104,6 +112,13 @@ public class PlayerBehaviour : MonoBehaviour {
     public void EndFly()
     {
         flyState = curFlyCoolDown <= 0.0f ? FlyState.ReadyToFly : FlyState.WaitForFly;
+
+        //播放音效
+        if (this.tag == "player" && this.GetComponent<Player>().photonView.isMine)
+        {
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlaySeaIn();
+        }
     }
 
     public void EnterSky()

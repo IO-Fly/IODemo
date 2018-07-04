@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class Player : Photon.PunBehaviour {
 
@@ -98,21 +98,38 @@ public class Player : Photon.PunBehaviour {
 
     void Awake()
     {
-        // 获得battleUI
-        GameObject rootCanvas = GameObject.Find("HUDCanvas");
-        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
-        battleUI = battleUINode.GetComponent<BattleUI>();
-
 
         //玩家分身不维护在玩家列表
         if (this.tag != "playerCopy")
         {
             // 增加当前player到玩家列表
-            networkManager.playerList.Add(this);
+            networkManager.playerList.Add(this);      
+        }
+        DontDestroyOnLoad(this.gameObject);
+
+        //隐藏自身等待场景加载完成
+        if (!PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != "GameScene")
+        {
+            this.gameObject.SetActive(false);
+        }
+              
+    }
+    void OnEnable()
+    {
+        //当前场景
+        Debug.LogWarning("当前场景： " + SceneManager.GetActiveScene().name);
+
+        // 获得battleUI
+        GameObject rootCanvas = GameObject.Find("HUDCanvas");
+        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
+        battleUI = battleUINode.GetComponent<BattleUI>();
+
+        //玩家分身不维护在玩家列表
+        if (this.tag != "playerCopy")
+        {
             // battleUI排行榜增加一个用户
             battleUI.AddPlayer();
         }
-        
     }
 
     void OnControllerColliderHit(ControllerColliderHit other)
@@ -158,18 +175,30 @@ public class Player : Photon.PunBehaviour {
                 other.gameObject.GetComponent<Player>().Lock = 1;
                 other.gameObject.GetComponent<Player>().photonView.RPC("DoBomb", PhotonTargets.All, -other.normal);
                 Debug.Log("对方弹开");
-                Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
+
+                //玩家播放音效，分身不播放
+                if(this.tag == "player")
+                {
+                    Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
+                }
+                
             }
             else if (this.gameObject.transform.localScale.x < other.gameObject.transform.localScale.x)
             {
                 Debug.Log("自己弹开");
                 this.StartCoroutine(Bomb(other.normal));
-                Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
+
+                //玩家播放音效，分身不播放
+                if (this.tag == "player")
+                {
+                    Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
+                }
+               
             }
 
 
         }
-        else if (/*other.gameObject.tag == "Wall" &&*/ this.photonView.isMine)
+        else if (this.photonView.isMine && other.gameObject.tag != "poison" && other.gameObject.tag != "foodAI")/*other.gameObject.tag == "Wall" */
         {
             //播放音效
             GameObject Audio = GameObject.Find("Audio");
@@ -436,14 +465,14 @@ public class Player : Photon.PunBehaviour {
     void EatPoison()
     {
         Debug.Log("玩家：碰到了毒物");
+        AddPlayerEnergy(-0.5f);
 
-        if(transform.localScale.x > 1)
+        //播放音效
+        if (this.tag == "player" && this.GetComponent<Player>().photonView.isMine)
         {
-            AddPlayerEnergy(-0.5f);
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayEatPoison();
         }
-
-        //音效？？？
-
     }
 
 
