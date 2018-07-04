@@ -47,9 +47,6 @@ public class Player : Photon.PunBehaviour {
         else
         {
             this.photonView.RPC("SetPlayerName", PhotonTargets.All, NetworkMatch.playerName);//设置玩家名字
-            //playerName = LobbyUIManager.playerName;
-            //呈现更新的玩家列表
-            //showPlayerList();
         }
 
     }
@@ -90,8 +87,10 @@ public class Player : Photon.PunBehaviour {
         if(PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
         {
             Debug.LogWarning("Master change!");
+            FoodManager.localFoodManager.InitFoodInMaster();
             FoodManager.localFoodManager.StartCoroutine(FoodManager.localFoodManager.SyncFoodAITranform());
             FoodManager.localFoodManager.isMasterBefore = true;
+
         }
 
     }
