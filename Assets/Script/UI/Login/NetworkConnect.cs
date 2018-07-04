@@ -53,10 +53,13 @@ public class NetworkConnect : Photon.PunBehaviour
         // 加载lobby资源
         GameObject lobbyScene = GameObject.Instantiate(resourceRequest.asset, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
         lobbyCanvas.SetActive(true);
+        lobbyCanvas.GetComponent<LobbyUI>().SetLobbyScene(lobbyScene);
 
         // 释放login资源
-        this.gameObject.SetActive(false);
-        loginScene.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
+        //loginScene.gameObject.SetActive(false);
+        Destroy(this.gameObject);
+        Destroy(loginScene);
     }
 
 }
