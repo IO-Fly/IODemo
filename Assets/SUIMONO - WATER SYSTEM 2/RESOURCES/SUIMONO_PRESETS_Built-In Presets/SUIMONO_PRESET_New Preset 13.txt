@@ -45,7 +45,7 @@
 <data_heightfoamamt>(0.85)
 <data_hfoamheight>(0.65)
 <data_hfoamspread>(0.276)
-<data_enableunderdebris>(True)
+<data_enableunderdebris>(False)
 <data_underlightfactor>(0.92)
 <data_underrefractionamount>(0.015)
 <data_underrefractionscale>(0.14)
