@@ -104,7 +104,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4968675260301018}
-  - component: {fileID: 114076328684890650}
   m_Layer: 0
   m_Name: "\u6295\u5C04\u5149\u6548"
   m_TagString: Untagged
@@ -195,17 +194,6 @@ Transform:
   m_Father: {fileID: 4968675260301018}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114076328684890650
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1961510370183014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!198 &198059582315434718
 ParticleSystem:
   m_ObjectHideFlags: 1

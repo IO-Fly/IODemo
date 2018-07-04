@@ -28,7 +28,7 @@ public class FoodOverrideController : MonoBehaviour {
             RaiseEventOptions options = new RaiseEventOptions();
             options.Receivers = ReceiverGroup.All;
             options.CachingOption = EventCaching.DoNotCache;
-            PhotonNetwork.RaiseEvent(4, Data, true, options);
+            PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_FOOD, Data, true, options);
 
         }
 	}
@@ -43,7 +43,7 @@ public class FoodOverrideController : MonoBehaviour {
 			    RaiseEventOptions options = new RaiseEventOptions();
 			    options.Receivers = ReceiverGroup.All;
 			    options.CachingOption = EventCaching.DoNotCache;
-			    PhotonNetwork.RaiseEvent(4,Data,true,options);
+			    PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_FOOD, Data,true,options);
 
                 //触发玩家吃到食物事件
                 other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);

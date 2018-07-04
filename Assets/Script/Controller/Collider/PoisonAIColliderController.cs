@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodAIColliderController : MonoBehaviour {
+public class PoisonAIColliderController : FoodAIColliderController {
 
 	// Use this for initialization
 	void Start () {
@@ -13,14 +13,12 @@ public class FoodAIColliderController : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnTriggerStay(Collider other)
-    {
-        //Debug.Log("食物AI：碰撞");
-        if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy")
-        {    
+	private void OnTriggerStay(Collider other){
+		if(other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy"){
+
             if (other.gameObject.GetComponent<Player>().photonView.isMine)
             {
-                Debug.Log("食物AI：删除");
+                Debug.Log("毒物AI：删除");
 
                 //重置主客户端食物AI位置
                 GameObject parent = this.gameObject.GetComponentInParent<SyncTranform>().gameObject;
@@ -41,13 +39,14 @@ public class FoodAIColliderController : MonoBehaviour {
                 RaiseEventOptions options = new RaiseEventOptions();
                 options.Receivers = ReceiverGroup.All;
                 options.CachingOption = EventCaching.DoNotCache;
-                PhotonNetwork.RaiseEvent(7, foodAIInfo, true, options);
+                PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_POISION, foodAIInfo, true, options);
 
-                //触发玩家吃到食物事件
-                other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);
-
+                //触发玩家吃到毒物事件
+                other.gameObject.GetComponent<Player>().photonView.RPC("EatPoison", PhotonTargets.AllViaServer);
             }
+           
         }
-    }
+	}
+
 
 }
