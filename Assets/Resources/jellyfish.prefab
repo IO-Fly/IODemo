@@ -630,7 +630,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4436113882574760}
   - component: {fileID: 33007228352855812}
-  - component: {fileID: 143312035500382746}
   - component: {fileID: 114117558101306716}
   - component: {fileID: 114889689325247198}
   - component: {fileID: 114477124284443462}
@@ -1744,20 +1743,3 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.012008224, y: -0.047588862, z: -0.020094108}
     m_Extent: {x: 0.026469093, y: 0.029093318, z: 0.028349143}
   m_DirtyAABB: 0
---- !u!143 &143312035500382746
-CharacterController:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984773448182634}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Height: 0
-  m_Radius: 0.9
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
