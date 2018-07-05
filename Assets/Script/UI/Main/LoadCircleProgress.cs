@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class LoadCircleProgress : MonoBehaviour
 {
-    private RectTransform rectTransform;
-    private float rotateSpeed = 250f;
+    public float LoadingCircleSpeed = 250f;
 
+    private RectTransform rectTransform;
 	private void Start ()
     {
         rectTransform = this.GetComponent<RectTransform>();
@@ -14,6 +14,6 @@ public class LoadCircleProgress : MonoBehaviour
 
 	private void Update ()
     {
-        rectTransform.Rotate(0f, 0f, rotateSpeed * Time.deltaTime);
+        rectTransform.Rotate(-Vector3.forward * Time.deltaTime * LoadingCircleSpeed);
 	}
 }
