@@ -18,7 +18,6 @@ public class FoodAI : PoisonAI {
  
     // Use this for initialization
     void Start() {
-        character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
         //设置一个随机的初始方向
         objectBehaviour.SetForwardDirecion(GetRandomDirection());
