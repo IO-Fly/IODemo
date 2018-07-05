@@ -15,7 +15,6 @@ public class PlayerAI : FoodAI
     void Start()
     {
         player = gameObject.GetComponent<Player>();
-        character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
         playerBehaviour = gameObject.GetComponent<PlayerBehaviour>();
 
