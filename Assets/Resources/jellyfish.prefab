@@ -279,9 +279,10 @@ GameObject:
   - component: {fileID: 4069978612489974}
   - component: {fileID: 136902180897387838}
   - component: {fileID: 114495076003348932}
+  - component: {fileID: 54397937046758640}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: AICollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1221,6 +1222,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1984773448182634}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54397937046758640
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1401529239165480}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95105219669546012
 Animator:
   serializedVersion: 3
