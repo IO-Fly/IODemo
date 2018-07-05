@@ -9,14 +9,12 @@ public class PoisonAI : MonoBehaviour {
     protected float resetCountForWander = 0.0f;
     protected float turnHorizontal = 0.0f;
     protected float turnVertical = 0.0f;
-
-    protected CharacterController character;
+    
     protected ObjectBehaviour objectBehaviour;
 
 
     // Use this for initialization
     void Start () {
-        character = gameObject.GetComponent<CharacterController>();
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
         //设置一个随机的初始方向
         objectBehaviour.SetForwardDirecion(GetRandomDirection());
