@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MenuUI : MonoBehaviour {
 	private bool isActive = false;
 	// Use this for initialization
-	void Start () {
+	void Awake(){
 		
+	}
+	void Start () {
 	}
 	
 	// Update is called once per frame
@@ -17,12 +19,30 @@ public class MenuUI : MonoBehaviour {
 				transform.Find("Menu").gameObject.SetActive(false);
 				isActive = false;
 			}
-			else{
+			else {
 				transform.Find("Menu").gameObject.SetActive(true);
 				isActive = true;
 			}
 			
 		}
+	}
+
+	public void ContinueGame(){
+		transform.Find("Menu").gameObject.SetActive(false);
+		isActive = false;
+	}
+
+	public void ExitGame(){
+		Application.Quit();
+	}
+
+	public void BackLobby(){
+		FoodManager.localFoodManager = null;
+		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.Disconnect();
+		SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("GameScene"));
+		SceneManager.LoadScene(0);
+
 	}
 
 }
