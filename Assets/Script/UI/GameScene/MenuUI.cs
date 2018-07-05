@@ -14,12 +14,15 @@ public class MenuUI : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Escape)){
 			Debug.Log("esc按下");
 			if(isActive){
-				this.gameObject.SetActive(false);
+				transform.Find("Menu").gameObject.SetActive(false);
+				isActive = false;
 			}
 			else{
-				this.gameObject.SetActive(true);
+				transform.Find("Menu").gameObject.SetActive(true);
+				isActive = true;
 			}
 			
 		}
 	}
+
 }
