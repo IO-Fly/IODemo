@@ -26,9 +26,17 @@ public class Boundary : Photon.PunBehaviour{
     {
         string tag = other.gameObject.tag;
         if ((tag == "playerCopy" && blockPlayerAI)
-            || ((tag == "food" || tag == "poison"||tag=="foodAI") && blockFood))
+            || ((tag == "food" || tag == "poisonCollider"||tag=="foodAI") && blockFood))
         {
-            ObjectBehaviour objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
+            ObjectBehaviour objectBehaviour;
+            if (tag == "poisonCollider")
+            {
+                objectBehaviour = other.gameObject.GetComponentInParent<ObjectBehaviour>();
+            }
+            else
+            {
+                objectBehaviour = other.gameObject.GetComponent<ObjectBehaviour>();
+            }
             if (objectBehaviour != null)
             {
                 Vector3 direction = objectBehaviour.GetForwardDirection();

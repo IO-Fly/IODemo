@@ -11,7 +11,7 @@ public class NetworkConnect : Photon.PunBehaviour
     {
         // 初始化PhotonNetwork
         PhotonNetwork.autoJoinLobby = false;
-        PhotonNetwork.automaticallySyncScene = true;
+        PhotonNetwork.automaticallySyncScene = false;
         PhotonNetwork.AuthValues = new AuthenticationValues()
         {
             AuthType = CustomAuthenticationType.Custom
