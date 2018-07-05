@@ -9,7 +9,6 @@ public class NetworkMatch : Photon.PunBehaviour
     public static string playerName;    // 在游戏过程中保留当前玩家名称
     public int maxPlayerPerRoom = 2;    // 单个房间最多玩家数目
 
-    AsyncOperation asyncOperation;
 
     public override void OnConnectedToMaster()
     {
@@ -44,28 +43,18 @@ public class NetworkMatch : Photon.PunBehaviour
         }
         
     }
- 
 
+    bool isLoadScene = false;
     void Update()
     {
-
-        if (PhotonNetwork.inRoom && PhotonNetwork.room.PlayerCount == maxPlayerPerRoom
-            && asyncOperation == null)
+        if (isLoadScene == false && PhotonNetwork.inRoom && PhotonNetwork.room.PlayerCount == maxPlayerPerRoom)
         {
-            asyncOperation = PhotonNetwork.LoadLevelAsync("GameScene");   
-            asyncOperation.allowSceneActivation = false;
-            Debug.Log("正在进入游戏");
+            // 开始加载游戏场景
+            isLoadScene = true;
+            GetComponent<SceneLoader>().LoadScene("GameScene");
         }
          
-        if(asyncOperation != null)
-        {
-            Debug.LogWarning("Progress: " + asyncOperation.progress);
-            if(asyncOperation.progress >= 0.90f)
-            {
-                asyncOperation.allowSceneActivation = true;
-                Debug.Log("进入游戏");
-            }
-        }
+
 
     }
 
