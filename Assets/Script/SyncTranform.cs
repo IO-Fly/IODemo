@@ -29,7 +29,7 @@ public class SyncTranform : MonoBehaviour {
             //根据距离计算插值速率
             float lerpRate = 15;
             float distance = Vector3.Distance(this.transform.position, syncPosition);
-            Debug.LogWarning("Distance: " + distance);
+            //Debug.LogWarning("Distance: " + distance);
            
             if(distance > 0.5)
             {

@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 114495076003348932}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: foodAI
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

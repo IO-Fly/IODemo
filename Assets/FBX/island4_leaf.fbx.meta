@@ -1,0 +1,282 @@
+fileFormatVersion: 2
+guid: 83fbf9a6d19c03246997a5faff5f8838
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: coconut1
+    100002: coconut2
+    100004: coconut3
+    100006: coconut_tree
+    100008: group1
+    100010: group10
+    100012: group2
+    100014: group3
+    100016: group6
+    100018: group7
+    100020: group8
+    100022: group9
+    100024: island1_coconuttree
+    100026: island1_tree_coconut
+    100028: island4
+    100030: island4_chair
+    100032: island4_chair_body
+    100034: island4_chair_leg
+    100036: island4_chair_leg0
+    100038: island4_chair_leg1
+    100040: island4_chair_leg2
+    100042: island4_chair_leg3
+    100044: island4_coconut_tree
+    100046: island4_land
+    100048: //RootNode
+    100050: island4_umbrella
+    100052: island4_umbrella_head
+    100054: island4_umbrella_stick
+    100056: pCone2
+    100058: polySurface1
+    100060: polySurface1 1
+    100062: polySurface1 2
+    100064: polySurface1 3
+    100066: polySurface1 4
+    100068: polySurface1 5
+    100070: polySurface2
+    100072: polySurface2 1
+    100074: polySurface2 2
+    100076: polySurface2 3
+    100078: polySurface2 4
+    100080: polySurface2 5
+    100082: polySurface4
+    100084: polySurface4 1
+    100086: polySurface4 2
+    100088: polySurface4 3
+    100090: polySurface4 4
+    100092: polySurface4 5
+    400000: coconut1
+    400002: coconut2
+    400004: coconut3
+    400006: coconut_tree
+    400008: group1
+    400010: group10
+    400012: group2
+    400014: group3
+    400016: group6
+    400018: group7
+    400020: group8
+    400022: group9
+    400024: island1_coconuttree
+    400026: island1_tree_coconut
+    400028: island4
+    400030: island4_chair
+    400032: island4_chair_body
+    400034: island4_chair_leg
+    400036: island4_chair_leg0
+    400038: island4_chair_leg1
+    400040: island4_chair_leg2
+    400042: island4_chair_leg3
+    400044: island4_coconut_tree
+    400046: island4_land
+    400048: //RootNode
+    400050: island4_umbrella
+    400052: island4_umbrella_head
+    400054: island4_umbrella_stick
+    400056: pCone2
+    400058: polySurface1
+    400060: polySurface1 1
+    400062: polySurface1 2
+    400064: polySurface1 3
+    400066: polySurface1 4
+    400068: polySurface1 5
+    400070: polySurface2
+    400072: polySurface2 1
+    400074: polySurface2 2
+    400076: polySurface2 3
+    400078: polySurface2 4
+    400080: polySurface2 5
+    400082: polySurface4
+    400084: polySurface4 1
+    400086: polySurface4 2
+    400088: polySurface4 3
+    400090: polySurface4 4
+    400092: polySurface4 5
+    2100000: i4floor
+    2100002: lambert2
+    2100004: i4san2
+    2100006: i4san1
+    2100008: i4chair
+    2100010: island1_tree
+    2100012: island1_leave
+    2100014: island1_plane1
+    2100016: island1_leave1
+    2100018: island1_stone3
+    2100020: island1_stone5
+    2100022: island1_stone4
+    2300000: coconut1
+    2300002: coconut2
+    2300004: coconut3
+    2300006: island4_chair_body
+    2300008: island4_chair_leg0
+    2300010: island4_chair_leg1
+    2300012: island4_chair_leg2
+    2300014: island4_chair_leg3
+    2300016: island4_land
+    2300018: island4_umbrella_head
+    2300020: island4_umbrella_stick
+    2300022: pCone2
+    2300024: polySurface1
+    2300026: polySurface1 1
+    2300028: polySurface1 2
+    2300030: polySurface1 3
+    2300032: polySurface1 4
+    2300034: polySurface1 5
+    2300036: polySurface2
+    2300038: polySurface2 1
+    2300040: polySurface2 2
+    2300042: polySurface2 3
+    2300044: polySurface2 4
+    2300046: polySurface2 5
+    2300048: polySurface4
+    2300050: polySurface4 1
+    2300052: polySurface4 2
+    2300054: polySurface4 3
+    2300056: polySurface4 4
+    2300058: polySurface4 5
+    3300000: coconut1
+    3300002: coconut2
+    3300004: coconut3
+    3300006: island4_chair_body
+    3300008: island4_chair_leg0
+    3300010: island4_chair_leg1
+    3300012: island4_chair_leg2
+    3300014: island4_chair_leg3
+    3300016: island4_land
+    3300018: island4_umbrella_head
+    3300020: island4_umbrella_stick
+    3300022: pCone2
+    3300024: polySurface1
+    3300026: polySurface1 1
+    3300028: polySurface1 2
+    3300030: polySurface1 3
+    3300032: polySurface1 4
+    3300034: polySurface1 5
+    3300036: polySurface2
+    3300038: polySurface2 1
+    3300040: polySurface2 2
+    3300042: polySurface2 3
+    3300044: polySurface2 4
+    3300046: polySurface2 5
+    3300048: polySurface4
+    3300050: polySurface4 1
+    3300052: polySurface4 2
+    3300054: polySurface4 3
+    3300056: polySurface4 4
+    3300058: polySurface4 5
+    4300000: island4_land
+    4300002: island4_umbrella_head
+    4300004: island4_umbrella_stick
+    4300006: island4_chair_body
+    4300008: island4_chair_leg0
+    4300010: island4_chair_leg1
+    4300012: island4_chair_leg2
+    4300014: island4_chair_leg3
+    4300016: pCone2
+    4300018: polySurface4
+    4300020: polySurface2
+    4300022: polySurface1
+    4300024: polySurface4
+    4300026: polySurface2
+    4300028: polySurface1
+    4300030: polySurface4
+    4300032: polySurface2
+    4300034: polySurface1
+    4300036: polySurface4
+    4300038: polySurface2
+    4300040: polySurface1
+    4300042: polySurface4
+    4300044: polySurface2
+    4300046: polySurface1
+    4300048: polySurface4
+    4300050: polySurface2
+    4300052: polySurface1
+    4300054: coconut3
+    4300056: coconut2
+    4300058: coconut1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

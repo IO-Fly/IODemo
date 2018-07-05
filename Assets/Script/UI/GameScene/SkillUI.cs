@@ -36,19 +36,19 @@ public class SkillUI : MonoBehaviour {
         Sprite skillSprite;
         if(skillManager.playerSkills[0].GetSkillType() == PlayerSkillController.SkillType.SIZE)
         {
-            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/big");
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/变大");
         }
         else if(skillManager.playerSkills[0].GetSkillType() == PlayerSkillController.SkillType.SPEED)
         {
-            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/fast");
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/加速");
         }
         else if (skillManager.playerSkills[0].GetSkillType() == PlayerSkillController.SkillType.COPY)
         {
-            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/bomb");
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/分身");
         }
         else 
         {
-            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/hide");
+            skillSprite = Resources.Load<Sprite>("UI_textures/SkillImage/隐身");
         }
 
         skillImage = this.transform.Find("SkillImage").gameObject.GetComponent<Image>();
