@@ -28,12 +28,12 @@ public class PlayerBehaviour : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         player = GetComponent<Player>();
-        speed = player.GetSpeed();
 	}
 
     private void Start()
     {
         character = GetComponent<CharacterController>();
+        speed = player.GetSpeed();
     }
 
     // Update is called once per frame
