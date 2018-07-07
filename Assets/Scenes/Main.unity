@@ -113,6 +113,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &23799510 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1156432221017888, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61,
+    type: 2}
+  m_PrefabInternal: {fileID: 2032609957}
+--- !u!114 &23799511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 23799510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d497d8b258a6c468cf20475c1600b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadingCircleSpeed: 250
 --- !u!1 &206284958
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,9 +310,9 @@ RectTransform:
   m_Father: {fileID: 1782934899}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 110}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -128}
   m_SizeDelta: {x: 200, y: 48}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &402862289
@@ -664,7 +681,7 @@ GameObject:
   - component: {fileID: 1235035589}
   - component: {fileID: 1235035588}
   m_Layer: 5
-  m_Name: Progress
+  m_Name: Loading Circle Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -699,6 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d497d8b258a6c468cf20475c1600b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingCircleSpeed: 250
 --- !u!114 &1235035589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,12 +736,12 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a2ee6644c62a32743929f71ecbcd7977, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 421317aee8255874293cb2456a10c630, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.1
+  m_FillAmount: 0.2
   m_FillClockwise: 1
   m_FillOrigin: 0
 --- !u!222 &1235035590
@@ -948,9 +966,9 @@ RectTransform:
   m_Father: {fileID: 1782934899}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -190}
   m_SizeDelta: {x: 200, y: 48}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &1307368298
@@ -1086,7 +1104,7 @@ GameObject:
   - component: {fileID: 1355714583}
   - component: {fileID: 1355714582}
   m_Layer: 5
-  m_Name: LoadingCircleImage
+  m_Name: Loading Circle Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1111,7 +1129,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a2ee6644c62a32743929f71ecbcd7977, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 421317aee8255874293cb2456a10c630, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1176,8 +1194,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 160}
-  m_SizeDelta: {x: 800, y: 400}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 800, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1385926076
 MonoBehaviour:
@@ -1355,7 +1373,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1650,9 +1668,9 @@ RectTransform:
   m_Father: {fileID: 1782934899}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 146}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -80}
   m_SizeDelta: {x: 200, y: 40}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1001 &2032609957
@@ -1751,15 +1769,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1933557936688500, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114156279516293368, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61,
-        type: 2}
-      propertyPath: maxPlayerPerRoom
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61, type: 2}

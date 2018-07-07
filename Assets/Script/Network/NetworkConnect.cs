@@ -46,7 +46,7 @@ public class NetworkConnect : Photon.PunBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        ResourceRequest resourceRequest = Resources.LoadAsync("UI_prefabs/Lobby/LobbyScene");
+        ResourceRequest resourceRequest = Resources.LoadAsync("UI_prefabs/Main/LobbyScene");
         yield return resourceRequest;
 
         //Debug.LogWarning("异步加载完成");
