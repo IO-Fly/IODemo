@@ -70,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour {
     public void DropInSky()
     {
         flySpeed -= gravity * Time.deltaTime;
-        transform.Translate(0.0f, flySpeed * Time.deltaTime, 0.0f, Space.World);
+        character.Move(new Vector3(0.0f, flySpeed * Time.deltaTime, 0.0f));
     }
 
     public void MoveInSeaSurface()

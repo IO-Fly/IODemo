@@ -16,7 +16,8 @@ public class SkyManager : Photon.PunBehaviour {
 	}
 	void OnTriggerEnter(Collider other){
         Debug.Log("离开海面");
-        if (other.gameObject.tag == "player"){
+        if (other.gameObject.tag == "player"|| other.gameObject.tag == "playerCopy")
+        {
             other.gameObject.GetComponent<PlayerBehaviour>().EnterSky();
             if (other.gameObject.GetComponent<PlayerBehaviour>().CanFly())
             {
@@ -36,7 +37,8 @@ public class SkyManager : Photon.PunBehaviour {
 	void OnTriggerExit(Collider other){
 		Debug.Log("进入海底");
         
-        if (other.gameObject.tag == "player"){
+        if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy")
+        {
             other.gameObject.GetComponent<PlayerBehaviour>().LeaveSky();
             other.gameObject.GetComponent<PlayerBehaviour>().EndFly();
 

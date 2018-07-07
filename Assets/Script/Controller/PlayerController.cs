@@ -76,16 +76,11 @@ public class PlayerController : MonoBehaviour
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.Left);
         else if (moveVertical != 0.0f)
         {
-            if (playerBehaviour.flyState == PlayerBehaviour.FlyState.Flying)
-            {
-                Vector3 towards = objectBehaviour.GetForwardDirection();
-                playerBehaviour.MoveInSky(towards);
-            }
-            else if (playerBehaviour.enterSky && playerBehaviour.flyState == PlayerBehaviour.FlyState.WaitForFly)
+            if (playerBehaviour.enterSky && playerBehaviour.flyState == PlayerBehaviour.FlyState.WaitForFly)
             {
                 playerBehaviour.MoveInSeaSurface();
             }
-            else if(moveVertical>0.0f)
+            else if (moveVertical > 0.0f)
             {
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.Front);
             }
