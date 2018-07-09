@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class LobbyUI : MonoBehaviour
 {
-    public GameObject[] characterPrefab;
+    public List<GameObject> characterPrefabList = new List<GameObject>();
     public List<string> characterNameList = new List<string>();
     public int curCharacterIndex = 0;
     public Text characterNameText;
@@ -30,17 +30,19 @@ public class LobbyUI : MonoBehaviour
     // 初始化角色名字
     private void SetCharacterNameList()
     {
-        // 初始化character列表
-        for (int i = 0; i < characterPrefab.Length; i++)
+        if(characterNameList.Count != characterPrefabList.Count)
         {
-            characterNameList.Add(characterPrefab[i].name);
+            characterNameList.Clear();
+            // 初始化character列表
+            for (int i = 0; i < characterPrefabList.Count; i++)
+            {
+                characterNameList.Add(characterPrefabList[i].name);
+            }
         }
-
         // 默认角色
-        if (characterPrefab.Length > 0)
+        if (characterNameList.Count > 0)
         {
             characterNameText.text = characterNameList[curCharacterIndex];
-            PhotonNetwork.player.NickName = characterNameList[curCharacterIndex];
         }
     }
 
@@ -88,7 +90,7 @@ public class LobbyUI : MonoBehaviour
     // 开始匹配
     public void OnStartMatching()
     {
-        PhotonNetwork.player.NickName = characterNameList[curCharacterIndex];
+        PhotonNetwork.player.NickName = characterPrefabList[curCharacterIndex].name;
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.JoinRandomRoom();
