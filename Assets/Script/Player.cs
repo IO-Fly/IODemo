@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Player : Photon.PunBehaviour {
@@ -92,6 +93,25 @@ public class Player : Photon.PunBehaviour {
             FoodManager.localFoodManager.isMasterBefore = true;
 
         }
+        if(this.health<0&&photonView.isMine){
+   					//transform.Find("Status").gameObject.GetComponent<Image>().sprite = transform.Find("Menu").gameObject.GetComponent<MenuUI>().lose;
+                    
+					GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().lose;
+                	GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
+				
+				}
+		else if(networkManager.playerList.Count == 1){
+					//transform.Find("Status").gameObject.GetComponent<Image>().sprite = transform.Find("Menu").gameObject.GetComponent<MenuUI>().win;
+    				GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
+                    Debug.Log("菜单为胜利状态");
+                    GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
+				}
+		else{
+					//transform.Find("Status").gameObject.GetComponent<Image>().sprite = transform.Find("Menu").gameObject.GetComponent<MenuUI>().pause;
+					GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite =  GameObject.Find("HUDCanvas").GetComponent<MenuUI>().pause;
+                    GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = false;	
+						
+		    }
 
     }
 
@@ -415,6 +435,7 @@ public class Player : Photon.PunBehaviour {
         {
             PhotonNetwork.Destroy(this.gameObject);
         }
+        		
     }
 
     [PunRPC]

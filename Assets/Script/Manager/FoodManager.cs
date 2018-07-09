@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodManager : Photon.PunBehaviour {
+public class FoodManager : Photon.PunBehaviour{
 
     //食物事件类型
     public enum Event {
@@ -42,9 +42,9 @@ public class FoodManager : Photon.PunBehaviour {
     const int treeBoundary = 40;
 
     void Awake(){
-
         //缓存全局的本地食物管理器
         localFoodManager = this;
+        Debug.Log(this==null);
         PhotonNetwork.OnEventCall += this.OnEventRaised;
 
         foodFlushLock = new int[FoodCount];
@@ -70,6 +70,12 @@ public class FoodManager : Photon.PunBehaviour {
         }
 
     }
+    
+    void OnDestroy(){
+        PhotonNetwork.OnEventCall -= this.OnEventRaised;
+        StopAllCoroutines();
+    }
+
 
     private void OnEventRaised(byte evCode, object content, int senderid){
 		PhotonPlayer sender = PhotonPlayer.Find(senderid);
@@ -190,10 +196,11 @@ public class FoodManager : Photon.PunBehaviour {
 
             //主客户端发起重置食物位置事件
             case (byte)Event.RESET_FOOD:
-			/*if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient)*/{
+			/*if(!PhotonNetwork.isMasterClient&&sender.IsMasterClient)if(this!=null)*/{
 
 				if(foodFlushLock[(int)((Vector3[])content)[2].x]!=0)
 				return;
+                Debug.Log("事件中的FoodManager "+(this==null));
 				this.foodFlushLock[(int)((Vector3[])content)[2].x] = 1;
 				StartCoroutine(SetLock((int)((Vector3[])content)[2].x));
                 //未实例化时延迟同步
