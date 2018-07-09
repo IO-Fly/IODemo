@@ -12,14 +12,17 @@ public class Boundary : Photon.PunBehaviour{
 
     public enum ForceDirection { Positive, Negative };//在触发器内的玩家强制更改的方向
     public ForceDirection forceDirection=ForceDirection.Positive;
-
+    private Shader transparentShader;
 	void Start () {
-        
+       transparentShader = Shader.Find("Transparent/Diffuse");
 	}
 
     void Update()
     {
-        
+        if(this.transform.parent.transform.position.z > 100){
+            ChangeTopEdgeAlpha();
+            Debug.Log(this.transform.parent.gameObject.name+this.transform.parent.gameObject.GetComponent<Renderer>().material.color);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -65,18 +68,31 @@ public class Boundary : Photon.PunBehaviour{
                 }
             }
         }
-           else if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
+         /*  else if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
             if (transform.parent != null)
                 transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = true;
-        }
+        }*/
     }
     
-    private void OnTriggerExit(Collider other){
+    /*private void OnTriggerExit(Collider other){
         string tag = other.gameObject.tag;
         if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
             if(transform.parent!=null)
             transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = false;
         }
         
+    }
+    */
+
+    private void ChangeTopEdgeAlpha(){
+        if(networkManager.localPlayer.transform.position.z>=0){
+        Renderer[] renders = this.GetComponentsInParent<Renderer>();
+        Debug.Log("Renderer数量: "+ renders.GetLength(0));
+        foreach(Renderer render in renders){
+       //Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
+       render.material.shader = transparentShader;
+       render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200-networkManager.localPlayer.transform.position.z)/200); 
+        }
+        }
     }
 }
