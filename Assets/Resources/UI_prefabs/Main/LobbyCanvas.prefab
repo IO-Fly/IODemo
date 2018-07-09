@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 222277324152755442}
   - component: {fileID: 114338703093335294}
   - component: {fileID: 114363125543020338}
+  - component: {fileID: 114485136653197564}
   m_Layer: 5
   m_Name: Loading Circle
   m_TagString: Untagged
@@ -320,7 +321,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.98039216, g: 0.98039216, b: 0.98039216, a: 0.39215687}
+    m_NormalColor: {r: 0.98039216, g: 0.98039216, b: 0.98039216, a: 0.15686275}
     m_HighlightedColor: {r: 1, g: 0.5430124, b: 0, a: 1}
     m_PressedColor: {r: 1, g: 0.5430124, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -685,6 +686,18 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114485136653197564
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156432221017888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d497d8b258a6c468cf20475c1600b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadingCircleSpeed: 250
 --- !u!114 &114517788543859384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -750,7 +763,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Kun_Size
+  m_Text: 
 --- !u!114 &114539763341759554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -762,12 +775,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebd8769ea0b10e46b1596d8000394f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab:
+  characterPrefabList:
   - {fileID: 1492382451508526, guid: d102fe7094ed8d44b808b20858bc93f5, type: 2}
   - {fileID: 1324855515791646, guid: 646965e557b68cb4e8929bdb11e6ee0d, type: 2}
   - {fileID: 1424722576695702, guid: efe74d7fca7356244843606bf42a61dc, type: 2}
   - {fileID: 1205916150143388, guid: b26e2957986c65d42823a5ebd95eab43, type: 2}
-  characterNameList: []
+  characterNameList:
+  - "\u8FDB\u51FB\u9CB2"
+  - "\u8D85\u901F\u9CB2"
+  - "\u5206\u8EAB\u9CB2"
+  - "\u9690\u853D\u9CB2"
   curCharacterIndex: 0
   characterNameText: {fileID: 114517797077552440}
   CameraMoveTime: 0.5
