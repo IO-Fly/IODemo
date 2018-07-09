@@ -1,79 +1,89 @@
 fileFormatVersion: 2
-guid: 2d5dc0930672d964f815d554f8f4ab1d
+guid: 036086a87820d334aafc18d2c6ec5c10
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: back
-    100002: bottom
-    100004: group1
-    100006: group2
-    100008: group3
-    100010: group4
-    100012: joint1
-    100014: joint2
-    100016: joint3
-    100018: joint4
-    100020: joint5
-    100022: joint6
-    100024: left
-    100026: locator1
-    100028: pCylinder1
-    100030: pCylinder2
-    100032: pCylinder3
-    100034: pPipe1
-    100036: pSphere1
-    100038: pSphere2
-    100040: pSphere3
-    100042: pTorus1
-    100044: //RootNode
-    400000: back
-    400002: bottom
-    400004: group1
-    400006: group2
-    400008: group3
-    400010: group4
-    400012: joint1
-    400014: joint2
-    400016: joint3
-    400018: joint4
-    400020: joint5
-    400022: joint6
-    400024: left
-    400026: locator1
-    400028: pCylinder1
-    400030: pCylinder2
-    400032: pCylinder3
-    400034: pPipe1
-    400036: pSphere1
-    400038: pSphere2
-    400040: pSphere3
-    400042: pTorus1
-    400044: //RootNode
-    2000000: back
-    2000002: bottom
-    2000004: left
-    2100000: blinn2
-    2100002: lambert1
-    2100004: blinn3
-    2100006: blinn4
-    4300000: pCylinder1
-    4300002: pSphere1
-    4300004: pCylinder2
-    4300006: pSphere3
-    4300008: pSphere2
-    4300010: pTorus1
-    4300012: pPipe1
-    4300014: pCylinder3
+    100000: mukun
+    100002: mukun_body
+    100004: mukun_eyes
+    100006: mukun_eyes 1
+    100008: mukun_eyes 2
+    100010: mukun_jiemao1
+    100012: mukun_jiemao2
+    100014: mukun_jiemao3
+    100016: mukun_jiemao4
+    100018: mukun_jiemao5
+    100020: mukun_jiemao6
+    100022: mukun_leye
+    100024: mukun_ljiemao
+    100026: mukun_mouse
+    100028: mukun_reye
+    100030: mukun_rjiemao
+    100032: mukun_rjiemao 1
+    100034: mukunhudiejie1
+    100036: mukunhudiejie2
+    100038: mukunn_hudiejie
+    100040: munku_joint
+    100042: munku_joint1
+    100044: munku_joint2
+    100046: munku_joint3
+    100048: //RootNode
+    400000: mukun
+    400002: mukun_body
+    400004: mukun_eyes
+    400006: mukun_eyes 1
+    400008: mukun_eyes 2
+    400010: mukun_jiemao1
+    400012: mukun_jiemao2
+    400014: mukun_jiemao3
+    400016: mukun_jiemao4
+    400018: mukun_jiemao5
+    400020: mukun_jiemao6
+    400022: mukun_leye
+    400024: mukun_ljiemao
+    400026: mukun_mouse
+    400028: mukun_reye
+    400030: mukun_rjiemao
+    400032: mukun_rjiemao 1
+    400034: mukunhudiejie1
+    400036: mukunhudiejie2
+    400038: mukunn_hudiejie
+    400040: munku_joint
+    400042: munku_joint1
+    400044: munku_joint2
+    400046: munku_joint3
+    400048: //RootNode
+    2100000: mukun_blinn5
+    2100002: mukun_blinn3
+    2100004: mukun_blinn1
+    2100006: mukun_blinn2
+    2100008: mukun_blinn4
+    4300000: mukun_body
+    4300002: mukun_mouse
+    4300004: mukunhudiejie1
+    4300006: mukunhudiejie2
+    4300008: mukun_leye
+    4300010: mukun_reye
+    4300012: mukun_jiemao3
+    4300014: mukun_jiemao1
+    4300016: mukun_jiemao2
+    4300018: mukun_jiemao4
+    4300020: mukun_jiemao6
+    4300022: mukun_jiemao5
     7400000: Take 001
     9500000: //RootNode
-    13700000: pCylinder1
-    13700002: pCylinder2
-    13700004: pCylinder3
-    13700006: pPipe1
-    13700008: pSphere1
-    13700010: pSphere2
-    13700012: pSphere3
-    13700014: pTorus1
+    13700000: mukun_body
+    13700002: mukun_jiemao1
+    13700004: mukun_jiemao2
+    13700006: mukun_jiemao3
+    13700008: mukun_jiemao4
+    13700010: mukun_jiemao5
+    13700012: mukun_jiemao6
+    13700014: mukun_leye
+    13700016: mukun_mouse
+    13700018: mukun_reye
+    13700020: mukunhudiejie1
+    13700022: mukunhudiejie2
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -105,8 +115,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Take 001
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 160
+      firstFrame: 1
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -114,7 +124,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
