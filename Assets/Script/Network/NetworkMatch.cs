@@ -49,9 +49,14 @@ public class NetworkMatch : Photon.PunBehaviour
     {
         if (isLoadScene == false && PhotonNetwork.inRoom && PhotonNetwork.room.PlayerCount == maxPlayerPerRoom)
         {
+
+            // 关闭房间
+            PhotonNetwork.room.IsOpen = false;
+
             // 开始加载游戏场景
             isLoadScene = true;
             GetComponent<SceneLoader>().LoadScene("GameScene");
+           
         }
          
 
