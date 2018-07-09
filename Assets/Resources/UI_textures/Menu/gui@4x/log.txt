@@ -1,0 +1,1 @@
+425 object(s) was successfully exported to: /Volumes/CalDigit T4R 4TB/Projects/Unity/PROJECTS/UNITY/Foriero Store/Assets/Foriero Store/Projects/GUIs/cartoon_pro_gui/sprites/gui@4x

@@ -64,7 +64,7 @@ public class ObjectBehaviour : MonoBehaviour {
             case MoveDirection.BackRight: SetTargetSlerp(1.25f); break;
             case MoveDirection.Back: SetTargetSlerp(1.5f); break;
             case MoveDirection.BackLeft: SetTargetSlerp(1.75f); break;
-            default: targetLookAtSlerp = 0.5f;break;
+            default: SetTargetSlerp(0.5f); break;
         }
         //平滑过渡（角色的转向）
         if (Mathf.Abs(targetLookAtSlerp - currentLookAtSlerp) < 1e-6)
