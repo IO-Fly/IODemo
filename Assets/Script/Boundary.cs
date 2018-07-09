@@ -12,16 +12,22 @@ public class Boundary : Photon.PunBehaviour{
 
     public enum ForceDirection { Positive, Negative };//在触发器内的玩家强制更改的方向
     public ForceDirection forceDirection=ForceDirection.Positive;
-    private Shader transparentShader;
 	void Start () {
-       transparentShader = Shader.Find("Transparent/Diffuse");
 	}
 
     void Update()
     {
-        if(this.transform.parent.transform.position.z > 100){
+        if(transform.parent!=null&&transform.parent.position.z > 100){
             ChangeTopEdgeAlpha();
-            Debug.Log(this.transform.parent.gameObject.name+this.transform.parent.gameObject.GetComponent<Renderer>().material.color);
+        }
+        if(transform.parent!=null&&transform.parent.position.z < -100){
+            ChangeDownEdgeAlpha();
+        }
+        if(transform.parent!=null&&transform.parent.position.x > 100){
+            ChangeRightEdgeAlpha();
+        }
+        if(transform.parent!=null&&transform.parent.position.x < -100){
+            ChangeLeftEdgeAlpha();
         }
     }
 
@@ -85,14 +91,46 @@ public class Boundary : Photon.PunBehaviour{
     */
 
     private void ChangeTopEdgeAlpha(){
+        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
         if(networkManager.localPlayer.transform.position.z>=0){
-        Renderer[] renders = this.GetComponentsInParent<Renderer>();
-        Debug.Log("Renderer数量: "+ renders.GetLength(0));
-        foreach(Renderer render in renders){
-       //Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
-       render.material.shader = transparentShader;
-       render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200-networkManager.localPlayer.transform.position.z)/200); 
+        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200-networkManager.localPlayer.transform.position.z)/200); 
         }
+        else{
+        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
+       
         }
     }
+    private void ChangeDownEdgeAlpha(){
+        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
+        if(networkManager.localPlayer.transform.position.z<0){
+        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.z+200)/200); 
+        }
+        else{
+        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
+       
+        }
+    }
+    private void ChangeLeftEdgeAlpha(){
+        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
+        if(networkManager.localPlayer.transform.position.x<0){
+        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.x+200)/200); 
+        }
+        else{
+        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
+       
+        }
+    }
+    private void ChangeRightEdgeAlpha(){
+        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
+        if(networkManager.localPlayer.transform.position.x>=0){
+        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200-networkManager.localPlayer.transform.position.x)/200); 
+        }
+        else{
+        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
+       
+        }
+    }
+
+
+
 }
