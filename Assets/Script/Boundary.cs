@@ -12,23 +12,14 @@ public class Boundary : Photon.PunBehaviour{
 
     public enum ForceDirection { Positive, Negative };//在触发器内的玩家强制更改的方向
     public ForceDirection forceDirection=ForceDirection.Positive;
+
 	void Start () {
+        
 	}
 
     void Update()
     {
-        if(transform.parent!=null&&transform.parent.position.z > 100){
-            ChangeTopEdgeAlpha();
-        }
-        if(transform.parent!=null&&transform.parent.position.z < -100){
-            ChangeDownEdgeAlpha();
-        }
-        if(transform.parent!=null&&transform.parent.position.x > 100){
-            ChangeRightEdgeAlpha();
-        }
-        if(transform.parent!=null&&transform.parent.position.x < -100){
-            ChangeLeftEdgeAlpha();
-        }
+        
     }
 
     private void OnTriggerStay(Collider other)
@@ -74,13 +65,13 @@ public class Boundary : Photon.PunBehaviour{
                 }
             }
         }
-         /*  else if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
+           else if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
             if (transform.parent != null)
                 transform.parent.gameObject.GetComponent<MeshRenderer>().enabled = true;
-        }*/
+        }
     }
     
-    /*private void OnTriggerExit(Collider other){
+    private void OnTriggerExit(Collider other){
         string tag = other.gameObject.tag;
         if(tag == "player"&&other.gameObject.GetComponent<Player>().photonView.isMine){
             if(transform.parent!=null)
@@ -88,49 +79,4 @@ public class Boundary : Photon.PunBehaviour{
         }
         
     }
-    */
-
-    private void ChangeTopEdgeAlpha(){
-        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
-        if(networkManager.localPlayer.transform.position.z>=0){
-        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200-networkManager.localPlayer.transform.position.z)/200); 
-        }
-        else{
-        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
-       
-        }
-    }
-    private void ChangeDownEdgeAlpha(){
-        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
-        if(networkManager.localPlayer.transform.position.z<0){
-        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.z+200)/200); 
-        }
-        else{
-        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
-       
-        }
-    }
-    private void ChangeLeftEdgeAlpha(){
-        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
-        if(networkManager.localPlayer.transform.position.x<0){
-        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.x+200)/200); 
-        }
-        else{
-        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
-       
-        }
-    }
-    private void ChangeRightEdgeAlpha(){
-        Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
-        if(networkManager.localPlayer.transform.position.x>=0){
-        render.material.color =new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200-networkManager.localPlayer.transform.position.x)/200); 
-        }
-        else{
-        render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 0); 
-       
-        }
-    }
-
-
-
 }
