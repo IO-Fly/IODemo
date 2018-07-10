@@ -18,6 +18,12 @@ public class MenuUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(!isActive){
+			Cursor.visible = false;
+		}
+		else{
+			Cursor.visible = true;
+		}
 		if(Input.GetKeyDown(KeyCode.Escape)&&freeze!=true){
 			Debug.Log("esc按下");
 			if(isActive){
