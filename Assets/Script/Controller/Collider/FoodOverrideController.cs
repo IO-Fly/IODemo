@@ -9,9 +9,13 @@ public class FoodOverrideController : MonoBehaviour {
 	public Vector3 translation;
 	public float rotationSpeed=2f;
 	public float translationSpeed=0.5f;
+
+    //记录哪个玩家生成的
+    public int playerID;
 	
 	void Start () {
-		translation = (this.transform.position - new Vector3(0,this.transform.position.y+Random.Range(-10f,10f),0)).normalized * translationSpeed;
+        //translation = (this.transform.position - new Vector3(0,this.transform.position.y+Random.Range(-10f,10f),0)).normalized * translationSpeed;
+        translation = FoodManager.GetInitSpherePos(1.0f).normalized * translationSpeed;
 	}
 	
 	// Update is called once per frame
@@ -37,14 +41,26 @@ public class FoodOverrideController : MonoBehaviour {
 		if (other.gameObject.tag == "player" || other.gameObject.tag == "playerCopy") {
 			Debug.Log ("食物：删除");
 			if(other.GetComponent<Player>().photonView.isMine){
-                Vector3 tempPosition = FoodManager.GetInitPosition();
-			    Vector3 temptranslation= (this.transform.position - new Vector3(0,this.transform.position.y+Random.Range(-10f,10f),0)).normalized * translationSpeed;
-			    Vector3[] Data = {tempPosition,temptranslation,new Vector3(this.ID,0,0)};
-			    RaiseEventOptions options = new RaiseEventOptions();
-			    options.Receivers = ReceiverGroup.All;
-			    options.CachingOption = EventCaching.DoNotCache;
-			    PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_FOOD, Data,true,options);
 
+
+                RaiseEventOptions options = new RaiseEventOptions();
+                options.Receivers = ReceiverGroup.All;
+                options.CachingOption = EventCaching.DoNotCache;
+                if (this.tag == "food")
+                {
+                    Vector3 tempPosition = FoodManager.GetInitPosition();
+                    Vector3 temptranslation = (this.transform.position - new Vector3(0, this.transform.position.y + Random.Range(-10f, 10f), 0)).normalized * translationSpeed;
+                    Vector3[] Data = { tempPosition, temptranslation, new Vector3(this.ID, 0, 0) };
+                    PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_FOOD, Data, true, options);
+                }
+                else if(this.tag == "playerFood")
+                {
+                    Debug.Log("玩家食物：删除");
+                    int[] Data = { this.playerID, this.ID };
+                    PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_PLAYER_FOOD, Data, true, options);
+                }
+			   
+			   
                 //触发玩家吃到食物事件
                 other.gameObject.GetComponent<Player>().photonView.RPC("EatFood", PhotonTargets.AllViaServer);
             }
