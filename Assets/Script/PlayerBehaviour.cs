@@ -23,7 +23,9 @@ public class PlayerBehaviour : MonoBehaviour {
     private Player player;
 
     private CharacterController character;
-    
+
+    public float maxSafeFlyingDuration = 10.0f;//在天上逗留超过该时间开始扣血
+    private float flyingDuration=0.0f;//在天上的持续时间
 
     // Use this for initialization
     void Awake () {
@@ -34,6 +36,8 @@ public class PlayerBehaviour : MonoBehaviour {
     {
         character = GetComponent<CharacterController>();
         speed = player.GetSpeed();
+
+        StartCoroutine(GetHurtWhenAground());
     }
 
     // Update is called once per frame
@@ -132,5 +136,28 @@ public class PlayerBehaviour : MonoBehaviour {
     public bool InTheSky()
     {
         return enterSky;
+    }
+
+    //在天空或小岛上逗留时间过长时削减生命
+    IEnumerator GetHurtWhenAground()
+    {
+        while (true)
+        {
+            if (flyState == FlyState.Flying)
+            {
+                flyingDuration += Time.deltaTime;
+                if (flyingDuration >= maxSafeFlyingDuration)
+                {
+                    Player player = gameObject.GetComponent<Player>();
+                    player.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, 10.0f);
+                    yield return new WaitForSeconds(1.2f);
+                }
+            }
+            else
+            {
+                flyingDuration = 0.0f;
+            }
+            yield return null;
+        }
     }
 }
