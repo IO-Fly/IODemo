@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 751902490}
   - component: {fileID: 751902489}
   - component: {fileID: 751902488}
+  - component: {fileID: 751902487}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -353,6 +354,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!328 &751902487
+VideoPlayer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 751902486}
+  m_Enabled: 1
+  m_VideoClip: {fileID: 32900000, guid: 037a25bf8b269d348919f53be9f90e01, type: 3}
+  m_TargetCameraAlpha: 1
+  m_TargetCamera3DLayout: 0
+  m_TargetCamera: {fileID: 751902489}
+  m_TargetTexture: {fileID: 0}
+  m_TimeReference: 0
+  m_TargetMaterialRenderer: {fileID: 0}
+  m_TargetMaterialProperty: _MainTex
+  m_RenderMode: 0
+  m_AspectRatio: 5
+  m_DataSource: 0
+  m_PlaybackSpeed: 1
+  m_AudioOutputMode: 0
+  m_TargetAudioSources: []
+  m_DirectAudioVolumes: []
+  m_Url: 
+  m_EnabledAudioTracks: 
+  m_DirectAudioMutes: 
+  m_ControlledAudioTrackCount: 0
+  m_PlayOnAwake: 1
+  m_SkipOnDrop: 1
+  m_Looping: 0
+  m_WaitForFirstFrame: 1
+  m_FrameReadyEventEnabled: 0
 --- !u!124 &751902488
 Behaviour:
   m_ObjectHideFlags: 0
@@ -532,7 +564,7 @@ VideoPlayer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 806081572}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 54728b21d33b9ea49801fa3213559b69, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 09d751cc58d476c4882b13ff6f9f1f71, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 806081577}
@@ -541,7 +573,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: _MainTex
   m_RenderMode: 0
-  m_AspectRatio: 2
+  m_AspectRatio: 4
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 1
@@ -634,6 +666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginScene: {fileID: 1289788092}
   loginCanvas: {fileID: 1782934894}
+  vp: {fileID: 0}
 --- !u!1 &953814827
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,7 +786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1176061542
 Light:
   m_ObjectHideFlags: 0
@@ -1662,7 +1695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1787425296
 MonoBehaviour:
   m_ObjectHideFlags: 0
