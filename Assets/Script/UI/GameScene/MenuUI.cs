@@ -9,11 +9,17 @@ public class MenuUI : MonoBehaviour {
 	public Sprite lose;
 	public Sprite win;
 	public Sprite pause;
+	private GameObject Status;
+	private GameObject Menu;
 	// Use this for initialization
+
 	void Awake(){
 	}
 	void Start () {
-		GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = this.pause;
+		//GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = this.pause;
+		Status = GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject;
+		Menu = GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject;
+		Status.GetComponent<Image>().sprite = this.pause;
 	}
 	
 	// Update is called once per frame
@@ -27,26 +33,31 @@ public class MenuUI : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Escape)&&freeze!=true){
 			Debug.Log("esc按下");
 			if(isActive){
-				GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(false);
+				//GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(false);
+				Menu.SetActive(false);
 				isActive = false;
 			}
 			else {
-			GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(true);
+			//GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(true);
+				Menu.SetActive(true);
 				isActive = true;
 			}
 			
 		}
 		Debug.Log("freeze状态"+ freeze);
 		if(freeze){
-			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Continue").gameObject.SetActive(false);
-			GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(true);
+			//GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Continue").gameObject.SetActive(false);
+			//GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(true);
+			Menu.transform.Find("Continue").gameObject.SetActive(false);
+			Menu.SetActive(true);
 			isActive = true;	
 		}
 				
 	}
 
 	public void ContinueGame(){
-		GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(false);
+		//GameObject.Find("HUDCanvas").transform.Find("Menu").gameObject.SetActive(false);
+		Menu.SetActive(false);
 		isActive = false;
 	}
 
