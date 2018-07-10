@@ -89,3 +89,7 @@ $RECYCLE.BIN/
 #Other
 Demo_Data
 Demo.exe
+Assets/Scenes/MainSceneForDevelop.unity
+Assets/Scenes/StartSceneForDevelop.unity
+Assets/Scenes/MainSceneForDevelop.unity.meta
+Assets/Scenes/StartSceneForDevelop.unity.meta
