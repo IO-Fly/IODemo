@@ -634,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginScene: {fileID: 1289788092}
   loginCanvas: {fileID: 1782934894}
+  vp: {fileID: 0}
 --- !u!1 &953814827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,7 +1982,7 @@ Prefab:
     - target: {fileID: 114156279516293368, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61,
         type: 2}
       propertyPath: maxPlayerPerRoom
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61, type: 2}
