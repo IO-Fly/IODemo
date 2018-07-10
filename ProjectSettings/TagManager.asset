@@ -15,6 +15,7 @@ TagManager:
   - edge
   - seaSurface
   - AICollider
+  - playerFood
   layers:
   - Default
   - TransparentFX
