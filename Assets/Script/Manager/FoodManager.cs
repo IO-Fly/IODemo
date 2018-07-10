@@ -378,7 +378,7 @@ public class FoodManager : Photon.PunBehaviour{
         while (true)
         {
             yield return new WaitForSeconds(2.0f);
-            if(foodInstances[foodAIInstances.Length - 1] != null &&
+            if(foodInstances[foodInstances.Length - 1] != null &&
                 foodAIInstances[foodAIInstances.Length - 1] != null &&
                 poisonInstances[poisonInstances.Length - 1] != null
                 )
@@ -440,7 +440,7 @@ public class FoodManager : Photon.PunBehaviour{
         while (true)
         {
             initPos.x = Random.Range(-boundary, boundary);
-            initPos.y = Random.Range(-boundary, -5);
+            initPos.y = Random.Range(-boundary + 20, -5);
             initPos.z = Random.Range(-boundary, boundary);
 
             if (IsInBoundary(initPos))

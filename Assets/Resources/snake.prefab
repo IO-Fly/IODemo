@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114332449045596266}
   - component: {fileID: 114338976030494428}
   - component: {fileID: 114021538697296250}
+  - component: {fileID: 205347707722758302}
   m_Layer: 0
   m_Name: snake
   m_TagString: poison
@@ -72,7 +73,7 @@ GameObject:
   - component: {fileID: 4465712990696140}
   - component: {fileID: 95720701857389964}
   m_Layer: 0
-  m_Name: snake
+  m_Name: snake_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003748915625674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9424157, y: 6.21, z: 0.12502727}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4465712990696140}
@@ -449,3 +450,20 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00057382137, y: -0.010503029, z: 0}
     m_Extent: {x: 0.022025067, y: 0.014218746, z: 0.003943641}
   m_DirtyAABB: 0
+--- !u!205 &205347707722758302
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1003748915625674}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -1.0212018, y: 0, z: -0.057382107}
+  m_Size: 4.4050136
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.008865017
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 137064319323214074}
+  m_Enabled: 1
