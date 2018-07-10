@@ -18,6 +18,12 @@ public class MenuUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(!isActive){
+			Cursor.visible = false;
+		}
+		else{
+			Cursor.visible = true;
+		}
 		if(Input.GetKeyDown(KeyCode.Escape)&&freeze!=true){
 			Debug.Log("esc按下");
 			if(isActive){
@@ -53,6 +59,7 @@ public class MenuUI : MonoBehaviour {
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.Disconnect();
 		SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("GameScene"));
+        StartVideoUI.isSkipVideo = true;
 		SceneManager.LoadScene(0);
 
 	}
