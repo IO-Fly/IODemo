@@ -17,18 +17,26 @@ public class Boundary : Photon.PunBehaviour{
 
     void Update()
     {
-        if(transform.parent!=null&&transform.parent.position.z > 100){
-            ChangeTopEdgeAlpha();
+        if(networkManager.localPlayer != null)
+        {
+            if (transform.parent != null && transform.parent.position.z > 100)
+            {
+                ChangeTopEdgeAlpha();
+            }
+            if (transform.parent != null && transform.parent.position.z < -100)
+            {
+                ChangeDownEdgeAlpha();
+            }
+            if (transform.parent != null && transform.parent.position.x > 100)
+            {
+                ChangeRightEdgeAlpha();
+            }
+            if (transform.parent != null && transform.parent.position.x < -100)
+            {
+                ChangeLeftEdgeAlpha();
+            }
         }
-        if(transform.parent!=null&&transform.parent.position.z < -100){
-            ChangeDownEdgeAlpha();
-        }
-        if(transform.parent!=null&&transform.parent.position.x > 100){
-            ChangeRightEdgeAlpha();
-        }
-        if(transform.parent!=null&&transform.parent.position.x < -100){
-            ChangeLeftEdgeAlpha();
-        }
+        
     }
 
     private void OnTriggerStay(Collider other)
