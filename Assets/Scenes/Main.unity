@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.29911673, g: 0.35161796, b: 0.29575807, a: 1}
+  m_IndirectSpecularColor: {r: 0.29911655, g: 0.3516185, b: 0.29575863, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -634,6 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginScene: {fileID: 1289788092}
   loginCanvas: {fileID: 1782934894}
+  vp: {fileID: 0}
 --- !u!1 &953814827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1982,6 +1983,10 @@ Prefab:
         type: 2}
       propertyPath: maxPlayerPerRoom
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1933557936688500, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61, type: 2}
