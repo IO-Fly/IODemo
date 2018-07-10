@@ -361,7 +361,7 @@ VideoPlayer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 751902486}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 037a25bf8b269d348919f53be9f90e01, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: da47093c3fd2a2f47a6ec4e093f4989b, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 751902489}
@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 806081574}
   - component: {fileID: 806081579}
   m_Layer: 0
-  m_Name: VideoPlayCamera
+  m_Name: GameStoryVideoPlayCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +573,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: _MainTex
   m_RenderMode: 0
-  m_AspectRatio: 4
+  m_AspectRatio: 5
   m_DataSource: 0
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 1
