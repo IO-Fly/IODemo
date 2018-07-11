@@ -32,7 +32,7 @@ public class LoginUI : MonoBehaviour
         {
             OnQuitGame();
         }
-        // 隐藏 InputFiled
+        // 隐藏InputFiled
         if (nameInput.isFocused || nameInput.text.Length != 0)
         {
             nameInput.placeholder.GetComponent<Text>().text = "";
