@@ -17,6 +17,13 @@ public class NetworkMatch : Photon.PunBehaviour
         PhotonNetwork.JoinRandomRoom();
     }
 
+    public override void OnJoinedRoom(){
+        if(PhotonNetwork.room.PlayerCount<maxPlayerPerRoom){
+            Text temp =GameObject.Find("MatchButton").transform.Find("Text").GetComponent<Text>();
+            temp.text = "匹配中";
+        }
+    }
+
     //public override void OnCreatedRoom()
     //{
     //    Debug.Log("create room");
