@@ -106,7 +106,7 @@ public class Player : Photon.PunBehaviour {
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 				
 		}
-		else if(networkManager.playerList.Count == 1){
+		else if(networkManager.playerList.Count == 1 && networkManager.playerList[0].photonView.isMine){
     		GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
             Debug.Log("菜单为胜利状态");
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
