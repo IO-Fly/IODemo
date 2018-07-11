@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepTime: 5
-  cooldown: 5
+  cooldown: 10
   particleEffect: {fileID: 1682820644871576}
 --- !u!114 &114618371413313578
 MonoBehaviour:
@@ -1447,6 +1447,7 @@ MonoBehaviour:
   gravity: 9.8
   minFlySpeed: 15
   flyCooldown: 10
+  maxSafeFlyingDuration: 10
 --- !u!114 &114751027858265406
 MonoBehaviour:
   m_ObjectHideFlags: 1

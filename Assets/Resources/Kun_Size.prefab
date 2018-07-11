@@ -939,7 +939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepTime: 5
-  cooldown: 5
+  cooldown: 10
   addSize: {x: 1, y: 1, z: 1}
   sizeEffect: 2
   particleEffect: {fileID: 1510480534711628}
@@ -959,6 +959,7 @@ MonoBehaviour:
   gravity: 9.8
   minFlySpeed: 15
   flyCooldown: 10
+  maxSafeFlyingDuration: 10
 --- !u!114 &114546039911506798
 MonoBehaviour:
   m_ObjectHideFlags: 1
