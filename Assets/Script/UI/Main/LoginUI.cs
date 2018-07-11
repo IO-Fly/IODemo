@@ -7,7 +7,6 @@ public class LoginUI : MonoBehaviour
 {
     public int maxInputBytes = 10;
 
-    public Text nameTip;
     public InputField nameInput;
     public Button loginButton;
     public Text connectTip;
@@ -15,14 +14,10 @@ public class LoginUI : MonoBehaviour
 
     private void Start()
     {
-        // 输入框获取输入焦点
-        nameInput.ActivateInputField();
-
         // 播放大厅背景音乐
         GameObject audio = GameObject.Find("Audio");
         audio.GetComponent<AudioManager>().PlayLobbyBackground();
         DontDestroyOnLoad(audio);
-
     }
 
     private void Update()
@@ -31,6 +26,11 @@ public class LoginUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             OnLoginGame();
+        }
+        // 按esc键退出游戏
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnQuitGame();
         }
     }
 
@@ -86,7 +86,6 @@ public class LoginUI : MonoBehaviour
         if (nameInput.text.Length == 0)
         {
             Debug.LogWarning("请输入账号！");
-            nameInput.ActivateInputField();
             return;
         }
         // 改变UI：隐藏输入框和进入游戏按钮，显示连接提示文本和加载进度条
@@ -111,10 +110,9 @@ public class LoginUI : MonoBehaviour
     }
 
 
-    // 输入框UI、加载显示UI切换
+    // 输入框UI、进度显示UI切换
     public void SetEnterUI(bool flag)
     {
-        nameTip.gameObject.SetActive(flag);
         nameInput.gameObject.SetActive(flag);
         loginButton.gameObject.SetActive(flag);
 
