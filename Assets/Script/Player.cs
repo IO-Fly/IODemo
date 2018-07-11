@@ -84,8 +84,15 @@ public class Player : Photon.PunBehaviour {
         //showPlayerList();
         battleUI.RemovePlayer();
 
+        //玩家死亡时生成食物
+        if (this.photonView.isMine)
+        {
+            Debug.LogWarning("Player Die");
+            FoodManager.localFoodManager.InitPlayerFood(this);
+        }
+
         //主客户端更换时重新启动同步协程
-        if(PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
+        if (PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
         {
             Debug.LogWarning("Master change!");
             FoodManager.localFoodManager.InitFoodInMaster();
@@ -93,21 +100,21 @@ public class Player : Photon.PunBehaviour {
             FoodManager.localFoodManager.isMasterBefore = true;
 
         }
+
         if(this.health<0&&photonView.isMine){
-					GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().lose;
-                	GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
+			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().lose;
+            GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 				
-				}
+		}
 		else if(networkManager.playerList.Count == 1){
-    				GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
-                    Debug.Log("菜单为胜利状态");
-                    GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
-				}
+    		GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
+            Debug.Log("菜单为胜利状态");
+            GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
+		}
 		else{
-					GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite =  GameObject.Find("HUDCanvas").GetComponent<MenuUI>().pause;
-                    GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = false;	
-						
-		    }
+			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite =  GameObject.Find("HUDCanvas").GetComponent<MenuUI>().pause;
+            GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = false;					
+	    }
 
     }
 
@@ -273,6 +280,17 @@ public class Player : Photon.PunBehaviour {
 
         return false;
     }
+
+    public int CalculateStarNum()
+    {
+        return 2 * (int)GetPlayerSize();
+    }
+
+    public float CalculateStarRange()
+    {
+        return GetPlayerSize();
+    }
+
 
     #endregion
 

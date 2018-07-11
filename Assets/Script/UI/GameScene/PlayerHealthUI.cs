@@ -16,7 +16,7 @@ public class PlayerHealthUI : MonoBehaviour {
 
     private Slider screenHealthSlider; //当前player的血条,固定位置
 
-    void Start ()
+    private void Start ()
     {
         // 获得player及mainCamera
         player = this.GetComponent<Player>();
@@ -49,14 +49,14 @@ public class PlayerHealthUI : MonoBehaviour {
         }
 
     }
-	
-	void Update ()
+
+    private void Update ()
     {
         // 判断player是否死亡
         if (player == null || player.health <= 0)
         {
             Destroy(healthCanvas);
-            if (screenHealthSlider)
+            if (screenHealthSlider != null)
             {
                 screenHealthSlider.value = 0;
             }
@@ -87,6 +87,15 @@ public class PlayerHealthUI : MonoBehaviour {
         }
 
     }
+
+    private void OnDestroy()
+    {
+        if (screenHealthSlider)
+        {
+            screenHealthSlider.value = 0;
+        }
+    }
+
 
     // 更新当前用户的分身或者敌人的名称
     public void SetPlayerName(string name)
