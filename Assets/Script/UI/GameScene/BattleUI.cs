@@ -60,7 +60,8 @@ public class BattleUI : MonoBehaviour {
         {
             return;
         }
-        this.GetComponent<RectTransform>().sizeDelta = new Vector2(170, 30 * (playerCount +1));
+        this.GetComponent<RectTransform>().sizeDelta = 
+            new Vector2(this.GetComponent<RectTransform>().sizeDelta.magnitude, 30 * (playerCount +1));
 
         // 增加的player必须在networkManager.playerList[playerCount - 1]
         GameObject itemPanel = GameObject.Instantiate(itemPanelPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
