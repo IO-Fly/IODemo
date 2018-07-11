@@ -106,16 +106,12 @@ public class Player : Photon.PunBehaviour {
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 				
 		}
-		else if(networkManager.playerList.Count == 1){
+		else if(networkManager.playerList.Count == 1 && networkManager.playerList[0].photonView.isMine){
     		GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
             Debug.Log("菜单为胜利状态");
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 		}
-		else{
-			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite =  GameObject.Find("HUDCanvas").GetComponent<MenuUI>().pause;
-            GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = false;					
-	    }
-
+		
     }
 
     void Awake()
@@ -480,8 +476,9 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
- 
-        AddPlayerEnergy(0.2f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+
+        AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+        //AddPlayerEnergy(5.0f);
 
         if (photonView.isMine)
         {
