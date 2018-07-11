@@ -32,6 +32,15 @@ public class LoginUI : MonoBehaviour
         {
             OnQuitGame();
         }
+        // 隐藏 InputFiled
+        if (nameInput.isFocused || nameInput.text.Length != 0)
+        {
+            nameInput.placeholder.GetComponent<Text>().text = "";
+        }
+        else
+        {
+            nameInput.placeholder.GetComponent<Text>().text = "账号";
+        }
     }
 
     // 限制输入的账号长度
