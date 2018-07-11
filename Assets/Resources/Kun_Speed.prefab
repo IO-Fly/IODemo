@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4868484069271738}
   - component: {fileID: 137250094875744756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4508133267905888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_joint6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4670326064347756}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4475962620965886}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_joint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4168621703797158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4743120428791064}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4273277911856978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_hat2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4956308053355874}
   - component: {fileID: 95955219224631882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "\u7236\u9CB2705"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4857342920947096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_hat1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4250620007332658}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_joint5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4792528280231998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4785440261776110}
   - component: {fileID: 137329143318810738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,7 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579624942603320}
   - component: {fileID: 137870858124794438}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_hat_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4623813691398628}
   - component: {fileID: 137099921722108294}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_brow_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4820018012260002}
   - component: {fileID: 137154764237080794}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_brow_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4700450626206678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4344798320301278}
   - component: {fileID: 137412468832221754}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_hat_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4747130336773368}
   - component: {fileID: 137201024203538436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_eyes_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4089442563077306}
   - component: {fileID: 137952428806143286}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handsome_eyes_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,6 +860,7 @@ MonoBehaviour:
   gravity: 9.8
   minFlySpeed: 15
   flyCooldown: 10
+  maxSafeFlyingDuration: 10
 --- !u!114 &114654253896672656
 MonoBehaviour:
   m_ObjectHideFlags: 1

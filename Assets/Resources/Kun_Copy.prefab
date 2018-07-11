@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4843374018006222}
   - component: {fileID: 137289662578929074}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_jiemao1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +52,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4969897491731436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: munku_joint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4321506035090614}
   - component: {fileID: 137064742108549530}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4821160494921046}
   - component: {fileID: 137458586059943900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_leye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4497539659262112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4139993341387510}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_rjiemao 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4137148708682196}
   - component: {fileID: 137839330742948904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_jiemao2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4138669508439768}
   - component: {fileID: 95536289479507498}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "\u6BCD\u9CB2705"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4921535072563616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_eyes 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4754928003509214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_ljiemao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4770775749597448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,7 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4727826191058828}
   - component: {fileID: 137947019173640586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_jiemao5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4161748514572328}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: munku_joint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4671343373494482}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_rjiemao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4747927213941980}
   - component: {fileID: 137581970037709058}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_reye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4260610218253302}
   - component: {fileID: 137489275916015930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukunhudiejie1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4328694347555862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: munku_joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4681553513999094}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: munku_joint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -360,7 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4285360224898740}
   - component: {fileID: 137310888942110026}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_jiemao3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4049391178993636}
   - component: {fileID: 137502618751128856}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_jiemao6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4185773663995770}
   - component: {fileID: 137120932916062382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukunhudiejie2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4694274183469354}
   - component: {fileID: 137126704964282616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_jiemao4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +506,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4271029674111900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukunn_hudiejie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -521,7 +521,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4672954823677608}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_eyes 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4500724327149532}
   - component: {fileID: 137392750355811184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: mukun_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1238,6 +1238,7 @@ MonoBehaviour:
   gravity: 9.8
   minFlySpeed: 15
   flyCooldown: 10
+  maxSafeFlyingDuration: 10
 --- !u!114 &114859387639104734
 MonoBehaviour:
   m_ObjectHideFlags: 1
