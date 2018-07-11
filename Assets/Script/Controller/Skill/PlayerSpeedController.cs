@@ -30,10 +30,16 @@ public class PlayerSpeedController : PlayerSkillController {
 
             curCooldown = cooldown;
             gameObject.GetComponent<Player>().AddSpeedOffset(addSpeed);
-            StartCoroutine("WaitForEndSkill");
+
             //开启粒子效果
             this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
-           
+
+            //播放音效
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlaySpeedSkill();
+
+            StartCoroutine("WaitForEndSkill");
+
         }
 
         if (curCooldown > 0)
@@ -48,6 +54,10 @@ public class PlayerSpeedController : PlayerSkillController {
     {
         yield return new WaitForSeconds(keepTime);
         gameObject.GetComponent<Player>().AddSpeedOffset(-addSpeed);
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().StopSpeedSkill();
 
         //关闭粒子效果
         this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
