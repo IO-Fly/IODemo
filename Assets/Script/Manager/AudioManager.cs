@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour {
 
     public AudioSource Sound;
     public AudioSource BackgroundSound;
+    public AudioSource SkillSound;
+
     public Object LobbyBackground;
     public Object GameBackground;
     public Object EatFood;
@@ -16,6 +18,11 @@ public class AudioManager : MonoBehaviour {
     public Object SeaOut;
     public Object SeaIn;
 
+    public Object SizeSkill;
+    public Object SpeedSkill;
+    public Object CopySkill;
+    public Object HideSkill;
+
     public void Play(string MusicName)
     {
 
@@ -25,7 +32,18 @@ public class AudioManager : MonoBehaviour {
         }
         Debug.Log("Play Music: " + MusicName);
         Sound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
-        Sound.Play(); 
+        Sound.Play();
+    }
+    public void PlaySkill(string MusicName)
+    {
+        MusicName = "Music/" + MusicName;
+        if (Sound.isPlaying)
+        {
+            return;
+        }
+        Debug.Log("Play Music: " + MusicName);
+        SkillSound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
+        SkillSound.Play();
     }
 
     public void PlayLobbyBackground()
@@ -43,6 +61,7 @@ public class AudioManager : MonoBehaviour {
         BackgroundSound.clip = (AudioClip)Resources.Load(MusicName, typeof(AudioClip));
         BackgroundSound.Play();
     }
+
 
     public void PlayEatFood()
     {
@@ -78,9 +97,31 @@ public class AudioManager : MonoBehaviour {
     {
         Play(SeaIn.name);
     }
+    
 
+    public void PlaySizeSkill()
+    {
+        PlaySkill(SizeSkill.name);
+    }
 
+    public void PlaySpeedSkill()
+    {
+        PlaySkill(SpeedSkill.name);
+    }
 
+    public void PlayCopySkill()
+    {
+        PlaySkill(CopySkill.name);
+    }
 
+    public void PlayHideSkill()
+    {
+        PlaySkill(HideSkill.name);
+    }
+
+    public void StopSpeedSkill()
+    {
+        SkillSound.Stop();
+    }
 
 }
