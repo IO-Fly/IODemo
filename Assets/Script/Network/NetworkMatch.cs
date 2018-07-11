@@ -13,14 +13,14 @@ public class NetworkMatch : Photon.PunBehaviour
     {
         base.OnConnectedToMaster();
 
-        PhotonNetwork.JoinRandomRoom();
+        //PhotonNetwork.JoinRandomRoom();
     }
 
     public override void OnJoinedRoom()
     {
         if (PhotonNetwork.room.PlayerCount < maxPlayerPerRoom)
         {
-            Debug.LogWarning("调用一次");
+            //Debug.LogWarning("调用一次");
             GetComponent<LobbyUI>().OnMatchUI();
         }
     }
