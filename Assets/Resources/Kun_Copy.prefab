@@ -1042,7 +1042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keepTime: 5
-  cooldown: 5
+  cooldown: 20
   playerCopyPrefab: {fileID: 1613026644344698, guid: ca652d2df2a262d40a87d927d06894ad,
     type: 2}
   particleEffect: {fileID: 1834704706168128}
@@ -1238,6 +1238,7 @@ MonoBehaviour:
   gravity: 9.8
   minFlySpeed: 15
   flyCooldown: 10
+  maxSafeFlyingDuration: 10
 --- !u!114 &114859387639104734
 MonoBehaviour:
   m_ObjectHideFlags: 1

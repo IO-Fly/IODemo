@@ -860,6 +860,7 @@ MonoBehaviour:
   gravity: 9.8
   minFlySpeed: 15
   flyCooldown: 10
+  maxSafeFlyingDuration: 10
 --- !u!114 &114654253896672656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -961,8 +962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd656a10e2f0db4eade36d3443b0348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keepTime: 5
-  cooldown: 5
+  keepTime: 4
+  cooldown: 8
   addSpeed: 10
   particleEffect: {fileID: 1911068558653640}
 --- !u!114 &114780577258646490
