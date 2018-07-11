@@ -111,11 +111,7 @@ public class Player : Photon.PunBehaviour {
             Debug.Log("菜单为胜利状态");
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 		}
-		else{
-			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite =  GameObject.Find("HUDCanvas").GetComponent<MenuUI>().pause;
-            GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = false;					
-	    }
-
+		
     }
 
     void Awake()
