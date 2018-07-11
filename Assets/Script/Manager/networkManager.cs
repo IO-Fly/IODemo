@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 
 public class networkManager :Photon.PunBehaviour {
 
@@ -13,24 +13,45 @@ public class networkManager :Photon.PunBehaviour {
     void Awake(){
 		PhotonNetwork.sendRate=20;
 		PhotonNetwork.sendRateOnSerialize=20;
-	}
 
-	// Update is called once per frame
-	private void OnLevelWasLoaded(int level){
+        //CreatePlayer();
+    }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) { 
+        
         //播放游戏背景音乐
         GameObject Audio = GameObject.Find("Audio");
         Audio.GetComponent<AudioManager>().PlayGameBackground();
 
         //创建玩家
-        CreatePlayer(); 
-	}
+        CreatePlayer();
+
+        //激活非主客户端的玩家
+        if (!PhotonNetwork.isMasterClient)
+        {
+            foreach (Player player in playerList)
+            {
+                player.gameObject.SetActive(true);
+            }
+        }
+    }
+
 
 	private void CreatePlayer(){
 
         string characterName = PhotonNetwork.player.NickName;
         Debug.Log(characterName);
-		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, new Vector3(Random.Range(-80,80),Random.Range(-80,-20),Random.Range(-80,80)),Quaternion.identity, 0);
+		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, FoodManager.GetInitPosition(),Quaternion.identity, 0);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
 
         GameObject playerCamera = GameObject.Find("PlayerCamera");

@@ -67,9 +67,10 @@ GameObject:
   - component: {fileID: 4457613276415622}
   - component: {fileID: 136115920649745648}
   - component: {fileID: 114231048776864124}
+  - component: {fileID: 54610047043803820}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: foodAI
+  m_TagString: AICollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,6 +119,7 @@ GameObject:
   - component: {fileID: 114392540778032794}
   - component: {fileID: 114033205528275938}
   - component: {fileID: 114885384851770092}
+  - component: {fileID: 205494077745350212}
   m_Layer: 0
   m_Name: moveableFood
   m_TagString: foodAI
@@ -230,7 +232,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1815880380957606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.12137, y: -91.10077, z: -104.453125}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4814378841636750}
@@ -281,6 +283,21 @@ Transform:
   m_Father: {fileID: 4814378841636750}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &54610047043803820
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1434641354856164}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95904865096846392
 Animator:
   serializedVersion: 3
@@ -486,7 +503,7 @@ CharacterController:
   m_GameObject: {fileID: 1815880380957606}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 0
   m_Radius: 0.5
@@ -495,3 +512,21 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0.5, y: 0, z: -0.3}
+--- !u!205 &205494077745350212
+LODGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815880380957606}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.100000024, y: 0.00052407384, z: -0.25978297}
+  m_Size: 2.0625806
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.005975832
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 137232645718924352}
+    - renderer: {fileID: 137610316219023166}
+  m_Enabled: 1

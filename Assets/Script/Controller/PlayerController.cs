@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
         objectBehaviour = gameObject.GetComponent<ObjectBehaviour>();
         playerBehaviour = gameObject.GetComponent<PlayerBehaviour>();
+
+        objectBehaviour.SetMove(ObjectBehaviour.MoveWay.ByCharacterController);
     }
 
     // Update is called once per frame
@@ -61,27 +63,30 @@ public class PlayerController : MonoBehaviour
         if (moveHorizontal > 0.0f)
             if (moveVertical > 0.0f)
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.FrontRight);
+            else if (moveVertical < 0.0f)
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.BackRight);
             else
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.Right);
         else if (moveHorizontal < 0.0f)
             if (moveVertical > 0.0f)
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.FrontLeft);
+            else if (moveVertical < 0.0f)
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.BackLeft);
             else
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.Left);
-        else if (moveVertical > 0.0f)
+        else if (moveVertical != 0.0f)
         {
-            if (playerBehaviour.flyState == PlayerBehaviour.FlyState.Flying)
-            {
-                Vector3 towards = objectBehaviour.GetForwardDirection();
-                playerBehaviour.MoveInSky(towards);
-            }
-            else if (playerBehaviour.enterSky&&playerBehaviour.flyState == PlayerBehaviour.FlyState.WaitForFly)
+            if (playerBehaviour.enterSky && playerBehaviour.flyState == PlayerBehaviour.FlyState.WaitForFly)
             {
                 playerBehaviour.MoveInSeaSurface();
             }
-            else
+            else if (moveVertical > 0.0f)
             {
                 objectBehaviour.Move(ObjectBehaviour.MoveDirection.Front);
+            }
+            else
+            {
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Back);
             }
         }
         else

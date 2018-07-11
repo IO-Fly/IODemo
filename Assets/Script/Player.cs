@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : Photon.PunBehaviour {
 
@@ -47,9 +48,6 @@ public class Player : Photon.PunBehaviour {
         else
         {
             this.photonView.RPC("SetPlayerName", PhotonTargets.All, NetworkMatch.playerName);//设置玩家名字
-            //playerName = LobbyUIManager.playerName;
-            //呈现更新的玩家列表
-            //showPlayerList();
         }
 
     }
@@ -90,29 +88,63 @@ public class Player : Photon.PunBehaviour {
         if(PhotonNetwork.isMasterClient && !FoodManager.localFoodManager.isMasterBefore)
         {
             Debug.LogWarning("Master change!");
+            FoodManager.localFoodManager.InitFoodInMaster();
             FoodManager.localFoodManager.StartCoroutine(FoodManager.localFoodManager.SyncFoodAITranform());
             FoodManager.localFoodManager.isMasterBefore = true;
+
         }
+        if(this.health<0&&photonView.isMine){
+					GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().lose;
+                	GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
+				
+				}
+		else if(networkManager.playerList.Count == 1){
+    				GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
+                    Debug.Log("菜单为胜利状态");
+                    GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
+				}
+		else{
+					GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite =  GameObject.Find("HUDCanvas").GetComponent<MenuUI>().pause;
+                    GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = false;	
+						
+		    }
 
     }
 
     void Awake()
     {
-        // 获得battleUI
-        GameObject rootCanvas = GameObject.Find("HUDCanvas");
-        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
-        battleUI = battleUINode.GetComponent<BattleUI>();
-
 
         //玩家分身不维护在玩家列表
         if (this.tag != "playerCopy")
         {
             // 增加当前player到玩家列表
-            networkManager.playerList.Add(this);
+            networkManager.playerList.Add(this);      
+        }
+        DontDestroyOnLoad(this.gameObject);
+
+        //隐藏自身等待场景加载完成
+        if (!PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != "GameScene")
+        {
+            this.gameObject.SetActive(false);
+        }
+              
+    }
+    void OnEnable()
+    {
+        //当前场景
+        Debug.LogWarning("当前场景： " + SceneManager.GetActiveScene().name);
+
+        // 获得battleUI
+        GameObject rootCanvas = GameObject.Find("HUDCanvas");
+        GameObject battleUINode = rootCanvas.transform.Find("BattleUI").gameObject;
+        battleUI = battleUINode.GetComponent<BattleUI>();
+
+        //玩家分身不维护在玩家列表
+        if (this.tag != "playerCopy")
+        {
             // battleUI排行榜增加一个用户
             battleUI.AddPlayer();
         }
-        
     }
 
     void OnControllerColliderHit(ControllerColliderHit other)
@@ -399,6 +431,7 @@ public class Player : Photon.PunBehaviour {
         {
             PhotonNetwork.Destroy(this.gameObject);
         }
+        		
     }
 
     [PunRPC]
@@ -430,7 +463,7 @@ public class Player : Photon.PunBehaviour {
     void EatFood()
     {
  
-        AddPlayerEnergy(0.2f);
+        AddPlayerEnergy(0.2f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
 
         if (photonView.isMine)
         {

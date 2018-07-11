@@ -20,11 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4595547306049170}
   - component: {fileID: 33475357665692480}
-  - component: {fileID: 143712414830019768}
   - component: {fileID: 114051794927159486}
   - component: {fileID: 114332449045596266}
   - component: {fileID: 114338976030494428}
   - component: {fileID: 114021538697296250}
+  - component: {fileID: 205347707722758302}
   m_Layer: 0
   m_Name: snake
   m_TagString: poison
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4465712990696140}
   - component: {fileID: 95720701857389964}
   m_Layer: 0
-  m_Name: snake
+  m_Name: snake_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,9 +149,10 @@ GameObject:
   - component: {fileID: 4035733373992140}
   - component: {fileID: 136666890799061446}
   - component: {fileID: 114238103181640026}
+  - component: {fileID: 54586553883203470}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: AICollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,7 +261,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003748915625674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9424157, y: 6.21, z: 0.12502727}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4465712990696140}
@@ -288,6 +289,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003748915625674}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54586553883203470
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980322928061986}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95720701857389964
 Animator:
   serializedVersion: 3
@@ -434,20 +450,20 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00057382137, y: -0.010503029, z: 0}
     m_Extent: {x: 0.022025067, y: 0.014218746, z: 0.003943641}
   m_DirtyAABB: 0
---- !u!143 &143712414830019768
-CharacterController:
+--- !u!205 &205347707722758302
+LODGroup:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003748915625674}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.5
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: -1, y: 0, z: 0}
+  m_LocalReferencePoint: {x: -1.0212018, y: 0, z: -0.057382107}
+  m_Size: 4.4050136
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LODs:
+  - screenRelativeHeight: 0.008865017
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 137064319323214074}
+  m_Enabled: 1
