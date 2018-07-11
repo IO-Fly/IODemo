@@ -476,8 +476,9 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
- 
-        AddPlayerEnergy(0.2f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+
+        AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+        //AddPlayerEnergy(5.0f);
 
         if (photonView.isMine)
         {
