@@ -1115,7 +1115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 1
-  initialSpeed: 20
+  initialSpeed: 12
   initalHealth: 100
   health: 100
   Lock: 0
