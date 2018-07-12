@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NetworkConnect : Photon.PunBehaviour
 {
-    public GameObject loginScene;
+    public GameObject login;
     public GameObject lobbyCanvas;
 
     private void Awake()
@@ -16,6 +16,12 @@ public class NetworkConnect : Photon.PunBehaviour
         {
             AuthType = CustomAuthenticationType.Custom
         };
+
+        // 获得login场景root节点
+        if (login == null)
+        {
+            login = this.transform.parent.gameObject;
+        }
     }
 
     // 连接服务器失败
@@ -56,10 +62,7 @@ public class NetworkConnect : Photon.PunBehaviour
         lobbyCanvas.GetComponent<LobbyUI>().SetLobbyScene(lobbyScene);
 
         // 释放login资源
-        //this.gameObject.SetActive(false);
-        //loginScene.gameObject.SetActive(false);
-        Destroy(this.gameObject);
-        Destroy(loginScene);
+        Destroy(login);
     }
 
 }

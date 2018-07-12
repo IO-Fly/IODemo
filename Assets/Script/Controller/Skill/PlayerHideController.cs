@@ -48,10 +48,15 @@ public class PlayerHideController : PlayerSkillController {
         {
             curCooldown = cooldown;
             this.photonView.RPC("HidePlayer", PhotonTargets.AllViaServer, true);
-            StartCoroutine("WaitForEndSkill");
-
+           
             //开启粒子效果
-            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer); 
+            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+
+            //播放音效
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayHideSkill();
+
+            StartCoroutine("WaitForEndSkill");
 
         }
         if (curCooldown > 0)
