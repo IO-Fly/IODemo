@@ -876,7 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541e951edb0d9114ea50b54410040229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 18
   playerDetectDistance: 50
   targetResetInv: 5
   directionResetInv: 1
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 1
-  initialSpeed: 12
+  initialSpeed: 18
   initalHealth: 100
   health: 100
   Lock: 0

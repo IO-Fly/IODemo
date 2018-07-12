@@ -295,6 +295,7 @@ public class Player : Photon.PunBehaviour {
 
     public void CopyPlayer(Player player)
     {
+        
         this.health = player.health;
         this.playerEnergy = player.playerEnergy;
         this.playerSize = player.playerSize;
@@ -305,6 +306,12 @@ public class Player : Photon.PunBehaviour {
         this.transform.localScale = player.transform.localScale;
         this.initialSize = player.transform.localScale.x;
         this.initialSpeed = player.speed;
+
+        if (this.GetComponent<PlayerAI>())
+        {
+            this.GetComponent<PlayerAI>().speed = player.speed;
+        }
+
     }
 
     //更改大小
@@ -335,12 +342,7 @@ public class Player : Photon.PunBehaviour {
         playerEnergy = playerEnergy > 25 ? 25 : playerEnergy; 
 
         float sq = Mathf.Sqrt(playerEnergy);
-        speed = 10 / sq + 2;
-
-        if (this.tag == "playerCopy")
-        {
-            Debug.LogWarning("分身Add能量：" + playerEnergy);
-        }
+        speed = 10 / sq + 8;
         playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
         SetLocalScale(playerSize, sizeOffset);
     }
@@ -483,14 +485,13 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
-        float baseScale = this.gameObject.transform.localScale.x;
-        if (GetComponent<PlayerSizeController>() != null)
-            if (GetComponent<PlayerSizeController>().SkillInUse())
-                baseScale -= GetComponent<PlayerSizeController>().addSize.x;
+        //float baseScale = this.gameObject.transform.localScale.x;
+        //if (gameObject.tag=="player" && GetComponent<PlayerSizeController>() != null)
+        //    if (GetComponent<PlayerSizeController>().SkillInUse())
+        //        baseScale -= GetComponent<PlayerSizeController>().addSize.x;
 
-
-        AddPlayerEnergy(0.4f/Mathf.Sqrt(baseScale));
-        //AddPlayerEnergy(2.0f);
+        AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+        //AddPlayerEnergy(5.0f);
 
         if (photonView.isMine)
         {
