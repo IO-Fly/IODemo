@@ -476,8 +476,13 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
+        float baseScale = this.gameObject.transform.localScale.x;
+        if (GetComponent<PlayerSizeController>() != null)
+            if (GetComponent<PlayerSizeController>().SkillInUse())
+                baseScale -= GetComponent<PlayerSizeController>().addSize.x;
 
-        AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+
+        AddPlayerEnergy(0.4f/Mathf.Sqrt(baseScale));
         //AddPlayerEnergy(5.0f);
 
         if (photonView.isMine)

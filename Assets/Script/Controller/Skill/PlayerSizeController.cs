@@ -9,6 +9,8 @@ public class PlayerSizeController : PlayerSkillController {
 
     public GameObject particleEffect;
 
+    private bool skillInUse = false;//是否在技能持续时间内
+
     void Awake()
     {
         DisableParticle();
@@ -28,6 +30,10 @@ public class PlayerSizeController : PlayerSkillController {
             curCooldown = cooldown;
             Player player = this.gameObject.GetComponent<Player>();
             player.AddSizeEffect(sizeEffect);
+
+            float scaleOffset = Mathf.Sqrt(player.transform.localScale.x);
+            addSize = new Vector3(scaleOffset, scaleOffset, scaleOffset);
+
             player.AddSizeOffset(addSize);
 
             //开启技能效果
@@ -50,7 +56,9 @@ public class PlayerSizeController : PlayerSkillController {
 
     IEnumerator WaitForEndSkill()
     {
+        skillInUse = true;
         yield return new WaitForSeconds(keepTime);
+        
         Player player = this.gameObject.GetComponent<Player>();
         player.AddSizeOffset(-addSize);
         if (sizeEffect == 0)
@@ -62,6 +70,12 @@ public class PlayerSizeController : PlayerSkillController {
         //关闭技能效果
         this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
 
+        skillInUse = false;
+    }
+
+    public bool SkillInUse()
+    {
+        return skillInUse;
     }
 
     [PunRPC]

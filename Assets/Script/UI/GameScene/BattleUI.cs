@@ -10,12 +10,26 @@ public class BattleUI : MonoBehaviour {
     private GameObject panel;
     private List<Text> nameList;
     private List<Text> sizeList;
+    //private List<GameObject> itemList;
+    public Color normalColor;
+    public Color highlightColor; 
 
     void Awake()
     {
         panel = this.transform.Find("Panel").gameObject;
         nameList = new List<Text>();
         sizeList = new List<Text>();
+        //itemList = new List<GameObject>();
+
+        
+        if(normalColor == Color.clear)
+        {
+            normalColor = new Color(255, 255, 255, 100);
+        }
+        if(highlightColor == Color.clear)
+        {
+            highlightColor = new Color(255, 138, 0, 255);
+        }
     }
 
 
@@ -49,6 +63,18 @@ public class BattleUI : MonoBehaviour {
         {
             nameList[i].text = networkManager.playerList[i].GetPlayerName();
             sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString("0.0");
+
+            Image curItemImage = nameList[i].transform.parent.gameObject.GetComponent<Image>();
+            if ( networkManager.playerList[i].photonView.isMine )
+            {
+                curItemImage.color = highlightColor;
+                //itemList[i].GetComponent<Image>().color = highlightColor;
+            }
+            else
+            {
+                curItemImage.color = normalColor;
+                //itemList[i].GetComponent<Image>().color = normalColor;
+            }
         }
     }
 
@@ -61,7 +87,7 @@ public class BattleUI : MonoBehaviour {
             return;
         }
         this.GetComponent<RectTransform>().sizeDelta = 
-            new Vector2(this.GetComponent<RectTransform>().sizeDelta.magnitude, 30 * (playerCount +1));
+            new Vector2(this.GetComponent<RectTransform>().sizeDelta.x, 30 * (playerCount +1));
 
         // 增加的player必须在networkManager.playerList[playerCount - 1]
         GameObject itemPanel = GameObject.Instantiate(itemPanelPrefab, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity) as GameObject;
@@ -77,6 +103,7 @@ public class BattleUI : MonoBehaviour {
         // 维护Text列表
         nameList.Add(nameText);
         sizeList.Add(scaleText);
+        //itemList.Add(itemPanel);
 
         // 更新name，由于player的创建是异步的，需要时间
         // updateSeveralFrame();
@@ -93,10 +120,11 @@ public class BattleUI : MonoBehaviour {
 
         // 删除排行榜最后一个，为了不用维护 orderList，重新更新即可
         this.GetComponent<RectTransform>().sizeDelta = 
-            new Vector2(this.GetComponent<RectTransform>().sizeDelta.magnitude, 30 * (playerCount + 1));
+            new Vector2(this.GetComponent<RectTransform>().sizeDelta.x, 30 * (playerCount + 1));
         Destroy(nameList[playerCount].transform.parent.gameObject);
         nameList.RemoveAt(playerCount);
         sizeList.RemoveAt(playerCount);
+        //itemList.RemoveAt(playerCount);
     }
 
     // 插入排序
@@ -116,6 +144,5 @@ public class BattleUI : MonoBehaviour {
             networkManager.playerList[j + 1] = current;
         }
     }
-
 
 }
