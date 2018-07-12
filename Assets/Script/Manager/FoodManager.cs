@@ -43,7 +43,7 @@ public class FoodManager : Photon.PunBehaviour{
     public static FoodManager localFoodManager = null;
 
     //边界
-    const int boundary = 195;
+    const int boundary = 185;
     const int treeBoundary = 40;
 
     void Awake(){
