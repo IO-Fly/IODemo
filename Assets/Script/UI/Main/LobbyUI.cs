@@ -120,9 +120,9 @@ public class LobbyUI : MonoBehaviour
         }
         else
         {
-            PhotonNetwork.ConnectUsingSettings("0.0.1");
+            Debug.LogWarning("未连接网络");
+            //PhotonNetwork.ConnectUsingSettings("0.0.1");
         }
-        Debug.LogWarning("按钮按下一次");
     }
 
     // 取消匹配
