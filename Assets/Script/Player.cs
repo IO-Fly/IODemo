@@ -333,7 +333,7 @@ public class Player : Photon.PunBehaviour {
         playerEnergy = playerEnergy > 25 ? 25 : playerEnergy; 
 
         float sq = Mathf.Sqrt(playerEnergy);
-        speed = 10 / sq + 2;
+        speed = 10 / sq + 8;
         playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
         SetLocalScale(playerSize, sizeOffset);
     }
@@ -476,8 +476,13 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
+        float baseScale = this.gameObject.transform.localScale.x;
+        if (GetComponent<PlayerSizeController>() != null)
+            if (GetComponent<PlayerSizeController>().SkillInUse())
+                baseScale -= GetComponent<PlayerSizeController>().addSize.x;
 
-        AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
+
+        AddPlayerEnergy(0.4f/Mathf.Sqrt(baseScale));
         //AddPlayerEnergy(5.0f);
 
         if (photonView.isMine)

@@ -772,7 +772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 1
-  initialSpeed: 20
+  initialSpeed: 18
   initalHealth: 100
   health: 100
   Lock: 0
@@ -964,7 +964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keepTime: 4
   cooldown: 8
-  addSpeed: 10
+  addSpeed: 5
   particleEffect: {fileID: 1911068558653640}
 --- !u!114 &114780577258646490
 MonoBehaviour:
