@@ -11,6 +11,7 @@ public class LoginUI : MonoBehaviour
     public Button loginButton;
     public Text connectTip;
     public GameObject loadingCircle;
+    public GameObject gameIntroImage;
 
     private void Start()
     {
@@ -133,5 +134,11 @@ public class LoginUI : MonoBehaviour
     public void SetConnectTip(string tip)
     {
         connectTip.text = tip;
+    }
+
+    // 展示游戏信息
+    public void ShowGameIntro()
+    {
+        gameIntroImage.SetActive(!gameIntroImage.activeSelf);
     }
 }
