@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 1
-  initialSpeed: 12
+  initialSpeed: 18
   initalHealth: 100
   health: 100
   Lock: 0
