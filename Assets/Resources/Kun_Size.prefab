@@ -11,9 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1492382451508526}
   m_IsPrefabParent: 1
-<<<<<<< HEAD
---- !u!1 &1016131487402838
-=======
 --- !u!1 &1051207054996888
 GameObject:
   m_ObjectHideFlags: 1
@@ -30,23 +27,16 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1068093528079760
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4040710794578310}
-  m_Layer: 0
-  m_Name: joint1
-=======
   - component: {fileID: 4028721105081326}
   - component: {fileID: 137950643328960870}
   m_Layer: 8
   m_Name: cute_eye_out
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,17 +49,11 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4157129325286888}
-  m_Layer: 0
-  m_Name: joint5
-=======
   - component: {fileID: 4942334577264292}
   - component: {fileID: 198123977480569056}
   - component: {fileID: 199608258451410960}
   m_Layer: 8
   m_Name: lensflares
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,17 +66,11 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4245552608917650}
-  m_Layer: 0
-  m_Name: joint4
-=======
   - component: {fileID: 4124446528295396}
   - component: {fileID: 198449161331495758}
   - component: {fileID: 199519004814872036}
   m_Layer: 8
   m_Name: lensflare
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,17 +83,9 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4412424189838482}
-  - component: {fileID: 33451208310456430}
-  - component: {fileID: 23638154900362254}
-  m_Layer: 0
-  m_Name: pTorus1
-=======
   - component: {fileID: 4431762514030100}
   m_Layer: 8
   m_Name: cute_fish
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,16 +98,9 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4779082709500690}
-  - component: {fileID: 137366507130482104}
-  m_Layer: 0
-  m_Name: pSphere7
-=======
   - component: {fileID: 4207861734464048}
   m_Layer: 8
   m_Name: joint1
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,17 +113,10 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4661151351641620}
-  - component: {fileID: 95770066298693030}
-  m_Layer: 0
-  m_Name: Kun_Size
-=======
   - component: {fileID: 4473886117475976}
   - component: {fileID: 137518819867088202}
   m_Layer: 8
   m_Name: cute_eye_in
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,17 +129,10 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4620590091308776}
-  - component: {fileID: 137462777615122550}
-  m_Layer: 0
-  m_Name: pSphere1
-=======
   - component: {fileID: 4315823120467626}
   - component: {fileID: 95033084777215878}
   m_Layer: 8
   m_Name: "\u5E7C\u9CB2\u6E38\u6CF33.1"
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -196,16 +145,9 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4641192778675922}
-  - component: {fileID: 137177784504400176}
-  m_Layer: 0
-  m_Name: pTorus2
-=======
   - component: {fileID: 4555777726078722}
   m_Layer: 8
   m_Name: joint6
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,6 +169,7 @@ GameObject:
   - component: {fileID: 114156032771731304}
   - component: {fileID: 114059553018276876}
   - component: {fileID: 114847987269646436}
+  - component: {fileID: 114010965365263074}
   - component: {fileID: 114247464368533522}
   - component: {fileID: 114936574889460180}
   - component: {fileID: 114798483522717384}
@@ -261,15 +204,9 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4733127730448306}
-  m_Layer: 0
-  m_Name: joint2
-=======
   - component: {fileID: 4803975753959398}
   m_Layer: 8
   m_Name: joint5
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,11 +219,6 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4124401563337046}
-  m_Layer: 0
-  m_Name: joint3
-=======
   - component: {fileID: 4212774945329468}
   - component: {fileID: 198504274278060716}
   - component: {fileID: 199581889610179142}
@@ -307,7 +239,6 @@ GameObject:
   - component: {fileID: 4371082633040422}
   m_Layer: 8
   m_Name: joint2
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,13 +251,8 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4070444909773902}
-  m_Layer: 0
-=======
   - component: {fileID: 4334513306469362}
   m_Layer: 8
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_Name: joint7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,11 +266,6 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4430782347530116}
-  m_Layer: 0
-  m_Name: joint6
-=======
   - component: {fileID: 4305298750785340}
   - component: {fileID: 33394977473266690}
   - component: {fileID: 23074914842240740}
@@ -448,7 +369,6 @@ GameObject:
   - component: {fileID: 199070216077816854}
   m_Layer: 8
   m_Name: twinkle
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,16 +381,9 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-<<<<<<< HEAD
-  - component: {fileID: 4008476526008904}
-  - component: {fileID: 137974073563987146}
-  m_Layer: 0
-  m_Name: pSphere3
-=======
   - component: {fileID: 4038425620769610}
   m_Layer: 8
   m_Name: cute_eyes
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,14 +510,6 @@ Transform:
   m_LocalRotation: {x: 0.6815078, y: -0, z: -0, w: 0.73181087}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-<<<<<<< HEAD
-  m_Children:
-  - {fileID: 4661151351641620}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4620590091308776
-=======
   m_Children: []
   m_Father: {fileID: 4431762514030100}
   m_RootOrder: 0
@@ -623,7 +528,6 @@ Transform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4371082633040422
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -699,39 +603,6 @@ Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 1492382451508526}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23638154900362254
-=======
   m_GameObject: {fileID: 1439985933928492}
   m_LocalRotation: {x: 8.332031e-17, y: 0.8729954, z: -8.332031e-17, w: 0.4877285}
   m_LocalPosition: {x: -0.009320399, y: 0.01, z: 1.7780794e-19}
@@ -840,7 +711,6 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23074914842240740
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -875,11 +745,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-<<<<<<< HEAD
---- !u!33 &33451208310456430
-=======
 --- !u!33 &33394977473266690
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -911,8 +777,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
-<<<<<<< HEAD
-=======
 --- !u!114 &114010965365263074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -926,7 +790,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereForMinimapPrefab: {fileID: 1262253202921796, guid: cf299831864b43945b85103658882b42,
     type: 2}
->>>>>>> 24d97be19cfc65b3a56fda4a1ec71d238dd79ee6
 --- !u!114 &114038512678588238
 MonoBehaviour:
   m_ObjectHideFlags: 1
