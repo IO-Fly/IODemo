@@ -102,14 +102,15 @@ public class Player : Photon.PunBehaviour {
 
         }
 
-        if(this.health<0&&photonView.isMine){
+        if(this.health <=0 &&photonView.isMine){
+            Debug.LogWarning("菜单为失败状态!");
 			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().lose;
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 				
 		}
 		else if(networkManager.playerList.Count == 1 && networkManager.playerList[0].photonView.isMine){
-    		GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
-            Debug.Log("菜单为胜利状态");
+            Debug.LogWarning("菜单为胜利状态!");
+            GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 		}
 		
