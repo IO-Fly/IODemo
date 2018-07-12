@@ -359,6 +359,12 @@ public class Player : Photon.PunBehaviour {
         this.sizeEffect *= sizeEffect;
     }
 
+    public void SetSizeEffect(float effect)
+    {
+        this.sizeEffect = effect;
+    }
+
+
     public void AddSizeOffset(Vector3 sizeOffset)
     {
         this.sizeOffset += sizeOffset;
