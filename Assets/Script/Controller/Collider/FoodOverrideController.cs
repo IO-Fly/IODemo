@@ -15,7 +15,7 @@ public class FoodOverrideController : MonoBehaviour {
 	
 	void Start () {
         //translation = (this.transform.position - new Vector3(0,this.transform.position.y+Random.Range(-10f,10f),0)).normalized * translationSpeed;
-        translation = FoodManager.GetInitSpherePos(1.0f).normalized * translationSpeed;
+        //translation = FoodManager.GetInitSpherePos(1.0f).normalized * translationSpeed;
 	}
 	
 	// Update is called once per frame

@@ -43,7 +43,7 @@ public class FoodManager : Photon.PunBehaviour{
     public static FoodManager localFoodManager = null;
 
     //边界
-    const int boundary = 185;
+    const int boundary = 195;
     const int treeBoundary = 40;
 
     void Awake(){
@@ -338,6 +338,8 @@ public class FoodManager : Photon.PunBehaviour{
             {
                 GameObject instance = (GameObject)Instantiate(foodPrefab, GetInitPosition(), GetInitRotation());
                 instance.GetComponent<FoodOverrideController>().ID = i;
+                float speed = instance.GetComponent<FoodOverrideController>().translationSpeed;
+                instance.GetComponent<FoodOverrideController>().translation = GetInitSpherePos(1.0f).normalized * speed;
                 foodInstances[i] = instance;
             }
 
@@ -451,7 +453,7 @@ public class FoodManager : Photon.PunBehaviour{
     {
         while (true)
         {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(0.2f);
             if(foodInstances[foodInstances.Length - 1] != null &&
                 foodAIInstances[foodAIInstances.Length - 1] != null &&
                 poisonInstances[poisonInstances.Length - 1] != null
