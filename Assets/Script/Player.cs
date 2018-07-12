@@ -333,7 +333,7 @@ public class Player : Photon.PunBehaviour {
         playerEnergy = playerEnergy > 25 ? 25 : playerEnergy; 
 
         float sq = Mathf.Sqrt(playerEnergy);
-        speed = 10 / sq + 2;
+        speed = 10 / sq + 8;
         playerSize = new Vector3(playerEnergy, playerEnergy, playerEnergy);
         SetLocalScale(playerSize, sizeOffset);
     }
