@@ -30,7 +30,7 @@ public class Player : Photon.PunBehaviour {
     #region MoboBehaviour CallBacks
     // Use this for initialization
     void Start () {
-        playerEnergy = initialSize * initialSize;
+        playerEnergy = initialSize;
         playerSize = new Vector3(initialSize, initialSize, initialSize);
         transform.localScale = playerSize;
         speed = initialSpeed;
@@ -59,6 +59,7 @@ public class Player : Photon.PunBehaviour {
         if(this.tag == "playerCopy")
         {
             Debug.LogWarning("分身当前血量：" + health);
+            Debug.LogWarning("分身当前能量：" + playerEnergy);
         }
     }
 
@@ -334,6 +335,7 @@ public class Player : Photon.PunBehaviour {
     void AddPlayerEnergy(float energyAdd)
     {
         
+
         playerEnergy += energyAdd;
 
         //限制最大能量
