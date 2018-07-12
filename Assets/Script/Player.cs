@@ -30,7 +30,7 @@ public class Player : Photon.PunBehaviour {
     #region MoboBehaviour CallBacks
     // Use this for initialization
     void Start () {
-        playerEnergy = initialSize * initialSize;
+        playerEnergy = initialSize;
         playerSize = new Vector3(initialSize, initialSize, initialSize);
         transform.localScale = playerSize;
         speed = initialSpeed;
@@ -59,6 +59,7 @@ public class Player : Photon.PunBehaviour {
         if(this.tag == "playerCopy")
         {
             Debug.LogWarning("分身当前血量：" + health);
+            Debug.LogWarning("分身当前能量：" + playerEnergy);
         }
     }
 
@@ -294,6 +295,7 @@ public class Player : Photon.PunBehaviour {
 
     public void CopyPlayer(Player player)
     {
+        
         this.health = player.health;
         this.playerEnergy = player.playerEnergy;
         this.playerSize = player.playerSize;
@@ -304,6 +306,12 @@ public class Player : Photon.PunBehaviour {
         this.transform.localScale = player.transform.localScale;
         this.initialSize = player.transform.localScale.x;
         this.initialSpeed = player.speed;
+
+        if (this.GetComponent<PlayerAI>())
+        {
+            this.GetComponent<PlayerAI>().speed = player.speed;
+        }
+
     }
 
     //更改大小
@@ -327,6 +335,7 @@ public class Player : Photon.PunBehaviour {
     void AddPlayerEnergy(float energyAdd)
     {
         
+
         playerEnergy += energyAdd;
 
         //限制最大能量
@@ -476,13 +485,12 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void EatFood()
     {
-        float baseScale = this.gameObject.transform.localScale.x;
-        if (GetComponent<PlayerSizeController>() != null)
-            if (GetComponent<PlayerSizeController>().SkillInUse())
-                baseScale -= GetComponent<PlayerSizeController>().addSize.x;
+        //float baseScale = this.gameObject.transform.localScale.x;
+        //if (gameObject.tag=="player" && GetComponent<PlayerSizeController>() != null)
+        //    if (GetComponent<PlayerSizeController>().SkillInUse())
+        //        baseScale -= GetComponent<PlayerSizeController>().addSize.x;
 
-
-        AddPlayerEnergy(0.4f/Mathf.Sqrt(baseScale));
+        AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
         //AddPlayerEnergy(5.0f);
 
         if (photonView.isMine)
