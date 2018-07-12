@@ -964,7 +964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keepTime: 4
   cooldown: 8
-  addSpeed: 10
+  addSpeed: 5
   particleEffect: {fileID: 1911068558653640}
 --- !u!114 &114780577258646490
 MonoBehaviour:
