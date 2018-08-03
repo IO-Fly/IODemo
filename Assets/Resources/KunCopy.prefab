@@ -846,6 +846,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114909107446131046}
+  - {fileID: 114942718953486326}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -875,7 +876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541e951edb0d9114ea50b54410040229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 18
   playerDetectDistance: 50
   targetResetInv: 5
   directionResetInv: 1
@@ -1009,13 +1010,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1613026644344698}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d9d5441b6e77bf4595c1daa6d447994, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 1
-  initialSpeed: 20
+  initialSpeed: 18
   initalHealth: 100
   health: 100
   Lock: 0

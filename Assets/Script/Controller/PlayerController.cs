@@ -60,20 +60,21 @@ public class PlayerController : MonoBehaviour
         //处理WSAD输入（改变角色的方向）
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
+
         if (moveHorizontal > 0.0f)
             if (moveVertical > 0.0f)
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.FrontRight);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.FrontRight,player.GetSpeed());
             else if (moveVertical < 0.0f)
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.BackRight);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.BackRight, player.GetSpeed());
             else
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Right);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Right, player.GetSpeed());
         else if (moveHorizontal < 0.0f)
             if (moveVertical > 0.0f)
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.FrontLeft);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.FrontLeft, player.GetSpeed());
             else if (moveVertical < 0.0f)
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.BackLeft);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.BackLeft, player.GetSpeed());
             else
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Left);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Left, player.GetSpeed());
         else if (moveVertical != 0.0f)
         {
             if (playerBehaviour.enterSky && playerBehaviour.flyState == PlayerBehaviour.FlyState.WaitForFly)
@@ -82,15 +83,15 @@ public class PlayerController : MonoBehaviour
             }
             else if (moveVertical > 0.0f)
             {
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Front);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Front, player.GetSpeed());
             }
             else
             {
-                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Back);
+                objectBehaviour.Move(ObjectBehaviour.MoveDirection.Back, player.GetSpeed());
             }
         }
         else
-            objectBehaviour.Move(ObjectBehaviour.MoveDirection.Stay);
+            objectBehaviour.Move(ObjectBehaviour.MoveDirection.Stay, player.GetSpeed());
     }
 
     public bool GetFlyState()

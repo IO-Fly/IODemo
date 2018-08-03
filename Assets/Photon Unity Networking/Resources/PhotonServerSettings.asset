@@ -48,13 +48,11 @@ MonoBehaviour:
   - HidePlayer
   - AddFood
   - DestroyFood
-  - DoBomb
-  - ReleaseLock
-  - UpdatePlayerList
-  - SetPlayerName
   - DisableParticle
-  - EnableParticle
+  - DoBomb
   - EatFood
   - EatPoison
-  - AddSizeOffset
+  - EnableParticle
+  - ReleaseLock
+  - SetPlayerName
   DisableAutoOpenWizard: 1

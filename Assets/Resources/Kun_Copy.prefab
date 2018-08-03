@@ -1097,6 +1097,7 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114536696964807224}
+  - {fileID: 114212913958446606}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -1114,7 +1115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialSize: 1
-  initialSpeed: 20
+  initialSpeed: 18
   initalHealth: 100
   health: 100
   Lock: 0

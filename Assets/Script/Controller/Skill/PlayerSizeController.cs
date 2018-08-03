@@ -9,6 +9,12 @@ public class PlayerSizeController : PlayerSkillController {
 
     public GameObject particleEffect;
 
+    private bool skillInUse = false;//是否在技能持续时间内
+
+
+    private bool inMaxSize = false;
+
+
     void Awake()
     {
         DisableParticle();
@@ -18,25 +24,20 @@ public class PlayerSizeController : PlayerSkillController {
     void Start () {
         curCooldown = 0;
 	}
-	
+
+
+
 	// Update is called once per frame
 	void Update () {
 
         //技能触发
         if (Input.GetKeyDown("space") && curCooldown <= 0)
         {
-            curCooldown = cooldown;
-            Player player = this.gameObject.GetComponent<Player>();
-            player.AddSizeEffect(sizeEffect);
-            player.AddSizeOffset(addSize);
-
-            //开启技能效果
-            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
-
-            StartCoroutine("WaitForEndSkill");
+            if(!skillInUse)
+                StartCoroutine(HandleUseSkill());
         }
 
-        if (curCooldown > 0)
+        if (curCooldown > 0&&!inMaxSize)
         {
             curCooldown -= Time.deltaTime;
             curCooldown = curCooldown < 0 ? 0 : curCooldown;
@@ -44,20 +45,88 @@ public class PlayerSizeController : PlayerSkillController {
 
     }
 
-    IEnumerator WaitForEndSkill()
+
+    IEnumerator HandleUseSkill()
+    {
+        skillInUse = true;
+
+
+        Player player = this.gameObject.GetComponent<Player>();
+        ///player.AddSizeEffect(sizeEffect);
+
+        float scaleOffset = Mathf.Sqrt(player.transform.localScale.x);
+        addSize = new Vector3(scaleOffset, scaleOffset, scaleOffset);
+
+        yield return StartCoroutine(Largen());
+
+        inMaxSize = true;
+
+        
+
+        //开启技能效果
+        this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlaySizeSkill();
+
+        
+
+        StartCoroutine("WaitForEndSkill");
+
+        inMaxSize = false;
+        curCooldown = cooldown;
+        StartCoroutine(Diminish());
+    }
+
+
+    IEnumerator Largen()
+    {
+        Player player = this.gameObject.GetComponent<Player>();
+        for (int i = 0; i < 100; ++i)
+        {
+            player.SetSizeEffect(1 + i / 100);
+            player.AddSizeOffset(addSize / 100.0f);
+            player.GetComponent<CharacterController>().Move(new Vector3(Random.Range(-0.001f, 0.001f), Random.Range(-0.001f, 0.001f), Random.Range(-0.001f, 0.001f)));
+            yield return null;
+        }
+    }
+
+    IEnumerator Diminish()
     {
         yield return new WaitForSeconds(keepTime);
         Player player = this.gameObject.GetComponent<Player>();
-        player.AddSizeOffset(-addSize);
+        for (int i = 99; i >=0; --i)
+        {
+            player.SetSizeEffect(1 + i / 100);
+            player.AddSizeOffset(-addSize / 100.0f);
+            yield return null;
+        }
+    }
+
+    IEnumerator WaitForEndSkill()
+    {
+        
+
+        yield return new WaitForSeconds(keepTime);
+
+        ///Player player = this.gameObject.GetComponent<Player>();
+       /// player.AddSizeOffset(-addSize);
         if (sizeEffect == 0)
         {
             Debug.LogError("大小效果倍数不能为0 !");
         }
-        player.AddSizeEffect(1/sizeEffect);
+        ///player.SetSizeEffect(1);
 
         //关闭技能效果
         this.photonView.RPC("DisableParticle", PhotonTargets.AllViaServer);
 
+        skillInUse = false;
+    }
+
+    public bool SkillInUse()
+    {
+        return skillInUse;
     }
 
     [PunRPC]
