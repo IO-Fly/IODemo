@@ -12,6 +12,9 @@ public class LoginUI : MonoBehaviour
     public Text connectTip;
     public GameObject loadingCircle;
     public GameObject gameIntroImage;
+    public GameObject sceneSelect;
+
+    string[] sceneNames = { "GameScene", "GameScene2" };
 
     private void Start()
     {
@@ -19,6 +22,7 @@ public class LoginUI : MonoBehaviour
         GameObject audio = GameObject.Find("Audio");
         audio.GetComponent<AudioManager>().PlayLobbyBackground();
         DontDestroyOnLoad(audio);
+
     }
 
     private void Update()
@@ -105,10 +109,14 @@ public class LoginUI : MonoBehaviour
         // 房间唯一ID，相同ID的用户不会加入同一个房间
         PhotonNetwork.AuthValues.UserId = nameInput.text;
         NetworkMatch.playerName = nameInput.text;
+
+        Dropdown dropdown = sceneSelect.GetComponent<Dropdown>();
+        NetworkMatch.sceneName = sceneNames[dropdown.value];
+
         if (!PhotonNetwork.connected)
         {
             connectTip.text = "正在连接服务器";
-            PhotonNetwork.ConnectUsingSettings("0.0.1");
+            PhotonNetwork.ConnectUsingSettings(NetworkMatch.sceneName);
         }
 
     }

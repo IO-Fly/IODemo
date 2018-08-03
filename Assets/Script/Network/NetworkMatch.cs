@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class NetworkMatch : Photon.PunBehaviour
 {
+
     public static string playerName;    // 在游戏过程中保留当前玩家名称
     public int maxPlayerPerRoom = 2;    // 单个房间最多玩家数目
+    public static string sceneName;     // 匹配的场景
 
     public override void OnConnectedToMaster()
     {
@@ -62,7 +64,7 @@ public class NetworkMatch : Photon.PunBehaviour
 
             // 开始加载游戏场景
             isLoadScene = true;
-            GetComponent<SceneLoader>().LoadScene("GameScene");  
+            GetComponent<SceneLoader>().LoadScene(NetworkMatch.sceneName);  
         }
     }
 
