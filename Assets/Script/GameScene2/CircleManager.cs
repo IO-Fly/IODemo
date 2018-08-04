@@ -28,6 +28,8 @@ public class CircleManager : MonoBehaviour {
 		mCircleX = 0f;
 		mCircleY = 0f;
 		StartCoroutine(ReduceTime());
+		CircleCenter();
+		SafetyZoneMove(mRadius,mCircleX,mCircleY);
 	}
 	
 	// Update is called once per frame
@@ -35,13 +37,14 @@ public class CircleManager : MonoBehaviour {
 		if(IsArrive){
 			TimeingText.text = "还有"+ Timeing + "刷新安全区";
 			StageText.text = "目前是第" + (Stage+1) +"阶段";
-		}
+		
 		if(Timeing<=0){
 			Timeing = 0;
 			PoisonCircleMove();
 			Stage++;
 			IsArrive = false;
 
+		}
 		}
 	}
 	IEnumerator ReduceTime(){
@@ -56,21 +59,26 @@ public class CircleManager : MonoBehaviour {
 	}
 
 	public void StartNextPoisonCircle(){
+		CircleCenter();
+		SafetyZoneMove(mRadius,mCircleX,mCircleY);
 		IsArrive = true;
 		Timeing = LimitTime[Stage];
 		StartCoroutine(ReduceTime());
 	}
 //生成安全区的范围
 	public void SafetyZoneMove(float radius,float circleX,float circleY){
-		SafetyZone = Instantiate(CirclePrefab, new Vector3(circleX,130,circleY),Quaternion.identity);//到时转为网络场景对象的创建
+		if(SafetyZone!=null){
+			Destroy(SafetyZone);
+		}
+		SafetyZone = Instantiate(CirclePrefab, new Vector3(circleX,130,circleY), Quaternion.Euler(-90,0,0));//到时转为网络场景对象的创建
 		SafetyZone.transform.DOMove(new Vector3(circleX, 130,circleY),0.1f);
 		SafetyZone.transform.DOScaleX(radius,0.1f);
 		SafetyZone.transform.DOScaleY(radius,0.1f);
 	}
 //毒圈缩小方法
 	public void  PoisonCircleMove(){
-		CircleCenter();
-		SafetyZoneMove(mRadius,mCircleX,mCircleY);
+		//CircleCenter();
+		//SafetyZoneMove(mRadius,mCircleX,mCircleY);
 		CirclePrefab.transform.DOMove(new Vector3(mCircleX, 130, mCircleY),ShrinkTime);
 		CirclePrefab.transform.DOScaleX(mRadius, ShrinkTime);
 		CirclePrefab.transform.DOScaleY(mRadius, ShrinkTime);
@@ -80,8 +88,8 @@ public class CircleManager : MonoBehaviour {
 	}
 	public void CircleCenter(){
 		mRadius = 0.5f * mRadius;
-		mCircleX = Random.Range(mCircleX - 0.2f*mRadius, mCircleX +0.2f*mRadius);
-		mCircleY = Random.Range(mCircleY - 0.2f*mRadius, mCircleY +0.2f*mRadius);
+		mCircleX = Random.Range(mCircleX - 0.5f*mRadius, mCircleX +0.5f*mRadius);
+		mCircleY = Random.Range(mCircleY - 0.5f*mRadius, mCircleY +0.5f*mRadius);
 	}
 
 }
