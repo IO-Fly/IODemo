@@ -46,4 +46,13 @@ MonoBehaviour:
   - DestroyThis
   - GetDamage
   - HidePlayer
+  - AddFood
+  - DestroyFood
+  - DisableParticle
+  - DoBomb
+  - EatFood
+  - EatPoison
+  - EnableParticle
+  - ReleaseLock
+  - SetPlayerName
   DisableAutoOpenWizard: 1
