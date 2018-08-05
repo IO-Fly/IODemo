@@ -44,20 +44,9 @@ public class PlayerHideController : PlayerSkillController {
     {
 
         //技能触发
-        if (Input.GetKeyDown("space") && curCooldown <= 0)
+        if (Input.GetKeyDown("space") && curCooldown <= 0 && gameObject.GetComponent<PlayerAI>() == null)
         {
-            curCooldown = cooldown;
-            this.photonView.RPC("HidePlayer", PhotonTargets.AllViaServer, true);
-           
-            //开启粒子效果
-            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
-
-            //播放音效
-            GameObject Audio = GameObject.Find("Audio");
-            Audio.GetComponent<AudioManager>().PlayHideSkill();
-
-            StartCoroutine("WaitForEndSkill");
-
+            useSkill();
         }
         if (curCooldown > 0)
         {
@@ -65,6 +54,21 @@ public class PlayerHideController : PlayerSkillController {
             curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
+    }
+
+    public void useSkill()
+    {
+        curCooldown = cooldown;
+        this.photonView.RPC("HidePlayer", PhotonTargets.AllViaServer, true);
+
+        //开启粒子效果
+        this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlayHideSkill();
+
+        StartCoroutine("WaitForEndSkill");
     }
 
     IEnumerator WaitForEndSkill()
