@@ -9,11 +9,7 @@ public class PlayerSizeController : PlayerSkillController {
 
     public GameObject particleEffect;
 
-    private bool skillInUse = false;//是否在技能持续时间内
-
-
-    private bool inMaxSize = false;
-
+    protected bool inMaxSize = false;
 
     void Awake()
     {
@@ -31,10 +27,9 @@ public class PlayerSizeController : PlayerSkillController {
 	void Update () {
 
         //技能触发
-        if (Input.GetKeyDown("space") && curCooldown <= 0)
+        if (Input.GetKeyDown("space") && curCooldown <= 0 && gameObject.GetComponent<PlayerAI>() == null)
         {
-            if(!skillInUse)
-                StartCoroutine(HandleUseSkill());
+            useSkill();
         }
 
         if (curCooldown > 0&&!inMaxSize)
@@ -43,6 +38,11 @@ public class PlayerSizeController : PlayerSkillController {
             curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
+    }
+
+    public void useSkill(){
+        if (!skillInUse)
+            StartCoroutine(HandleUseSkill());
     }
 
 
@@ -106,7 +106,6 @@ public class PlayerSizeController : PlayerSkillController {
 
     IEnumerator WaitForEndSkill()
     {
-        
 
         yield return new WaitForSeconds(keepTime);
 
@@ -124,10 +123,7 @@ public class PlayerSizeController : PlayerSkillController {
         skillInUse = false;
     }
 
-    public bool SkillInUse()
-    {
-        return skillInUse;
-    }
+    
 
     [PunRPC]
     protected void EnableParticle()
