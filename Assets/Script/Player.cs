@@ -39,7 +39,7 @@ public class Player : Photon.PunBehaviour {
         sizeOffset = Vector3.zero;
      
         StartCoroutine(Recover());
-
+    
         if (!this.photonView.isMine)
         {
             Debug.LogWarning("调用OnAwake");

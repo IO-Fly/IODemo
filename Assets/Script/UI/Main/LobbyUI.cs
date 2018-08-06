@@ -117,6 +117,7 @@ public class LobbyUI : MonoBehaviour
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.JoinRandomRoom();
+
         }
         else
         {
@@ -129,7 +130,9 @@ public class LobbyUI : MonoBehaviour
     public void OnCancelMatching()
     {
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.LeaveLobby(); 
+        this.gameObject.GetComponent<NetworkMatch>().StopCoroutine("AddWaitTime");
+        this.gameObject.GetComponent<NetworkMatch>().waitTime = 0;
         OnCancelMatchUI();
     }
 

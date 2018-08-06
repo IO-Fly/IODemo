@@ -10,6 +10,8 @@ public class NetworkMatch : Photon.PunBehaviour
     public static string playerName;    // 在游戏过程中保留当前玩家名称
     public int maxPlayerPerRoom = 2;    // 单个房间最多玩家数目
     public static string sceneName;     // 匹配的场景
+    
+    public int waitTime=0;
 
     public override void OnConnectedToMaster()
     {
@@ -46,6 +48,10 @@ public class NetworkMatch : Photon.PunBehaviour
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.CreateRoom(null, roomOptions, null);
+            if(sceneName == "GameScene2"){
+                Debug.Log("开始读秒");
+                StartCoroutine("AddWaitTime");
+            }
         }
         else
         {
@@ -57,7 +63,7 @@ public class NetworkMatch : Photon.PunBehaviour
     bool isLoadScene = false;
     void Update()
     {
-        if (isLoadScene == false && PhotonNetwork.inRoom && PhotonNetwork.room.PlayerCount == maxPlayerPerRoom)
+        if (isLoadScene == false && NetworkMatch.sceneName == "GameScene"&&PhotonNetwork.inRoom && PhotonNetwork.room.PlayerCount == maxPlayerPerRoom)
         {
             // 关闭房间
             PhotonNetwork.room.IsOpen = false;
@@ -65,6 +71,29 @@ public class NetworkMatch : Photon.PunBehaviour
             // 开始加载游戏场景
             isLoadScene = true;
             GetComponent<SceneLoader>().LoadScene(NetworkMatch.sceneName);  
+        }
+        if (isLoadScene == false && NetworkMatch.sceneName == "GameScene2"&&PhotonNetwork.inRoom)
+        {
+            
+            if(waitTime >=10||PhotonNetwork.room.IsOpen ==false){
+            // 关闭房间
+            PhotonNetwork.room.IsOpen = false;
+
+            // 开始加载游戏场景
+            isLoadScene = true;
+            StopCoroutine("AddWaitTime");
+            Debug.Log("开始加载场景");
+            GetComponent<SceneLoader>().LoadScene(NetworkMatch.sceneName);  
+            }
+        }
+
+    }
+
+    IEnumerator AddWaitTime(){
+        while(waitTime<10){
+            yield return new WaitForSeconds(1);
+            Debug.Log(waitTime);
+            waitTime++;
         }
     }
 
