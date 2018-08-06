@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Boundary : Photon.PunBehaviour
@@ -7,7 +8,7 @@ public class Boundary : Photon.PunBehaviour
 
     public enum Axis { X, Y, Z, None };
     public Axis verticalAxis = Axis.None;//表示边界所在的面与哪一个坐标轴垂直
-
+    public int scale;
     public bool blockFood = true;//边界是否限制可移动食物（AI）的移动
     public bool blockPlayerAI = true;//边界是否限制玩家角色（玩家或AI控制）的移动
 
@@ -15,6 +16,12 @@ public class Boundary : Photon.PunBehaviour
     public ForceDirection forceDirection = ForceDirection.Positive;
     void Start()
     {
+        if(SceneManager.GetActiveScene().name =="GameScene"){
+            scale = 200;
+        }
+        else{
+            scale = 300;
+        }
     }
 
     void Update()
@@ -105,7 +112,7 @@ public class Boundary : Photon.PunBehaviour
         Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
         if (networkManager.localPlayer.transform.position.z >= 0)
         {
-            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200 - networkManager.localPlayer.transform.position.z) / 200);
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (scale - networkManager.localPlayer.transform.position.z) / scale);
         }
         else
         {
@@ -118,7 +125,7 @@ public class Boundary : Photon.PunBehaviour
         Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
         if (networkManager.localPlayer.transform.position.z < 0)
         {
-            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.z + 200) / 200);
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.z + scale) / scale);
         }
         else
         {
@@ -131,7 +138,7 @@ public class Boundary : Photon.PunBehaviour
         Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
         if (networkManager.localPlayer.transform.position.x < 0)
         {
-            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.x + 200) / 200);
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (networkManager.localPlayer.transform.position.x + scale) / scale);
         }
         else
         {
@@ -144,7 +151,7 @@ public class Boundary : Photon.PunBehaviour
         Renderer render = transform.parent.gameObject.GetComponent<Renderer>();
         if (networkManager.localPlayer.transform.position.x >= 0)
         {
-            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (200 - networkManager.localPlayer.transform.position.x) / 200);
+            render.material.color = new Color(render.material.color.r, render.material.color.g, render.material.color.b, 1 - (scale - networkManager.localPlayer.transform.position.x) / scale);
         }
         else
         {
