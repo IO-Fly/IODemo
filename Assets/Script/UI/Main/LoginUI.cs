@@ -150,4 +150,11 @@ public class LoginUI : MonoBehaviour
     {
         gameIntroImage.SetActive(!gameIntroImage.activeSelf);
     }
+
+    // 用于lobby界面返回login界面时的重置
+    public void Reset()
+    {
+        SetEnterUI(true);
+        this.transform.parent.gameObject.SetActive(true);
+    }
 }
