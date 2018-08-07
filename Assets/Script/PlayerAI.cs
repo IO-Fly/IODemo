@@ -64,6 +64,8 @@ public class PlayerAI : FoodAI
             if (copyJudge != null)
                 if (copyJudge.getPlayerCopy() == gameObject)
                     continue;
+            if (collider.gameObject == this.gameObject)
+                continue;
             //if (player.isCopyRelation(collider.gameObject))
             //    continue;
             if (collider.gameObject.CompareTag("player"))
