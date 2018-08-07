@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +14,7 @@ public class LobbyUI : MonoBehaviour
     public GameObject rightButton;
     public GameObject matchButton;
     public GameObject cancelMatchButton;
+    public GameObject backButton;
 
 
     private GameObject mainCamera;
@@ -47,6 +48,10 @@ public class LobbyUI : MonoBehaviour
         if (cancelMatchButton == null)
         {
             cancelMatchButton = transform.Find("CancelMatchButton").gameObject;
+        }
+        if (backButton == null)
+        {
+            cancelMatchButton = transform.Find("BackButton").gameObject;
         }
     }
 
@@ -117,6 +122,7 @@ public class LobbyUI : MonoBehaviour
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.JoinRandomRoom();
+
         }
         else
         {
@@ -129,7 +135,9 @@ public class LobbyUI : MonoBehaviour
     public void OnCancelMatching()
     {
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LeaveLobby();
+        PhotonNetwork.LeaveLobby(); 
+        this.gameObject.GetComponent<NetworkMatch>().StopCoroutine("AddWaitTime");
+        this.gameObject.GetComponent<NetworkMatch>().waitTime = 0;
         OnCancelMatchUI();
     }
 
@@ -151,5 +159,15 @@ public class LobbyUI : MonoBehaviour
         rightButton.GetComponent<Button>().interactable = true;
         matchButton.GetComponent<Button>().interactable = true;
         matchButton.GetComponent<Button>().GetComponentInChildren<Text>().text = "开始匹配";
+    }
+
+    // 返回
+    public void OnBackLoginUI()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.Disconnect();
+
+        lobbySceneNode.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
