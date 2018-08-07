@@ -31,26 +31,9 @@ public class PlayerCopyController : PlayerSkillController {
     {
        
         //技能触发
-        if (Input.GetKeyDown("space") && curCooldown <= 0)
+        if (Input.GetKeyDown("space") && curCooldown <= 0 && gameObject.GetComponent<PlayerAI>()==null)
         {
-            curCooldown = cooldown;
-
-            //根据玩家初始化位置，方向，大小
-            //Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
-            //Vector3 InitPosition = transform.position + posOffset;
-            Vector3 InitPosition = transform.position;
-            playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition ,Quaternion.identity, 0);
-            //复制本身属性到分身
-            playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
-
-            //开启技能效果
-            this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
-
-            //播放音效
-            GameObject Audio = GameObject.Find("Audio");
-            Audio.GetComponent<AudioManager>().PlayCopySkill();
-
-            StartCoroutine("WaitForEndSkill");
+            useSkill();
         }
 
         if (curCooldown > 0)
@@ -59,6 +42,28 @@ public class PlayerCopyController : PlayerSkillController {
             curCooldown = curCooldown < 0 ? 0 : curCooldown;
         }
 
+    }
+
+    public void useSkill()
+    {
+        curCooldown = cooldown;
+
+        //根据玩家初始化位置，方向，大小
+        //Vector3 posOffset = Vector3.Normalize(transform.forward) * distance;
+        //Vector3 InitPosition = transform.position + posOffset;
+        Vector3 InitPosition = transform.position;
+        playerCopy = PhotonNetwork.Instantiate(playerCopyPrefab.name, InitPosition, Quaternion.identity, 0);
+        //复制本身属性到分身
+        playerCopy.GetComponent<Player>().CopyPlayer(this.gameObject.GetComponent<Player>());
+
+        //开启技能效果
+        this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
+
+        //播放音效
+        GameObject Audio = GameObject.Find("Audio");
+        Audio.GetComponent<AudioManager>().PlayCopySkill();
+
+        StartCoroutine("WaitForEndSkill");
     }
 
     IEnumerator WaitForEndSkill()

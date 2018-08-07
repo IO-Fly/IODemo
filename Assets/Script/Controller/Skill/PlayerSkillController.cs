@@ -13,6 +13,8 @@ public abstract class PlayerSkillController : Photon.PunBehaviour {
 
     protected float curCooldown;
 
+    protected bool skillInUse = false;//是否在技能持续时间内
+    
     public float GetKeepTime()
     {
         return keepTime;
@@ -33,5 +35,8 @@ public abstract class PlayerSkillController : Photon.PunBehaviour {
         return curCooldown;
     }
 
-
+    public bool SkillInUse()
+    {
+        return skillInUse;
+    }
 }
