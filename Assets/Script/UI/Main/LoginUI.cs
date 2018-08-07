@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -133,6 +133,7 @@ public class LoginUI : MonoBehaviour
     {
         nameInput.gameObject.SetActive(flag);
         loginButton.gameObject.SetActive(flag);
+        sceneSelect.SetActive(flag);
 
         connectTip.gameObject.SetActive(!flag);
         loadingCircle.SetActive(!flag);
