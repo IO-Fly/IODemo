@@ -9,8 +9,9 @@ public class networkManager :Photon.PunBehaviour {
     public static GameObject localPlayer;
     public static List<Player> playerList = new List<Player>();
     Dictionary<int, string> characterAIDict = new Dictionary<int, string>();
+    public int PlayerAINum = 2;
 
-	// Use this for initialization
+    // Use this for initialization
     void Awake(){
 
 		PhotonNetwork.sendRate=20;
