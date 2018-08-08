@@ -61,6 +61,9 @@ public class NetworkMatch : Photon.PunBehaviour
                 StartCoroutine("AddWaitTime");
             }
     }
+    public override void OnPhotonCreateRoomFailed(object[] codeAndMsg){
+            Debug.Log(PhotonNetwork.connected);
+    }
 
     bool isLoadScene = false;
     void Update()
