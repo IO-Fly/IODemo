@@ -22,7 +22,7 @@ public class NetworkMatch : Photon.PunBehaviour
 
     public override void OnJoinedRoom()
     {
-        if (PhotonNetwork.room.PlayerCount < maxPlayerPerRoom)
+        if (PhotonNetwork.room.PlayerCount <= maxPlayerPerRoom)
         {
             //Debug.LogWarning("调用一次");
             GetComponent<LobbyUI>().OnMatchUI();
@@ -48,16 +48,18 @@ public class NetworkMatch : Photon.PunBehaviour
         if (PhotonNetwork.connected)
         {
             PhotonNetwork.CreateRoom(null, roomOptions, null);
-            if(sceneName == "GameScene2"){
-                Debug.Log("开始读秒");
-                StartCoroutine("AddWaitTime");
-            }
         }
         else
         {
             Debug.Log("服务器连接断开");
         }
         
+    }
+    public override void OnCreatedRoom(){
+            if(sceneName == "GameScene2"&&PhotonNetwork.isMasterClient){
+                Debug.Log("开始读秒");
+                StartCoroutine("AddWaitTime");
+            }
     }
 
     bool isLoadScene = false;
@@ -75,7 +77,7 @@ public class NetworkMatch : Photon.PunBehaviour
         if (isLoadScene == false && NetworkMatch.sceneName == "GameScene2"&&PhotonNetwork.inRoom)
         {
             
-            if(waitTime >=10||PhotonNetwork.room.IsOpen ==false){
+            if(waitTime >=10||PhotonNetwork.room.IsOpen ==false||PhotonNetwork.room.PlayerCount == maxPlayerPerRoom){
             // 关闭房间
             PhotonNetwork.room.IsOpen = false;
 

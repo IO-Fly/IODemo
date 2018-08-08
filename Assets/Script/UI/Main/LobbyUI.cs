@@ -122,7 +122,7 @@ public class LobbyUI : MonoBehaviour
         else
         {
             Debug.LogWarning("未连接网络");
-            //PhotonNetwork.ConnectUsingSettings("0.0.1");
+            PhotonNetwork.ConnectUsingSettings(NetworkMatch.sceneName);
         }
     }
 
