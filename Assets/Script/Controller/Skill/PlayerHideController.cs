@@ -65,8 +65,12 @@ public class PlayerHideController : PlayerSkillController {
         this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
 
         //播放音效
-        GameObject Audio = GameObject.Find("Audio");
-        Audio.GetComponent<AudioManager>().PlayHideSkill();
+        if(this.gameObject == networkManager.localPlayer)
+        {
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayHideSkill();
+        }
+        
 
         StartCoroutine("WaitForEndSkill");
     }
@@ -84,7 +88,7 @@ public class PlayerHideController : PlayerSkillController {
     void HidePlayer(bool isHide)
     {
 
-        if (!this.photonView.isMine)
+        if (!this.photonView.isMine || this.gameObject != networkManager.localPlayer)
         {
             this.gameObject.GetComponent<PlayerHealthUI>().getHealthCanvas().SetActive(!isHide);
             Renderer[] renders = this.gameObject.GetComponentsInChildren<Renderer>();

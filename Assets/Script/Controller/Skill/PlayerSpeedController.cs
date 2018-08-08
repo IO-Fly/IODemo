@@ -48,9 +48,12 @@ public class PlayerSpeedController : PlayerSkillController {
         this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
 
         //播放音效
-        GameObject Audio = GameObject.Find("Audio");
-        Audio.GetComponent<AudioManager>().PlaySpeedSkill();
-
+        if (this.gameObject == networkManager.localPlayer)
+        {
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlaySpeedSkill();
+        }
+            
         StartCoroutine("WaitForEndSkill");
     }
 
