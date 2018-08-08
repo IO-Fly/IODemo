@@ -60,8 +60,12 @@ public class PlayerCopyController : PlayerSkillController {
         this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
 
         //播放音效
-        GameObject Audio = GameObject.Find("Audio");
-        Audio.GetComponent<AudioManager>().PlayCopySkill();
+        if (this.gameObject == networkManager.localPlayer)
+        {
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayCopySkill();
+        }
+            
 
         StartCoroutine("WaitForEndSkill");
     }

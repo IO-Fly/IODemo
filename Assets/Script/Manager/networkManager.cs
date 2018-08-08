@@ -8,11 +8,17 @@ public class networkManager :Photon.PunBehaviour {
 
     public static GameObject localPlayer;
     public static List<Player> playerList = new List<Player>();
+    Dictionary<int, string> characterAIDict = new Dictionary<int, string>();
 
 	// Use this for initialization
     void Awake(){
+
 		PhotonNetwork.sendRate=20;
 		PhotonNetwork.sendRateOnSerialize=20;
+        characterAIDict[0] = "Kun_Copy_withAI";
+        characterAIDict[1] = "Kun_Size_withAI";
+        characterAIDict[2] = "Kun_Hide_withAI";
+        characterAIDict[3] = "Kun_Speed_withAI";
 
         //CreatePlayer();
     }
@@ -44,6 +50,13 @@ public class networkManager :Photon.PunBehaviour {
                 player.gameObject.SetActive(true);
             }
         }
+
+        //创建AI玩家
+        if (PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != "GameScene")
+        {
+            CreatePlayerAI();
+        }
+
     }
 
 
@@ -64,6 +77,18 @@ public class networkManager :Photon.PunBehaviour {
         GameObject skillUI = rootCanvas.transform.Find("SkillUI").gameObject;
         skillUI.GetComponent<SkillUI>().setPlayer(localPlayer);//将指向本地玩家
         GameObject.Find("SUIMONO_Module").GetComponent<Suimono.Core.SuimonoModule>().setTrack = localPlayer.transform;
+
+    }
+
+
+    private void CreatePlayerAI()
+    {
+        Random.InitState((int)System.DateTime.Now.Ticks);
+        for(int i = 0; i < PlayerAINum; i++)
+        {
+            int randomIndex = Random.Range(0, 4);
+            PhotonNetwork.InstantiateSceneObject(characterAIDict[randomIndex], FoodManager.GetInitPosition(), Quaternion.identity, 0, null);
+        }  
 
     }
 }

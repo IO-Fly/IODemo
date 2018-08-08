@@ -67,9 +67,12 @@ public class PlayerSizeController : PlayerSkillController {
         this.photonView.RPC("EnableParticle", PhotonTargets.AllViaServer);
 
         //播放音效
-        GameObject Audio = GameObject.Find("Audio");
-        Audio.GetComponent<AudioManager>().PlaySizeSkill();
-
+        if (this.gameObject == networkManager.localPlayer)
+        {
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlaySizeSkill();
+        }
+            
         
 
         StartCoroutine("WaitForEndSkill");
