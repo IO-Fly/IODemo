@@ -8,6 +8,7 @@ public class networkManager :Photon.PunBehaviour {
 
     public static GameObject localPlayer;
     public static List<Player> playerList = new List<Player>();
+    public int PlayerAINum = 2;
     Dictionary<int, string> characterAIDict = new Dictionary<int, string>();
 
 	// Use this for initialization
