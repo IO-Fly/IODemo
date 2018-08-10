@@ -48,6 +48,7 @@ public class networkManager :Photon.PunBehaviour {
         {
             foreach (Player player in playerList)
             {
+                //player.photonView.RPC("SetActive", PhotonTargets.All, true);
                 player.gameObject.SetActive(true);
             }
         }
@@ -66,6 +67,7 @@ public class networkManager :Photon.PunBehaviour {
         string characterName = PhotonNetwork.player.NickName;
         Debug.Log(characterName);
 		GameObject localPlayer = PhotonNetwork.Instantiate(characterName, FoodManager.GetInitPosition(),Quaternion.identity, 0);
+        localPlayer.GetComponent<Player>().SetPlayerName(NetworkMatch.playerName);
         networkManager.localPlayer = localPlayer;//缓存本地玩家对象
 
         GameObject playerCamera = GameObject.Find("PlayerCamera");
@@ -85,10 +87,12 @@ public class networkManager :Photon.PunBehaviour {
     private void CreatePlayerAI()
     {
         Random.InitState((int)System.DateTime.Now.Ticks);
-        for(int i = 0; i < PlayerAINum; i++)
+        PlayerAIName.curNameList.Clear();
+        for (int i = 0; i < PlayerAINum; i++)
         {
             int randomIndex = Random.Range(0, 4);
-            PhotonNetwork.InstantiateSceneObject(characterAIDict[randomIndex], FoodManager.GetInitPosition(), Quaternion.identity, 0, null);
+            GameObject playerAI = PhotonNetwork.InstantiateSceneObject
+                (characterAIDict[randomIndex], FoodManager.GetInitPosition(), Quaternion.identity, 0, null);
         }  
 
     }
