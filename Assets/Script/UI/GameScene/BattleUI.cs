@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -65,7 +65,7 @@ public class BattleUI : MonoBehaviour {
             sizeList[i].text = networkManager.playerList[i].GetPlayerSize().ToString("0.0");
 
             Image curItemImage = nameList[i].transform.parent.gameObject.GetComponent<Image>();
-            if ( networkManager.playerList[i].photonView.isMine )
+            if ( networkManager.playerList[i].gameObject == networkManager.localPlayer )
             {
                 curItemImage.color = highlightColor;
                 //itemList[i].GetComponent<Image>().color = highlightColor;
