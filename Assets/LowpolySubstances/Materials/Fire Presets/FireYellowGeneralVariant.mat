@@ -1,0 +1,262 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: FireYellowGeneralVariant
+  m_Shader: {fileID: 4800000, guid: c39548954424543b5b1aab77bd5254d9, type: 3}
+  m_ShaderKeywords: _ENABLEPARTICLES_ON _MOVEINWARDS_ON
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: 3000
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailNormalMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _OcclusionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _EmissionMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailMask
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DetailAlbedoMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _MetallicGlossMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _SrcBlend
+        second: 1
+      data:
+        first:
+          name: _DstBlend
+        second: 0
+      data:
+        first:
+          name: _Cutoff
+        second: 0.5
+      data:
+        first:
+          name: _Parallax
+        second: 0.02
+      data:
+        first:
+          name: _ZWrite
+        second: 1
+      data:
+        first:
+          name: _Glossiness
+        second: 0.5
+      data:
+        first:
+          name: _BumpScale
+        second: 1
+      data:
+        first:
+          name: _OcclusionStrength
+        second: 1
+      data:
+        first:
+          name: _DetailNormalMapScale
+        second: 1
+      data:
+        first:
+          name: _UVSec
+        second: 0
+      data:
+        first:
+          name: _Mode
+        second: 0
+      data:
+        first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
+          name: _Alpha
+        second: 0.918
+      data:
+        first:
+          name: _SecondaryColorAngle
+        second: 1
+      data:
+        first:
+          name: _SecondaryColorImpact
+        second: 1
+      data:
+        first:
+          name: _Height1
+        second: 0.2
+      data:
+        first:
+          name: _IntensityV1
+        second: 10.13
+      data:
+        first:
+          name: _IntensityHShift
+        second: 3.29
+      data:
+        first:
+          name: _IntensityHScale
+        second: 4.49
+      data:
+        first:
+          name: _SpeedV1
+        second: 3.76
+      data:
+        first:
+          name: _SpeedH1
+        second: 1
+      data:
+        first:
+          name: _MoveInwards
+        second: 1
+      data:
+        first:
+          name: _EnableParticles
+        second: 1
+      data:
+        first:
+          name: _Height2
+        second: 0.64
+      data:
+        first:
+          name: _ParticlesAmplitudeV
+        second: 8.62
+      data:
+        first:
+          name: _ParticlesRadius
+        second: 3.35
+      data:
+        first:
+          name: _ParticlesSpeed
+        second: 2.51
+      data:
+        first:
+          name: _ParticlesDelay
+        second: 5.36
+      data:
+        first:
+          name: _IntensityV1Variance2
+        second: 2.03
+      data:
+        first:
+          name: _IntensityV1Variance1
+        second: 1
+      data:
+        first:
+          name: _IntensityH1
+        second: 5
+      data:
+        first:
+          name: _Intensity1
+        second: 3
+      data:
+        first:
+          name: _Speed1
+        second: 3
+      data:
+        first:
+          name: _Intensity2
+        second: 5
+      data:
+        first:
+          name: _Speed2
+        second: 5
+      data:
+        first:
+          name: _AssetScaleFactor
+        second: 1
+      data:
+        first:
+          name: _SpeedV1Variance1
+        second: 1
+      data:
+        first:
+          name: _SpeedV1Variance2
+        second: 1
+    m_Colors:
+      data:
+        first:
+          name: _EmissionColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Color
+        second: {r: 0.90344834, g: 1, b: 0, a: 1}
+      data:
+        first:
+          name: _PrimaryColor
+        second: {r: 1, g: 0.8482759, b: 0, a: 1}
+      data:
+        first:
+          name: _SecondaryColor
+        second: {r: 0.98620677, g: 1, b: 0, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: 1, g: 0.6827586, b: 0, a: 1}
+      data:
+        first:
+          name: _primaryColor
+        second: {r: 1, g: 1, b: 0, a: 1}
+      data:
+        first:
+          name: _secondaryColor
+        second: {r: 1, g: 0, b: 0, a: 1}

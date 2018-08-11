@@ -55,4 +55,5 @@ MonoBehaviour:
   - EnableParticle
   - ReleaseLock
   - SetPlayerName
+  - SetActive
   DisableAutoOpenWizard: 1

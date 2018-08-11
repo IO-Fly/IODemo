@@ -1,0 +1,140 @@
+fileFormatVersion: 2
+guid: a77f6385f30c64cb9984dfddd94a0309
+labels:
+- Lowpoly
+- Mobile
+- Effect
+- Fire
+timeCreated: 1456609474
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Fire1
+    100004: Fire2
+    100006: Fire3
+    100008: Fire4
+    100010: Island
+    100012: Log1
+    100014: Log2
+    100016: Mountains
+    100018: Stones
+    100020: Tree
+    100022: TreePine
+    100024: Water
+    400000: //RootNode
+    400002: Fire1
+    400004: Fire2
+    400006: Fire3
+    400008: Fire4
+    400010: Island
+    400012: Log1
+    400014: Log2
+    400016: Mountains
+    400018: Stones
+    400020: Tree
+    400022: TreePine
+    400024: Water
+    2300000: //RootNode
+    2300002: Fire1
+    2300004: Fire2
+    2300006: Fire3
+    2300008: Fire4
+    2300010: Island
+    2300012: Log1
+    2300014: Log2
+    2300016: Mountains
+    2300018: Stones
+    2300020: Tree
+    2300022: TreePine
+    2300024: Water
+    3300000: //RootNode
+    3300002: Fire1
+    3300004: Fire2
+    3300006: Fire3
+    3300008: Fire4
+    3300010: Island
+    3300012: Log1
+    3300014: Log2
+    3300016: Mountains
+    3300018: Stones
+    3300020: Tree
+    3300022: TreePine
+    3300024: Water
+    4300000: Fire4
+    4300002: Fire3
+    4300004: Tree
+    4300006: TreePine
+    4300008: Mountains
+    4300010: Water
+    4300012: Island
+    4300014: Log2
+    4300016: Fire2
+    4300018: Stones
+    4300020: Fire1
+    4300022: Log1
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.05
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 40
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

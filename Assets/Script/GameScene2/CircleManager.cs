@@ -30,7 +30,7 @@ public class CircleManager : Photon.PunBehaviour {
 		mCircleY = 0f;
 		if(PhotonNetwork.isMasterClient){
 		
-		CirclePrefab = PhotonNetwork.InstantiateSceneObject("circle", new Vector3(0,130,0), Quaternion.Euler(-90,0,0),0,null);
+		CirclePrefab = PhotonNetwork.InstantiateSceneObject("circle", new Vector3(0,-40,0), Quaternion.Euler(-90,0,0),0,null);
 		StartCoroutine(ReduceTime());
 		CircleCenter();
 		SafetyZoneMove(mRadius,mCircleX,mCircleY);
@@ -78,8 +78,8 @@ public class CircleManager : Photon.PunBehaviour {
 		if(SafetyZone!=null){
 			PhotonNetwork.Destroy(SafetyZone);
 		}
-		SafetyZone = PhotonNetwork.InstantiateSceneObject("circle", new Vector3(circleX,130,circleY), Quaternion.Euler(-90,0,0),0,null);//到时转为网络场景对象的创建
-		SafetyZone.transform.DOMove(new Vector3(circleX, 130,circleY),0.1f);
+		SafetyZone = PhotonNetwork.InstantiateSceneObject("circle", new Vector3(circleX,-40,circleY), Quaternion.Euler(-90,0,0),0,null);//到时转为网络场景对象的创建
+		SafetyZone.transform.DOMove(new Vector3(circleX, -40,circleY),0.1f);
 		SafetyZone.transform.DOScaleX(radius,0.1f);
 		SafetyZone.transform.DOScaleY(radius,0.1f);
 		}
@@ -88,7 +88,7 @@ public class CircleManager : Photon.PunBehaviour {
 	public void  PoisonCircleMove(){
 		//CircleCenter();
 		//SafetyZoneMove(mRadius,mCircleX,mCircleY);
-		CirclePrefab.transform.DOMove(new Vector3(mCircleX, 130, mCircleY),ShrinkTime);
+		CirclePrefab.transform.DOMove(new Vector3(mCircleX, -40, mCircleY),ShrinkTime);
 		CirclePrefab.transform.DOScaleX(mRadius, ShrinkTime);
 		CirclePrefab.transform.DOScaleY(mRadius, ShrinkTime);
 		if(Stage<LimitTime.Length - 1){
