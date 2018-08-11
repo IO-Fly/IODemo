@@ -42,12 +42,17 @@ public class Player : Photon.PunBehaviour {
     
         if (!this.photonView.isMine)
         {
-            Debug.LogWarning("调用OnAwake");
-            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, NetworkMatch.playerName);//设置玩家名字
+            foreach(Player player in networkManager.playerList)
+            {
+                if (player.photonView.isMine)
+                {
+                    player.photonView.RPC("SetPlayerName", PhotonTargets.All, player.GetPlayerName());//设置玩家名字
+                }
+            }           
         }
         else
         {
-            this.photonView.RPC("SetPlayerName", PhotonTargets.All, NetworkMatch.playerName);//设置玩家名字
+            this.photonView.RPC("SetPlayerName", PhotonTargets.All, playerName);//设置玩家名字
         }
 
     }
@@ -127,8 +132,19 @@ public class Player : Photon.PunBehaviour {
         }
         DontDestroyOnLoad(this.gameObject);
 
+        //初始化玩家名字
+        if (IsLocalPlayer())
+        {
+            playerName = NetworkMatch.playerName;
+        }
+        if(IsPlayerAI() && this.photonView.isMine)
+        {
+            playerName = PlayerAIName.GetUniqueName();
+        }
+        
+
         //隐藏自身等待场景加载完成
-        if (!PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != "GameScene")
+        if (!PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != NetworkMatch.sceneName)
         {
             this.gameObject.SetActive(false);
         }
@@ -543,6 +559,12 @@ public class Player : Photon.PunBehaviour {
             GameObject Audio = GameObject.Find("Audio");
             Audio.GetComponent<AudioManager>().PlayEatPoison();
         }
+    }
+
+    [PunRPC]
+    public void SetActive(bool isActive)
+    {
+        this.gameObject.SetActive(isActive);
     }
 
 
