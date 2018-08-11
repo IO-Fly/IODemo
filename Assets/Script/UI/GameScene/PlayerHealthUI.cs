@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +39,7 @@ public class PlayerHealthUI : MonoBehaviour {
         nameText = healthCanvas.transform.Find("PlayerNameText").gameObject.GetComponent<Text>();
         nameText.text = player.GetPlayerName();
         // 初始化固定的血条 (如果该object是当前用户控制的，且非分身技能的分身体)
-        if (player.photonView.isMine && player.tag == "player")
+        if (player.gameObject == networkManager.localPlayer && player.tag == "player")
         {
             GameObject rootCanvas = GameObject.Find("HUDCanvas");
             screenHealthSlider = rootCanvas.transform.Find("CurPlayerHealthUI/HealthSlider").gameObject.GetComponent<Slider>();

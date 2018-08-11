@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ public class PlayerMinimapUI : MonoBehaviour {
 
         // 初始化 sphereForMinimap的材质，即颜色
         Material materialForMinimap;
-        if( this.GetComponent<Player>().photonView.isMine )
+        if( this.GetComponent<Player>().gameObject == networkManager.localPlayer )
         {
             materialForMinimap = Resources.Load("Materials/Minimap_materials/blue") as Material;
         }
