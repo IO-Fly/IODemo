@@ -37,7 +37,9 @@ public class FoodManager : Photon.PunBehaviour{
     private GameObject[] poisonInstances;
 
     //玩家死亡生成的食物
-    public GameObject[][] playersFood;
+    //public GameObject[][] playersFood;
+    [HideInInspector]
+    public List<GameObject> playersFood = null;
 
     public bool isMasterBefore = false;
     public static FoodManager localFoodManager = null;
@@ -67,7 +69,8 @@ public class FoodManager : Photon.PunBehaviour{
         poisonInstances = new GameObject[poisonCountAll];
 
         //所有玩家死亡时生成的食物
-        playersFood = new GameObject[PhotonNetwork.room.MaxPlayers][];
+        //playersFood = new GameObject[PhotonNetwork.room.MaxPlayers][];
+        playersFood = new List<GameObject>();
 
         //主客户端初始化食物
         InitFoodInMaster();
@@ -156,17 +159,18 @@ public class FoodManager : Photon.PunBehaviour{
             {
                 
                 Debug.LogWarning("Player " + senderid + " die");
-
+                int baseIndex = playersFood.Count;
                 FoodSyncInfo[] foodInfo = FoodSyncInfo.Deserialize((float[])content);
                 GameObject[] foodList = new GameObject[foodInfo.Length];
                 for(int i = 0; i < foodInfo.Length; i++) {
                     foodList[i] = Instantiate(foodPrefab, foodInfo[i].position, GetInitRotation());
                     foodList[i].GetComponent<FoodOverrideController>().translation = foodInfo[i].translation;
-					foodList[i].GetComponent<FoodOverrideController>().ID = foodInfo[i].ID; 
+					foodList[i].GetComponent<FoodOverrideController>().ID = baseIndex + i; 
                     foodList[i].GetComponent<FoodOverrideController>().playerID = senderid; 
                     foodList[i].tag = "playerFood";                    
+
+                    playersFood.Add(foodList[i]);
                 }
-                playersFood[senderid - 1] = foodList;
                 
             }
             break;
@@ -282,10 +286,9 @@ public class FoodManager : Photon.PunBehaviour{
             //由玩家生成的食物被吃时不再生成
             case (byte)Event.RESET_PLAYER_FOOD:
             {
-                int playerID = ((int[])content)[0];
-                int foodID = ((int[])content)[1];
-                if(playersFood[playerID - 1][foodID] != null) {
-                    Destroy(playersFood[playerID - 1][foodID]);
+                int foodID = ((int[])content)[0];
+                if (playersFood[foodID] != null) {
+                    Destroy(playersFood[foodID]);
                 }
                 
             }
@@ -374,7 +377,7 @@ public class FoodManager : Photon.PunBehaviour{
 
         int foodCount = player.CalculateStarNum();
         float radius = player.CalculateStarRange();
-        int playerID = PhotonNetwork.player.ID;
+        string playerID = player.GetPlayerName();
 
         GameObject[] foodList = new GameObject[foodCount];
         for (int i = 0; i < foodCount; i++)
@@ -383,14 +386,13 @@ public class FoodManager : Photon.PunBehaviour{
             foodList[i].GetComponent<FoodOverrideController>().ID = i;
             foodList[i].GetComponent<FoodOverrideController>().playerID = PhotonNetwork.player.ID;
             foodList[i].tag = "playerFood";
-        }
-        playersFood[playerID - 1] = foodList;
+        }  
 
         RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.Others;
+        options.Receivers = ReceiverGroup.All;
         options.CachingOption = EventCaching.DoNotCache;
 
-        float[] foodInfo = FoodSyncInfo.Serialize(foodList);
+        float[] foodInfo = FoodSyncInfo.Serialize(foodList); 
         PhotonNetwork.RaiseEvent((byte)Event.INIT_PLAYER_FOOD, foodInfo, true, options);
 
     }

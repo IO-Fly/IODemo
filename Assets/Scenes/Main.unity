@@ -941,6 +941,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114156279516293368, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61,
+        type: 2}
+      propertyPath: maxPlayerPerRoom
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bdc4e3a0ab9d334393ad23ed6b93c61, type: 2}
   m_IsPrefabParent: 0

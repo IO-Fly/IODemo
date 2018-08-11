@@ -70,7 +70,7 @@ public class MenuUI : MonoBehaviour {
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.Disconnect();
 		//SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("GameScene"));
-		SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+		//SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         GameStoryVideoPlay.isSkipVideo = true;
 		SceneManager.LoadScene(0);
 

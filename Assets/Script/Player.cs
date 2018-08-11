@@ -42,12 +42,17 @@ public class Player : Photon.PunBehaviour {
     
         if (!this.photonView.isMine)
         {
-            Debug.LogWarning("调用OnAwake");
-            networkManager.localPlayer.GetComponent<Player>().photonView.RPC("SetPlayerName", PhotonTargets.All, NetworkMatch.playerName);//设置玩家名字
+            foreach(Player player in networkManager.playerList)
+            {
+                if (player.photonView.isMine)
+                {
+                    player.photonView.RPC("SetPlayerName", PhotonTargets.All, player.GetPlayerName());//设置玩家名字
+                }
+            }           
         }
         else
         {
-            this.photonView.RPC("SetPlayerName", PhotonTargets.All, NetworkMatch.playerName);//设置玩家名字
+            this.photonView.RPC("SetPlayerName", PhotonTargets.All, playerName);//设置玩家名字
         }
 
     }
@@ -102,13 +107,13 @@ public class Player : Photon.PunBehaviour {
 
         }
 
-        if(this.health <=0 &&photonView.isMine){
+        if(this.health <=0 && IsLocalPlayer()){
             Debug.LogWarning("菜单为失败状态!");
 			GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().lose;
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
 				
 		}
-		else if(networkManager.playerList.Count == 1 && networkManager.playerList[0].photonView.isMine){
+		else if(networkManager.playerList.Count == 1 && networkManager.playerList[0].gameObject == networkManager.localPlayer){
             Debug.LogWarning("菜单为胜利状态!");
             GameObject.Find("HUDCanvas").transform.Find("Menu").Find("Status").gameObject.GetComponent<Image>().sprite = GameObject.Find("HUDCanvas").GetComponent<MenuUI>().win;
             GameObject.Find("HUDCanvas").GetComponent<MenuUI>().freeze = true;
@@ -127,8 +132,19 @@ public class Player : Photon.PunBehaviour {
         }
         DontDestroyOnLoad(this.gameObject);
 
+        //初始化玩家名字
+        if (IsLocalPlayer())
+        {
+            playerName = NetworkMatch.playerName;
+        }
+        if(IsPlayerAI() && this.photonView.isMine)
+        {
+            playerName = PlayerAIName.GetUniqueName();
+        }
+        
+
         //隐藏自身等待场景加载完成
-        if (!PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != "GameScene")
+        if (!PhotonNetwork.isMasterClient && SceneManager.GetActiveScene().name != NetworkMatch.sceneName)
         {
             this.gameObject.SetActive(false);
         }
@@ -197,7 +213,7 @@ public class Player : Photon.PunBehaviour {
                 Debug.Log("对方弹开");
 
                 //玩家播放音效，分身不播放
-                if(this.tag == "player")
+                if(IsLocalPlayer())
                 {
                     Audio.GetComponent<AudioManager>().PlayTouchSmallEnemy();
                 }
@@ -209,7 +225,7 @@ public class Player : Photon.PunBehaviour {
                 this.StartCoroutine(Bomb(other.normal));
 
                 //玩家播放音效，分身不播放
-                if (this.tag == "player")
+                if (IsLocalPlayer())
                 {
                     Audio.GetComponent<AudioManager>().PlayTouchBigEnemy();
                 }
@@ -220,9 +236,12 @@ public class Player : Photon.PunBehaviour {
         }
         else if (this.photonView.isMine && other.gameObject.tag != "poison" && other.gameObject.tag != "foodAI")/*other.gameObject.tag == "Wall" */
         {
-            //播放音效
-            GameObject Audio = GameObject.Find("Audio");
-            Audio.GetComponent<AudioManager>().PlayTouchWall();
+            if (IsLocalPlayer())
+            {
+                //播放音效
+                GameObject Audio = GameObject.Find("Audio");
+                Audio.GetComponent<AudioManager>().PlayTouchWall();
+            }        
         }
 
     }
@@ -289,6 +308,25 @@ public class Player : Photon.PunBehaviour {
         return GetPlayerSize();
     }
 
+    //是否是玩家AI（非分身）
+    public bool IsPlayerAI()
+    {
+        if(this.gameObject == networkManager.localPlayer || this.gameObject.tag == "playerCopy" )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+    }
+
+    //是否是本地玩家（非AI）
+    public bool IsLocalPlayer()
+    {
+        return this.gameObject == networkManager.localPlayer;
+    }
 
     #endregion
 
@@ -467,7 +505,7 @@ public class Player : Photon.PunBehaviour {
     [PunRPC]
     void DoBomb(Vector3 direction)
     {
-        if (this.gameObject == networkManager.localPlayer)
+        if (this.photonView.isMine)
         {
             this.StartCoroutine(Bomb(direction));
             Debug.Log("弹开RPC调用");
@@ -500,14 +538,11 @@ public class Player : Photon.PunBehaviour {
         AddPlayerEnergy(0.4f/Mathf.Sqrt(this.gameObject.transform.localScale.x));
         //AddPlayerEnergy(5.0f);
 
-        if (photonView.isMine)
+        //播放音效
+        if (this.photonView.isMine && this.tag == "player" && !IsPlayerAI())
         {
-            //播放音效
-            if (this.photonView.isMine && this.tag == "player")
-            {
-                GameObject Audio = GameObject.Find("Audio");
-                Audio.GetComponent<AudioManager>().PlayEatFood();
-            }
+            GameObject Audio = GameObject.Find("Audio");
+            Audio.GetComponent<AudioManager>().PlayEatFood();
         }
 
     }
@@ -519,11 +554,17 @@ public class Player : Photon.PunBehaviour {
         AddPlayerEnergy(-0.5f);
 
         //播放音效
-        if (this.tag == "player" && this.GetComponent<Player>().photonView.isMine)
+        if (this.tag == "player" && this.GetComponent<Player>().photonView.isMine && !IsPlayerAI())
         {
             GameObject Audio = GameObject.Find("Audio");
             Audio.GetComponent<AudioManager>().PlayEatPoison();
         }
+    }
+
+    [PunRPC]
+    public void SetActive(bool isActive)
+    {
+        this.gameObject.SetActive(isActive);
     }
 
 
