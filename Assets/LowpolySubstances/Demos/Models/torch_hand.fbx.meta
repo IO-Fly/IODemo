@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: e52ad5a56424241aca4b79bb7e27eadd
+timeCreated: 1456854205
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Fire0
+    100002: Fire1
+    100004: Fire2
+    100006: Fire3
+    100008: Fire4
+    100010: FireHighPoly
+    100012: FireHighPoly.001
+    100014: FireLowPoly
+    100016: FireTest1
+    100018: FireTest2
+    100020: Island
+    100022: Log1
+    100024: Log2
+    100026: Mountains
+    100028: Stones
+    100030: //RootNode
+    100032: TorchHand
+    100034: Tree
+    100036: TreePine
+    100038: Water
+    400000: Fire0
+    400002: Fire1
+    400004: Fire2
+    400006: Fire3
+    400008: Fire4
+    400010: FireHighPoly
+    400012: FireHighPoly.001
+    400014: FireLowPoly
+    400016: FireTest1
+    400018: FireTest2
+    400020: Island
+    400022: Log1
+    400024: Log2
+    400026: Mountains
+    400028: Stones
+    400030: //RootNode
+    400032: TorchHand
+    400034: Tree
+    400036: TreePine
+    400038: Water
+    2300000: Fire0
+    2300002: Fire1
+    2300004: Fire2
+    2300006: Fire3
+    2300008: Fire4
+    2300010: FireHighPoly
+    2300012: FireHighPoly.001
+    2300014: FireLowPoly
+    2300016: FireTest1
+    2300018: FireTest2
+    2300020: Island
+    2300022: Log1
+    2300024: Log2
+    2300026: Mountains
+    2300028: Stones
+    2300030: TorchHand
+    2300032: Tree
+    2300034: TreePine
+    2300036: Water
+    2300038: //RootNode
+    3300000: Fire0
+    3300002: Fire1
+    3300004: Fire2
+    3300006: Fire3
+    3300008: Fire4
+    3300010: FireHighPoly
+    3300012: FireHighPoly.001
+    3300014: FireLowPoly
+    3300016: FireTest1
+    3300018: FireTest2
+    3300020: Island
+    3300022: Log1
+    3300024: Log2
+    3300026: Mountains
+    3300028: Stones
+    3300030: TorchHand
+    3300032: Tree
+    3300034: TreePine
+    3300036: Water
+    3300038: //RootNode
+    4300000: TorchHand
+    4300002: FireTest1
+    4300004: FireTest2
+    4300006: Fire0
+    4300008: FireHighPoly.001
+    4300010: FireHighPoly
+    4300012: FireLowPoly
+    4300014: Water
+    4300016: Fire4
+    4300018: Fire3
+    4300020: Tree
+    4300022: TreePine
+    4300024: Mountains
+    4300026: Island
+    4300028: Log2
+    4300030: Fire2
+    4300032: Stones
+    4300034: Fire1
+    4300036: Log1
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15
+    secondaryUVHardAngle: 80
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
