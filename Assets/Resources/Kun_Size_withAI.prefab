@@ -820,11 +820,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stuffNeedDisable:
-  - {fileID: 0}
+  - {fileID: 114530751368429128}
   - {fileID: 114038512678588238}
   - {fileID: 114247464368533522}
   - {fileID: 114798483522717384}
-  - {fileID: 114530751368429128}
 --- !u!114 &114108467427541980
 MonoBehaviour:
   m_ObjectHideFlags: 1

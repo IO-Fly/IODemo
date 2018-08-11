@@ -56,7 +56,7 @@ public class FoodOverrideController : MonoBehaviour {
                 else if(this.tag == "playerFood")
                 {
                     Debug.Log("玩家食物：删除");
-                    int[] Data = { this.playerID, this.ID };
+                    int[] Data = {this.ID};
                     PhotonNetwork.RaiseEvent((byte)FoodManager.Event.RESET_PLAYER_FOOD, Data, true, options);
                 }
 			   
