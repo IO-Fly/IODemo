@@ -57,6 +57,7 @@ public class networkManager :Photon.PunBehaviour {
         {
             CreatePlayerAI();
         }
+        
 
     }
 
