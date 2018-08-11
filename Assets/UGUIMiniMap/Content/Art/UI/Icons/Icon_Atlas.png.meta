@@ -1,0 +1,673 @@
+fileFormatVersion: 2
+guid: b2ff3b281537fbc4d91af3e848afde5c
+timeCreated: 1438599737
+licenseType: Store
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Clock
+    21300002: Check
+    21300004: Audio
+    21300006: Icon_Atlas_3
+    21300008: Arrow_Left
+    21300010: Icon_Atlas_5
+    21300012: Refresh
+    21300014: Error
+    21300016: Icon_Atlas_8
+    21300018: Cruz
+    21300020: MoonAndStar
+    21300022: Triangle
+    21300024: Cruz2
+    21300026: Area_Check
+    21300028: Heart
+    21300030: Icon_Atlas_15
+    21300032: Cuadro
+    21300034: Icon_Atlas_17
+    21300036: Icon_Atlas_18
+    21300038: Icon_Atlas_19
+    21300040: Icon_Atlas_20
+    21300042: Icon_Atlas_21
+    21300044: Icon_Atlas_22
+    21300046: Icon_Atlas_23
+    21300048: Arrow_Player
+    21300050: Icon_Atlas_25
+    21300052: Pause_Circle
+    21300054: Icon_Atlas_27
+    21300056: Audio_Middle
+    21300058: Icon_Atlas_29
+    21300060: Circle_Health
+    21300062: Money_Circle
+    21300064: Indicator_2
+    21300066: Enter_Area2
+    21300068: Icon_Atlas_34
+    21300070: Enter_Area
+    21300072: Icon_Atlas_36
+    21300074: Indicator
+    21300076: Icon_Atlas_38
+    21300078: House
+    21300080: Icon_Atlas_40
+    21300082: Bell
+    21300084: Focus
+    21300086: Warning_Circle
+    21300088: Point_Target
+    21300090: Icon_Atlas_45
+    21300092: Tag
+    21300094: Icon_Atlas_47
+    21300096: Icon_Atlas_48
+    21300098: Icon_Atlas_49
+    21300100: Icon_Atlas_50
+    21300102: Icon_Atlas_51
+    21300104: Icon_Atlas_52
+    21300106: Start_6
+    21300108: Start
+    21300110: Equiz
+    21300112: Circle3
+    21300114: Circle
+    21300116: Warning_Area
+    21300118: Rockt
+    21300120: Icon_Atlas_60
+    21300122: Icon_Atlas_61
+    21300124: Icon_Atlas_62
+    21300126: Icon_Atlas_63
+    21300128: Icon_Atlas_64
+    21300130: Icon_Atlas_65
+    21300132: Icon_Atlas_66
+    21300134: Phone
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Clock
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 900
+        width: 61
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Check
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 913
+        width: 51
+        height: 37
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Audio
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 912
+        width: 58
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Arrow_Left
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 905
+        width: 51
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Refresh
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 784
+        width: 105
+        height: 104
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Error
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 779
+        width: 113
+        height: 112
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Cruz
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 649
+        width: 116
+        height: 115
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: MoonAndStar
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 645
+        width: 100
+        height: 123
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Triangle
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 524
+        width: 124
+        height: 107
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Cruz2
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 519
+        width: 95
+        height: 118
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Area_Check
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 393
+        width: 113
+        height: 112
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Heart
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 398
+        width: 111
+        height: 103
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_15
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 258
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Cuadro
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 266
+        width: 109
+        height: 110
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_17
+      rect:
+        serializedVersion: 2
+        x: 268
+        y: 328
+        width: 42
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_18
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 333
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_19
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 343
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_20
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 334
+        width: 54
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_21
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 322
+        width: 57
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_22
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 260
+        width: 54
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_23
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 261
+        width: 57
+        height: 56
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Arrow_Player
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 257
+        width: 60
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_25
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 273
+        width: 58
+        height: 26
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Pause_Circle
+      rect:
+        serializedVersion: 2
+        x: 584
+        y: 262
+        width: 54
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Audio_Middle
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 266
+        width: 56
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Circle_Health
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 262
+        width: 52
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Money_Circle
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 264
+        width: 53
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Indicator_2
+      rect:
+        serializedVersion: 2
+        x: 849
+        y: 261
+        width: 39
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Enter_Area2
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 259
+        width: 48
+        height: 60
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Enter_Area
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 135
+        width: 114
+        height: 113
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_36
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 129
+        width: 127
+        height: 127
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Indicator
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 134
+        width: 81
+        height: 117
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_38
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 128
+        width: 127
+        height: 126
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: House
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 199
+        width: 59
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_40
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 215
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Bell
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 196
+        width: 45
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Focus
+      rect:
+        serializedVersion: 2
+        x: 837
+        y: 208
+        width: 58
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Warning_Circle
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 200
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Point_Target
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 127
+        width: 131
+        height: 129
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Tag
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 140
+        width: 55
+        height: 41
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_47
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 137
+        width: 58
+        height: 47
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_48
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 132
+        width: 57
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_49
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 135
+        width: 42
+        height: 51
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_50
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 132
+        width: 57
+        height: 58
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_51
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 53
+        width: 41
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_52
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 56
+        width: 49
+        height: 61
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Start_6
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 5
+        width: 103
+        height: 118
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Start
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 5
+        width: 124
+        height: 117
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Equiz
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 9
+        width: 111
+        height: 110
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Circle3
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 4
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Circle
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 5
+        width: 117
+        height: 118
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Warning_Area
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 3
+        width: 122
+        height: 121
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Rockt
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 63
+        width: 41
+        height: 65
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Icon_Atlas_65
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 11
+        width: 66
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Phone
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 4
+        width: 33
+        height: 57
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

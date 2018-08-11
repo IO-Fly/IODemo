@@ -7,8 +7,9 @@ public class AIManager : Photon.PunBehaviour {
 	public GameObject playAI;
 	// Use this for initialization
 	void Start () {
-		if(PhotonNetwork.isMasterClient)
+		/*if(PhotonNetwork.isMasterClient)
 		PhotonNetwork.InstantiateSceneObject(playAI.name, new Vector3(0,-100,0),Quaternion.identity,0,null);
+		*/
 	}
 	
 	// Update is called once per frame
