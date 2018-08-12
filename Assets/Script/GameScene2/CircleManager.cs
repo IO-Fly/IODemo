@@ -19,9 +19,15 @@ public class CircleManager : Photon.PunBehaviour {
 	private GameObject SafetyZone;
 	public float ShrinkTime=10f;
 
-	// Use this for initialization
+    static public CircleManager LocalCircleManager = null;
 
-	void Start () {
+    // Use this for initialization
+
+    void Start () {
+
+
+        LocalCircleManager = this;
+
 		Stage = 0;
 		Timeing = LimitTime[Stage];
 		IsArrive = true;
@@ -31,7 +37,8 @@ public class CircleManager : Photon.PunBehaviour {
 		if(PhotonNetwork.isMasterClient){
 		
 		CirclePrefab = PhotonNetwork.InstantiateSceneObject("circle", new Vector3(0,-40,0), Quaternion.Euler(-90,0,0),0,null);
-		StartCoroutine(ReduceTime());
+
+        StartCoroutine(ReduceTime());
 		CircleCenter();
 		SafetyZoneMove(mRadius,mCircleX,mCircleY);
 		}

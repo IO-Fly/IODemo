@@ -66,6 +66,23 @@ public class Player : Photon.PunBehaviour {
             Debug.LogWarning("分身当前血量：" + health);
             Debug.LogWarning("分身当前能量：" + playerEnergy);
         }
+
+        if(CircleManager.LocalCircleManager != null)
+        {
+
+            Transform circleTrans = CircleManager.LocalCircleManager.CirclePrefab.transform;     
+            float distance = Vector3.Distance(this.transform.position, circleTrans.position);
+            float radius = circleTrans.transform.localScale.x;
+            int stage = CircleManager.LocalCircleManager.Stage;
+
+            if(distance > radius)
+            {
+                float damage = stage * 4;
+                this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, damage);
+            }
+
+        }
+
     }
 
     void OnDestroy()
