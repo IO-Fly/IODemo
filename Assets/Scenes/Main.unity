@@ -744,6 +744,16 @@ Prefab:
       propertyPath: lobbyCanvas
       value: 
       objectReference: {fileID: 508349689}
+    - target: {fileID: 114011140745304164, guid: 4efc8c13cc4381d4cb2a9b98a654a9ef,
+        type: 2}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: "\u521D\u751F\u7BC7"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114011140745304164, guid: 4efc8c13cc4381d4cb2a9b98a654a9ef,
+        type: 2}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
+      value: "\u5D29\u574F\u7BC7"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4efc8c13cc4381d4cb2a9b98a654a9ef, type: 2}
   m_IsPrefabParent: 0
