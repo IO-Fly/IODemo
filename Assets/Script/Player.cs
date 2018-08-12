@@ -77,7 +77,7 @@ public class Player : Photon.PunBehaviour {
 
             if(distance > radius)
             {
-                float damage = stage * 4;
+                float damage = stage * 4*0.02f;
                 this.photonView.RPC("GetDamage", PhotonTargets.AllViaServer, damage);
             }
 
