@@ -71,7 +71,7 @@ public class Player : Photon.PunBehaviour {
         {
 
             Transform circleTrans = CircleManager.LocalCircleManager.CirclePrefab.transform;     
-            float distance = Vector3.Distance(this.transform.position, circleTrans.position);
+            float distance = Vector3.Distance(new Vector3(this.transform.position.x,0,this.transform.position.z), new Vector3(circleTrans.position.x,0,circleTrans.position.z));
             float radius = circleTrans.transform.localScale.x;
             int stage = CircleManager.LocalCircleManager.Stage;
 
